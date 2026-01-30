@@ -1,4 +1,4 @@
-# latviz
+# latviz - 2026
 A visualization tool for (so far) four lattice-based cryptography algorithms and solvers.
 
 Co-creators : 
