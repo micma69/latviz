@@ -21,13 +21,13 @@
 %
 \begin{document}
 %
-\title{Contribution Title}
+\title{Visualizing Lattice-based Post-Quantum Cryptographic Algorithms}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{First Author\inst{1}\orcidID{0000-1111-2222-3333} \and
+\author{Jeslyn Theodora\inst{1}\orcidID{0000-1111-2222-3333} \and
 Second Author\inst{2,3}\orcidID{1111-2222-3333-4444} \and
 Third Author\inst{3}\orcidID{2222--3333-4444-5555}}
 %
@@ -35,8 +35,7 @@ Third Author\inst{3}\orcidID{2222--3333-4444-5555}}
 % First names are abbreviated in the running head.
 % If there are more than two authors, 'et al.' is used.
 %
-\institute{Princeton University, Princeton NJ 08544, USA \and
-Springer Heidelberg, Tiergartenstr. 17, 69121 Heidelberg, Germany
+\institute{University of Indonesia, Princeton NJ 08544, USA
 \email{lncs@springer.com}\\
 \url{http://www.springer.com/gp/computer-science/lncs} \and
 ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
@@ -48,18 +47,28 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 The abstract should briefly summarize the contents of the paper in
 150--250 words.
 
-\keywords{First keyword  \and Second keyword \and Another keyword.}
+\keywords{Cryptography  \and Post-Quantum \and Another keyword.}
 \end{abstract}
 %
 %
 %
-\section{First Section}
+\section{Introduction}
+Cryptography is the study of techniques and protocols relating to securing communications (Rivest, 1990). Typically, this consists of constructing and analyzing protocols that prevent outside parties from reading private messages.
+
+Prior to the modern era, most of cryptography was encryption, which is a process that transforms some form of information (plaintext) into an alternative form that only certain parties can decode (ciphertext). What is now known as classical cryptography consisted of using ciphers that could be practically computed and solved by hand. However, after devices such as the Enigma machine and other computational devices were developed, these ciphers became trivially easy to break.
+
+Now, history repeats itself as the development of quantum computers threatens to render multiple modern cryptographic algorithms useless. Quantum algorithms such as the ones proposed by Peter Shor (Shor, 1996; ) are theorized to be able to break protocols like RSA and ... given a strong enough quantum computer.
+
+Because of this, NIST (National Institute of Standards and Technology) ran out a call for potential algorithms to 
+
 \subsection{A Subsection Sample}
 Please note that the first paragraph of a section or subsection is
-not indented. The first paragraph that follows a table, figure,
+not indented. The first paragraph that follows a tsable, figure,
 equation etc. does not need an indent, either.
 
 Subsequent paragraphs, however, are indented.
+
+\subsection{Related Works}
 
 \subsubsection{Sample Heading (Third Level)} Only two levels of
 headings should be numbered. Lower level headings remain unnumbered;
@@ -141,6 +150,12 @@ relevant to the content of this article. Or: Author A has received research
 grants from Company W. Author B has received a speaker honorarium from
 Company X and owns stock in Company Y. Author C is a member of committee Z.
 \end{credits}
+
+\section{Introduction}
+\subsection{A Subsection Sample}
+Please note that the first paragraph of a section or subsection is
+not indented. The first paragraph that follows a table, figure,
+equation etc. does not need an indent, either.
 %
 % ---- Bibliography ----
 %

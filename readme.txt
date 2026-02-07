@@ -18,3 +18,11 @@ It consists of the following files:
   llncsdoc.pdf       the documentation of the class (PDF version)
 
   splncs04.bst       current LNCS BibTeX style with alphabetic sorting
+
+---
+References (will be added to paper/removed as relevant later):
+- https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf (ML-KEM/Kyber)
+- https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf (ML-DSA/Dilithium)
+- https://openquantumsafe.org/liboqs/algorithms/kem/ml-kem
+- https://openquantumsafe.org/liboqs/algorithms/sig/ml-dsa (pick a wrapper for this and above later)
+- https://arxiv.org/pdf/quant-ph/9508027 (Shor's Algorithm(s))

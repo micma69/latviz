@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1770211247.06854 "e:/UI/Sem_8/TA/LaTeX2e+Proceedings+Templates+download/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1770211251.06643 0
+["pdflatex"] 1770394955.95924 "e:/UI/Sem_8/TA/LaTeX2e+Proceedings+Templates+download/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1770394959.45299 0
   "C:/Users/Acer/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1769670039 163207 8b397a28da8cf491d72adf658ad1aa93 ""
   "C:/Users/Acer/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx0900.pk" 1770211238 22504 6d057011eb6c9e3b02525325f77284ad ""
   "C:/Users/Acer/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1000.pk" 1770211231 25420 6299c7b17f96fbceafeacdb14ca503fd ""
@@ -53,11 +53,11 @@
   "D:/Program Files/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1761202581 30662 bfd6e864f4ffc5018b0e2b6260c3181c ""
   "D:/Program Files/MiKTeX/tex/latex/oberdiek/aliascnt.sty" 1722085538 2652 813491e2bc95c1dafbb39cd7c54b380b ""
   "D:/Program Files/MiKTeX/tex/latex/tools/multicol.sty" 1761901070 33142 efe8f4750fc02524935e7423b4bdef69 ""
-  "e:/UI/Sem_8/TA/LaTeX2e+Proceedings+Templates+download/samplepaper.tex" 1770210945 6492 5083061c995d8bb43aae2de8da8e7fe9 ""
+  "e:/UI/Sem_8/TA/LaTeX2e+Proceedings+Templates+download/samplepaper.tex" 1770394952 7863 f38e8ff9998cc043b8da803f4a375632 ""
   "fig1.eps" 1770210945 357553 7e2b7e710693198613c8426973a2c3ce ""
   "llncs.cls" 1770210945 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "samplepaper.aux" 1770211250 1716 da0b94f3c1923e6cd722880b3429574b "pdflatex"
-  "samplepaper.tex" 1770210945 6492 5083061c995d8bb43aae2de8da8e7fe9 ""
+  "samplepaper.aux" 1770394958 2081 becb764369c9a8db31acd596911c22d7 "pdflatex"
+  "samplepaper.tex" 1770394952 7863 f38e8ff9998cc043b8da803f4a375632 ""
   (generated)
   "samplepaper.aux"
   "samplepaper.log"
