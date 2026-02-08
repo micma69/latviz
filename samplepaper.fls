@@ -58,9 +58,9 @@ INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx0900.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm0900.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm1200.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx1200.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx1000.tfm
 OUTPUT samplepaper.pdf
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx1000.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti1000.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti0900.tfm
 INPUT .\fig1.eps

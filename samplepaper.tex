@@ -57,9 +57,13 @@ Cryptography is the study of techniques and protocols relating to securing commu
 
 Prior to the modern era, most of cryptography was encryption, which is a process that transforms some form of information (plaintext) into an alternative form that only certain parties can decode (ciphertext). What is now known as classical cryptography consisted of using ciphers that could be practically computed and solved by hand. However, after devices such as the Enigma machine and other computational devices were developed, these ciphers became trivially easy to break.
 
-Now, history repeats itself as the development of quantum computers threatens to render multiple modern cryptographic algorithms useless. Quantum algorithms such as the ones proposed by Peter Shor (Shor, 1996; ) are theorized to be able to break protocols like RSA and ... given a strong enough quantum computer.
+Now, history repeats itself with the development of quantum computers as they threaten to render multiple modern cryptographic algorithms useless. Quantum algorithms such as the ones proposed by Peter Shor (Shor, 1997; ) are theorized to be able to break protocols like RSA given a strong enough quantum computer. Because of this, cryptology experts around the world have looked into new protocols that might have the potential to defend against them.
 
-Because of this, NIST (National Institute of Standards and Technology) ran out a call for potential algorithms to 
+NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are lattice-based; ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively. ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures.
+
+Despite their importance, there are a limited number of resources available for learning about them. In some part this is because they are relatively new standards. However, it can also be attributed to their complexity and nature as lattice-based. Aside from NIST's released papers (NIST, 2024), attempts have been made to visualize other lattice based algorithms (Rodríguez et al., 2024; ).
+
+Because of the above, this work 
 
 \subsection{A Subsection Sample}
 Please note that the first paragraph of a section or subsection is
