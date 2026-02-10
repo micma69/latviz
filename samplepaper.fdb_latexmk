@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1770274332.43232 "d:/12TH SEMESTER!/Tugas Akhir/latviz/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1770274334.37512 0
+["pdflatex"] 1770712060.87722 "d:/12TH SEMESTER!/Tugas Akhir/latviz/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1770712065.1035 0
   "C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1770271151 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx0900.pk" 1770274317 22504 9a72bc78ba5d74fec348d50ac14cda98 ""
   "C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1000.pk" 1770274305 25420 83768b43112167a4e9ba7d9f6c4fd2c1 ""
@@ -35,7 +35,6 @@
   "D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1247596667 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1247596667 36281 c355509802a035cadc5f15869451dcee ""
   "D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1247596667 35752 024fb6c41858982481f6968b5fc26508 ""
-  "D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1247596667 32734 69e00a6b65cedb993666e42eedb3d48f ""
   "D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1247596667 32762 7fee39e011c23b3589931effd97b9702 ""
   "D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1247596666 32716 08e384dc442464e7285e891af9f45947 ""
   "D:/Program Files (D)/tex/context/base/mkii/supp-pdf.mkii" 1580390158 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -53,11 +52,11 @@
   "D:/Program Files (D)/tex/latex/l3backend/l3backend-pdftex.def" 1761202581 30662 bfd6e864f4ffc5018b0e2b6260c3181c ""
   "D:/Program Files (D)/tex/latex/oberdiek/aliascnt.sty" 1722085538 2652 813491e2bc95c1dafbb39cd7c54b380b ""
   "D:/Program Files (D)/tex/latex/tools/multicol.sty" 1761901070 33142 efe8f4750fc02524935e7423b4bdef69 ""
-  "d:/12TH SEMESTER!/Tugas Akhir/latviz/samplepaper.tex" 1770265151 6492 5083061c995d8bb43aae2de8da8e7fe9 ""
+  "d:/12TH SEMESTER!/Tugas Akhir/latviz/samplepaper.tex" 1770712055 10649 a6d99cbdd41a156024e7ac7b28e5df26 ""
   "fig1.eps" 1770265151 357553 7e2b7e710693198613c8426973a2c3ce ""
   "llncs.cls" 1770265151 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "samplepaper.aux" 1770274333 1716 da0b94f3c1923e6cd722880b3429574b "pdflatex"
-  "samplepaper.tex" 1770265151 6492 5083061c995d8bb43aae2de8da8e7fe9 ""
+  "samplepaper.aux" 1770712064 1762 3cb854a9a2983e72a2e156f214e87d84 "pdflatex"
+  "samplepaper.tex" 1770712055 10649 a6d99cbdd41a156024e7ac7b28e5df26 ""
   (generated)
   "samplepaper.aux"
   "samplepaper.log"

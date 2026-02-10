@@ -1,0 +1,34 @@
+Definitions : 
+
+Cryptography :
+[1]
+
+Cryptanalisis : 
+[2] A. Al-Sabaawi, "Cryptanalysis of Vigenère Cipher: Method Implementation," 2020 IEEE Asia-Pacific Conference on Computer Science and Data Engineering (CSDE), Gold Coast, Australia, 2020, pp. 1-4, doi: 10.1109/CSDE50874.2020.9411383.
+
+Lattice :
+[3]
+
+LLL :
+[4]
+
+BKZ : 
+[5]
+
+--------------------------------------------------------------------------------
+
+Problems :
+
+Quantum computers :
+
+
+Post-Quantum Cryptography :
+
+
+LLL : 
+
+
+
+
+
+

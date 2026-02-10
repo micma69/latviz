@@ -21,26 +21,21 @@
 %
 \begin{document}
 %
-\title{Contribution Title}
+\title{Visualization of Lattice-Based Cryptanalysis Algorithms}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{First Author\inst{1}\orcidID{0000-1111-2222-3333} \and
-Second Author\inst{2,3}\orcidID{1111-2222-3333-4444} \and
-Third Author\inst{3}\orcidID{2222--3333-4444-5555}}
+\author{Muhammad Imam Chaidar Mujaddid Al-Ghiffari\inst{1}\orcidID{0000-1111-2222-3333} \and
+Second Author\inst{2,3}\orcidID{1111-2222-3333-4444}}
 %
 \authorrunning{F. Author et al.}
 % First names are abbreviated in the running head.
 % If there are more than two authors, 'et al.' is used.
 %
-\institute{Princeton University, Princeton NJ 08544, USA \and
-Springer Heidelberg, Tiergartenstr. 17, 69121 Heidelberg, Germany
-\email{lncs@springer.com}\\
-\url{http://www.springer.com/gp/computer-science/lncs} \and
-ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
-\email{\{abc,lncs\}@uni-heidelberg.de}}
+\institute{Fakultas Ilmu Komputer Universitas Indonesia, Jl. Prof. DR. Sudjono D. Pusponegoro, Pondok Cina, Kecamatan Beji, Kota Depok, Jawa Barat 16425 
+\email{https://cs.ui.ac.id/}}
 %
 \maketitle              % typeset the header of the contribution
 %
@@ -48,12 +43,29 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 The abstract should briefly summarize the contents of the paper in
 150--250 words.
 
-\keywords{First keyword  \and Second keyword \and Another keyword.}
+\keywords{Cryptography  \and Cryptanalisis \and Post-Quantum \and Lattice \and LLL \and BKZ.}
 \end{abstract}
 %
 %
 %
-\section{First Section}
+\section{Background}
+
+Cryptanalysis is the technique of analysing and breaking a ciphertext to obtain the plaintext (A. Al-Sabaawi, 2020). The history and the development of cryptanalysis itself can't be separated from the history and development of cryptography. As the cryptography techniques evolve, the cryptanalysis techniques also evolve in order to break the cryptography techniques. 
+
+One of the earliest known recorded cryptanalysis technique is the frequency analysis technique, which was used by Arab mathematician Al-Kindi in the 9th century to break monoalphabetic substitution ciphers. This technique relies on the fact that in any given language, certain letters and combinations of letters occur with varying frequencies. By analysing the frequency of letters in the ciphertext, a cryptanalyst can make deduce the likely substitutions used in the cipher.
+
+The frequency analysis technique was arguably the most common and efficient cryptanalysis technique used for breaking classic ciphers. However, as the cipher techniques became more complex, this cryptanalysis technique became less effective. Overall, during and after World War II, mathematics became more and more crucial in both cryptography and cryptanalysis. And the modern cryptanalysis techniques are mostly based on complex mathematical concepts and algorithms, like number theory, algebra, and probability theory.
+
+Since the most common form of modern cryptography is key-based cryptography (symmetric and asymmetric), with the onset of the development of quantum computing and subsequently quantum cryptanalysis, many commonly used modern cryptographic algorithms are threatened by quantum cryptanalysis. For example, Shor's algorithm - a quantum algorithm to finding prime factors of an integer, can efficiently factor large integers and compute discrete logarithms. Which endangers the security of commonly used asymmetric cryptographic algorithms like RSA and ECC. Not only asymmetric cryptographic algorithms are threatened by this, Grover's algorithm - also known as Quantum Search Algorithm, can search unsorted databases quadratically faster than classical algorithms, which threatens the security of symmetric-key cryptosystems by effectively halving their key lengths. 
+
+Which is why cryptographers around the world already started to develop cryptographic algorithms that can resist quantum cryptanalysis. These newer and stronger cryptographic algorithms are called post-quantum cryptography (PQC). Examples of PQC algorithms include Kyber and Dilithium, which are based on the hardness of lattice problems. In fact, lattice-based cryptographic algorithms dominate the PQC. The lattice-based PQC algorithms are indeed able to resist quantum computer-based cryptanalysis. For example, the quantum cryptanalysis technique of Shor's Algorithm can't break it efficiently.
+
+However, just like how the historical pattern of cryptanalysis and cryptography goes in our history, as cryptographers developed lattice-based cryptographic algorithms, the cryptanalysis experts also developed lattice-based cryptanalysis techniques in order to break the lattice-based cryptographic algorithms. The most common lattice-based cryptanalysis technique is the LLL algorithm, which is a polynomial-time algorithm for finding a short and nearly orthogonal basis for a lattice. This algorithm can be used to solve the shortest vector problem (SVP) and the closest vector problem (CVP), which are both important issues in lattice-based cryptography. Apparently, for now, the most promising lattice-based cryptanalysis technique is the BKZ algorithm, which is basically the upscaled version of the LLL algorithm. Compared to LLL, BKZ can find even shorter vectors in a lattice.
+
+The problem with these lattice-based cryptanalysis techniques is that in general, they are very complex and hard to understand, especially for people who are new to the field of cryptography and cryptanalysis. This is where the visualization of these algorithms can be very helpful. However, most visualizations of these algorithms don't visualize the underlying mathematical concepts in an intuitive way. By visualizing these algorithms in an intuitive way, we can make them easier to understand and more accessible to a wider audience. 
+
+
+
 \subsection{A Subsection Sample}
 Please note that the first paragraph of a section or subsection is
 not indented. The first paragraph that follows a table, figure,
