@@ -21,6 +21,7 @@
 
 NOTES
 CODE FOR FIPS 203 FROM THE PQC PACKAGE
+LOOKS BETTER IF YOU READ IT RAW
 
 //imports
 import { sha3_256, sha3_512, shake256 } from '@noble/hashes/sha3';
@@ -28,7 +29,7 @@ import { u32, wrapConstructor, wrapConstructorWithOpts } from '@noble/hashes/uti
 import { genCrystals, XOF128 } from "../utilities/_crystals.js";
 import { cleanBytes, ensureBytes, equalBytes, randomBytes, splitCoder, vecCoder, } from "../utilities/utils.js";
 
-//
+// parameters + constants
 const N = 256; // Kyber (not FIPS-203) supports different lengths, but all std modes were using 256
 const Q = 3329; // 13*(2**8)+1, modulo prime
 const F = 3303; // 3303 ≡ 128**(−1) mod q (FIPS-203)
@@ -42,6 +43,7 @@ const { mod, nttZetas, NTT, bitsCoder } = genCrystals({
     brvBits: 7,
     isKyber: true,
 });
+
 /** Internal params of ML-KEM versions */
 // prettier-ignore
 export const PARAMS = {
@@ -49,6 +51,7 @@ export const PARAMS = {
     768: { N, Q, K: 3, ETA1: 2, ETA2: 2, du: 10, dv: 4, RBGstrength: 192 },
     1024: { N, Q, K: 4, ETA1: 2, ETA2: 2, du: 11, dv: 5, RBGstrength: 256 },
 };
+
 // FIPS-203: compress/decompress
 const compress = (d) => {
     // Special case, no need to compress, pass as is, but strip high bytes on compression

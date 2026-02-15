@@ -6,9 +6,15 @@
  * Check out [official site](https://www.pq-crystals.org/dilithium/index.shtml),
  * [repo](https://github.com/pq-crystals/dilithium).
  */
+
+NOTES
+CODE FOR FIPS 204 FROM THE PQC PACKAGE
+LOOKS BETTER IF YOU READ IT RAW
+
 import { shake256 } from '@noble/hashes/sha3';
 import { genCrystals, XOF128, XOF256 } from "../utilities/_crystals.js";
 import { cleanBytes, EMPTY, ensureBytes, equalBytes, getMessage, getMessagePrehash, randomBytes, splitCoder, vecCoder, } from "../utilities/utils.js";
+
 // Constants
 const N = 256;
 // 2**23 − 2**13 + 1, 23 bits: multiply will be 46. We have enough precision in JS to avoid bigints
