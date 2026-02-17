@@ -64,7 +64,13 @@ However, just like how the historical pattern of cryptanalysis and cryptography 
 
 The problem with these lattice-based cryptanalysis techniques is that in general, they are very complex and hard to understand, especially for people who are new to the field of cryptography and cryptanalysis. This is where the visualization of these algorithms can be very helpful. However, most visualizations of these algorithms don't visualize the underlying mathematical concepts in an intuitive way. By visualizing these algorithms in an intuitive way, we can make them easier to understand and more accessible to a wider audience. 
 
+\section{Architecture}
 
+\subsection{Backend}
+We will use Zachary Robert Bennett's lll-attack-runner, which is an interactive, largely Javascript-based lattice-based cryptanalysis solveR, as the backend for our visualization of the LLL and BKZ algorithms.
+
+\subsection{Frontend}
+For the frontend part, we wil use Next.js, which is a React-based framework for building web applications. The usage of Next.js is intended to create a user-friendly interface for our visualization of the LLL and BKZ algorithms. The frontend will allow users to input their own lattice-based cryptanalysis problems and visualize the steps of the LLL and BKZ algorithms in an intuitive way.
 
 \subsection{A Subsection Sample}
 Please note that the first paragraph of a section or subsection is
