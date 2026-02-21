@@ -19,6 +19,9 @@
 %\renewcommand\UrlFont{\color{blue}\rmfamily}
 %\urlstyle{rm}
 %
+\usepackage{listings}
+\setcounter{secnumdepth}{4}
+
 \begin{document}
 %
 \title{Visualizing Lattice-based Post-Quantum Cryptographic Algorithms}
@@ -71,15 +74,44 @@ Thus, this work aims to develop a visualization tool that allows users to view t
 
 \section{Related Works}
 TODO:
-The idea of using visualization tools to facilitate the understanding of complex topics is not new. Visualization tools for topics such as . However, the current tools available for visualizing ML-KEM and ML-DSA are
+The idea of using visualization tools to facilitate the understanding of complex topics is not new. Visualization tools for topics such as THIS have been . However, the current tools available for visualizing ML-KEM and ML-DSA (which are ultimately lattice-based algorithms) are limited.
 \subsection{ML-KEM}
 Explain ML-KEM and how it works
+ML-KEM, also referred to as Module-Lattice-Based Key-Encapsulation Mechanism Standard, is a standard set by NIST's FIPS 203 publication that specifies a set of algorithms meant to be used to establish a shared secret key between two parties. This standard was proposed as a response to the potential unreliability of modern key generation algorithms such as RSA and AES in the face of quantum computers.
+
+ML-KEM is a variant of the CRYSTALS-Kyber algorithm, which is itself derived from the module learning with errors (M-LWE) problem.
 \subsection{ML-DSA}
 Explain ML-KEM and how it works
-\subsection{Lattice Visualization}
-Explain why lattice visualizations are hard
+ML-DSA, also known as Module-Lattice-Based Digital Signature Standard, is a standard set by NIST's FIPS 204 publication that specifies a set of algorithms for
 \subsection{Existing Visualizations}
-Examples of existing visualizations and pros and cons
+There are a number of existing visualization tools for ML-KEM, ML-DSA, and lattices in general. They have a tendency to fall into one of the following categories.
+
+Examples of existing visualizations and pros and cons. Categories probably? The ones who use dots, the ones who use colors, the ones who use arrows, the ones who use matrices, etcetc
+
+\subsubsection{Dot Visualization}
+Dot visualizations represent lattices as points in space, either on
+\subsubsection{Arrow Visualization}
+empt
+\subsubsection{Color Visualization}
+Lattices can be visualized through the usage of different colors, each representing a different value. Below is such an example from the pqc-vizz tool.
+
+\begin{figure}
+\centering
+\includegraphics[width=.48\linewidth]{color_representation.png}
+\caption{Representation of a lattice through colors} \label{fig1}
+\end{figure}
+
+Each value is assigned a corresponding hue, saturation, and lightness through the following formula:
+\begin{lstlisting}
+const getColor = (value: number) => {
+    const hue = (value / 255) * 240;
+    const saturation = 80;
+    const lightness = 40 + (value / 255) * 40;
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  };
+\end{lstlisting}
+
+\subsubsection{Matrix Visualization}
 
 \section{Visualization Tool Design}
 The developed visualization tool is a web application that provides visualizations for ML-KEM, ML-DSA, LLL, and BKZ. (elaborate later)

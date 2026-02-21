@@ -28,4 +28,6 @@ References (will be added to paper/removed as relevant later):
 - https://ieeexplore.ieee.org/document/365700 (Shor's Algorithm(s))
 - https://github.com/nithinramkalava/pqc-vizz (interactive implementations of ML-KEM, ML-DSA, and the other one); also this is the paper: https://pqc.nithinram.com/Post-Quantum%20Security%20for%20Web%20Applications.pdf
 - https://arxiv.org/pdf/quant-ph/9508027
-- 
+- https://github.com/ryotoru/lattice-visualizer/tree/master (another example lattice visualizer with react)
+- https://www.desmos.com/calculator/5mcnbkmu5f (lattice visualization with desmos)
+https://csrc.nist.gov/Projects/post-quantum-cryptography/post-quantum-cryptography-standardization/round-3-submissions (round three algorithms for Kyber and Dilithium used for FIPS)
