@@ -90,18 +90,9 @@ Examples of existing visualizations and pros and cons. Categories probably? The 
 
 \subsubsection{Dot Visualization}
 Dot visualizations represent lattices as points in space, either on
-\subsubsection{Arrow Visualization}
-empt
+
 \subsubsection{Color Visualization}
-Lattices can be visualized through the usage of different colors, each representing a different value. Below is such an example from the pqc-vizz tool.
-
-\begin{figure}
-\centering
-\includegraphics[width=.48\linewidth]{color_representation.png}
-\caption{Representation of a lattice through colors} \label{fig1}
-\end{figure}
-
-Each value is assigned a corresponding hue, saturation, and lightness through the following formula:
+Lattices can be visualized through the usage of different colors, each representing a different value. The pqc-vizz tool uses colored grids in addition to matrices to represent lattices. Each value is assigned a corresponding hue, saturation, and lightness through the following formula:
 \begin{lstlisting}
 const getColor = (value: number) => {
     const hue = (value / 255) * 240;
@@ -111,7 +102,16 @@ const getColor = (value: number) => {
   };
 \end{lstlisting}
 
+Below is an example of a lattice visualized in that way, along with the values that each color represents.
+
+\begin{figure}
+\centering
+\includegraphics[width=.48\linewidth]{color_representation.png}
+\caption{Representation of a lattice through colors} \label{fig1}
+\end{figure}
+
 \subsubsection{Matrix Visualization}
+
 
 \section{Visualization Tool Design}
 The developed visualization tool is a web application that provides visualizations for ML-KEM, ML-DSA, LLL, and BKZ. (elaborate later)
@@ -120,7 +120,7 @@ The developed visualization tool is a web application that provides visualizatio
 The visualization tool is built using Next.js, a React-based framework, for the frontend, and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using an existing Javascript library and imported as needed. (insert diagram later + be more thorough)
 
 \subsection{ML-KEM}
-This part is for explaning how ML-KEM is implemented/how the code works
+The implementation of ML-KEM comes from 
 \subsection{ML-DSA}
 This part is for explaning how ML-DSA is implemented/how the code works
 \section{Results?}
@@ -178,23 +178,17 @@ Company X and owns stock in Company Y. Author C is a member of committee Z.
 % \bibliography{mybibliography}
 %
 \begin{thebibliography}{8}
-\bibitem{ref_article1}
-Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
+\bibitem{fips_203}
+National Institute of Standards and Technology. (2024). Module-Lattice-Based Key-Encapsulation Mechanism Standard. \textit{Federal Information Processing Standards Publication}. \doi{https://doi.org/10.6028/NIST.FIPS.203}.
 
-\bibitem{ref_lncs1}
-Author, F., Author, S.: Title of a proceedings paper. In: Editor,
-F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
-Springer, Heidelberg (2016). \doi{10.10007/1234567890}
+\bibitem{fips_204}
+National Institute of Standards and Technology. (2024). Module-Lattice-Based Digital Signature Standard. \textit{Federal Information Processing Standards Publication}. \doi{https://doi.org/10.6028/NIST.FIPS.204}.
 
-\bibitem{ref_book1}
-Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
-Location (1999)
+\bibitem{shor}
+Shor, P.W. (1994). Algorithms for quantum computation: discrete logarithms and factoring. \textit{Proceeding 35th Annual Symposium on Foundations of Computer Science}. \doi{https://doi.org/10.1109/SFCS.1994.365700}.
 
-\bibitem{ref_proc1}
-Author, A.-B.: Contribution title. In: 9th International Proceedings
-on Proceedings, pp. 1--2. Publisher, Location (2010)
+\bibitem{pqc-vizz}
+Kalava et al. (2025). Post-Quantum Security for Web Applications. figure out how to cite a paper that isn't a publication? i think?
 
-\bibitem{ref_url1}
-LNCS Homepage, \url{http://www.springer.com/lncs}, last accessed 2023/10/25
 \end{thebibliography}
 \end{document}

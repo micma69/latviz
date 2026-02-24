@@ -23,8 +23,6 @@ It consists of the following files:
 References (will be added to paper/removed as relevant later):
 - https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf (ML-KEM/Kyber)
 - https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf (ML-DSA/Dilithium)
-- https://openquantumsafe.org/liboqs/algorithms/kem/ml-kem
-- https://openquantumsafe.org/liboqs/algorithms/sig/ml-dsa (pick a wrapper for this and above later)
 - https://ieeexplore.ieee.org/document/365700 (Shor's Algorithm(s))
 - https://github.com/nithinramkalava/pqc-vizz (interactive implementations of ML-KEM, ML-DSA, and the other one); also this is the paper: https://pqc.nithinram.com/Post-Quantum%20Security%20for%20Web%20Applications.pdf
 - https://arxiv.org/pdf/quant-ph/9508027
