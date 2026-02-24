@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  22 FEB 2026 22:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  24 FEB 2026 13:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -215,14 +215,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 40.
  [1
 
-{C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [2]
+{C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2] [3]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 101.
+(Font)              <9> on input line 106.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 101.
+(Font)              <6> on input line 106.
 Package epstopdf Info: Source file: <fig1.eps>
 (epstopdf)                    date: 2026-02-22 22:48:34
 (epstopdf)                    size: 357553 bytes
@@ -230,14 +227,14 @@ Package epstopdf Info: Source file: <fig1.eps>
 (epstopdf)                    date: 2026-02-22 22:48:34
 (epstopdf)                    size: 36500 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=fig1-eps-converted-to.pdf fig1.eps>
-(epstopdf)             \includegraphics on input line 125.
+(epstopdf)             \includegraphics on input line 130.
 Package epstopdf Info: Output file is already uptodate.
-<fig1-eps-converted-to.pdf, id=18, 345.29pt x 142.5325pt>
+<fig1-eps-converted-to.pdf, id=22, 345.29pt x 142.5325pt>
 File: fig1-eps-converted-to.pdf Graphic file (type pdf)
 <use fig1-eps-converted-to.pdf>
-Package pdftex.def Info: fig1-eps-converted-to.pdf  used on input line 125.
+Package pdftex.def Info: fig1-eps-converted-to.pdf  used on input line 130.
 (pdftex.def)             Requested size: 347.12354pt x 143.29115pt.
- [3] [4 <./fig1-eps-converted-to.pdf>] [5] (Visualization of Lattice-Based Cryptanalysis Algorithms.aux)
+ [4 <./fig1-eps-converted-to.pdf>] [5] (Visualization of Lattice-Based Cryptanalysis Algorithms.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -246,15 +243,15 @@ L3 programming layer <2026-01-19>
 Here is how much of TeX's memory you used:
  2064 strings out of 467866
  30893 string characters out of 5429810
- 445831 words of memory out of 5000000
+ 444831 words of memory out of 5000000
  30961 multiletter control sequences out of 15000+600000
  638495 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,9n,65p,1004b,323s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,9n,65p,1004b,262s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0600.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on "Visualization of Lattice-Based Cryptanalysis Algorithms.pdf" (5 pages, 207494 bytes).
+Output written on "Visualization of Lattice-Based Cryptanalysis Algorithms.pdf" (5 pages, 213177 bytes).
 PDF statistics:
- 424 PDF objects out of 1000 (max. 8388607)
+ 429 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

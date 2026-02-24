@@ -67,10 +67,15 @@ The problem with these lattice-based cryptanalysis techniques is that in general
 \section{Related Works}
 
 \subsection{lll-attack-runner}
+lll-attack-runner is a Javascript-based interactive web application for running advanced lattice basis reduction algorithms such as LLL and BKZ. It is developed by Zachary Robert Bennett with the latest update was in January 2026. Because we aim to create a Javascript-based interactive web application for visualizing lattice-based cryptographic and cryptanalysis algorithms, in which two of them are LLL and BKZ, we will be using lll-attack-runner as the backend for our visualization of the LLL and BKZ algorithms. However, since we want to visualize the algorithms in a comprehensive and intuitive way, we will develop our own frontend for the visualization.
 
 \subsection{fpylll}
+fpylll is the Python wrapper of fplll. fplll itself is a solver tool for LLL and BKZ cryptanalysis algorithms, and was developed by fplll development team. fpylll itself was maintained by Martin Albrecht. Like fplll, fpylll lacks visualization tools for the LLL and BKZ algorithms. 
 
-\subsection{x}
+\subsection{Herramienta de software para la visualización
+de la criptografía basada en retículas}
+Authored by Jaziel D. Flores Rodríguez and his fellow colleagues, this research paper was aimed to create a visualization tool for post-quantum cryptographic algorithms. The main focus was to graphically visualize mathematical concepts behind these post-quantum cryptographic algorithms, particularly lattice concepts which are the basis of these algorithms. The tool which was developed in this research, successfully visualizes these lattice-based post-quantum cryptographic algorithms within dimensions of 2, 3, 4, and 5. However, the LLL process for dimensions higher than 3 is still not implemented in this tool, and the BKZ algorithm is also not implemented in this tool.
+Which is why we will be implementing the LLL process for dimensions higher than 3 in our visualization tool, as well as implementing the BKZ algorithm which is not implemented in this tool.
 
 \section{Architecture}
 
