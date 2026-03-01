@@ -1,17 +1,17 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { ml_kem, utils } from 'pqc';
+import * as pqc from 'pqc';
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
 
 export default function MLKEMPage() {
     const executeMLKEM = async (securityLevel: string) => {
-        const aliceKeys = ml_kem.ml_kem768.keygen();
+        const aliceKeys = pqc.ml_kem.ml_kem768.keygen();
 
-        const { cipherText, sharedSecret: bobShared } = ml_kem.ml_kem768.encapsulate(aliceKeys.publicKey);
+        const { cipherText, sharedSecret: bobShared } = pqc.ml_kem.ml_kem768.encapsulate(aliceKeys.publicKey);
 
-        const aliceShared = ml_kem.ml_kem768.decapsulate(cipherText, aliceKeys.secretKey);
+        const aliceShared = pqc.ml_kem.ml_kem768.decapsulate(cipherText, aliceKeys.secretKey);
 
         console.log('Alice shared secret:', aliceShared);
         console.log('Bob shared secret:', bobShared);

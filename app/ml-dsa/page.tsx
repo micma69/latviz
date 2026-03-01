@@ -1,18 +1,18 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { ml_dsa, utils } from 'pqc';
+import * as pqc from 'pqc';
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
 
 export default function MLDSAPage() {
         const executeMLDSA = async (securityLevel: string) => {
-            const keys = ml_dsa.ml_dsa65.keygen();
+            const keys = pqc.ml_dsa.ml_dsa65.keygen();
 
-            const msg = utils.utf8ToBytes('Post Quantum Cryptography');
-            const sig = ml_dsa.ml_dsa65.sign(keys.secretKey, msg);
+            const msg = pqc.utils.utf8ToBytes('Post Quantum Cryptography');
+            const sig = pqc.ml_dsa.ml_dsa65.sign(keys.secretKey, msg);
 
-            const isValid = ml_dsa.ml_dsa65.verify(keys.publicKey, msg, sig);
+            const isValid = pqc.ml_dsa.ml_dsa65.verify(keys.publicKey, msg, sig);
             console.log('Signature valid:', isValid);
         }
 
@@ -28,7 +28,7 @@ export default function MLDSAPage() {
                             size="lg"
                             onClick={() => executeMLDSA("65")}
                         >
-                            TEST ML-KEM
+                            TEST ML-DSA
                         </Button>
                         </div>
                     </div>
