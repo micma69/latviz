@@ -19,12 +19,12 @@ export default function Home() {
               ML-DSA / FIPS 204
             </Link>
           </Button>
-          <Button asChild variant="destructive" size="lg">
+          <Button className="w-full" asChild variant="secondary" size="lg">
             <Link href="/lll">
               LLL
             </Link>
           </Button>
-          <Button asChild variant="destructive" size="lg">
+          <Button className="w-full" asChild variant="secondary" size="lg">
             <Link href="/bkz">
               BKZ
             </Link>
