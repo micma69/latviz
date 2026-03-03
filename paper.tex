@@ -36,16 +36,14 @@
 % First names are abbreviated in the running head.
 % If there are more than two authors, 'et al.' is used.
 %
-\institute{University of Indonesia, Princeton NJ 08544, USA
+\institute{Faculty of Computer Science, University of Indonesia, Princeton NJ 08544, USA
 \email{lncs@springer.com}\\
-\url{http://www.springer.com/gp/computer-science/lncs} \and
-ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
-\email{\{abc,lncs\}@uni-heidelberg.de}}
+\url{http://www.springer.com/gp/computer-science/lncs}}
 %
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-This paper presents the development? of a visualization tool named (final name later)
+Post-quantum cryptographic algorithms are gaining relevance as 
 The abstract should briefly summarize the contents of the paper in
 150--250 words.
 
@@ -59,7 +57,7 @@ Cryptography is the study of techniques and protocols relating to securing commu
 
 Prior to the modern era, most of cryptography was encryption, which is a process that transforms some form of information (plaintext) into an alternative form that only certain parties can decode (ciphertext). What is now known as classical cryptography consisted of using ciphers that could be practically computed and solved by hand. However, after devices such as the Enigma machine and other computational devices were developed, these ciphers became trivially easy to break.
 
-Now, history repeats itself with the development of quantum computers as they threaten to render multiple modern cryptographic algorithms useless. Quantum algorithms such as the ones proposed by Peter Shor are theorized to be able to break protocols like RSA given a strong enough quantum computer (Shor, 1994). Because of this, cryptology experts around the world have looked into new protocols that might have the potential to defend against them.
+Now, history repeats itself with the development of quantum computers as they threaten to render multiple modern cryptographic algorithms useless. Quantum algorithms such as the ones proposed by Peter Shor are theorized to be able to break protocols like RSA given a strong enough quantum computer \cite{shor}. Because of this, cryptology experts around the world have looked into new protocols that might have the potential to defend against them.
 
 NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are lattice-based; ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively. ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures.
 
@@ -76,10 +74,11 @@ Thus, this work aims to develop a visualization tool that allows users to view t
 TODO:
 The idea of using visualization tools to facilitate the understanding of complex topics is not new. Visualization tools for topics such as THIS have been . However, the current tools available for visualizing ML-KEM and ML-DSA (which are ultimately lattice-based algorithms) are limited.
 \subsection{ML-KEM}
-Explain ML-KEM and how it works
 ML-KEM, also referred to as Module-Lattice-Based Key-Encapsulation Mechanism Standard, is a standard set by NIST's FIPS 203 publication that specifies a set of algorithms meant to be used to establish a shared secret key between two parties. This standard was proposed as a response to the potential unreliability of modern key generation algorithms such as RSA and AES in the face of quantum computers.
 
-ML-KEM is a variant of the CRYSTALS-Kyber algorithm, which is itself derived from the module learning with errors (M-LWE) problem.
+ML-KEM is a variant of the CRYSTALS-Kyber algorithm, which is itself based on the hardness of solving the module learning with errors (MLWE) problem. 
+
+In brief, Kyber follows a two stage approach: employing an IND-CPA secure public key encryption scheme that encrypts messages of a fixed length of 32 bytes, followed by a slightly tweaked Fujisaki Okamoto (FO) transform to construct the IND-CCA2 KEM.
 \subsection{ML-DSA}
 Explain ML-KEM and how it works
 ML-DSA, also known as Module-Lattice-Based Digital Signature Standard, is a standard set by NIST's FIPS 204 publication that specifies a set of algorithms for
@@ -174,8 +173,8 @@ Company X and owns stock in Company Y. Author C is a member of committee Z.
 % BibTeX users should specify bibliography style 'splncs04'.
 % References will then be sorted and formatted in the correct style.
 %
-% \bibliographystyle{splncs04}
-% \bibliography{mybibliography}
+\bibliographystyle{acm}
+\bibliography{thebibliography}
 %
 \begin{thebibliography}{8}
 \bibitem{fips_203}
@@ -187,8 +186,14 @@ National Institute of Standards and Technology. (2024). Module-Lattice-Based Dig
 \bibitem{shor}
 Shor, P.W. (1994). Algorithms for quantum computation: discrete logarithms and factoring. \textit{Proceeding 35th Annual Symposium on Foundations of Computer Science}. \doi{https://doi.org/10.1109/SFCS.1994.365700}.
 
+\bibitem{kyber}
+Avanzi et al. (2021). CRYSTALS-Kyber. https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf.
+
 \bibitem{pqc-vizz}
-Kalava et al. (2025). Post-Quantum Security for Web Applications. figure out how to cite a paper that isn't a publication? i think?
+Kalava et al. (2025). Post-Quantum Security for Web Applications. https://pqc.nithinram.com/Post-Quantum%20Security%20for%20Web%20Applications.pdf.
+
+\bibitem{mwle}
+Langlois, A. \& Stehle, D. (2012). Worst-Case to Average-Case Reductions for Module Lattices. https://eprint.iacr.org/2012/090.
 
 \end{thebibliography}
 \end{document}
