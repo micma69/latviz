@@ -105,9 +105,20 @@ export default function MLKEMPage() {
 
     return (
         <div className="grid min-h-screen grid-cols-1 md:grid-cols-[2.5fr_1.5fr] gap-6 bg-zinc-200 p-6 dark:bg-black">
-            <main className="rounded-2xl bg-white dark:bg-zinc-900 shadow-xl p-10">
-
-            </main>
+            <div className="flex flex-col gap-4">
+                <Link href="/">
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-fit text-sm"
+                    >
+                        ← Back
+                    </Button>
+                </Link>
+                <main className="flex-1 rounded-2xl bg-white dark:bg-zinc-900 shadow-xl p-10">
+                    FOR THE VISUALIZATION
+                </main>
+            </div>
             <div className="p-6 sticky top-6 h-[calc(100vh-3rem)] overflow-y-auto flex flex-col gap-4">
                 <div className="rounded-2xl bg-zinc-900 text-green-400 font-mono text-xs shadow-xl p-6 h-48 overflow-y-auto">
                     {output.length === 0 ? (
