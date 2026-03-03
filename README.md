@@ -1,3 +1,9 @@
+# latviz - 2026
+A visualization tool for (so far) four lattice-based cryptography algorithms and solvers.
+
+Co-creators : 
+- Muhammad Imam Chaidar Mujaddid Al-Ghiffari
+- Jeslyn Theodora 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
