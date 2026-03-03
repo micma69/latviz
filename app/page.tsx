@@ -20,12 +20,12 @@ export default function Home() {
             </Link>
           </Button>
           <Button className="w-full" asChild variant="secondary" size="lg">
-            <Link href="/">
+            <Link href="/lll">
               LLL
             </Link>
           </Button>
           <Button className="w-full" asChild variant="secondary" size="lg">
-            <Link href="/">
+            <Link href="/bkz">
               BKZ
             </Link>
           </Button>
