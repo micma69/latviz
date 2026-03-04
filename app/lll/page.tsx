@@ -130,7 +130,8 @@ export default function LLLPage() {
                   <div>
                     <h4 className="text-white font-semibold mb-2">Shortest Vector Found</h4>
                     <pre className="bg-slate-900 p-4 rounded text-slate-300 text-xs overflow-auto font-mono">
-                      {result.solutionVector.map(v => v.toFixed(6)).join(', ')}
+                      {result.solutionVector.map((v: number) => v.toFixed(6)).join(', ')}
+                    as number
                     </pre>
                   </div>
                 )}
