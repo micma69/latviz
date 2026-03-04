@@ -13,3 +13,30 @@ The tool which was developed by this research, was created with Python and it of
 The result of this tool is not bad, I think. The LLL results are accurate, proved by other tools such as Mathematica. As what I expected before, the overall processes for 4D and 5D dimensions are slower, because of the more complex visualization processes. 
 
 ---------------------------------------------------------------------------------------------------------------------
+
+Period     : 26/02/2026 - 04/03/2026 (Week 5)
+Read date  : 04/03/2026 
+
+Title      : Analysis of BKZ
+Authors    : Guillaume Hanrot, Xavier Pujol, Damien Stehl
+Pub. Date  : 05/05/2011
+link       : https://caramba.inria.fr/sem-slides/201105051030.pdf
+
+Summary (or more like, my thoughts)
+
+As a side note, due to the time constraints, I haven't finished reading this paper. However, I saw some interesting visualizations of the vectors there, page 2-7. These are the visualizations of SVP (Shortest Vector Problem) and lattice reduction. These visualizations are also Cartesian-based with plain white background. I think it is simple. Not plain, and definitely not bad indeed, but still can be improved. I think I got the idea to make plain white background but with different colouring scheme for other visualization elements such as arrow, dots/points, and letter.
+
+---------------------------------------------------------------------------------------------------------------------
+
+Period     : 05/02/2026 - 12/03/2026 (Week 6)
+Read date  : /03/2026 
+
+Title      : Analysis of BKZ
+Authors    : Guillaume Hanrot, Xavier Pujol, Damien Stehl
+Pub. Date  : 05/05/2011
+link       : https://caramba.inria.fr/sem-slides/201105051030.pdf
+
+Summary (or more like, my thoughts)
+
+As a side note, due to the time constraints, I haven't finished reading this paper. However, I saw some interesting visualizations of the vectors there, page 2-7. These are the visualizations of SVP (Shortest Vector Problem) and lattice reduction. These visualizations are also Cartesian-based with plain white background. I think it is simple. Not plain, and definitely not bad indeed, but still can be improved. I think I got the idea to make plain white background but with different colouring scheme for other visualization elements such as arrow, dots/points, and letter.
+
