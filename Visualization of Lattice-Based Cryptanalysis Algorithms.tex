@@ -80,10 +80,14 @@ Which is why we will be implementing the LLL process for dimensions higher than 
 \section{Architecture}
 
 \subsection{Backend}
-We will use Zachary Robert Bennett's lll-attack-runner, which is an interactive, largely Javascript-based lattice-based cryptanalysis solveR, as the backend for our visualization of the LLL and BKZ algorithms.
+We will use Zachary Robert Bennett's lll-attack-runner, which is an interactive and Javascript-based lattice-based cryptanalysis solver, as the backend for our visualization of the LLL and BKZ algorithms. We only use three source codes from lll-attack-runner, which are : lll.ts, bkz.ts, and types.ts. The lll.ts, per its filename, does the LLL algorithm process, and the same goes for bkz.ts. Both source codes needs LLLStep interface from types.ts, and for bkz.ts, it also needs LLLRun from lll.ts. Which makes sense, consider the usage of LLL algorithm in BKZ algorithm. 
+
+In each of our algorithm modules, each algorithm has its own folder, which in each of these folders, there is a single source code written in Typescript, with naming convention of the algorithm name written in lowercase. Each of these source codes are responsible for running the algorithm process which corresponds to their name. Within each of these source codes, we will use imported functions from Zachary Robert Bennett's lll-attack-runner source codes to run the algorithm process.  
 
 \subsection{Frontend}
 For the frontend part, we wil use Next.js, which is a React-based framework for building web applications. The usage of Next.js is intended to create a user-friendly interface for our visualization of the LLL and BKZ algorithms. The frontend will allow users to input their own lattice-based cryptanalysis problems and visualize the steps of the LLL and BKZ algorithms in an intuitive way.
+
+For the visualization part, we will use D3 for the visualization part, combined with React to create matrices and vectors visualizations. Our secondary objective for the frontend is to create a visualization which have animations for the steps of these algorithms. We believe the animated version of these visualizations can be understand easier by the users. 
 
 \subsection{A Subsection Sample}
 Please note that the first paragraph of a section or subsection is
