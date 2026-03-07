@@ -11,8 +11,29 @@ export default function MLDSAPage() {
     const [output, setOutput] = useState<string[]>([]);
     const [keys, setKeys] = useState<any>(null);
     const [signature, setSignature] = useState<Uint8Array | null>(null);
-    const [message] = useState("defaultmessage:D");
-    
+    const [verifyResult, setVerifyResult] = useState<boolean | null>(null);
+    const [message, setMessage] = useState('');
+
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [fileSignature, setFileSignature] = useState<Uint8Array | null>(null);
+    const [fileVerifyResult, setFileVerifyResult] = useState<boolean | null>(null);
+
+    const [externalFile, setExternalFile] = useState<File | null>(null);
+    const [externalPublicKey, setExternalPublicKey] = useState('');
+    const [externalSignature, setExternalSignature] = useState('');
+    const [externalAlgorithm, setExternalAlgorithm] = useState<'ml_dsa44' | 'ml_dsa65' | 'ml_dsa87'>('ml_dsa44');
+    const [externalVerificationResult, setExternalVerificationResult] = useState('');
+    const [externalVerificationSuccess, setExternalVerificationSuccess] = useState(false);
+
+    const [expandedPublicKey, setExpandedPublicKey] = useState(false);
+    const [expandedSecretKey, setExpandedSecretKey] = useState(false);
+    const [expandedSignature, setExpandedSignature] = useState(false);
+
+    const [expandedPublicKey, setExpandedPublicKey] = useState(false);
+    const [expandedSecretKey, setExpandedSecretKey] = useState(false);
+    const [expandedSignature, setExpandedSignature] = useState(false);
+    const [expandedFileSignature, setExpandedFileSignature] = useState(false);
+        
     const addOutput = (message: string) => {
         setOutput(prev => [...prev, message]);
     };
