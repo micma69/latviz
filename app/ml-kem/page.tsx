@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as pqc from 'pqc';
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function MLKEMPage() {
     const [securityLevel, setSecurityLevel] = useState("ml_kem768");
@@ -49,13 +49,12 @@ export default function MLKEMPage() {
         'Key Generation',
         'Encapsulation',
         'Decapsulation',
-        'Complete KEM Flow'
     ];
 
     const executeMLKEM = async (operation: string) => {
         const kem = pqc.ml_kem[securityLevel];
 
-        switch(operation) {
+        switch (operation) {
             case "Key Generation": {
                 const keys = kem.keygen();
                 setAliceKeys(keys);
@@ -103,21 +102,6 @@ export default function MLKEMPage() {
                 break;
             }
         }
-
-        if (operation === "Complete KEM Flow") {
-            const keys = kem.keygen();
-            const result = kem.encapsulate(keys.publicKey);
-            const aliceShared = kem.decapsulate(
-                result.cipherText,
-                keys.secretKey
-            );
-
-            console.log(
-                "Secrets Match:",
-                Buffer.from(aliceShared).toString("hex") ===
-                Buffer.from(result.sharedSecret).toString("hex")
-            );
-        }
     };
 
     const formatArray = (bytes: Uint8Array | null) => {
@@ -144,7 +128,7 @@ export default function MLKEMPage() {
                     </Button>
                 </Link>
                 <main className="flex-1 rounded-xl bg-white dark:bg-zinc-900 shadow-xl p-5">
-                    <div className="rounded-xl bg-slate-100 dark:bg-zinc-900 p-5 h-full">
+                    <div className="rounded-xl bg-slate-100 dark:bg-zinc-900 p-5 h-full flex items-center justify-center text-zinc-500 text-sm">
                         FOR THE VISUALIZATION
                     </div>
                 </main>
@@ -152,7 +136,7 @@ export default function MLKEMPage() {
             <div className="p-6 sticky top-6 h-[calc(100vh-3rem)] flex flex-col gap-4">
                 <div className="rounded-xl bg-zinc-900 text-green-400 font-mono text-xs shadow-xl p-6 h-48 overflow-y-auto">
                     {output.length === 0 ? (
-                        <div className="text-zinc-500">Output will appear here...</div>
+                        <div className="text-zinc-500">...</div>
                     ) : (
                         output.map((line, index) => (
                             <div key={index}>{line}</div>
@@ -160,7 +144,7 @@ export default function MLKEMPage() {
                     )}
                 </div>
                 <div className="overflow-y-auto flex flex-col gap-4 pr-2">
-                    <div className="flex flex-col items-center gap-4 rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-10">
+                    <div className="flex flex-col items-center gap-4 rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-5">
                         Select Security Level
                         <Select value={securityLevel} onValueChange={setSecurityLevel}>
                             <SelectTrigger className="w-full">
@@ -191,64 +175,60 @@ export default function MLKEMPage() {
                                 Start Animation
                             </Button>
                         </div>
-                        <div className="flex flex-col gap-y-4 w-full">
-                            <div className="flex flex-col gap-y-4 items-center justify-center w-full">
-                                Public Key
-                                <div className="rounded-2xl bg-slate-100 dark:bg-zinc-900 p-3 h-48">
-                                    <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
-                                        {!aliceKeys ? (
-                                            <div className="text-zinc-500">No key generated</div>
-                                        ) : (
-                                            <>
-                                                <div className="break-all">
-                                                    {expandedPublicKey
-                                                        ? formatArray(aliceKeys.publicKey)
-                                                        : previewArray(aliceKeys.publicKey)}
-                                                </div>
-
-                                                <Button
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    onClick={() => setExpandedPublicKey(!expandedPublicKey)}
-                                                >
-                                                    {expandedPublicKey ? "Collapse" : "Expand"}
-                                                </Button>
-                                            </>
-                                        )}
-                                    </div>
+                        <div className="flex flex-col gap-y-2 w-full">
+                            Public Key
+                            <div className="rounded-2xl bg-slate-100 dark:bg-zinc-900 p-3 h-40">
+                                <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
+                                    {!aliceKeys ? (
+                                        <div className="text-zinc-500">No key generated</div>
+                                    ) : (
+                                        <>
+                                            <div className="break-all">
+                                                {expandedPublicKey
+                                                    ? formatArray(aliceKeys.publicKey)
+                                                    : previewArray(aliceKeys.publicKey)}
+                                            </div>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => setExpandedPublicKey(!expandedPublicKey)}
+                                            >
+                                                {expandedPublicKey ? "Collapse" : "Expand"}
+                                            </Button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-y-4 items-center justify-center w-full">
-                                Secret Key
-                                <div className="rounded-lg bg-slate-100 dark:bg-zinc-900 p-3 h-48">
-                                    <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
+                        </div>
+                        <div className="flex flex-col gap-y-2 w-full">
+                            Secret Key
+                            <div className="rounded-lg bg-slate-100 dark:bg-zinc-900 p-3 h-48">
+                                <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
 
-                                        {!aliceKeys ? (
-                                            <div className="text-zinc-500">No key generated</div>
-                                        ) : (
-                                            <>
-                                                <div className="break-all">
-                                                    {expandedSecretKey
-                                                        ? formatArray(aliceKeys.secretKey)
-                                                        : previewArray(aliceKeys.secretKey)}
-                                                </div>
+                                    {!aliceKeys ? (
+                                        <div className="text-zinc-500">No key generated</div>
+                                    ) : (
+                                        <>
+                                            <div className="break-all">
+                                                {expandedSecretKey
+                                                    ? formatArray(aliceKeys.secretKey)
+                                                    : previewArray(aliceKeys.secretKey)}
+                                            </div>
 
-                                                <Button
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    onClick={() => setExpandedSecretKey(!expandedSecretKey)}
-                                                >
-                                                    {expandedSecretKey ? "Collapse" : "Expand"}
-                                                </Button>
-                                            </>
-                                        )}
-
-                                    </div>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => setExpandedSecretKey(!expandedSecretKey)}
+                                            >
+                                                {expandedSecretKey ? "Collapse" : "Expand"}
+                                            </Button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center justify-center rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-10 gap-y-4">
+                    <div className="flex flex-col items-center justify-center rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-5 gap-y-4">
                         <div className="flex flex-row gap-x-4">
                             <Button
                                 variant="secondary"
@@ -256,7 +236,7 @@ export default function MLKEMPage() {
                                 disabled={!aliceKeys}
                                 onClick={() => executeMLKEM("Encapsulation")}
                             >
-                                Encapusulation
+                                Encapsulation
                             </Button>
                             <Button
                                 variant="secondary"
@@ -266,13 +246,13 @@ export default function MLKEMPage() {
                                 Start Animation
                             </Button>
                         </div>
-                        <div className="flex flex-col gap-y-4 w-full">
-                            <div className="flex flex-col gap-y-4 items-center justify-center w-full">
+                        <div className="flex flex-col gap-y-2 w-full">
+                            <div className="flex flex-col gap-y-2 w-full">
                                 Cipher Text
                                 <div className="rounded-2xl bg-slate-100 dark:bg-zinc-900 p-3 h-48">
                                     <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
                                         {!cipherText ? (
-                                            <div className="text-zinc-500">No key generated</div>
+                                            <div className="text-zinc-500">No ciphertext generated</div>
                                         ) : (
                                             <>
                                                 <div className="break-all">
@@ -293,13 +273,13 @@ export default function MLKEMPage() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-y-4 items-center justify-center w-full">
+                            <div className="flex flex-col gap-y-2 w-full">
                                 Shared Secret
                                 <div className="rounded-lg bg-slate-100 dark:bg-zinc-900 p-3 h-48">
                                     <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
 
                                         {!sharedSecret ? (
-                                            <div className="text-zinc-500">No key generated</div>
+                                            <div className="text-zinc-500">No secret generated</div>
                                         ) : (
                                             <>
                                                 <div className="break-all">
@@ -323,7 +303,7 @@ export default function MLKEMPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center justify-center rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-10 gap-y-4">
+                    <div className="flex flex-col items-center justify-center rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-5 gap-y-4">
                         <div className="flex flex-row gap-x-4">
                             <Button
                                 variant="secondary"
@@ -341,7 +321,7 @@ export default function MLKEMPage() {
                                 Start Animation
                             </Button>
                         </div>
-                        <div className="flex flex-col gap-y-4 items-center justify-center w-full">
+                        <div className="flex flex-col gap-y-2 w-full">
                             Decapsulated Secret
                             <div className="rounded-lg bg-slate-100 dark:bg-zinc-900 p-3 h-48">
                                 <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
