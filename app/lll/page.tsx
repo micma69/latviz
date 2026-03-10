@@ -4,17 +4,22 @@ import { runLLL, parseBasisFromString } from "@/backend/lll-attack-runner-main/l
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
 import React, { useState } from "react";
+import * as d3 from "d3";
 
 export default function LLLPage() {
   const [input, setInput] = useState('')
   const [initialBasis, setInitialBasis] = useState<number[][] | null>(null)
   const [result, setResult] = useState<any>(null)
+  const [steps, setSteps] = useState<any[]>([])
+  const [currentStep, setCurrentStep] = useState(0)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const handleProcess = () => {
     setError('')
     setResult(null)
+    setSteps([])
+    setCurrentStep(0)
     
     const parsed = parseBasisFromString(input)
     
@@ -30,6 +35,10 @@ export default function LLLPage() {
       setLoading(true)
       const lllResult = runLLL(parsed, 0.75, true)
       setResult(lllResult)
+      if (lllResult.steps) {
+        setSteps(lllResult.steps)
+        setCurrentStep(0)
+      }
     } catch (err) {
       setError(`Error running LLL algorithm: ${err instanceof Error ? err.message : 'Unknown error'}`)
     } finally {
@@ -48,6 +57,24 @@ export default function LLLPage() {
     return matrix.map(row => 
       row.map(val => val.toFixed(6)).join('\t')
     ).join('\n')
+  }
+
+  const nextStep = () => setCurrentStep(i => Math.min(i + 1, steps.length - 1))
+  const prevStep = () => setCurrentStep(i => Math.max(i - 1, 0))
+
+  const drawVectors = (basis: number[][]) => {
+    const max = d3.max(basis.flat().map(Math.abs)) ?? 1
+    const scale = d3.scaleLinear().domain([-max, max]).range([-100, 100])
+    return basis.map((v, idx) => (
+      <g key={idx}>
+        <line
+          x1={scale(0)} y1={scale(0)}
+          x2={scale(v[0])} y2={scale(v[1])}
+          stroke="cyan" strokeWidth={2}
+          markerEnd="url(#arrowhead)"
+        />
+      </g>
+    ))
   }
 
   return (
@@ -135,6 +162,30 @@ export default function LLLPage() {
                     </pre>
                   </div>
                 )}
+              </div>
+            )}
+            {/* visualization area */}
+            {steps.length > 0 && (
+              <div className="bg-slate-800 rounded-lg p-6 border border-slate-700 mt-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Button onClick={prevStep} disabled={currentStep === 0}>◀ Back</Button>
+                  <span className="text-sm text-slate-300">
+                    step {currentStep} / {steps.length - 1}
+                  </span>
+                  <Button onClick={nextStep} disabled={currentStep === steps.length - 1}>Next ▶</Button>
+                </div>
+                <svg width={220} height={220} viewBox="-110 -110 220 220">
+                  <defs>
+                    <marker id="arrowhead" viewBox="0 -5 10 10" refX="8" refY="0"
+                            markerWidth="6" markerHeight="6" orient="auto">
+                      <path d="M0,-5L10,0L0,5" fill="cyan" />
+                    </marker>
+                  </defs>
+                  <rect x={-110} y={-110} width={220} height={220}
+                        fill="transparent" stroke="slategray" strokeWidth={0.5} />
+                  {drawVectors(steps[currentStep].basis)}
+                </svg>
+                <p className="text-slate-400 text-xs mt-2">{steps[currentStep].description}</p>
               </div>
             )}
 
