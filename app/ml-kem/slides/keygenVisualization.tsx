@@ -16,8 +16,8 @@ export default function KeygenVisualization({
         }, []);
 
     return (
-        <div className="grid grid-cols-5 gap-3 flex items-center h-full">
-            <div className="grid grid-rows-2 flex items-center font-mono text-sm">
+        <div className="flex flex-row gap-6 items-center h-full w-full justify-center">
+            <div className="flex flex-col items-center font-mono text-sm">
                 <div>Randomness <InlineMath math="d \in \mathbb{B}^{32}" /></div>
                 <div>Randomness <InlineMath math="z \in \mathbb{B}^{32}" /></div>
             </div>
@@ -25,11 +25,11 @@ export default function KeygenVisualization({
             <div onClick={() => {
                 onSelectVariable("keygenBase1");
                 onChangeStage("keygen1");
-            }} className="rounded-lg bg-white p-1 font-mono text-sm flex items-center justify-center h-24">
+            }} className="rounded-lg bg-white p-3 font-mono text-sm flex items-center justify-center h-24">
                 Kyber-PKE Key Generation
             </div>
             <div className="w-fit"><ArrowRightIcon className="size-8" /></div>
-            <div className="grid grid-rows-2 flex items-center font-mono text-sm">
+            <div className="flex flex-col items-center font-mono text-sm">
                 <div>ek <InlineMath math="\in \mathbb{B}^{384k+32}" /> (Encapsulation Key)</div>
                 <div>dk <InlineMath math="\in \mathbb{B}^{768k+96}" /> (Decapsulation Key)</div>
             </div>
