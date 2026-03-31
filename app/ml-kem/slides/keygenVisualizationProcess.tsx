@@ -1,8 +1,9 @@
 "use client"
 
 import SquareGrid from "@/components/ui/gridLattice"
-import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import { Button } from "@/components/ui/button";
+import { InlineMath } from 'react-katex';
 
 export default function KeygenVisualizationProcess({
   onSelectVariable,
@@ -11,46 +12,57 @@ export default function KeygenVisualizationProcess({
     onChangeStage: (stage: string) => void;
  }) {
   return (
-    <div className="grid grid-rows-3 gap-3">
-      <div className="grid grid-cols-5 flex items-center">
-        <div className="w-fit">(</div>
-        <div
-          onClick={() => onSelectVariable("keygenMatrixA")}
-          className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-        >
-          <SquareGrid rows={8} cols={8} size={12} />
+    <div className="flex flex-col gap-6 h-full">
+      <div className="flex flex-row gap-6 place items-center justify-center h-full">
+        <div className="text-4xl">(</div>
+        <div className="flex flex-row gap-6">
+          <div className="flex flex-col items-center gap-3">
+            <InlineMath math="A" />
+            <div
+              onClick={() => onSelectVariable("keygenMatrixA")}
+              className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
+            >
+              <SquareGrid rows={8} cols={8} size={15} />
+            </div>
+          </div>
         </div>
-        <div>X</div>
-        <div
-          onClick={() => onSelectVariable("keygenMatrixS")}
-          className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-        >
-          <SquareGrid rows={8} cols={1} size={12} />
+        <div className="text-4xl">X</div>
+        <div className="flex flex-col items-center gap-3">
+          <InlineMath math="s" />
+          <div
+            onClick={() => onSelectVariable("keygenMatrixS")}
+            className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
+          >
+            <SquareGrid rows={8} cols={1} size={15} />
+          </div>
         </div>
-        <div>)</div>
+        <div className="text-4xl">)</div>
+        <div className="text-4xl">+</div>
+        <div className="flex flex-col items-center gap-3">
+          <InlineMath math="e" />
+          <div
+            onClick={() => onSelectVariable("keygenMatrixE")}
+            className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
+          >
+            <SquareGrid rows={8} cols={1} size={15}/>
+          </div>
+        </div>
+        <div className="text-4xl">=</div>
+        <div className="flex flex-col items-center gap-3">
+          <InlineMath math="t" />
+          <div
+            onClick={() => onSelectVariable("keygenMatrixT")}
+            className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
+          >
+            <SquareGrid rows={8} cols={1} size={15}/>
+          </div>
+        </div>
       </div>
-      <div className="grid grid-cols-4 gap-2 flex items-center">
-        <div>+</div>
-        <div
-          onClick={() => onSelectVariable("keygenMatrixE")}
-          className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-        >
-          <SquareGrid rows={8} cols={1} size={12}/>
-        </div>
-        <div>=</div>
-        <div
-          onClick={() => onSelectVariable("keygenMatrixT")}
-          className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-        >
-          <SquareGrid rows={8} cols={1} size={12}/>
-        </div>
-      </div>
-      
-      <div className="flex h-24">
+      <div>
         	<Button variant="secondary"
                               size="sm"
                               onClick={() => onChangeStage("keygen0")}>
-		        <ArrowLeftIcon className="size-6" /> BACK
+		        <ChevronLeftIcon className="size-6" /> BACK
 	        </Button>
       </div>
     </div>

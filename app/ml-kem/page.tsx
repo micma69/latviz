@@ -255,7 +255,7 @@ export default function MLKEMPage() {
 
                     {selectedVariable === "decapsulationBase0" && (
                         <div className="text-zinc-500 text-base">
-                            The decapsulation process uses decapsulation key dk to produce a shared secret key <InlineMath math="K'" /> from ciphertext <InlineMath math="c" />. <InlineMath math="K'" /> is only accepted if the output of re-encrypting message <InlineMath math="m'" /> using the extracted PKE encryption key <InlineMath math="ek_{PKE}" /> and randomness <InlineMath math="r'" /> matches <InlineMath math="c" />.
+                            The decapsulation process uses decapsulation key dk to produce a shared secret key <InlineMath math="K'" /> from ciphertext <InlineMath math="c" />. Message <InlineMath math="m'" /> is the output of Kyber-PKE decrypt, and is concatenated with the hash <InlineMath math="h" /> of the PKE encryption key. <InlineMath math="K'" /> and randomness <InlineMath math="r'" /> are derived from the result. <InlineMath math="K'" /> is only accepted if the output of re-encrypting message <InlineMath math="m'" /> using the extracted PKE encryption key <InlineMath math="ek_{PKE}" /> and randomness <InlineMath math="r'" /> matches <InlineMath math="c" />.
                         </div>
                     )}
 
@@ -296,9 +296,15 @@ export default function MLKEMPage() {
                         </div>
                     )}
 
+                    {selectedVariable === "sMatrixDecaps" && (
+                        <div className="text-zinc-500 text-base">
+                            12 bit integer array s is decoded from the decryption key dk.
+                        </div>
+                    )}
+
                     {selectedVariable === "decapsM" && (
                         <div className="text-zinc-500 text-base">
-                            The constant term <InlineMath math="v" /> is calculated by multiplying <InlineMath math="s^T" /> and <InlineMath math="u'" />. Subtracting that from <InlineMath math="v'" /> outputs the noisy message polynomial <InlineMath math="w" />, which is compressed and encoded into the plaintext byte array <InlineMath math="m" />.
+                            The constant term <InlineMath math="v" /> is calculated by multiplying <InlineMath math="\hat{s}^T" /> and <InlineMath math="u'" />. Subtracting that from <InlineMath math="v'" /> outputs the noisy message polynomial <InlineMath math="w" />, which is compressed and encoded into the plaintext byte array <InlineMath math="m" />.
                         </div>
                     )}
 
