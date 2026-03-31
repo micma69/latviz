@@ -132,6 +132,8 @@ export default function LLLPage() {
           return 'Basis size reduction'
         case 'swap':
           return 'Basis swap'
+        case 'gso':
+          return 'Gram-Schmidt orthogonalization'
         case 'complete':
           return currentStep === 0 ? 'Initial basis' : 'Finished'
         default:
@@ -147,6 +149,12 @@ export default function LLLPage() {
       return 'No step data available.'
     }
 
+    // If the step has detailed calculations, use them
+    if (step.calculations && step.calculations.length > 0) {
+      return step.calculations.join('\n')
+    }
+
+    // Fallback to old format for backward compatibility
     const basis = step.basis || []
     const prevBasis = currentStep > 0 ? (steps[currentStep - 1]?.basis || []) : []
     const gso = computeGSO(basis)
@@ -161,6 +169,8 @@ export default function LLLPage() {
       actionDetail = `Reduction: k=${k}, previous vector=${JSON.stringify(oldVec)}, current vector=${JSON.stringify(newVec)}.`
     } else if (step.action === 'swap' && prevBasis.length > 0) {
       actionDetail = `Swap: k=${k}, swapped basis rows ${k - 1} and ${k}.` 
+    } else if (step.action === 'gso') {
+      actionDetail = `Gram-Schmidt orthogonalization computed for current basis.`
     } else if (step.action === 'complete') {
       actionDetail = currentStep === 0 ? 'Initial basis step.' : 'Reduction complete.'
     } else {
@@ -179,18 +189,49 @@ export default function LLLPage() {
   }
 
   const drawVectors = (basis: number[][]) => {
-    const max = d3.max(basis.flat().map(Math.abs)) ?? 1
-    const scale = d3.scaleLinear().domain([-max, max]).range([-100, 100])
-    return basis.map((v, idx) => (
-      <g key={idx}>
-        <line
-          x1={scale(0)} y1={scale(0)}
-          x2={scale(v[0])} y2={scale(v[1])}
-          stroke="cyan" strokeWidth={2}
-          markerEnd="url(#arrowhead)"
-        />
-      </g>
-    ))
+    const maxValue = d3.max(basis.flat().map(Math.abs)) ?? 1
+    const max = typeof maxValue === 'number' ? maxValue : 1
+    const scaleX = d3.scaleLinear().domain([-max, max]).range([-150, 150])
+    const scaleY = d3.scaleLinear().domain([-max, max]).range([150, -150]) // Inverted for Cartesian
+    const gridSize = 10
+    const gridLines = []
+    
+    // Draw grid
+    for (let i = -max; i <= max; i += 1) {
+      const scaledXPos = scaleX(i)
+      const scaledYPos = scaleY(i)
+      gridLines.push(
+        <line key={`vgrid-${i}`} x1={scaledXPos} y1={scaleY(-max)} x2={scaledXPos} y2={scaleY(max)} 
+              stroke="slategray" strokeWidth={0.3} strokeDasharray="2,2" opacity={0.5} />
+      )
+      gridLines.push(
+        <line key={`hgrid-${i}`} x1={scaleX(-max)} y1={scaledYPos} x2={scaleX(max)} y2={scaledYPos} 
+              stroke="slategray" strokeWidth={0.3} strokeDasharray="2,2" opacity={0.5} />
+      )
+    }
+    
+    return { gridLines, vectorLines: basis.map((v, idx) => {
+      const x0 = v[0] || 0
+      const y0 = v[1] || 0
+      const scaledX = scaleX(x0)
+      const scaledY = scaleY(y0)
+      return (
+        <g key={idx}>
+          <line
+            x1={scaleX(0)} y1={scaleY(0)}
+            x2={scaledX} y2={scaledY}
+            stroke="cyan" strokeWidth={2}
+            markerEnd="url(#arrowhead)"
+          />
+          <text
+            x={scaledX} y={scaledY - 10}
+            textAnchor="middle" fontSize="12" fill="white" fontWeight="bold"
+          >
+            ({x0.toFixed(2)}, {y0.toFixed(2)})
+          </text>
+        </g>
+      )
+    }), scaleX, scaleY }
   }
 
   return (
@@ -292,17 +333,58 @@ export default function LLLPage() {
                 {/* Graph */}
                 {steps.length > 0 && (
                   <div className="mb-4">
-                    <svg width={220} height={220} viewBox="-110 -110 220 220" className="mx-auto">
-                      <defs>
-                        <marker id="arrowhead" viewBox="0 -5 10 10" refX="8" refY="0"
-                                markerWidth="6" markerHeight="6" orient="auto">
-                          <path d="M0,-5L10,0L0,5" fill="cyan" />
-                        </marker>
-                      </defs>
-                      <rect x={-110} y={-110} width={220} height={220}
-                            fill="transparent" stroke="slategray" strokeWidth={0.5} />
-                      {drawVectors(getCurrentBasis() || [])}
-                    </svg>
+                    {(() => {
+                      const { gridLines, vectorLines, scaleX, scaleY } = drawVectors(getCurrentBasis() || [])
+                      const basis = getCurrentBasis() || []
+                      const maxValue = d3.max(basis.flat().map(Math.abs)) ?? 1
+                      const max = typeof maxValue === 'number' ? maxValue : 1
+                      const axisLabels = []
+                      
+                      // Generate axis labels
+                      for (let i = -Math.ceil(max); i <= Math.ceil(max); i++) {
+                        if (i !== 0) {
+                          const posX = scaleX(i)
+                          const posY = scaleY(i)
+                          axisLabels.push(
+                            <text key={`xlabel-${i}`} x={posX} y={170} textAnchor="middle" fontSize="10" fill="white">
+                              {i}
+                            </text>
+                          )
+                          axisLabels.push(
+                            <text key={`ylabel-${i}`} x={-165} y={-posY} textAnchor="end" fontSize="10" fill="white" dominantBaseline="middle">
+                              {i}
+                            </text>
+                          )
+                        }
+                      }
+                      
+                      return (
+                        <svg width="100%" height={400} viewBox={`-180 -180 360 360`} className="border border-slate-700 rounded bg-slate-950">
+                          <defs>
+                            <marker id="arrowhead" viewBox="0 -5 10 10" refX="8" refY="0"
+                                    markerWidth="6" markerHeight="6" orient="auto">
+                              <path d="M0,-5L10,0L0,5" fill="cyan" />
+                            </marker>
+                          </defs>
+                          
+                          {/* Grid lines */}
+                          {gridLines}
+                          
+                          {/* X-axis */}
+                          <line x1={scaleX(-max-1)} y1={scaleY(0)} x2={scaleX(max+1)} y2={scaleY(0)} 
+                                stroke="white" strokeWidth={1} />
+                          {/* Y-axis */}
+                          <line x1={scaleX(0)} y1={scaleY(-max-1)} x2={scaleX(0)} y2={scaleY(max+1)} 
+                                stroke="white" strokeWidth={1} />
+                          
+                          {/* Axis labels */}
+                          {axisLabels}
+                          
+                          {/* Vectors */}
+                          {vectorLines}
+                        </svg>
+                      )
+                    })()}
                   </div>
                 )}
 
@@ -339,7 +421,6 @@ export default function LLLPage() {
                       </button>
                     </div>
                     <p className="text-slate-300 text-sm mb-2">{getCurrentStepDescription()}</p>
-                    {/* <p className="text-slate-400 text-xs">Possible step types: Gram Schmidt, basis size reduction, Lovasz Condition Checking, basis swap, next iteration, Finished.</p> */}
                   </div>
                 )}
 
