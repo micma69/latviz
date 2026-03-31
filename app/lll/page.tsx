@@ -339,7 +339,7 @@ export default function LLLPage() {
                       </button>
                     </div>
                     <p className="text-slate-300 text-sm mb-2">{getCurrentStepDescription()}</p>
-                    <p className="text-slate-400 text-xs">Possible step types: Gram Schmidt, basis size reduction, Lovasz Condition Checking, basis swap, next iteration, Finished.</p>
+                    {/* <p className="text-slate-400 text-xs">Possible step types: Gram Schmidt, basis size reduction, Lovasz Condition Checking, basis swap, next iteration, Finished.</p> */}
                   </div>
                 )}
 
