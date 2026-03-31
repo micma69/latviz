@@ -103,7 +103,7 @@ export default function DecapsulationVisualizationProcess({
                 <div onClick={() => onSelectVariable("decapsM")}><InlineMath math="w" /></div>
                 <div onClick={() => onSelectVariable("decapsM")}><ArrowRightIcon className="size-6" /></div>
                 <div onClick={() => onSelectVariable("decapsM")}><InlineMath math="m" /></div>
-        </div>
+            </div>
         <div className="flex justify-content:flex-end">
             <Button variant="secondary"
                                 size="lg"
