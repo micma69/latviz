@@ -21,12 +21,12 @@ export interface EncapsSpyData {
     rho: Uint8Array;
     tHat: Uint16Array[];
     A: Uint16Array[][];
-    y: Uint16Array[];     // rHat
-    e1: Uint16Array[];    // before polyAdd
-    u: Uint16Array[];     // c1
-    e2: Uint16Array;      // before polyAdd
-    mu: Uint16Array;      // msg as poly, before polyAdd
-    v: Uint16Array;       // c2
+    y: Uint16Array[];
+    e1: Uint16Array[];
+    u: Uint16Array[];
+    e2: Uint16Array;
+    mu: Uint16Array;
+    v: Uint16Array;
     c1: Uint8Array;
     c2: Uint8Array;
     cipherText: number[];
