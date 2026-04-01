@@ -324,18 +324,18 @@ export default function MLKEMPage() {
                     </div>
                     </section>
                     )}
-                        <div className="rounded-xl">
+                        {/*<div className="rounded-xl">
                             <p className="font-semibold text-yellow-800 mb-1"> Extra Notes:</p>
                             <p className="text-sm text-yellow-700">
                                 During an actual key exchange, only the public key and ciphertext would be transmitted across the network. The shared secret and private key remain confidential to each party.</p>
-                        </div>
+                        </div>*/}
                         <div className="flex justify-center">
                             <Button
                                 variant="secondary"
                                 size="lg"
-                                onClick={() => executeMLKEM("Complete Flow")}
+                                // /onClick={() => executeMLKEM("Complete Flow")}
                             >
-                                TEST
+                                WORK IN PROGRESS
                             </Button>
                         </div>
                 </div>
