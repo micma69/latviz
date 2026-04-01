@@ -13,8 +13,8 @@ export default function KeygenVisualization({
   colorDataPriv
 }: { onSelectVariable: (variable: string) => void;
     onChangeStage: (stage: string) => void;
-    colorDataPub: unknown[];
-    colorDataPriv: unknown[];
+    colorDataPub: number[];
+    colorDataPriv: number[];
  }) {
     useEffect(() => {
             onSelectVariable("keygenBase0");

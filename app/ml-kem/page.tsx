@@ -18,9 +18,9 @@ export default function MLKEMPage() {
     const [vizStage, setVizStage] = useState<string | null>(null);
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
     const [securityLevel, setSecurityLevel] = useState("ml_kem768");
-    const [aliceKeys, setAliceKeys] = useState<any>(null);
-    const [cipherText, setCipherText] = useState<any>(null);
-    const [sharedSecret, setsharedSecret] = useState<any>(null);
+    const [aliceKeys, setAliceKeys] = useState<{ publicKey: Uint8Array; secretKey: Uint8Array } | null>(null);
+    const [cipherText, setCipherText] = useState<Uint8Array | null>(null);
+    const [sharedSecret, setsharedSecret] = useState<Uint8Array | null>(null);
     const [decapsulatedSecret, setDecapsulatedSecret] = useState<Uint8Array | null>(null);
     const [output, setOutput] = useState<string[]>([]);
 
@@ -350,9 +350,9 @@ export default function MLKEMPage() {
                                             -
                                         </div>
                                     )}
-                                    {vizStage === "keygen0" && <KeygenVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} colorDataPub={(Array.from(aliceKeys.publicKey)).slice(0, 64)} colorDataPriv={(Array.from(aliceKeys.secretKey)).slice(0, 64)} />}
+                                    {vizStage === "keygen0" && <KeygenVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} colorDataPub={(Array.from(aliceKeys!.publicKey)).slice(0, 64) as number[]} colorDataPriv={(Array.from(aliceKeys!.secretKey)).slice(0, 64) as number[]} />}
                                     {vizStage === "keygen1" && <KeygenVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
-                                    {vizStage === "encapsulation0" && <EncapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} colorDataC={(Array.from(cipherText).slice(0, 4))} colorDataK={(Array.from(sharedSecret).slice(0, 4))} />}
+                                    {vizStage === "encapsulation0" && <EncapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} colorDataC={(Array.from(cipherText!).slice(0, 4))} colorDataK={(Array.from(sharedSecret!).slice(0, 4))} />}
                                     {vizStage === "encapsulation1" && <EncapsulationVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
                                     {vizStage === "decapsulation0" && <DecapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
                                     {vizStage === "decapsulation1" && <DecapsulationVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
