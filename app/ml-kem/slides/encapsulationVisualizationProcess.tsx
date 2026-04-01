@@ -1,125 +1,253 @@
-"use client"
+"use client";
 
-import SquareGrid from "@/components/ui/gridLattice"
-import { ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import SquareGrid from "@/components/ui/gridLattice";
+import { ChevronLeftIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid";
 import { Button } from "@/components/ui/button";
-import { InlineMath } from 'react-katex';
+import { InlineMath } from "react-katex";
 
 export default function EncapsulationVisualizationProcess({
   onSelectVariable,
   onChangeStage
-}: { onSelectVariable: (variable: string) => void;
-    onChangeStage: (stage: string) => void;
- }) {
+}: {
+  onSelectVariable: (variable: string) => void;
+  onChangeStage: (stage: string) => void;
+}) {
+  const [stage, setStage] = useState(0);
+
+  useEffect(() => {
+    const timers = [
+      setTimeout(() => setStage(1), 800),
+      setTimeout(() => setStage(2), 1800),
+      setTimeout(() => setStage(3), 2800),
+      setTimeout(() => setStage(4), 3800),
+      setTimeout(() => setStage(5), 4800)
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
   return (
     <div className="flex flex-col gap-6 w-full">
-        <div className="flex flex-row gap-6 items-center justify-center">
-            <div>(</div>
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="\hat{A}" />
-                <div
-                    onClick={() => onSelectVariable("encapsMatrixAT")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={8} size={15} />
-                </div>
-            </div>
-            <div>X</div>
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="y" />
-                <div
-                    onClick={() => onSelectVariable("encapsMatrixY")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={1} size={15} />
-                </div>
-            </div>
-            <div>)</div>
-            <div>+</div>
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="e_1" />
-                <div
-                    onClick={() => onSelectVariable("encapsMatrixE1")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={1} size={15}/>
-                </div>
-            </div>
-            <div>=</div>
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="u" />
-                <div
-                    onClick={() => onSelectVariable("encapsMatrixU")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={1} size={15}/>
-                </div>
-            </div>
-        </div>
-        <div className="flex flex-row gap-6 items-center justify-center">
-            <div className="w-fit">(</div>
-            <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-row gap-6 justify-center">
+
+        {/* ek */}
+        <div className="flex flex-row gap-3 items-center">
+          <div className="flex flex-col items-center">
+            <div>Encapsulation Key ek</div>
+            <motion.div layoutId="ek">
+              <SquareGrid rows={1} cols={4} size={12} color="#8e3be8" />
+            </motion.div>
+          </div>
+
+          {stage >= 1 && (
+            <>
+              <ArrowLongRightIcon className="size-6" />
+
+              {/* rho */}
+              <div className="flex flex-col items-center">
+                <InlineMath math="\rho" />
+                <motion.div layoutId="rho">
+                  <SquareGrid rows={1} cols={4} size={12} color="#3b6fe8" />
+                </motion.div>
+              </div>
+
+              {/* t */}
+              <div className="flex flex-col items-center">
                 <InlineMath math="t" />
-                <div
-                    onClick={() => onSelectVariable("encapsMatrixT")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={1} size={15} />
-                </div>
-            </div>
-            <div>X</div>
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="y" />
-                <div
-                    onClick={() => onSelectVariable("encapsMatrixY")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={1} size={15} />
-                </div>
-            </div>
-            <div>)</div>
-            <div>+</div>
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="e_2" />
-                <div
-                    onClick={() => onSelectVariable("encapsMatrixE2")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={1} size={15}/>
-                </div>
-            </div>
-            <div>+</div>
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="\mu" />
-                <div
-                    onClick={() => onSelectVariable("encapsMatrixMu")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={1} size={15}/>
-                </div>
-            </div>
-            <div>=</div>
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="v" />
-                <div
-                    onClick={() => onSelectVariable("encapsMatrixV")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={1} size={15}/>
-                </div>
-            </div>
+                <motion.div layoutId="ek">
+                  <SquareGrid rows={1} cols={4} size={12} color="#8e3be8" />
+                </motion.div>
+              </div>
+            </>
+          )}
         </div>
-        <div onClick={() => onSelectVariable("returnCiphertext")}
-        className="flex justify-center">
-            <InlineMath math="c_1 \parallel c_2 = c" />
+
+        {/* m */}
+        <div className="flex flex-col items-center">
+          <div>Message <InlineMath math="m" /></div>
+          <motion.div layoutId="m">
+            <SquareGrid rows={1} cols={4} size={12} color="#e8a13b" />
+          </motion.div>
         </div>
-        <div>
-            <Button variant="secondary"
-                                size="lg"
-                                onClick={() => onChangeStage("encapsulation0")}>
-                <ChevronLeftIcon className="size-6" /> BACK
-            </Button>
+
+        {/* r */}
+        <div className="flex flex-col items-center">
+          <div>Randomness <InlineMath math="r" /></div>
+          <motion.div layoutId="r">
+            <SquareGrid rows={1} cols={4} size={12} color="#3be86f" />
+          </motion.div>
         </div>
+      </div>
+
+      {stage >= 2 && (
+        <div className="flex flex-row gap-6 items-center justify-center">
+
+          {/* A */}
+          <div className="flex flex-col items-center gap-3">
+            <InlineMath math="\hat{A}" />
+            <motion.div
+              layoutId="rho"
+              onClick={() => onSelectVariable("encapsMatrixAT")}
+              className="cursor-pointer"
+            >
+              <SquareGrid rows={8} cols={8} size={15} color="#3b6fe8" />
+            </motion.div>
+          </div>
+
+          <InlineMath math="\cdot" />
+
+          {/* y */}
+          <div className="flex flex-col items-center gap-3">
+            <InlineMath math="y" />
+            <motion.div
+              layoutId="r"
+              onClick={() => onSelectVariable("encapsMatrixY")}
+              className="cursor-pointer"
+            >
+              <SquareGrid rows={8} cols={1} size={15} color="#3be86f" />
+            </motion.div>
+          </div>
+
+          <div>+</div>
+
+          {/* e1 */}
+          <motion.div
+            onClick={() => onSelectVariable("encapsMatrixE1")}
+            className="cursor-pointer flex flex-col items-center gap-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <InlineMath math="e_1" />
+            <SquareGrid rows={8} cols={1} size={15} color="#31d863" />
+          </motion.div>
+
+          <div>=</div>
+
+          {/* u */}
+          {stage >= 3 && (
+            <div className="flex flex-col items-center gap-3">
+              <InlineMath math="u" />
+              <motion.div
+                layoutId="u"
+                onClick={() => onSelectVariable("encapsMatrixU")}
+                className="cursor-pointer"
+              >
+                <SquareGrid rows={8} cols={1} size={15} color="#e53be8" />
+              </motion.div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {stage >= 3 && (
+        <div className="flex flex-row gap-6 items-center justify-center">
+
+          {/* t */}
+          <div className="flex flex-col items-center gap-3">
+            <InlineMath math="t" />
+            <motion.div
+              layoutId="ek"
+              onClick={() => onSelectVariable("encapsMatrixT")}
+              className="cursor-pointer"
+            >
+              <SquareGrid rows={8} cols={1} size={15} color="#8e3be8" />
+            </motion.div>
+          </div>
+
+          <InlineMath math="\cdot" />
+
+          {/* y */}
+          <div className="flex flex-col items-center gap-3">
+            <InlineMath math="y" />
+            <motion.div
+              layoutId="r"
+              onClick={() => onSelectVariable("encapsMatrixY")}
+              className="cursor-pointer"
+            >
+              <SquareGrid rows={8} cols={1} size={15} color="#3be86f" />
+            </motion.div>
+          </div>
+
+          <div>+</div>
+
+          {/* e2 */}
+          <motion.div
+            onClick={() => onSelectVariable("encapsMatrixE2")}
+            className="cursor-pointer flex flex-col items-center gap-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <InlineMath math="e_2" />
+            <SquareGrid rows={8} cols={1} size={15} color="#31d863" />
+          </motion.div>
+
+          <div>+</div>
+
+          {/* mu */}
+          <div className="flex flex-col items-center gap-3">
+            <InlineMath math="\mu" />
+            <motion.div
+              layoutId="m"
+              onClick={() => onSelectVariable("encapsMatrixMu")}
+              className="cursor-pointer"
+            >
+              <SquareGrid rows={8} cols={1} size={15} color="#e8a13b" />
+            </motion.div>
+          </div>
+
+          <div>=</div>
+
+          {/* v */}
+          <div className="flex flex-col items-center gap-3">
+            <InlineMath math="v" />
+            <motion.div
+              layoutId="v"
+              onClick={() => onSelectVariable("encapsMatrixV")}
+              className="cursor-pointer"
+            >
+              <SquareGrid rows={8} cols={1} size={15} color="#e8e03b" />
+            </motion.div>
+          </div>
+        </div>
+      )}
+
+      {stage >= 5 && (
+        <div className="flex flex-col gap-4 items-center">
+          <div className="flex flex-row gap-2">
+
+            {/* u → c1 */}
+            <motion.div
+              layoutId="u"
+              onClick={() => onSelectVariable("returnCiphertext")}
+              className="cursor-pointer"
+            >
+              <SquareGrid rows={4} cols={1} size={15} color="#e53be8" />
+            </motion.div>
+
+            {/* v → c2 */}
+            <motion.div
+              layoutId="v"
+              onClick={() => onSelectVariable("returnCiphertext")}
+              className="cursor-pointer"
+            >
+              <SquareGrid rows={4} cols={1} size={15} color="#e8e03b" />
+            </motion.div>
+
+          </div>
+          <InlineMath math="c" />
+        </div>
+      )}
+
+      <div>
+        <Button
+          variant="secondary"
+          size="lg"
+          onClick={() => onChangeStage("encapsulation0")}
+        >
+          <ChevronLeftIcon className="size-6" /> BACK
+        </Button>
+      </div>
     </div>
   );
 }

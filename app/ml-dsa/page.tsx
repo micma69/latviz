@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function MLDSAPage() {
-
     const [securityLevel, setSecurityLevel] = useState("ml_dsa65");
     const [output, setOutput] = useState<string[]>([]);
     const [keys, setKeys] = useState<any>(null);
@@ -18,6 +17,10 @@ export default function MLDSAPage() {
     const [expandedPublicKey, setExpandedPublicKey] = useState(false);
     const [expandedSecretKey, setExpandedSecretKey] = useState(false);
     const [expandedSignature, setExpandedSignature] = useState(false);
+
+    const [flow, setFlow] = useState<Record<string, unknown> | null>(null);
+    const [animationStep, setAnimationStep] = useState(0);
+    const [animationComplete, setAnimationComplete] = useState(false);
 
     const addOutput = (msg: string) => {
         setOutput(prev => [...prev, msg]);
@@ -92,6 +95,64 @@ export default function MLDSAPage() {
                 setVerifyResult(valid);
                 addOutput(`Signature valid: ${valid ? "YES" : "NO"}`);
                 break;
+            }
+
+            case "Complete Flow": {
+                const signerKeys = algorithm.keygen();
+
+                const signature = algorithm.sign(signerKeys.secretKey, message);
+
+                const isValid = algorithm.verify(signerKeys.publicKey, message, signature);
+
+                setFlow({
+                    message: message,
+                    publicKey: Array.from(signerKeys.publicKey).slice(0, 10).concat([0]).slice(0, 10),
+                    secretKey: Array.from(signerKeys.secretKey).slice(0, 10).concat([0]).slice(0, 10),
+                    signature: Array.from(signature).slice(0, 10).concat([0]).slice(0, 10),
+                    isValid: isValid,
+                    keyGeneration: {
+                        publicKey: Array.from(signerKeys.publicKey),
+                        secretKey: Array.from(signerKeys.secretKey),
+                        publicKeySize: signerKeys.publicKey.length,
+                        secretKeySize: signerKeys.secretKey.length
+                    },
+                    signing: {
+                        message: message,
+                        signature: Array.from(signature),
+                        signatureSize: signature.length
+                    },
+                    verification: {
+                        message: message,
+                        publicKey: Array.from(signerKeys.publicKey),
+                        signature: Array.from(signature),
+                        isValid: isValid
+                    },
+                });
+                
+                return {
+                    publicKey: Array.from(signerKeys.publicKey),
+                    secretKey: Array.from(signerKeys.secretKey),
+                    signature: Array.from(signature),
+                    message: message,
+                    isValid: isValid,
+                    keyGeneration: {
+                        publicKey: Array.from(signerKeys.publicKey),
+                        secretKey: Array.from(signerKeys.secretKey),
+                        publicKeySize: signerKeys.publicKey.length,
+                        secretKeySize: signerKeys.secretKey.length,
+                    },
+                    signing: {
+                        message: message,
+                        signature: Array.from(signature),
+                        signatureSize: signature.length,
+                    },
+                    verification: {
+                        message: message,
+                        publicKey: Array.from(signerKeys.publicKey),
+                        signature: Array.from(signature),
+                        isValid: isValid,
+                    },
+                };
             }
 
             default:

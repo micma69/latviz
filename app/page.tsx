@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import BackgroundBoxesDemo from "@/components/ui/boxes"
 import { Button } from "@/components/ui/button"
 
 export default function Home() {
