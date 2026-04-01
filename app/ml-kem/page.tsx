@@ -352,7 +352,7 @@ export default function MLKEMPage() {
                                     )}
                                     {vizStage === "keygen0" && <KeygenVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} colorDataPub={(Array.from(aliceKeys.publicKey)).slice(0, 64)} colorDataPriv={(Array.from(aliceKeys.secretKey)).slice(0, 64)} />}
                                     {vizStage === "keygen1" && <KeygenVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
-                                    {vizStage === "encapsulation0" && <EncapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
+                                    {vizStage === "encapsulation0" && <EncapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} colorDataC={(Array.from(cipherText).slice(0, 4))} colorDataK={(Array.from(sharedSecret).slice(0, 4))} />}
                                     {vizStage === "encapsulation1" && <EncapsulationVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
                                     {vizStage === "decapsulation0" && <DecapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
                                     {vizStage === "decapsulation1" && <DecapsulationVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}

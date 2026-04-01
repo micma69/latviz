@@ -129,7 +129,7 @@ export default function KeygenVisualizationProcess({
             <motion.div
               layoutId="rho"
               onClick={() => onSelectVariable("keygenMatrixA")}
-              className="border-2 border-solid cursor-pointer w-fit h-fit"
+              className="cursor-pointer w-fit h-fit"
             >
               <SquareGrid rows={8} cols={8} size={15} />
             </motion.div>
@@ -147,7 +147,7 @@ export default function KeygenVisualizationProcess({
               layoutId="sigma"
               transition={{ duration: 0.6 }}
               onClick={() => onSelectVariable("keygenMatrixS")}
-              className="border-2 border-solid cursor-pointer w-fit h-fit"
+              className="cursor-pointer w-fit h-fit"
             >
               <SquareGrid rows={8} cols={1} size={15} />
             </motion.div>
@@ -165,7 +165,7 @@ export default function KeygenVisualizationProcess({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               onClick={() => onSelectVariable("keygenMatrixE")}
-              className="border-2 border-solid cursor-pointer w-fit h-fit"
+              className="cursor-pointer w-fit h-fit"
             >
               <SquareGrid rows={8} cols={1} size={15} />
             </motion.div>
@@ -181,7 +181,7 @@ export default function KeygenVisualizationProcess({
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 onClick={() => onSelectVariable("keygenMatrixT")}
-                className="border-2 border-solid cursor-pointer w-fit h-fit"
+                className="cursor-pointer w-fit h-fit"
               >
                 <SquareGrid rows={8} cols={1} size={15} />
               </motion.div>
