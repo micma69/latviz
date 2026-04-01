@@ -58,7 +58,7 @@ export default function KeygenVisualizationProcess({
 
         {stage >= 0 && (
           <motion.div layoutId="seed">
-            <SquareGrid rows={1} cols={4} size={12} />
+            <SquareGrid rows={1} cols={4} size={12} color="#9ca3af" />
           </motion.div>
         )}
 
@@ -77,7 +77,7 @@ export default function KeygenVisualizationProcess({
               <div className="flex flex-col gap-1 items-center">
                 <InlineMath math="\rho" />
                 <motion.div layoutId="rho">
-                  <SquareGrid rows={1} cols={4} size={12} />
+                  <SquareGrid rows={1} cols={4} size={12} color="#3b6fe8" />
                 </motion.div>
               </div>
 
@@ -85,7 +85,7 @@ export default function KeygenVisualizationProcess({
               <div className="flex flex-col gap-1 items-center">
                 <div>𝜎</div>
                 <motion.div layoutId="sigma">
-                  <SquareGrid rows={1} cols={4} size={12} />
+                  <SquareGrid rows={1} cols={4} size={12} color="#8b5cf6" />
                 </motion.div>
                 {stage >= 2 && (
                   <>
@@ -96,7 +96,7 @@ export default function KeygenVisualizationProcess({
                       transition={{ duration: 0.6 }}
                       className="absolute"
                     >
-                      <SquareGrid rows={1} cols={4} size={12} />
+                      <SquareGrid rows={1} cols={4} size={12} color="#8b5cf6" />
                     </motion.div>
 
                     {/* right */}
@@ -106,7 +106,7 @@ export default function KeygenVisualizationProcess({
                       transition={{ duration: 0.6 }}
                       className="absolute"
                     >
-                      <SquareGrid rows={1} cols={4} size={12} />
+                      <SquareGrid rows={1} cols={4} size={12} color="#8b5cf6" />
                     </motion.div>
                   </>
                 )}
@@ -131,7 +131,7 @@ export default function KeygenVisualizationProcess({
               onClick={() => onSelectVariable("keygenMatrixA")}
               className="cursor-pointer w-fit h-fit"
             >
-              <SquareGrid rows={8} cols={8} size={15} />
+              <SquareGrid rows={8} cols={8} size={15} color="#3b6fe8" />
             </motion.div>
           </div>
 
@@ -149,7 +149,7 @@ export default function KeygenVisualizationProcess({
               onClick={() => onSelectVariable("keygenMatrixS")}
               className="cursor-pointer w-fit h-fit"
             >
-              <SquareGrid rows={8} cols={1} size={15} />
+              <SquareGrid rows={8} cols={1} size={15} color="#8b5cf6" />
             </motion.div>
           </div>
 
@@ -167,7 +167,7 @@ export default function KeygenVisualizationProcess({
               onClick={() => onSelectVariable("keygenMatrixE")}
               className="cursor-pointer w-fit h-fit"
             >
-              <SquareGrid rows={8} cols={1} size={15} />
+              <SquareGrid rows={8} cols={1} size={15} color="#8b5cf6" />
             </motion.div>
           </div>
 
@@ -183,7 +183,7 @@ export default function KeygenVisualizationProcess({
                 onClick={() => onSelectVariable("keygenMatrixT")}
                 className="cursor-pointer w-fit h-fit"
               >
-                <SquareGrid rows={8} cols={1} size={15} />
+                <SquareGrid rows={8} cols={1} size={15} color="#22c55e" />
               </motion.div>
             </div>
           )}
@@ -199,11 +199,11 @@ export default function KeygenVisualizationProcess({
           <div className="flex flex-col items-center font-mono text-sm gap-4">
             <div className="flex flex-row gap-2 items-center">
               {/* t */}
-              <SquareGrid rows={8} cols={1} size={16} />
+              <SquareGrid rows={8} cols={1} size={16} color="#22c55e" />
 
               {/* rho */}
               <motion.div layoutId="rho">
-                <SquareGrid rows={4} cols={1} size={16} />
+                <SquareGrid rows={4} cols={1} size={16} color="#3b6fe8" />
               </motion.div>
             </div>
             <InlineMath math="ek_{PKE}" />
@@ -211,7 +211,7 @@ export default function KeygenVisualizationProcess({
 
           {/* dk */}
           <div className="flex flex-col items-center font-mono text-sm gap-4">
-            <SquareGrid rows={8} cols={1} size={16} />
+            <SquareGrid rows={8} cols={1} size={16} color="#8b5cf6"/>
             <InlineMath math="dk_{PKE}" />
           </div>
         </motion.div>
