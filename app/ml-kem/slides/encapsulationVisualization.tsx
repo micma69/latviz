@@ -5,42 +5,45 @@ import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
 import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
 import SquareGrid from "@/components/ui/gridLattice";
+import { EncapsSpyData } from '@/utils/createSpy';
 
 export default function EncapsulationVisualization({
   onSelectVariable,
   onChangeStage,
-  colorDataC,
-  colorDataK
+  spyData 
+
 }: { onSelectVariable: (variable: string) => void;
     onChangeStage: (stage: string) => void;
-    colorDataC: number[];
-    colorDataK: number[];
+    spyData: EncapsSpyData | null;
  }) {
   useEffect(() => {
               onSelectVariable("encapsulationBase0");
           }, [onSelectVariable]);
+
+  const { ek, m, K, r, cipherText, sharedSecret } = spyData ?? {};
+
   return (
     <div className="flex flex-row items-center justify-center h-full w-full gap-4">
       <div className="flex flex-row items-center gap-4">
         <div className="flex flex-col font-mono text-sm gap-3 items-center">
           <div className="flex flex-col font-mono text-sm">
             <div>Encapsulation Key ek</div>
-            <SquareGrid rows={1} cols={4} size={12} />
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.ek ? Array.from(spyData.ek) : []} showValues={true} />
           </div>
           <div className="flex flex-col font-mono text-sm">
             <div>Message <InlineMath math="m \in \mathbb{B}^{32}" /></div>
-            <SquareGrid rows={1} cols={4} size={12} />
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} />
           </div>
         </div>
         <ArrowLongRightIcon className="size-6" />
         <div className="flex flex-col font-mono text-sm gap-3">
           <div className="flex flex-col font-mono text-sm">
             <div>Shared Secret Key <InlineMath math="K \in \mathbb{B}^{32}" /></div>
-            <SquareGrid rows={1} cols={4} size={12} />
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} />
           </div>
           <div className="flex flex-col font-mono text-sm">
             <div>Randomness <InlineMath math="r \in \mathbb{B}^{32}" /></div>
-            <SquareGrid rows={1} cols={4} size={12} />
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} />
           </div>
         </div>
       </div>
@@ -58,11 +61,11 @@ export default function EncapsulationVisualization({
       <div className="flex flex-col gap-4">
         <div className="flex flex-col items-center">
           <div className="font-mono text-sm"><InlineMath math="c" /></div>
-          <SquareGrid rows={1} cols={4} size={12} colorData={colorDataC} showValues={true} />
+          <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.cipherText} showValues={true} />
         </div>
         <div className="flex flex-col items-center">
           <InlineMath math="K" />
-          <SquareGrid rows={1} cols={4} size={12} colorData={colorDataK} showValues={true} />
+          <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.sharedSecret} showValues={true} />
         </div>
       </div>
     </div>
