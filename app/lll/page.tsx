@@ -1,4 +1,4 @@
-'use client'
+'use client' 
 
 import { runLLL, parseBasisFromString } from "@/backend/lll-attack-runner-main/lll-attack-runner-main/src/lib/lll"
 import Link from "next/link";
@@ -14,6 +14,8 @@ export default function LLLPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showCalc, setShowCalc] = useState(false)
+  const delta = 0.75
 
   const handleProcess = () => {
     setError('')
@@ -33,7 +35,7 @@ export default function LLLPage() {
     
     try {
       setLoading(true)
-      const lllResult = runLLL(parsed, 0.75, true)
+      const lllResult = runLLL(parsed, delta, true)
       setResult(lllResult)
       if (lllResult.steps) {
         setSteps(lllResult.steps)
@@ -62,19 +64,174 @@ export default function LLLPage() {
   const nextStep = () => setCurrentStep(i => Math.min(i + 1, steps.length - 1))
   const prevStep = () => setCurrentStep(i => Math.max(i - 1, 0))
 
+  const computeGSO = (basis: number[][]) => {
+    if (!basis || !Array.isArray(basis) || basis.length === 0) {
+      return { orthogonal: [], mu: [] }
+    }
+
+    const n = basis.length
+    for (let i = 0; i < n; i++) {
+      if (!basis[i] || !Array.isArray(basis[i])) {
+        return { orthogonal: [], mu: [] }
+      }
+    }
+
+    const orthogonal: number[][] = []
+    const mu: number[][] = Array(n).fill(0).map(() => Array(n).fill(0))
+
+    for (let i = 0; i < n; i++) {
+      let vec = [...basis[i]]
+
+      for (let j = 0; j < i; j++) {
+        if (!orthogonal[j] || orthogonal[j].length === 0) continue
+        const denom = orthogonal[j].reduce((sum, val, idx) => sum + val * orthogonal[j][idx], 0)
+        if (Math.abs(denom) > 1e-10) {
+          const numer = basis[i].reduce((sum, val, idx) => sum + val * (orthogonal[j][idx] ?? 0), 0)
+          mu[i][j] = numer / denom
+          vec = vec.map((val, idx) => val - (orthogonal[j][idx] ?? 0) * mu[i][j])
+        }
+      }
+
+      orthogonal.push(vec)
+    }
+
+    return { orthogonal, mu }
+  }
+
+  const computeLovaszStatus = (basis: number[][]) => {
+    const { orthogonal, mu } = computeGSO(basis)
+    if (!orthogonal || !mu) return true
+
+    const currentStepData = steps[currentStep]
+    if (!currentStepData || currentStepData.k <= 0 || orthogonal.length === 0) {
+      return true
+    }
+
+    const k = currentStepData.k
+    if (k >= orthogonal.length || k - 1 < 0 || !orthogonal[k] || !orthogonal[k - 1]) {
+      return true
+    }
+
+    const left = orthogonal[k].reduce((sum, val) => sum + val * val, 0)
+    const right = (delta - (mu[k][k - 1] ?? 0) ** 2) * orthogonal[k - 1].reduce((sum, val) => sum + val * val, 0)
+    return left >= right
+  }
+
+  const getCurrentBasis = () => {
+    if (steps.length > 0 && currentStep < steps.length) {
+      return steps[currentStep].basis
+    }
+    return initialBasis
+  }
+
+  const getCurrentStepDescription = () => {
+    if (steps.length > 0 && currentStep < steps.length) {
+      const step = steps[currentStep]
+      switch (step.action) {
+        case 'reduce':
+          return 'Basis size reduction'
+        case 'swap':
+          return 'Basis swap'
+        case 'gso':
+          return 'Gram-Schmidt orthogonalization'
+        case 'complete':
+          return currentStep === 0 ? 'Initial basis' : 'Finished'
+        default:
+          return step.description
+      }
+    }
+    return 'Not started'
+  }
+
+  const getStepDetails = () => {
+    const step = steps[currentStep]
+    if (!step) {
+      return 'No step data available.'
+    }
+
+    // If the step has detailed calculations, use them
+    if (step.calculations && step.calculations.length > 0) {
+      return step.calculations.join('\n')
+    }
+
+    // Fallback to old format for backward compatibility
+    const basis = step.basis || []
+    const prevBasis = currentStep > 0 ? (steps[currentStep - 1]?.basis || []) : []
+    const gso = computeGSO(basis)
+    const k = step.k
+
+    let actionDetail = ''
+
+    if (step.action === 'reduce' && prevBasis.length > 0) {
+      const changedIndex = k
+      const oldVec = prevBasis[changedIndex] || []
+      const newVec = basis[changedIndex] || []
+      actionDetail = `Reduction: k=${k}, previous vector=${JSON.stringify(oldVec)}, current vector=${JSON.stringify(newVec)}.`
+    } else if (step.action === 'swap' && prevBasis.length > 0) {
+      actionDetail = `Swap: k=${k}, swapped basis rows ${k - 1} and ${k}.` 
+    } else if (step.action === 'gso') {
+      actionDetail = `Gram-Schmidt orthogonalization computed for current basis.`
+    } else if (step.action === 'complete') {
+      actionDetail = currentStep === 0 ? 'Initial basis step.' : 'Reduction complete.'
+    } else {
+      actionDetail = step.description || 'Step info unavailable.'
+    }
+
+    const gsoLines = [
+      `Gram-Schmidt orthogonalization (current basis):`,
+      ...gso.orthogonal.map((v, i) => `u_${i} = [${v.map(f => f.toFixed(6)).join(', ')}]`),
+      `mu matrix values:`,
+      ...gso.mu.map((row, i) => `mu_${i} = [${row.map(f => f.toFixed(6)).join(', ')}]`),
+      `Lovasz condition at k=${k}: ${computeLovaszStatus(basis) ? 'Satisfied' : 'Not satisfied'}`,
+    ]
+
+    return `${actionDetail}\n\n${gsoLines.join('\n')}`
+  }
+
   const drawVectors = (basis: number[][]) => {
-    const max = d3.max(basis.flat().map(Math.abs)) ?? 1
-    const scale = d3.scaleLinear().domain([-max, max]).range([-100, 100])
-    return basis.map((v, idx) => (
-      <g key={idx}>
-        <line
-          x1={scale(0)} y1={scale(0)}
-          x2={scale(v[0])} y2={scale(v[1])}
-          stroke="cyan" strokeWidth={2}
-          markerEnd="url(#arrowhead)"
-        />
-      </g>
-    ))
+    const maxValue = d3.max(basis.flat().map(Math.abs)) ?? 1
+    const max = typeof maxValue === 'number' ? maxValue : 1
+    const scaleX = d3.scaleLinear().domain([-max, max]).range([-150, 150])
+    const scaleY = d3.scaleLinear().domain([-max, max]).range([150, -150]) // Inverted for Cartesian
+    const gridSize = 10
+    const gridLines = []
+    
+    // Draw grid
+    for (let i = -max; i <= max; i += 1) {
+      const scaledXPos = scaleX(i)
+      const scaledYPos = scaleY(i)
+      gridLines.push(
+        <line key={`vgrid-${i}`} x1={scaledXPos} y1={scaleY(-max)} x2={scaledXPos} y2={scaleY(max)} 
+              stroke="slategray" strokeWidth={0.3} strokeDasharray="2,2" opacity={0.5} />
+      )
+      gridLines.push(
+        <line key={`hgrid-${i}`} x1={scaleX(-max)} y1={scaledYPos} x2={scaleX(max)} y2={scaledYPos} 
+              stroke="slategray" strokeWidth={0.3} strokeDasharray="2,2" opacity={0.5} />
+      )
+    }
+    
+    return { gridLines, vectorLines: basis.map((v, idx) => {
+      const x0 = v[0] || 0
+      const y0 = v[1] || 0
+      const scaledX = scaleX(x0)
+      const scaledY = scaleY(y0)
+      return (
+        <g key={idx}>
+          <line
+            x1={scaleX(0)} y1={scaleY(0)}
+            x2={scaledX} y2={scaledY}
+            stroke="cyan" strokeWidth={2}
+            markerEnd="url(#arrowhead)"
+          />
+          <text
+            x={scaledX} y={scaledY - 10}
+            textAnchor="middle" fontSize="12" fill="white" fontWeight="bold"
+          >
+            ({x0.toFixed(2)}, {y0.toFixed(2)})
+          </text>
+        </g>
+      )
+    }), scaleX, scaleY }
   }
 
   return (
@@ -119,24 +276,35 @@ export default function LLLPage() {
                 Clear
               </Button>
             </div>
-          </div>
 
-          {/* Results Section */}
-          <div className="space-y-6">
+            {/* Initial Matrix Section */}
             {initialBasis && (
-              <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
+              <div className="mt-6">
                 <h3 className="text-lg font-semibold text-white mb-3">Initial Matrix</h3>
-                <pre className="bg-slate-900 p-4 rounded text-slate-300 text-xs overflow-auto max-h-48 font-mono">
+                <pre className="bg-slate-900 p-4 rounded text-slate-300 text-xs overflow-auto max-h-32 font-mono">
                   {formatMatrix(initialBasis)}
                 </pre>
               </div>
             )}
 
+            {/* Initial Basis Section */}
+            {initialBasis && (
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-white mb-3">Initial Basis (δ = {delta})</h3>
+                <pre className="bg-slate-900 p-4 rounded text-slate-300 text-xs overflow-auto max-h-32 font-mono">
+                  {formatMatrix(initialBasis)}
+                </pre>
+              </div>
+            )}
+          </div>
+
+          {/* Results Section */}
+          <div className="space-y-6">
             {result && (
               <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-semibold text-white">Algorithm Results</h3>
+                    <h3 className="text-lg font-semibold text-white">Process and Result</h3>
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       result.success ? 'bg-green-900/30 text-green-400' : 'bg-yellow-900/30 text-yellow-400'
                     }`}>
@@ -148,46 +316,143 @@ export default function LLLPage() {
                   </p>
                 </div>
 
-                <h4 className="text-white font-semibold mb-2">Reduced Basis</h4>
+                {steps.length > 0 && (
+                  <div className="flex items-center justify-between mb-6">
+                    <Button onClick={prevStep} disabled={currentStep === 0} className="bg-blue-600 hover:bg-blue-700">
+                      ◀ Back
+                    </Button>
+                    <span className="text-sm text-slate-300 font-medium">
+                      Step {currentStep + 1} / {steps.length}
+                    </span>
+                    <Button onClick={nextStep} disabled={currentStep === steps.length - 1} className="bg-blue-600 hover:bg-blue-700">
+                      Next ▶
+                    </Button>
+                  </div>
+                )}
+
+                {/* Graph */}
+                {steps.length > 0 && (
+                  <div className="mb-4">
+                    {(() => {
+                      const { gridLines, vectorLines, scaleX, scaleY } = drawVectors(getCurrentBasis() || [])
+                      const basis = getCurrentBasis() || []
+                      const maxValue = d3.max(basis.flat().map(Math.abs)) ?? 1
+                      const max = typeof maxValue === 'number' ? maxValue : 1
+                      const axisLabels = []
+                      
+                      // Generate axis labels
+                      for (let i = -Math.ceil(max); i <= Math.ceil(max); i++) {
+                        if (i !== 0) {
+                          const posX = scaleX(i)
+                          const posY = scaleY(i)
+                          axisLabels.push(
+                            <text key={`xlabel-${i}`} x={posX} y={170} textAnchor="middle" fontSize="10" fill="white">
+                              {i}
+                            </text>
+                          )
+                          axisLabels.push(
+                            <text key={`ylabel-${i}`} x={-165} y={-posY} textAnchor="end" fontSize="10" fill="white" dominantBaseline="middle">
+                              {i}
+                            </text>
+                          )
+                        }
+                      }
+                      
+                      return (
+                        <svg width="100%" height={400} viewBox={`-180 -180 360 360`} className="border border-slate-700 rounded bg-slate-950">
+                          <defs>
+                            <marker id="arrowhead" viewBox="0 -5 10 10" refX="8" refY="0"
+                                    markerWidth="6" markerHeight="6" orient="auto">
+                              <path d="M0,-5L10,0L0,5" fill="cyan" />
+                            </marker>
+                          </defs>
+                          
+                          {/* Grid lines */}
+                          {gridLines}
+                          
+                          {/* X-axis */}
+                          <line x1={scaleX(-max-1)} y1={scaleY(0)} x2={scaleX(max+1)} y2={scaleY(0)} 
+                                stroke="white" strokeWidth={1} />
+                          {/* Y-axis */}
+                          <line x1={scaleX(0)} y1={scaleY(-max-1)} x2={scaleX(0)} y2={scaleY(max+1)} 
+                                stroke="white" strokeWidth={1} />
+                          
+                          {/* Axis labels */}
+                          {axisLabels}
+                          
+                          {/* Vectors */}
+                          {vectorLines}
+                        </svg>
+                      )
+                    })()}
+                  </div>
+                )}
+
+                {/* Lovasz Status */}
+                {steps.length > 0 && (
+                  <div className="mb-4 p-3 bg-slate-900 rounded border">
+                    <h4 className="text-white font-semibold mb-2">Lovasz Status</h4>
+                    <div className="flex items-center gap-2">
+                      {computeLovaszStatus(getCurrentBasis() || []) ? (
+                        <>
+                          <span className="text-green-400 text-xl">✓</span>
+                          <span className="text-green-400 text-sm">Satisfied</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-red-400 text-xl">✗</span>
+                          <span className="text-red-400 text-sm">Not Satisfied</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Current Step */}
+                {steps.length > 0 && (
+                  <div className="mb-4 p-3 bg-slate-900 rounded border">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-white font-semibold">Step</h4>
+                      <button
+                        onClick={() => setShowCalc(true)}
+                        className="text-xs px-3 py-1 bg-blue-600 rounded hover:bg-blue-500"
+                      >
+                        Show Calculations
+                      </button>
+                    </div>
+                    <p className="text-slate-300 text-sm mb-2">{getCurrentStepDescription()}</p>
+                  </div>
+                )}
+
+                {showCalc && (
+                  <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+                    <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 w-full max-w-2xl max-h-[85vh] overflow-auto">
+                      <div className="flex justify-between items-center mb-4">
+                        <h4 className="text-lg font-semibold text-white">Calculation Details</h4>
+                        <button onClick={() => setShowCalc(false)} className="text-white text-sm px-2 py-1 rounded bg-red-600 hover:bg-red-500">Close</button>
+                      </div>
+                      <pre className="text-xs text-slate-200 whitespace-pre-wrap font-mono">{getStepDetails()}</pre>
+                    </div>
+                  </div>
+                )}
+
+                <h4 className="text-white font-semibold mb-2">Current Basis</h4>
                 <pre className="bg-slate-900 p-4 rounded text-slate-300 text-xs overflow-auto max-h-48 font-mono mb-4">
-                  {formatMatrix(result.reducedBasis)}
+                  {formatMatrix(getCurrentBasis() || [])}
                 </pre>
 
-                {result.solutionVector && (
+                {result.solutionVector && currentStep === steps.length - 1 && (
                   <div>
                     <h4 className="text-white font-semibold mb-2">Shortest Vector Found</h4>
                     <pre className="bg-slate-900 p-4 rounded text-slate-300 text-xs overflow-auto font-mono">
                       {result.solutionVector.map((v: number) => v.toFixed(6)).join(', ')}
-                    as number
                     </pre>
                   </div>
                 )}
               </div>
             )}
-            {/* visualization area */}
-            {steps.length > 0 && (
-              <div className="bg-slate-800 rounded-lg p-6 border border-slate-700 mt-6">
-                <div className="flex items-center gap-2 mb-2">
-                  <Button onClick={prevStep} disabled={currentStep === 0}>◀ Back</Button>
-                  <span className="text-sm text-slate-300">
-                    step {currentStep} / {steps.length - 1}
-                  </span>
-                  <Button onClick={nextStep} disabled={currentStep === steps.length - 1}>Next ▶</Button>
-                </div>
-                <svg width={220} height={220} viewBox="-110 -110 220 220">
-                  <defs>
-                    <marker id="arrowhead" viewBox="0 -5 10 10" refX="8" refY="0"
-                            markerWidth="6" markerHeight="6" orient="auto">
-                      <path d="M0,-5L10,0L0,5" fill="cyan" />
-                    </marker>
-                  </defs>
-                  <rect x={-110} y={-110} width={220} height={220}
-                        fill="transparent" stroke="slategray" strokeWidth={0.5} />
-                  {drawVectors(steps[currentStep].basis)}
-                </svg>
-                <p className="text-slate-400 text-xs mt-2">{steps[currentStep].description}</p>
-              </div>
-            )}
+
+
 
             {!result && initialBasis && !loading && (
               <div className="bg-slate-800 rounded-lg p-6 border border-slate-700 text-slate-400 text-center">

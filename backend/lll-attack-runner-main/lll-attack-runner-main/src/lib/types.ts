@@ -51,6 +51,7 @@ export interface LLLStep {
   iteration: number
   basis: number[][]
   k: number
-  action: 'reduce' | 'swap' | 'complete'
+  action: 'reduce' | 'swap' | 'gso' | 'complete'
   description: string
+  calculations?: string[]
 }
