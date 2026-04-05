@@ -20,8 +20,6 @@ export default function EncapsulationVisualization({
               onSelectVariable("encapsulationBase0");
           }, [onSelectVariable]);
 
-  const { ek, m, K, r, cipherText, sharedSecret } = spyData ?? {};
-
   return (
     <div className="flex flex-row items-center justify-center h-full w-full gap-4">
       <div className="flex flex-row items-center gap-4">

@@ -19,7 +19,6 @@ export default function KeygenVisualizationProcess({
 }) {
 
   const [stage, setStage] = useState(0);
-  const { d, z, rho, sigma, A, sHat, eHat, tHat, ekPKE, dkPKE, publicKey, secretKey } = spyData ?? {};
 
   useEffect(() => {
     const timers = [

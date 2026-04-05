@@ -19,8 +19,6 @@ export default function KeygenVisualization({
             onSelectVariable("keygenBase0");
         }, []);
 
-    const { d, z, rho, sigma, A, sHat, eHat, tHat, ekPKE, dkPKE, publicKey, secretKey } = spyData ?? {};
-
     return (
         <div className="flex flex-row gap-6 items-center h-full w-full justify-center">
             <div className="flex flex-col items-center font-mono text-sm gap-6">

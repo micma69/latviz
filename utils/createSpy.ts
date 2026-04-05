@@ -79,3 +79,66 @@ export function createSpy(): Spy {
     };
     return spy;
 }
+
+export interface DSAKeygenSpyData {
+    seed: Uint8Array;
+    rho: Uint8Array;
+    rhoPrime: Uint8Array;
+    K: Uint8Array;
+    s1: Int32Array[];
+    s2: Int32Array[];
+    t0: Int32Array[];
+    t1: Int32Array[];
+    tr: Uint8Array;
+    publicKey: Uint8Array;
+    secretKey: Uint8Array;
+}
+
+export interface DSASignSpyData {
+    mu: Uint8Array;
+    rhoPrime: Uint8Array;
+    y: Int32Array[];
+    w: Int32Array[];
+    w1: Int32Array[];
+    cTilde: Uint8Array;
+    z: Int32Array[];
+    h: Int32Array[];
+}
+
+export interface DSAVerifySpyData {
+    mu: Uint8Array;
+    cTilde: Uint8Array;
+    z: Int32Array[];
+    w1: Int32Array[];
+    c2: Uint8Array;
+    result: boolean;
+}
+
+export interface DSASpy {
+    keygen: Partial<DSAKeygenSpyData>;
+    sign: Partial<DSASignSpyData>;
+    verify: Partial<DSAVerifySpyData>;
+    notify: (stage: 'keygen' | 'sign' | 'verify') => void;
+    subscribe: (fn: (stage: 'keygen' | 'sign' | 'verify', spy: DSASpy) => void) => () => void;
+    reset: () => void;
+}
+
+export function createDSASpy(): DSASpy {
+    const listeners = new Set<(stage: 'keygen' | 'sign' | 'verify', spy: DSASpy) => void>();
+    const spy: DSASpy = {
+        keygen: {},
+        sign: {},
+        verify: {},
+        notify(stage) { listeners.forEach(fn => fn(stage, spy)); },
+        subscribe(fn) {
+            listeners.add(fn);
+            return () => listeners.delete(fn);
+        },
+        reset() {
+            spy.keygen = {};
+            spy.sign = {};
+            spy.verify = {};
+        }
+    };
+    return spy;
+}
