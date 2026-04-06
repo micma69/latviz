@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import * as pqc from 'pqc';
+import * as pqc from '@/lib/modified-pqc/ml-kem-modified';
 import Link from "next/link";
-import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -13,6 +12,7 @@ import EncapsulationVisualization from './slides/encapsulationVisualization';
 import EncapsulationVisualizationProcess from './slides/encapsulationVisualizationProcess';
 import DecapsulationVisualization from './slides/decapsulationVisualization';
 import DecapsulationVisualizationProcess from './slides/decapsulationVisualizationProcess';
+import { KeygenSpyData, EncapsSpyData, DecapsSpyData, createSpy } from '@/utils/createSpy';
 
 export default function MLKEMPage() {
     const [vizStage, setVizStage] = useState<string | null>(null);
@@ -34,6 +34,10 @@ export default function MLKEMPage() {
     const [animationStep, setAnimationStep] = useState(0);
     const [animationComplete, setAnimationComplete] = useState(false);
 
+    const [keygenSpyData, setKeygenSpyData] = useState<KeygenSpyData | null>(null);
+    const [encapsSpyData, setEncapsSpyData] = useState<EncapsSpyData | null>(null);
+    const [decapsSpyData, setDecapsSpyData] = useState<DecapsSpyData | null>(null);
+
     const addOutput = (message: string) => {
         setOutput(prev => [...prev, message]);
     };
@@ -54,7 +58,14 @@ export default function MLKEMPage() {
     ];
 
     const executeMLKEM = async (operation: string) => {
-        const kem = pqc.ml_kem[securityLevel];
+        const spy = createSpy();
+        const kem = pqc.ml_kem[securityLevel as keyof typeof pqc.ml_kem](spy);
+
+        spy.subscribe((stage, state) => {
+        if (stage === 'keygen') setKeygenSpyData({ ...state.keygen } as KeygenSpyData);
+        if (stage === 'encaps') setEncapsSpyData({ ...state.encaps } as EncapsSpyData);
+        if (stage === 'decaps') setDecapsSpyData({ ...state.decaps } as DecapsSpyData);
+    });
 
         switch (operation) {
             case "Key Generation": {
@@ -62,6 +73,11 @@ export default function MLKEMPage() {
                 setAliceKeys(keys);
                 setCipherText(null);
                 setsharedSecret(null);
+                setKeygenSpyData(prev => prev ? {
+                    ...prev,
+                    publicKey: Array.from(keys.publicKey),
+                    secretKey: Array.from(keys.secretKey),
+                } : null);
                 addOutput("Key pair generated.");
                 addOutput(`Public key length: ${keys.publicKey.length} bytes`);
                 addOutput(`Secret key length: ${keys.secretKey.length} bytes`);
@@ -77,6 +93,11 @@ export default function MLKEMPage() {
                 const result = kem.encapsulate(aliceKeys.publicKey);
                 setCipherText(result.cipherText);
                 setsharedSecret(result.sharedSecret);
+                setEncapsSpyData(prev => prev ? {
+                    ...prev,
+                    cipherText: Array.from(result.cipherText),
+                    sharedSecret: Array.from(result.sharedSecret),
+                } : null);
                 addOutput("Encapsulation complete.");
                 addOutput(`Ciphertext length: ${result.cipherText.length} bytes`);
                 }
@@ -350,12 +371,12 @@ export default function MLKEMPage() {
                                             -
                                         </div>
                                     )}
-                                    {vizStage === "keygen0" && <KeygenVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} colorDataPub={(Array.from(aliceKeys!.publicKey)).slice(0, 64) as number[]} colorDataPriv={(Array.from(aliceKeys!.secretKey)).slice(0, 64) as number[]} />}
-                                    {vizStage === "keygen1" && <KeygenVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
-                                    {vizStage === "encapsulation0" && <EncapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} colorDataC={(Array.from(cipherText!).slice(0, 4)) as number[]} colorDataK={(Array.from(sharedSecret!).slice(0, 4)) as number[]} />}
-                                    {vizStage === "encapsulation1" && <EncapsulationVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
-                                    {vizStage === "decapsulation0" && <DecapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
-                                    {vizStage === "decapsulation1" && <DecapsulationVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} />}
+                                    {vizStage === "keygen0" && <KeygenVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
+                                    {vizStage === "keygen1" && <KeygenVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
+                                    {vizStage === "encapsulation0" && <EncapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={encapsSpyData} />}
+                                    {vizStage === "encapsulation1" && <EncapsulationVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={encapsSpyData} />}
+                                    {vizStage === "decapsulation0" && <DecapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={decapsSpyData} />}
+                                    {vizStage === "decapsulation1" && <DecapsulationVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={decapsSpyData} />}
                                 </div>
                             </main>
                             <div className="rounded-xl bg-white dark:bg-zinc-900 shadow-xl p-4 h-48">

@@ -6,14 +6,18 @@ import SquareGrid from "@/components/ui/gridLattice";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { Button } from "@/components/ui/button";
 import { InlineMath } from "react-katex";
+import { KeygenSpyData } from '@/utils/createSpy';
 
 export default function KeygenVisualizationProcess({
   onSelectVariable,
-  onChangeStage
+  onChangeStage,
+  spyData
 }: {
   onSelectVariable: (variable: string) => void;
   onChangeStage: (stage: string) => void;
+  spyData: KeygenSpyData | null;
 }) {
+
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
@@ -58,7 +62,7 @@ export default function KeygenVisualizationProcess({
 
         {stage >= 0 && (
           <motion.div layoutId="seed">
-            <SquareGrid rows={1} cols={4} size={12} color="#9ca3af" />
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.d ? Array.from(spyData.d) : []} showValues={true} />
           </motion.div>
         )}
 
@@ -77,7 +81,7 @@ export default function KeygenVisualizationProcess({
               <div className="flex flex-col gap-1 items-center">
                 <InlineMath math="\rho" />
                 <motion.div layoutId="rho">
-                  <SquareGrid rows={1} cols={4} size={12} color="#3b6fe8" />
+                  <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues={true} />
                 </motion.div>
               </div>
 
@@ -85,7 +89,7 @@ export default function KeygenVisualizationProcess({
               <div className="flex flex-col gap-1 items-center">
                 <div>𝜎</div>
                 <motion.div layoutId="sigma">
-                  <SquareGrid rows={1} cols={4} size={12} color="#8b5cf6" />
+                  <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.sigma ? Array.from(spyData.sigma) : []} showValues={true} />
                 </motion.div>
                 {stage >= 2 && (
                   <>
@@ -131,7 +135,7 @@ export default function KeygenVisualizationProcess({
               onClick={() => onSelectVariable("keygenMatrixA")}
               className="cursor-pointer w-fit h-fit"
             >
-              <SquareGrid rows={8} cols={8} size={15} color="#3b6fe8" />
+              <SquareGrid rows={8} cols={8} size={15} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues={true} />
             </motion.div>
           </div>
 
@@ -149,7 +153,7 @@ export default function KeygenVisualizationProcess({
               onClick={() => onSelectVariable("keygenMatrixS")}
               className="cursor-pointer w-fit h-fit"
             >
-              <SquareGrid rows={8} cols={1} size={15} color="#8b5cf6" />
+              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []} showValues={true} />
             </motion.div>
           </div>
 
@@ -167,7 +171,7 @@ export default function KeygenVisualizationProcess({
               onClick={() => onSelectVariable("keygenMatrixE")}
               className="cursor-pointer w-fit h-fit"
             >
-              <SquareGrid rows={8} cols={1} size={15} color="#8b5cf6" />
+              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.eHat[0] ? Array.from(spyData.eHat[0]) : []} showValues={true} />
             </motion.div>
           </div>
 
@@ -183,7 +187,7 @@ export default function KeygenVisualizationProcess({
                 onClick={() => onSelectVariable("keygenMatrixT")}
                 className="cursor-pointer w-fit h-fit"
               >
-                <SquareGrid rows={8} cols={1} size={15} color="#22c55e" />
+                <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []} showValues={true} />
               </motion.div>
             </div>
           )}
@@ -195,15 +199,15 @@ export default function KeygenVisualizationProcess({
           variants={item}
           className="flex flex-row gap-16 justify-center"
         >
-          {/* ek */}
+          {/* ek actually maybe just make this one grid*/}
           <div className="flex flex-col items-center font-mono text-sm gap-4">
             <div className="flex flex-row gap-2 items-center">
               {/* t */}
-              <SquareGrid rows={8} cols={1} size={16} color="#22c55e" />
+              <SquareGrid rows={8} cols={1} size={16} colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []} showValues={true} />
 
               {/* rho */}
               <motion.div layoutId="rho">
-                <SquareGrid rows={4} cols={1} size={16} color="#3b6fe8" />
+                <SquareGrid rows={4} cols={1} size={16} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues={true} />
               </motion.div>
             </div>
             <InlineMath math="ek_{PKE}" />
@@ -211,7 +215,7 @@ export default function KeygenVisualizationProcess({
 
           {/* dk */}
           <div className="flex flex-col items-center font-mono text-sm gap-4">
-            <SquareGrid rows={8} cols={1} size={16} color="#8b5cf6"/>
+            <SquareGrid rows={8} cols={1} size={16} colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []} showValues={true}/>
             <InlineMath math="dk_{PKE}" />
           </div>
         </motion.div>
