@@ -5,6 +5,7 @@ import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import { DecapsSpyData } from '@/utils/createSpy';
+import SquareGrid from "@/components/ui/gridLattice";
 
 export default function DecapsulationVisualization({
   onSelectVariable,
