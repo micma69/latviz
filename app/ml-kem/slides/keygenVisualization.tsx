@@ -8,9 +8,9 @@ import SquareGrid from "@/components/ui/gridLattice";
 import { KeygenSpyData } from '@/utils/createSpy';
 
 export default function KeygenVisualization({
-  onSelectVariable,
-  onChangeStage,
-  spyData 
+    onSelectVariable,
+    onChangeStage,
+    spyData 
 }: { onSelectVariable: (variable: string) => void;
     onChangeStage: (stage: string) => void;
     spyData: KeygenSpyData | null;

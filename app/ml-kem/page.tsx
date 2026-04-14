@@ -740,7 +740,7 @@ export default function MLKEMPage() {
                                         <Button
                                             variant="secondary"
                                             size="lg"
-                                            disabled={!sharedSecret}
+                                            disabled={!decapsulatedSecret}
                                             onClick={() => setVizStage("decapsulation0")}
                                         >
                                             Start Animation
@@ -752,7 +752,7 @@ export default function MLKEMPage() {
                                             <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
 
                                                 {!decapsulatedSecret ? (
-                                                    <div className="text-zinc-500">No key generated</div>
+                                                    <div className="text-zinc-500">No secret decapsulated</div>
                                                 ) : (
                                                     <>
                                                         <div className="break-all">
