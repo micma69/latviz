@@ -31,7 +31,7 @@ export default function EncapsulationVisualizationProcess({
   }, []);
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-6 h-full">
       <div className="flex flex-row gap-6 justify-center">
 
         {/* ek */}
@@ -242,15 +242,14 @@ export default function EncapsulationVisualizationProcess({
         </div>
       )}
 
-      <div>
-        <Button
+      <Button
           variant="secondary"
-          size="lg"
+          size="sm"
           onClick={() => onChangeStage("encapsulation0")}
-        >
+          className="flex justify-start cursor-pointer"
+          >
           <ChevronLeftIcon className="size-6" /> BACK
-        </Button>
-      </div>
+      </Button>
     </div>
   );
 }

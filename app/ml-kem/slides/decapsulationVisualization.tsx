@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
-import { ArrowLongRightIcon, ArrowLongDownIcon } from '@heroicons/react/24/solid';
+import { ArrowLongRightIcon, ArrowLongDownIcon, ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { Button } from "@/components/ui/button";
 import { DecapsSpyData } from '@/utils/createSpy';
 import SquareGrid from "@/components/ui/gridLattice";
 
@@ -30,7 +31,7 @@ export default function DecapsulationVisualization({
 
   return (
     // State 0, default
-    <div className="flex flex-col gap-6 w-full h-full justify-center items-center">
+    <div className="flex flex-col gap-6 h-full justify-center items-center">
       <div className="flex flex-row gap-6 w-full justify-center items-center">
         <div className="flex flex-col font-mono text-sm items-start">
           <div className="flex flex-row gap-6 w-full justify-center items-center">
@@ -88,6 +89,14 @@ export default function DecapsulationVisualization({
         <div><InlineMath math="m'" /></div> {/*// 32 bytes */}
         <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} />
       </div>
+      <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => onChangeStage("home")}
+          className="flex justify-start cursor-pointer"
+          >
+          <ChevronLeftIcon className="size-6" /> BACK
+      </Button>
     </div>
   );
 }

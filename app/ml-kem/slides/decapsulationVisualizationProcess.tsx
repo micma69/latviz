@@ -5,6 +5,7 @@ import 'katex/dist/katex.min.css';
 import SquareGrid from "@/components/ui/gridLattice"
 import { InlineMath } from 'react-katex';
 import { ArrowLongRightIcon, ChevronLeftIcon, MinusIcon, EqualsIcon } from '@heroicons/react/24/solid';
+import { Button } from "@/components/ui/button";
 import { DecapsSpyData } from '@/utils/createSpy';
 
 export default function DecapsulationVisualizationProcess({
@@ -29,7 +30,7 @@ export default function DecapsulationVisualizationProcess({
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full h-full justify-center items-center">
+    <div className="flex flex-col gap-6 h-full justify-center items-center">
       <div className="flex flex-row gap-2 items-center">
         <div className="flex flex-col gap-2 items-center">
           <div><InlineMath math="dk_{PKE}" /></div> {/*// 384k bytes */}
@@ -115,6 +116,14 @@ export default function DecapsulationVisualizationProcess({
           <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} />
         </div>
       </div>
+        <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => onChangeStage("decapsulation0")}
+            className="flex justify-start cursor-pointer"
+            >
+            <ChevronLeftIcon className="size-6" /> BACK
+        </Button>
     </div>
   );
 }

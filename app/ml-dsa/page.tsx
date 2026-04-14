@@ -424,7 +424,6 @@ export default function MLDSAPage() {
                                 {(vizStage === "verify0" || vizStage === "verify1") &&
                                     <div>will show output for verification</div>
                                 }
-                                
                             </div>
                             <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center">
                                 <div>

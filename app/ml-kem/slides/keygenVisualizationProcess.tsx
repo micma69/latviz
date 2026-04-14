@@ -223,11 +223,12 @@ export default function KeygenVisualizationProcess({
 
       <div>
         <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => onChangeStage("keygen0")}
-        >
-          <ChevronLeftIcon className="size-6" /> BACK
+            variant="secondary"
+            size="sm"
+            onClick={() => onChangeStage("keygen0")}
+            className="flex justify-start cursor-pointer"
+            >
+            <ChevronLeftIcon className="size-6" /> BACK
         </Button>
       </div>
     </motion.div>
