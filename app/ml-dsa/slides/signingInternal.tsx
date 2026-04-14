@@ -19,9 +19,11 @@ type Step =
 export default function SignInternal({
     spyData,
     onChangeStage,
+    onSelectVariable,
 }: {
     spyData: DSASignSpyData | null;
     onChangeStage: (stage: string) => void;
+    onSelectVariable: (variable: string) => void;
 }) {
     const [step, setStep] = useState<Step>("y");
     const [playing, setPlaying] = useState(false);

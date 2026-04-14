@@ -25,7 +25,7 @@ export default function KeygenOuter({
             <div className="flex flex-row gap-7 items-center h-full w-full justify-center">
                 <div className="flex flex-col items-center gap-2">
                     <div>𝜉</div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.seed ? Array.from(spyData.seed) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.seed ? Array.from(spyData.seed) : []} showValues onClick={() => {onSelectVariable("xi_keygen")}} />
                 </div>
                 <div className="flex flex-col items-center gap-1">
                     input
@@ -42,11 +42,11 @@ export default function KeygenOuter({
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="pk" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} onClick={() => {onSelectVariable("publicKey")}} />
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="sk" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => {onSelectVariable("secretKey")}}/>
                 </div>
             </div>
             <Button

@@ -346,7 +346,7 @@ export default function MLDSAPage() {
                                                     Sign Message
                                                 </Button>
                                                 {keys && (
-                                                    <div className="">
+                                                    <div>
                                                         <textarea
                                                             value={message}
                                                             onChange={(e) => setMessage(e.target.value)}
@@ -387,7 +387,7 @@ export default function MLDSAPage() {
                                     {vizStage === "keygen0" && <KeygenOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
                                     {vizStage === "keygen1" && <KeygenInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
                                     {vizStage === "sign0" && <SignOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
-                                    {vizStage === "sign1" && <SignInternal onChangeStage={setVizStage} spyData={signSpyData} />}
+                                    {vizStage === "sign1" && <SignInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
                                     {vizStage === "sign2" && <SignLoop />}
                                     {vizStage === "verify0" && <VerifyOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} />}
                                     {vizStage === "verify1" && <VerifyInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} />}
@@ -411,134 +411,29 @@ export default function MLDSAPage() {
                                     </SelectContent>
                                 </Select>
                             </div>
-                            <div className="rounded-xl bg-slate-100 dark:bg-zinc-900 p-5 h-full">
+                            <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center">
+                                {(vizStage === null || vizStage === "home") &&
+                                    <div>will show output for each stage</div>
+                                }
+                                {(vizStage === "keygen0" || vizStage === "keygen1") &&
+                                    <div>will show output for keygen</div>
+                                }
+                                {(vizStage === "sign0" || vizStage === "sign1" || vizStage === "sign2") &&
+                                    <div>will show output for sign</div>
+                                }
+                                {(vizStage === "verify0" || vizStage === "verify1") &&
+                                    <div>will show output for verification</div>
+                                }
                                 
                             </div>
-                            <div className="overflow-y-auto flex flex-col gap-4 pr-2">
-                                <div className="flex flex-col items-center justify-center rounded-xl bg-white dark:bg-zinc-900 text-sm shadow-xl p-5 gap-y-4">
-                                    <div className="flex flex-row gap-x-4">
-                                        <Button
-                                            variant="secondary"
-                                            size="lg"
-                                            onClick={() => executeMLDSA("Key Generation")}
-                                        >
-                                            Key Generation
-                                        </Button>
-                                        <Button
-                                            variant="secondary"
-                                            size="lg"
-                                        >
-                                            Start Animation
-                                        </Button>
-                                    </div>
-                                    <div className="flex flex-col gap-y-2 w-full">
-                                        Public Key
-                                        <div className="rounded-2xl bg-slate-100 dark:bg-zinc-900 p-3 h-40">
-                                            <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs flex flex-col gap-2">
-                                                {!keys ? (
-                                                    <div className="text-zinc-500">No key generated</div>
-                                                ) : (
-                                                    <>
-                                                        <div className="break-all">
-                                                            {expandedPublicKey
-                                                                ? formatArray(keys.publicKey)
-                                                                : previewArray(keys.publicKey)}
-                                                        </div>
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="sm"
-                                                            onClick={() => setExpandedPublicKey(!expandedPublicKey)}
-                                                        >
-                                                            {expandedPublicKey ? "Collapse" : "Expand"}
-                                                        </Button>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col gap-y-2 w-full">
-                                        Secret Key
-                                        <div className="rounded-2xl bg-slate-100 dark:bg-zinc-900 p-3 h-40">
-                                            <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs flex flex-col gap-2">
-            
-                                                {!keys ? (
-                                                    <div className="text-zinc-500">No key generated</div>
-                                                ) : (
-                                                    <>
-                                                        <div className="break-all">
-                                                            {expandedSecretKey
-                                                                ? formatArray(keys.secretKey)
-                                                                : previewArray(keys.secretKey)}
-                                                        </div>
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="sm"
-                                                            onClick={() => setExpandedSecretKey(!expandedSecretKey)}
-                                                        >
-                                                            {expandedSecretKey ? "Collapse" : "Expand"}
-                                                        </Button>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center">
+                                <div>
+                                    {vizStage === null &&
+                                        <div>will show full variable expansion</div>
+                                    }
                                 </div>
-                                <div className="flex flex-col gap-2 rounded-xl bg-white dark:bg-zinc-900 text-sm shadow-xl p-5">
-                                    Message to Sign
-                                    <textarea
-                                        value={message}
-                                        onChange={(e) => setMessage(e.target.value)}
-                                        placeholder="Enter a message before signing!"
-                                        className="rounded-md p-2 bg-slate-100 dark:bg-zinc-800"
-                                    />
-                                    <Button
-                                        variant="secondary"
-                                        size="lg"
-                                        disabled={!keys || message.length === 0}
-                                        onClick={() => executeMLDSA("Sign Message")}
-                                    >
-                                        Sign Message
-                                    </Button>
-                                    <div className="flex flex-col gap-y-2 w-full">
-                                        Signature
-                                        <div className="rounded-2xl bg-slate-100 dark:bg-zinc-900 p-3 h-40">
-                                            <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs flex flex-col gap-2">
-                                                {!signature ? (
-                                                    <div className="text-zinc-500">No signature generated</div>
-                                                ) : (
-                                                    <>
-                                                        <div className="break-all">
-                                                            {expandedSignature
-                                                                ? formatArray(signature)
-                                                                : previewArray(signature)}
-                                                        </div>
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="sm"
-                                                            onClick={() => setExpandedSignature(!expandedSignature)}
-                                                        >
-                                                            {expandedSignature ? "Collapse" : "Expand"}
-                                                        </Button>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col items-center justify-center rounded-xl bg-white dark:bg-zinc-900 text-sm shadow-xl p-5 gap-y-4">
-                                    <Button
-                                        variant="secondary"
-                                        size="lg"
-                                        disabled={!signature}
-                                        onClick={() => executeMLDSA("Verify Signature")}
-                                    >
-                                        Verify Signature
-                                    </Button>
-                                    {verifyResult !== null && (
-                                        <div className={`text-lg font-bold ${verifyResult ? "text-green-500" : "text-red-500"}`}>
-                                            {verifyResult ? "Signature Valid" : "Signature Invalid"}
-                                        </div>
-                                    )}
+                                <div>
+                                    expanded
                                 </div>
                             </div>
                         </div>

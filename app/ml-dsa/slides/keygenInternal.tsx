@@ -24,21 +24,20 @@ export default function KeygenInternal({
         <div className="flex flex-col h-full items-center gap-4">
             <div className="flex flex-col gap-2 items-center">
                 <div>𝜉</div>
-                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.seed ? Array.from(spyData.seed) : []} showValues={true} />
+                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.seed ? Array.from(spyData.seed) : []} showValues onClick={() => {onSelectVariable("xi_keygen")}}/>
             </div>
             <div className="flex flex-row gap-6">
-                <div className="flex flex-col gap-2 items-center">
+                <div>
                     <div>𝜉</div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.seed ? Array.from(spyData.seed) : []} showValues={true} />
                 </div>
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col gap-2 items-center">
                     <InlineMath math="\rho" />
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues onClick={() => {onSelectVariable("rho")}} />
                 </div>
                 <div className="flex flex-col gap-2 items-center">
                     <InlineMath math="\rho'" />
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rhoPrime ? Array.from(spyData.rhoPrime) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rhoPrime ? Array.from(spyData.rhoPrime) : []} showValues onClick={() => {onSelectVariable("rho_prime")}} />
                 </div>
                 <div className="flex flex-col gap-2 items-center">
                     <InlineMath math="K" />
