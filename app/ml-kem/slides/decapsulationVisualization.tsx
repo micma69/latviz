@@ -4,12 +4,15 @@ import React, { useEffect } from 'react';
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
+import { DecapsSpyData } from '@/utils/createSpy';
 
 export default function DecapsulationVisualization({
   onSelectVariable,
-  onChangeStage
+  onChangeStage,
+  spyData
 }: { onSelectVariable: (variable: string) => void;
     onChangeStage: (stage: string) => void;
+    spyData: DecapsSpyData | null;
  }) {
   useEffect(() => {
                 onSelectVariable("decapsulationBase0");

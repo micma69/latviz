@@ -3,39 +3,68 @@
 import React, { useEffect } from 'react';
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
-import { ArrowRightIcon } from '@heroicons/react/24/solid';
+import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
+import SquareGrid from "@/components/ui/gridLattice";
+import { EncapsSpyData } from '@/utils/createSpy';
 
 export default function EncapsulationVisualization({
   onSelectVariable,
-  onChangeStage
+  onChangeStage,
+  spyData 
+
 }: { onSelectVariable: (variable: string) => void;
     onChangeStage: (stage: string) => void;
+    spyData: EncapsSpyData | null;
  }) {
   useEffect(() => {
               onSelectVariable("encapsulationBase0");
           }, [onSelectVariable]);
+
   return (
-    <div className="flex flex-row gap-12 h-full items-center justify-center">
-      <div className="flex flex-col font-mono text-sm">
-        Encapsulation Key ek
-        <div>Message <InlineMath math="m \in \mathbb{B}^{32}" /></div>
-        <div>Shared Secret Key <InlineMath math="K \in \mathbb{B}^{32}" /></div>
-        <div>Randomness <InlineMath math="r \in \mathbb{B}^{32}" /></div>
+    <div className="flex flex-row items-center justify-center h-full w-full gap-4">
+      <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-col font-mono text-sm gap-3 items-center">
+          <div className="flex flex-col font-mono text-sm">
+            <div>Encapsulation Key ek</div>
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.ek ? Array.from(spyData.ek) : []} showValues={true} />
+          </div>
+          <div className="flex flex-col font-mono text-sm">
+            <div>Message <InlineMath math="m \in \mathbb{B}^{32}" /></div>
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} />
+          </div>
+        </div>
+        <ArrowLongRightIcon className="size-6" />
+        <div className="flex flex-col font-mono text-sm gap-3">
+          <div className="flex flex-col font-mono text-sm">
+            <div>Shared Secret Key <InlineMath math="K \in \mathbb{B}^{32}" /></div>
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} />
+          </div>
+          <div className="flex flex-col font-mono text-sm">
+            <div>Randomness <InlineMath math="r \in \mathbb{B}^{32}" /></div>
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} />
+          </div>
+        </div>
       </div>
       <div className="flex flex-col items-center">
-        <div>ek<InlineMath math=", m, r" /></div>
-        <ArrowRightIcon className="size-6" />
+        <div className="flex flex-row">ek<InlineMath math=", m, r" /></div>
+        <ArrowLongRightIcon className="size-6" />
       </div>
       <div onClick={() => {
           onSelectVariable("encapsulationBase1");
           onChangeStage("encapsulation1");
-      }} className="rounded-lg bg-white p-3 font-mono text-sm h-24 flex items-center justify-center">
+      }} className="cursor-pointer rounded-lg bg-white p-3 font-mono text-sm h-24 flex items-center justify-center">
         Kyber-PKE Encrypt
       </div>
-      <ArrowRightIcon className="size-6" />
-      <div className="grid grid-rows-2">
-        <InlineMath math="K" />
-        <div className="font-mono text-sm"><InlineMath math="c" /> (ciphertext)</div>
+      <ArrowLongRightIcon className="size-6" />
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col items-center">
+          <div className="font-mono text-sm"><InlineMath math="c" /></div>
+          <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.cipherText} showValues={true} />
+        </div>
+        <div className="flex flex-col items-center">
+          <InlineMath math="K" />
+          <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.sharedSecret} showValues={true} />
+        </div>
       </div>
     </div>
   );
