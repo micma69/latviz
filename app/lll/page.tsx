@@ -3,8 +3,145 @@
 import { runLLL, parseBasisFromString } from "@/backend/lll-attack-runner-main/lll-attack-runner-main/src/lib/lll"
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
+import * as THREE from "three";
+// @ts-ignore
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
+type ThreeDSceneProps = {
+  basis: number[][]
+}
+
+function ThreeDScene({ basis }: ThreeDSceneProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const width = container.clientWidth
+    const height = 380
+    const scene = new THREE.Scene()
+    scene.background = new THREE.Color(0x0f172a)
+
+    const maxCoord = Math.max(1, ...basis.flat().map(Math.abs))
+    const cameraDistance = Math.max(5, maxCoord * 2.5)
+
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000)
+    camera.position.set(cameraDistance, cameraDistance, cameraDistance)
+    camera.lookAt(0, 0, 0)
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setSize(width, height)
+    container.appendChild(renderer.domElement)
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8)
+    scene.add(ambientLight)
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
+    directionalLight.position.set(5, 10, 7)
+    scene.add(directionalLight)
+
+    const gridSize = maxCoord * 2 + 2
+    const gridDivisions = Math.max(4, Math.ceil(maxCoord * 2))
+    const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x4b5563, 0x1f2937)
+    scene.add(gridHelper)
+
+    const axesHelper = new THREE.AxesHelper(maxCoord * 1.5 + 1)
+    scene.add(axesHelper)
+
+    const vectorGroup = new THREE.Group()
+    const colors = [
+      0x00ffff, // light blue
+      0xff0000, // red
+      0xffff00, // yellow
+      0x800080, // purple
+      0xff69b4, // pink
+      0x00ff00, // green
+      0xffffff, // white
+      0xffa500, // orange
+      0xff4500, // orange red
+      0xdaa520, // goldenrod
+      0x98fb98, // pale green
+      0xf0e68c, // khaki
+      0xdda0dd, // plum
+      0xb0e0e6, // powder blue
+      0xff6347, // tomato
+      0x32cd32  // lime green
+    ]
+
+    basis.forEach((vector, index) => {
+      const [x = 0, y = 0, z = 0] = vector
+      const direction = new THREE.Vector3(x, y, z)
+      const length = Math.max(direction.length(), 0.1)
+      const lineMaterial = new THREE.LineBasicMaterial({ color: colors[index % colors.length], linewidth: 3 })
+      const lineGeometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), direction])
+      const line = new THREE.Line(lineGeometry, lineMaterial)
+      vectorGroup.add(line)
+
+      const coneSize = Math.max(maxCoord * 0.08, 0.15)
+      const coneGeometry = new THREE.ConeGeometry(coneSize, coneSize * 1.5, 16)
+      const coneMaterial = new THREE.MeshStandardMaterial({ color: colors[index % colors.length] })
+      const cone = new THREE.Mesh(coneGeometry, coneMaterial)
+      cone.position.copy(direction)
+      cone.lookAt(0, 0, 0)
+      cone.rotateX(Math.PI)
+      vectorGroup.add(cone)
+    })
+
+    scene.add(vectorGroup)
+
+    const controls = new OrbitControls(camera, renderer.domElement)
+    controls.enableDamping = true
+    controls.target.set(0, 0, 0)
+    controls.update()
+
+    let requestId = 0
+    const animate = () => {
+      controls.update()
+      renderer.render(scene, camera)
+      requestId = requestAnimationFrame(animate)
+    }
+
+    animate()
+
+    const handleResize = () => {
+      const newWidth = container.clientWidth
+      renderer.setSize(newWidth, height)
+      camera.aspect = newWidth / height
+      camera.updateProjectionMatrix()
+    }
+
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+      cancelAnimationFrame(requestId)
+      controls.dispose()
+      scene.traverse((object) => {
+        const obj = object as THREE.Object3D;
+        if (obj instanceof THREE.Mesh) {
+          if (obj.geometry) obj.geometry.dispose()
+          if (obj.material) {
+            if (Array.isArray(obj.material)) {
+              obj.material.forEach((material) => (material as THREE.Material).dispose())
+            } else {
+              (obj.material as THREE.Material).dispose()
+            }
+          }
+        }
+      })
+      renderer.dispose()
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement)
+      }
+    }
+  }, [basis])
+
+  return <div ref={containerRef} className="w-full h-[380px] rounded border border-slate-700 bg-slate-950" />
+}
 
 export default function LLLPage() {
   const [input, setInput] = useState('')
@@ -15,6 +152,7 @@ export default function LLLPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [showCalc, setShowCalc] = useState(false)
+  const [viewMode, setViewMode] = useState<'2d' | '3d'>('2d')
   const delta = 0.75
 
   const handleProcess = () => {
@@ -63,6 +201,25 @@ export default function LLLPage() {
 
   const nextStep = () => setCurrentStep(i => Math.min(i + 1, steps.length - 1))
   const prevStep = () => setCurrentStep(i => Math.max(i - 1, 0))
+
+  const vectorColors = [
+    '#00ffff', // light blue
+    '#ff0000', // red
+    '#ffff00', // yellow
+    '#800080', // purple
+    '#ff69b4', // pink
+    '#00ff00', // green
+    '#ffffff', // white
+    '#ffa500', // orange
+    '#ff4500', // orange red
+    '#daa520', // goldenrod
+    '#98fb98', // pale green
+    '#f0e68c', // khaki
+    '#dda0dd', // plum
+    '#b0e0e6', // powder blue
+    '#ff6347', // tomato
+    '#32cd32'  // lime green
+  ]
 
   const computeGSO = (basis: number[][]) => {
     if (!basis || !Array.isArray(basis) || basis.length === 0) {
@@ -192,9 +349,12 @@ export default function LLLPage() {
     const maxValue = d3.max(basis.flat().map(Math.abs)) ?? 1
     const max = typeof maxValue === 'number' ? maxValue : 1
     const scaleX = d3.scaleLinear().domain([-max, max]).range([-150, 150])
-    const scaleY = d3.scaleLinear().domain([-max, max]).range([150, -150]) // Inverted for Cartesian
+    const scaleY = d3.scaleLinear().domain([-max, max]).range([150, -150]) // Cartesian coordinates
     const gridSize = 10
     const gridLines = []
+    const step = Math.max(1, Math.ceil(max / 10))
+    const vectorFontSize = Math.max(6, 12 - Math.log10(Math.max(max, 1)) * 2)
+    const axisFontSize = Math.max(6, 10 - Math.log10(Math.max(max, 1)) * 2)
     
     // Draw grid
     for (let i = -max; i <= max; i += 1) {
@@ -215,17 +375,24 @@ export default function LLLPage() {
       const y0 = v[1] || 0
       const scaledX = scaleX(x0)
       const scaledY = scaleY(y0)
+      const color = vectorColors[idx % vectorColors.length]
       return (
         <g key={idx}>
+          <defs>
+            <marker id={`arrowhead-${idx}`} viewBox="0 -5 10 10" refX="8" refY="0"
+                    markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,-5L10,0L0,5" fill={color} />
+            </marker>
+          </defs>
           <line
             x1={scaleX(0)} y1={scaleY(0)}
             x2={scaledX} y2={scaledY}
-            stroke="cyan" strokeWidth={2}
-            markerEnd="url(#arrowhead)"
+            stroke={color} strokeWidth={2}
+            markerEnd={`url(#arrowhead-${idx})`}
           />
           <text
             x={scaledX} y={scaledY - 10}
-            textAnchor="middle" fontSize="12" fill="white" fontWeight="bold"
+            textAnchor="middle" fontSize={vectorFontSize} fill={color} fontWeight="bold"
           >
             ({x0.toFixed(2)}, {y0.toFixed(2)})
           </text>
@@ -333,58 +500,76 @@ export default function LLLPage() {
                 {/* Graph */}
                 {steps.length > 0 && (
                   <div className="mb-4">
-                    {(() => {
-                      const { gridLines, vectorLines, scaleX, scaleY } = drawVectors(getCurrentBasis() || [])
-                      const basis = getCurrentBasis() || []
-                      const maxValue = d3.max(basis.flat().map(Math.abs)) ?? 1
-                      const max = typeof maxValue === 'number' ? maxValue : 1
-                      const axisLabels = []
-                      
-                      // Generate axis labels
-                      for (let i = -Math.ceil(max); i <= Math.ceil(max); i++) {
-                        if (i !== 0) {
-                          const posX = scaleX(i)
-                          const posY = scaleY(i)
-                          axisLabels.push(
-                            <text key={`xlabel-${i}`} x={posX} y={170} textAnchor="middle" fontSize="10" fill="white">
-                              {i}
-                            </text>
-                          )
-                          axisLabels.push(
-                            <text key={`ylabel-${i}`} x={-165} y={-posY} textAnchor="end" fontSize="10" fill="white" dominantBaseline="middle">
-                              {i}
-                            </text>
-                          )
+                    <div className="flex flex-wrap items-center gap-2 mb-4">
+                      <button
+                        onClick={() => setViewMode('2d')}
+                        className={`rounded px-3 py-1 text-sm font-medium ${viewMode === '2d' ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}`}
+                      >
+                        2D View
+                      </button>
+                      <button
+                        onClick={() => setViewMode('3d')}
+                        className={`rounded px-3 py-1 text-sm font-medium ${viewMode === '3d' ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}`}
+                      >
+                        3D View
+                      </button>
+                      <p className="text-slate-400 text-xs ml-auto">Drag to rotate, scroll to zoom the 3D scene.</p>
+                    </div>
+
+                    {viewMode === '2d' ? (
+                      (() => {
+                        const { gridLines, vectorLines, scaleX, scaleY } = drawVectors(getCurrentBasis() || [])
+                        const basis = getCurrentBasis() || []
+                        const maxValue = d3.max(basis.flat().map(Math.abs)) ?? 1
+                        const max = typeof maxValue === 'number' ? maxValue : 1
+                        const step = Math.max(1, Math.ceil(max / 10))
+                        const axisFontSize = Math.max(6, 10 - Math.log10(Math.max(max, 1)) * 2)
+                        const axisLabels = []
+                        
+                        // Generate axis labels
+                        for (let i = -Math.ceil(max); i <= Math.ceil(max); i += step) {
+                          if (i !== 0) {
+                            const posX = scaleX(i)
+                            const posY = scaleY(i)
+                            axisLabels.push(
+                              <text key={`xlabel-${i}`} x={posX} y={170} textAnchor="middle" fontSize={axisFontSize} fill="white">
+                                {i}
+                              </text>
+                            )
+                            axisLabels.push(
+                              <text key={`ylabel-${i}`} x={-165} y={posY} textAnchor="end" fontSize={axisFontSize} fill="white" dominantBaseline="middle">
+                                {i}
+                              </text>
+                            )
+                          }
                         }
-                      }
-                      
-                      return (
-                        <svg width="100%" height={400} viewBox={`-180 -180 360 360`} className="border border-slate-700 rounded bg-slate-950">
-                          <defs>
-                            <marker id="arrowhead" viewBox="0 -5 10 10" refX="8" refY="0"
-                                    markerWidth="6" markerHeight="6" orient="auto">
-                              <path d="M0,-5L10,0L0,5" fill="cyan" />
-                            </marker>
-                          </defs>
-                          
-                          {/* Grid lines */}
-                          {gridLines}
-                          
-                          {/* X-axis */}
-                          <line x1={scaleX(-max-1)} y1={scaleY(0)} x2={scaleX(max+1)} y2={scaleY(0)} 
-                                stroke="white" strokeWidth={1} />
-                          {/* Y-axis */}
-                          <line x1={scaleX(0)} y1={scaleY(-max-1)} x2={scaleX(0)} y2={scaleY(max+1)} 
-                                stroke="white" strokeWidth={1} />
-                          
-                          {/* Axis labels */}
-                          {axisLabels}
-                          
-                          {/* Vectors */}
-                          {vectorLines}
-                        </svg>
-                      )
-                    })()}
+                        
+                        return (
+                          <svg width="100%" height={400} viewBox={`-180 -180 360 360`} className="border border-slate-700 rounded bg-slate-950">
+                            <defs>
+                            </defs>
+                            
+                            {/* Grid lines */}
+                            {gridLines}
+                            
+                            {/* X-axis */}
+                            <line x1={scaleX(-max-1)} y1={scaleY(0)} x2={scaleX(max+1)} y2={scaleY(0)} 
+                                  stroke="white" strokeWidth={1} />
+                            {/* Y-axis */}
+                            <line x1={scaleX(0)} y1={scaleY(-max-1)} x2={scaleX(0)} y2={scaleY(max+1)} 
+                                  stroke="white" strokeWidth={1} />
+                            
+                            {/* Axis labels */}
+                            {axisLabels}
+                            
+                            {/* Vectors */}
+                            {vectorLines}
+                          </svg>
+                        )
+                      })()
+                    ) : (
+                      <ThreeDScene basis={getCurrentBasis() || []} />
+                    )}
                   </div>
                 )}
 

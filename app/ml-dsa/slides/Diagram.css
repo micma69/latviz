@@ -1,0 +1,240 @@
+.diagram-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+}
+
+.flowchart {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 30px;
+  position: relative;
+  border: 2px solid #dee2e6;
+}
+
+.start-node, .end-node {
+  text-align: center;
+  width: 150px;
+  margin: 0 auto;
+}
+
+.start-node {
+  background: #27ae60;
+  color: white;
+}
+
+.end-node {
+  background: #2980b9;
+  color: white;
+}
+
+.rejection-loop {
+  border: 3px dashed #e74c3c;
+  border-radius: 15px;
+  padding: 30px 20px;
+  margin: 20px 0;
+  position: relative;
+  background: rgba(231, 76, 60, 0.05);
+}
+
+.loop-label {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: #e74c3c;
+  color: white;
+  padding: 2px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.step-wrapper {
+  position: relative;
+  margin: 15px 0;
+}
+
+.step-node {
+  background: white;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 10px auto;
+  width: 250px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.step-node:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-color: #e74c3c;
+}
+
+.step-number {
+  display: inline-block;
+  background: #3498db;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  line-height: 24px;
+  font-size: 0.8rem;
+  margin-right: 8px;
+}
+
+.step-title {
+  display: inline;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Phase colors */
+.phase-0 .step-number { background: #3498db; }
+.phase-1 .step-number { background: #9b59b6; }
+.phase-2 .step-number { background: #e67e22; }
+
+.arrow {
+  text-align: center;
+  margin: 5px 0;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  position: relative;
+}
+
+.branch-label {
+  font-size: 0.7rem;
+  background: #ecf0f1;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 8px;
+}
+
+.loop-arrow {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px dashed #e74c3c;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Info card */
+.info-card {
+  position: absolute;
+  left: 320px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  background: white;
+  border-left: 4px solid #3498db;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 100;
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+.info-card h3 {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.step-desc {
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.info-section {
+  margin: 10px 0;
+  font-size: 0.85rem;
+}
+
+.info-section strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #2c3e50;
+}
+
+.info-section p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.equation code {
+  background: #f4f4f4;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  display: inline-block;
+}
+
+.security {
+  border-top: 1px solid #ecf0f1;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+/* Legend */
+.legend {
+  margin-top: 30px;
+  padding: 20px;
+  background: #ecf0f1;
+  border-radius: 8px;
+}
+
+.legend h3 {
+  margin: 0 0 12px 0;
+  color: #2c3e50;
+}
+
+.params-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .info-card {
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .step-node {
+    width: 200px;
+  }
+}

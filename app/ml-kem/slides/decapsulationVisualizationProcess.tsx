@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import 'katex/dist/katex.min.css';
 import SquareGrid from "@/components/ui/gridLattice"
 import { InlineMath } from 'react-katex';
-import { ArrowRightIcon, ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { ArrowLongRightIcon, ChevronLeftIcon, MinusIcon, EqualsIcon } from '@heroicons/react/24/solid';
 import { Button } from "@/components/ui/button";
 import { DecapsSpyData } from '@/utils/createSpy';
 
@@ -17,148 +17,113 @@ export default function DecapsulationVisualizationProcess({
     onChangeStage: (stage: string) => void;
     spyData: DecapsSpyData | null;
 }) {
-  const [step, setStep] = useState(0);
+
+  const [state, setState] = useState(0);
 
   useEffect(() => {
     onSelectVariable("decapsulationBase1");
   }, [onSelectVariable]);
 
-  useEffect(() => {
-    if (step >= 3) return;
-    const timer = setTimeout(() => setStep(s => s + 1), 800);
-    return () => clearTimeout(timer);
-  }, [step]);
-
-  const show = (s: number) => step >= s;
-
-  const c = spyData?.c ? Array.from(spyData.c) : [];
-  const c1 = spyData?.c1 ? Array.from(spyData.c1) : [];
-  const c2 = spyData?.c2 ? Array.from(spyData.c2) : [];
-  const u = spyData?.u ? spyData.u.flatMap(p => Array.from(p)) : [];
-  const v = spyData?.v ? Array.from(spyData.v) : [];
-  const sHat = spyData?.sHat ? spyData.sHat.flatMap(p => Array.from(p)) : [];
-  const w = spyData?.w ? Array.from(spyData.w) : [];
+  const advanceState = (n: number, variable?: string) => {
+    setState(n);
+    if (variable) onSelectVariable(variable);
+  };
 
   return (
-    <div className="flex flex-col gap-6 h-full">
-        {/* Stage 1: c → c1, c2 */}
-        <div className="flex flex-row items-center justify-center gap-6">
-            <div className={`flex flex-col items-center gap-3 transition-all duration-500 ${show(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <InlineMath math="c" />
-                <div
-                    onClick={() => onSelectVariable("cipherMatrixDecaps")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={8} size={12} colorData={c} />
-                </div>
-            </div>
-
-            <ArrowRightIcon className={`size-6 transition-all duration-500 ${show(1) ? 'opacity-100' : 'opacity-0'}`} />
-
-            <div className={`flex flex-col items-center gap-3 transition-all duration-500 ${show(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <InlineMath math="c_1" />
-                <div
-                    onClick={() => onSelectVariable("cipher1MatrixDecaps")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={4} size={12} colorData={c1} />
-                </div>
-            </div>
-
-            <div className={`flex flex-col items-center gap-3 transition-all duration-500 ${show(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <InlineMath math="c_2" />
-                <div
-                    onClick={() => onSelectVariable("cipher2MatrixDecaps")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={4} size={12} colorData={c2} />
-                </div>
-            </div>
-
-            <ArrowRightIcon className={`size-6 transition-all duration-500 ${show(2) ? 'opacity-100' : 'opacity-0'}`} />
-
-            <div className={`flex flex-col items-center gap-3 transition-all duration-500 ${show(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <InlineMath math="u'" />
-                <div
-                    onClick={() => onSelectVariable("uMatrixDecaps")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={4} size={12} colorData={u} />
-                </div>
-            </div>
-
-            <div className={`flex flex-col items-center gap-3 transition-all duration-500 ${show(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <InlineMath math="v'" />
-                <div
-                    onClick={() => onSelectVariable("vMatrixDecaps")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={4} size={12} colorData={v} />
-                </div>
-            </div>
+    <div className="flex flex-col gap-6 h-full justify-center items-center">
+      <div className="flex flex-row gap-2 items-center">
+        <div className="flex flex-col gap-2 items-center">
+          <div><InlineMath math="dk_{PKE}" /></div> {/*// 384k bytes */}
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []} showValues={true} />
         </div>
-
-        {/* Stage 2: v' - (ŝᵀ × u') → w → m */}
-        <div className={`flex flex-row justify-center items-center gap-6 transition-all duration-500 ${show(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="v'" />
-                <div
-                    onClick={() => onSelectVariable("vMatrixDecaps")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={4} size={12} colorData={v} />
-                </div>
-            </div>
-
-            <div onClick={() => onSelectVariable("decapsM")} className="cursor-pointer">-</div>
-            <div onClick={() => onSelectVariable("decapsM")} className="cursor-pointer">(</div>
-
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="\hat{s}^T" />
-                <div
-                    onClick={() => onSelectVariable("sMatrixDecaps")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={1} size={12} colorData={sHat} />
-                </div>
-            </div>
-
-            <div onClick={() => onSelectVariable("decapsM")} className="cursor-pointer">×</div>
-
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="u'" />
-                <div
-                    onClick={() => onSelectVariable("uMatrixDecaps")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={4} size={12} colorData={u} />
-                </div>
-            </div>
-
-            <div onClick={() => onSelectVariable("decapsM")} className="cursor-pointer">)</div>
-            <ArrowRightIcon className="size-6" />
-
-            <div className="flex flex-col items-center gap-3">
-                <InlineMath math="w" />
-                <div
-                    onClick={() => onSelectVariable("decapsM")}
-                    className="border-2 border-solid cursor-pointer hover:border-blue-500 transition w-fit h-fit"
-                >
-                    <SquareGrid rows={8} cols={4} size={12} colorData={w} />
-                </div>
-            </div>
-
-            <ArrowRightIcon className="size-6" />
-            <div onClick={() => onSelectVariable("decapsM")} className="cursor-pointer">
-                <InlineMath math="m" />
-            </div>
+        <div className="flex flex-col items-center font-mono text-sm cursor-pointer" onClick={() => advanceState(1, "1")}>
+          decode
+          <ArrowLongRightIcon className="size-6" />
         </div>
-
-        <div className="flex justify-content:flex-end">
-            <Button variant="secondary" size="lg" onClick={() => onChangeStage("decapsulation0")}>
-                <ChevronLeftIcon className="size-6" /> BACK
-            </Button>
+        <div className={`flex flex-col items-center gap-4 transition-opacity duration-300 ${state >= 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <div><InlineMath math="\hat{s}" /></div>
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []} showValues={true} base={4096} />
         </div>
+      </div>
+      <div className="flex flex-row gap-2 items-center">
+        <div className="flex flex-col gap-2 items-center">
+          <div><InlineMath math="c" /></div>
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} />
+        </div>
+        <div className="flex flex-col items-center font-mono text-sm cursor-pointer" onClick={() => advanceState(1, "1")}>
+          split
+          <ArrowLongRightIcon className="size-6" />
+        </div>
+        <div className={`flex flex-row gap-4 transition-opacity duration-300 ${state >= 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <div className="flex flex-col gap-2 items-center">
+            <div><InlineMath math="c_1" /></div>
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.c1 ? Array.from(spyData.c1) : []} showValues={true} />
+          </div>
+          <div className="flex flex-col gap-2 items-center">
+            <div><InlineMath math="c_2" /></div>
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.c2 ? Array.from(spyData.c2) : []} showValues={true} />
+          </div>
+          <div className="flex flex-col items-center font-mono text-sm cursor-pointer" onClick={() => advanceState(2, "2")}>
+            decode + decompress
+            <ArrowLongRightIcon className="size-6" />
+          </div>
+          <div className={`flex flex-row gap-4 transition-opacity duration-300 ${state >= 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <div className="flex flex-col gap-2 items-center">
+            <div><InlineMath math="u'" /></div>
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.u[0] ? Array.from(spyData.u[0]) : []} showValues={true} />
+          </div>
+          <div className="flex flex-col gap-2 items-center">
+            <div><InlineMath math="v'" /></div>
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues={true} />
+          </div>
+          </div>
+        </div>
+      </div>
+      <div className={`flex flex-row gap-2 transition-opacity duration-300 ${state >= 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <div className="flex flex-col gap-2 items-center">
+            <div><InlineMath math="v'" /></div>
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues={true} />
+          </div>
+          <MinusIcon className="size-6" />
+          <div>(</div>
+          <div className="flex flex-col gap-2 items-center">
+            <div><InlineMath math="v'" /></div>
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues={true} />
+          </div>
+          <InlineMath math="\cdot" />
+          <div className="flex flex-col gap-2 items-center">
+            <div><InlineMath math="u'" /></div>
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.u[0] ? Array.from(spyData.u[0]) : []} showValues={true} />
+          </div>
+          <div>)</div>
+          <EqualsIcon className="size-6" />
+          <div className="flex flex-col gap-2 items-center">
+            <div><InlineMath math="w" /></div>
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.w ? Array.from(spyData.w) : []} showValues={true} />
+          </div>
+      </div>
+      <div className={`flex flex-row gap-2 transition-opacity duration-300 ${state >= 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className="flex flex-col gap-2 items-center">
+          <div><InlineMath math="w" /></div>
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.w ? Array.from(spyData.w) : []} showValues={true} />
+        </div>
+        <div className="flex flex-col items-center font-mono text-sm cursor-pointer">
+          compress + encode
+          <ArrowLongRightIcon className="size-6" />
+        </div>
+        <div className="flex flex-col gap-2 items-center">
+          <div><InlineMath math="m" /></div>
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} />
+        </div>
+      </div>
+        <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => onChangeStage("decapsulation0")}
+            className="flex justify-start cursor-pointer"
+            >
+            <ChevronLeftIcon className="size-6" /> BACK
+        </Button>
     </div>
   );
 }
