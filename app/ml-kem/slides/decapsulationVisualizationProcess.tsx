@@ -34,7 +34,7 @@ export default function DecapsulationVisualizationProcess({
       <div className="flex flex-row gap-2 items-center">
         <div className="flex flex-col gap-2 items-center">
           <div><InlineMath math="dk_{PKE}" /></div> {/*// 384k bytes */}
-          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []} showValues={true} />
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []} showValues />
         </div>
         <div className="flex flex-col items-center font-mono text-sm cursor-pointer" onClick={() => advanceState(1, "1")}>
           decode
@@ -42,13 +42,13 @@ export default function DecapsulationVisualizationProcess({
         </div>
         <div className={`flex flex-col items-center gap-4 transition-opacity duration-300 ${state >= 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
           <div><InlineMath math="\hat{s}" /></div>
-          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []} showValues={true} base={4096} />
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []} showValues base={3329} />
         </div>
       </div>
       <div className="flex flex-row gap-2 items-center">
         <div className="flex flex-col gap-2 items-center">
           <div><InlineMath math="c" /></div>
-          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} />
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues />
         </div>
         <div className="flex flex-col items-center font-mono text-sm cursor-pointer" onClick={() => advanceState(1, "1")}>
           split
@@ -57,11 +57,11 @@ export default function DecapsulationVisualizationProcess({
         <div className={`flex flex-row gap-4 transition-opacity duration-300 ${state >= 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
           <div className="flex flex-col gap-2 items-center">
             <div><InlineMath math="c_1" /></div>
-            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.c1 ? Array.from(spyData.c1) : []} showValues={true} />
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.c1 ? Array.from(spyData.c1) : []} showValues />
           </div>
           <div className="flex flex-col gap-2 items-center">
             <div><InlineMath math="c_2" /></div>
-            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.c2 ? Array.from(spyData.c2) : []} showValues={true} />
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.c2 ? Array.from(spyData.c2) : []} showValues />
           </div>
           <div className="flex flex-col items-center font-mono text-sm cursor-pointer" onClick={() => advanceState(2, "2")}>
             decode + decompress
@@ -70,11 +70,11 @@ export default function DecapsulationVisualizationProcess({
           <div className={`flex flex-row gap-4 transition-opacity duration-300 ${state >= 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <div className="flex flex-col gap-2 items-center">
             <div><InlineMath math="u'" /></div>
-            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.u[0] ? Array.from(spyData.u[0]) : []} showValues={true} />
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.u[0] ? Array.from(spyData.u[0]) : []} showValues base={3329} />
           </div>
           <div className="flex flex-col gap-2 items-center">
             <div><InlineMath math="v'" /></div>
-            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues={true} />
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues base={3329} />
           </div>
           </div>
         </div>
@@ -82,30 +82,29 @@ export default function DecapsulationVisualizationProcess({
       <div className={`flex flex-row gap-2 transition-opacity duration-300 ${state >= 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
           <div className="flex flex-col gap-2 items-center">
             <div><InlineMath math="v'" /></div>
-            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues={true} />
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues base={3329} />
           </div>
           <MinusIcon className="size-6" />
-          <div>(</div>
           <div className="flex flex-col gap-2 items-center">
-            <div><InlineMath math="v'" /></div>
-            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues={true} />
+            <div><InlineMath math="{\hat{s}}^T" /></div>
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []} showValues base={3329} />
           </div>
           <InlineMath math="\cdot" />
           <div className="flex flex-col gap-2 items-center">
             <div><InlineMath math="u'" /></div>
-            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.u[0] ? Array.from(spyData.u[0]) : []} showValues={true} />
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.u[0] ? Array.from(spyData.u[0]) : []} showValues base={3329} />
           </div>
           <div>)</div>
           <EqualsIcon className="size-6" />
           <div className="flex flex-col gap-2 items-center">
             <div><InlineMath math="w" /></div>
-            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.w ? Array.from(spyData.w) : []} showValues={true} />
+            <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.w ? Array.from(spyData.w) : []} showValues base={3329} />
           </div>
       </div>
       <div className={`flex flex-row gap-2 transition-opacity duration-300 ${state >= 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex flex-col gap-2 items-center">
           <div><InlineMath math="w" /></div>
-          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.w ? Array.from(spyData.w) : []} showValues={true} />
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.w ? Array.from(spyData.w) : []} showValues base={3329} />
         </div>
         <div className="flex flex-col items-center font-mono text-sm cursor-pointer">
           compress + encode
@@ -113,7 +112,7 @@ export default function DecapsulationVisualizationProcess({
         </div>
         <div className="flex flex-col gap-2 items-center">
           <div><InlineMath math="m" /></div>
-          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} />
+          <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues />
         </div>
       </div>
         <Button
