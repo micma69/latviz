@@ -81,7 +81,7 @@ export default function SignOuter({
                 variant="secondary"
                 size="sm"
                 onClick={() => onChangeStage("home")}
-                className="cursor-pointer"
+                className="flex justify-start cursor-pointer"
                 >
                 <ChevronLeftIcon className="size-6" /> BACK
             </Button>

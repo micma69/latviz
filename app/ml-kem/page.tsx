@@ -365,7 +365,7 @@ export default function MLKEMPage() {
                     <div className="grid grid-cols-1 md:grid-cols-[2.5fr_1.5fr]">
                         <div className="flex flex-col gap-4">
                             <main className="flex-1 rounded-xl bg-white dark:bg-zinc-900 shadow-xl p-5">
-                                <div className="rounded-xl bg-slate-100 dark:bg-zinc-900 p-5 h-full justify-center">
+                                <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 p-5 h-full items-center justify-center">
                                     {(vizStage === null || vizStage === "home") && (
                                         <div className="flex flex-col gap-12 items-center justify-center">
                                             <Button
