@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import SquareGrid from "@/components/ui/gridLattice";
-import { ChevronLeftIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid";
+import { ChevronLeftIcon, ArrowLongRightIcon, PlusIcon, EqualsIcon } from "@heroicons/react/24/solid";
 import { Button } from "@/components/ui/button";
 import { InlineMath } from "react-katex";
 import { EncapsSpyData } from '@/utils/createSpy';
@@ -39,7 +39,7 @@ export default function EncapsulationVisualizationProcess({
           <div className="flex flex-col items-center">
             <div>Encapsulation Key ek</div>
             <motion.div layoutId="ek">
-              <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.ek ? Array.from(spyData.ek) : []} showValues={true} />
+              <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.ek ? Array.from(spyData.ek) : []} showValues />
             </motion.div>
           </div>
 
@@ -51,7 +51,7 @@ export default function EncapsulationVisualizationProcess({
               <div className="flex flex-col items-center">
                 <InlineMath math="\rho" />
                 <motion.div layoutId="rho">
-                  <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues={true} />
+                  <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues />
                 </motion.div>
               </div>
 
@@ -59,7 +59,7 @@ export default function EncapsulationVisualizationProcess({
               <div className="flex flex-col items-center">
                 <InlineMath math="t" />
                 <motion.div layoutId="ek">
-                  <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []} showValues={true} />
+                  <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []} showValues base={3329} />
                 </motion.div>
               </div>
             </>
@@ -70,7 +70,7 @@ export default function EncapsulationVisualizationProcess({
         <div className="flex flex-col items-center">
           <div>Message <InlineMath math="m" /></div>
           <motion.div layoutId="m">
-            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} />
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues />
           </motion.div>
         </div>
 
@@ -78,7 +78,7 @@ export default function EncapsulationVisualizationProcess({
         <div className="flex flex-col items-center">
           <div>Randomness <InlineMath math="r" /></div>
           <motion.div layoutId="r">
-            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} />
+            <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues />
           </motion.div>
         </div>
       </div>
@@ -94,7 +94,7 @@ export default function EncapsulationVisualizationProcess({
               onClick={() => onSelectVariable("encapsMatrixAT")}
               className="cursor-pointer"
             >
-              <SquareGrid rows={8} cols={8} size={15} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues={true} />
+              <SquareGrid rows={8} cols={8} size={15} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues base={3329} />
             </motion.div>
           </div>
 
@@ -108,7 +108,7 @@ export default function EncapsulationVisualizationProcess({
               onClick={() => onSelectVariable("encapsMatrixY")}
               className="cursor-pointer"
             >
-              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues={true} />
+              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues base={3329} />
             </motion.div>
           </div>
 
@@ -122,7 +122,7 @@ export default function EncapsulationVisualizationProcess({
             animate={{ opacity: 1 }}
           >
             <InlineMath math="e_1" />
-            <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.e1[0] ? Array.from(spyData.e1[0]) : []} showValues={true} />
+            <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.e1[0] ? Array.from(spyData.e1[0]) : []} showValues base={3329} />
           </motion.div>
 
           <div>=</div>
@@ -136,7 +136,7 @@ export default function EncapsulationVisualizationProcess({
                 onClick={() => onSelectVariable("encapsMatrixU")}
                 className="cursor-pointer"
               >
-                <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.u[0] ? Array.from(spyData.u[0]) : []} showValues={true} />
+                <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.u[0] ? Array.from(spyData.u[0]) : []} showValues base={3329} />
               </motion.div>
             </div>
           )}
@@ -154,7 +154,7 @@ export default function EncapsulationVisualizationProcess({
               onClick={() => onSelectVariable("encapsMatrixT")}
               className="cursor-pointer"
             >
-              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []} showValues={true} />
+              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []} showValues base={3329} />
             </motion.div>
           </div>
 
@@ -168,7 +168,7 @@ export default function EncapsulationVisualizationProcess({
               onClick={() => onSelectVariable("encapsMatrixY")}
               className="cursor-pointer"
             >
-              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.y[0] ? Array.from(spyData.y[0]) : []} showValues={true} />
+              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.y[0] ? Array.from(spyData.y[0]) : []} showValues base={3329} />
             </motion.div>
           </div>
 
@@ -182,7 +182,7 @@ export default function EncapsulationVisualizationProcess({
             animate={{ opacity: 1 }}
           >
             <InlineMath math="e_2" />
-            <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.e2 ? Array.from(spyData.e2) : []} showValues={true} />
+            <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.e2 ? Array.from(spyData.e2) : []} showValues base={3329} />
           </motion.div>
 
           <div>+</div>
@@ -195,7 +195,7 @@ export default function EncapsulationVisualizationProcess({
               onClick={() => onSelectVariable("encapsMatrixMu")}
               className="cursor-pointer"
             >
-              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.mu ? Array.from(spyData.mu) : []} showValues={true} />
+              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.mu ? Array.from(spyData.mu) : []} showValues base={3329} />
             </motion.div>
           </div>
 
@@ -209,7 +209,7 @@ export default function EncapsulationVisualizationProcess({
               onClick={() => onSelectVariable("encapsMatrixV")}
               className="cursor-pointer"
             >
-              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues={true} />
+              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues base={3329} />
             </motion.div>
           </div>
         </div>
