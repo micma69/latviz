@@ -133,6 +133,18 @@ const RejectionSamplingDiagram = () => {
     <div className="diagram-container">
       <h1>Dilithium-Style Rejection Sampling Loop</h1>
       <p className="subtitle">Hover over any step to see detailed explanation</p>
+
+      {/* Parameter legend */}
+      <div className="legend">
+        <h3>Parameters</h3>
+        <div className="params-grid">
+          <div><strong>γ₁, γ₂</strong> – Norm bounds for rejection</div>
+          <div><strong>β</strong> – Security margin</div>
+          <div><strong>ω</strong> – Max hint weight</div>
+          <div><strong>κ</strong> – Counter (incremented by ℓ each loop)</div>
+          <div><strong>λ</strong> – Security parameter (bits)</div>
+        </div>
+      </div>
       
       <div className="flowchart">
         {/* Loop start */}
@@ -202,18 +214,6 @@ const RejectionSamplingDiagram = () => {
         {/* End node */}
         <div className="step-node end-node">
           Return (z, h)
-        </div>
-      </div>
-      
-      {/* Parameter legend */}
-      <div className="legend">
-        <h3>Parameters</h3>
-        <div className="params-grid">
-          <div><strong>γ₁, γ₂</strong> – Norm bounds for rejection</div>
-          <div><strong>β</strong> – Security margin</div>
-          <div><strong>ω</strong> – Max hint weight</div>
-          <div><strong>κ</strong> – Counter (incremented by ℓ each loop)</div>
-          <div><strong>λ</strong> – Security parameter (bits)</div>
         </div>
       </div>
     </div>

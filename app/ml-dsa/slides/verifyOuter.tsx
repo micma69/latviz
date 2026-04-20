@@ -32,7 +32,7 @@ export default function VerifyOuter({
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} />
                 </div>
                 <div className="flex flex-col items-center gap-2">
-                    <div><InlineMath math="sigma" /></div>
+                    <div><InlineMath math="\sigma" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.signature ? Array.from(spyData.signature) : []} showValues={true} />
                 </div>
                 <div className="flex flex-col items-center gap-2">

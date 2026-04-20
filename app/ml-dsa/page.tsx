@@ -16,6 +16,7 @@ import KeygenInternal from './slides/keygenInternal';
 import SignInternal from './slides/signingInternal';
 import VerifyInternal from './slides/verifyInternal';
 import SignLoop from './slides/signLoop';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 export default function MLDSAPage() {
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
@@ -413,17 +414,49 @@ export default function MLDSAPage() {
                             </div>
                             <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center">
                                 {(vizStage === null || vizStage === "home") &&
-                                    <div>will show output for each stage</div>
+                                    <div className="">Pick a stage!</div>
                                 }
                                 {(vizStage === "keygen0" || vizStage === "keygen1") &&
-                                    <div>will show output for keygen</div>
+                                    <div className="flex flex-col items-center gap-4">
+                                        Output
+                                        <div className="grid grid-cols-2 gap-6">
+                                            <div className="flex flex-col items-center gap-1">
+                                                <div><InlineMath math="pk \in \mathbb{B}^{32 + 32k(\mathrm{bitlen}(q - 1) - d)}" /></div>
+                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                                    <SquareGrid rows={Math.ceil((keygenSpyData?.pk?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.pk ? Array.from(keygenSpyData.pk) : []} showValues={true}/>
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col items-center gap-1">
+                                                <div><InlineMath math="sk \in \mathbb{B}^{32 + 32 + 64 + 32 \cdot ((\ell + k)\cdot \mathrm{bitlen}(2\eta) + d_k)}" /></div>
+                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                                    <SquareGrid rows={Math.ceil((keygenSpyData?.sk?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sk ? Array.from(keygenSpyData.sk) : []} showValues={true}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                                 {(vizStage === "sign0" || vizStage === "sign1" || vizStage === "sign2") &&
-                                    <div>will show output for sign</div>
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div>Output</div>
+                                        <div className="flex flex-col items-center gap-1">
+                                            <div><InlineMath math="\sigma \in \mathbb{B}^{\lambda/4 + \ell \cdot 32 \cdot (1 + \mathrm{bitlen}(\gamma_1 - 1)) + \omega + k}" /></div>
+                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                                <SquareGrid rows={Math.ceil((signSpyData?.signature?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.signature ? Array.from(signSpyData.signature) : []} showValues={true}/>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
-                                {(vizStage === "verify0" || vizStage === "verify1") &&
-                                    <div>will show output for verification</div>
-                                }
+                                {(vizStage === "verify0" || vizStage === "verify1") && (
+                                    <div className="flex flex-col items-center">
+                                        <div className={`text-lg font-bold ${verifyResult ? "text-green-500" : "text-red-500"}`}>
+                                        {verifyResult ? "The Signature is Valid!" : "The Signature is Invalid!"}
+                                        </div>
+
+                                        {verifyResult && (
+                                        <CheckCircleIcon className="w-10 h-10 text-green-500 mt-2" />
+                                        )}
+                                    </div>
+                                )}
                             </div>
                             <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center">
                                 <div>

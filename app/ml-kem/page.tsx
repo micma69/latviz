@@ -13,6 +13,7 @@ import EncapsulationVisualizationProcess from './slides/encapsulationVisualizati
 import DecapsulationVisualization from './slides/decapsulationVisualization';
 import DecapsulationVisualizationProcess from './slides/decapsulationVisualizationProcess';
 import { KeygenSpyData, EncapsSpyData, DecapsSpyData, createSpy } from '@/utils/createSpy';
+import SquareGrid from "@/components/ui/gridLattice";
 
 export default function MLKEMPage() {
     const [vizStage, setVizStage] = useState<string | null>(null);
@@ -423,16 +424,56 @@ export default function MLKEMPage() {
                             </div>
                             <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center">
                                 {(vizStage === null || vizStage === "home") &&
-                                    <div>will show output for each stage</div>
+                                    <div className="">Pick a stage!</div>
                                 }
                                 {(vizStage === "keygen0" || vizStage === "keygen1") &&
-                                    <div>will show output for keygen</div>
+                                    <div className="flex flex-col items-center gap-4">
+                                        Output
+                                        <div className="grid grid-cols-2 gap-6">
+                                            <div className="flex flex-col items-center gap-1">
+                                                <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
+                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                                    <SquareGrid rows={Math.ceil((keygenSpyData?.publicKey?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.publicKey} showValues={true}/>
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col items-center gap-1">
+                                                <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
+                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                                    <SquareGrid rows={Math.ceil((keygenSpyData?.secretKey?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.secretKey} showValues={true}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                                 {(vizStage === "encapsulation0" || vizStage === "encapsulation1") &&
-                                    <div>will show output for encapsulation</div>
+                                    <div className="flex flex-col items-center gap-4">
+                                        Output
+                                        <div className="grid grid-cols-2 gap-6">
+                                            <div className="flex flex-col items-center gap-1">
+                                                <div><InlineMath math="c \in \mathbb{B}^{32(d_u k + d_v)}" /></div>
+                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                                    <SquareGrid rows={Math.ceil((encapsSpyData?.cipherText?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.cipherText} showValues={true}/>
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col items-center gap-1">
+                                                <div><InlineMath math="K \in \mathbb{B}^{32}" /></div>
+                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                                    <SquareGrid rows={Math.ceil((encapsSpyData?.sharedSecret?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.sharedSecret} showValues={true}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                                 {(vizStage === "decapsulation0" || vizStage === "decapsulation1") &&
-                                    <div>will show output for decapsulation</div>
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div>Output</div>
+                                        <div className="flex flex-col items-center gap-1">
+                                            <div><InlineMath math="K \in \mathbb{B}^{32}" /></div>
+                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                                <SquareGrid rows={Math.ceil((decapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.K ? Array.from(decapsSpyData.K) : []} showValues={true}/>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                             </div>
                             <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center">
