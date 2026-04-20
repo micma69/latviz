@@ -24,13 +24,13 @@ export default function KeygenVisualization({
         <div className="flex flex-col h-full">
             <div className="flex flex-row gap-6 items-center h-full w-full justify-center">
                 <div className="flex flex-col items-center font-mono text-sm gap-6">
-                    <div>
-                        <div>Randomness <InlineMath math="d \in \mathbb{B}^{32}" /></div>
-                        <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.d ? Array.from(spyData.d) : []} showValues={true} />
+                    <div className="flex flex-col items-center gap-2">
+                        <div><InlineMath math="d \in \mathbb{B}^{32}" /></div>
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} colsExpanded={4} size={12} colorData={spyData?.d ? Array.from(spyData.d) : []} showValues={true} />
                     </div>
-                    <div>
-                        <div>Randomness <InlineMath math="z \in \mathbb{B}^{32}" /></div>
-                        <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.z ? Array.from(spyData.z) : []} showValues={true} />
+                    <div className="flex flex-col items-center gap-2">
+                        <div><InlineMath math="z \in \mathbb{B}^{32}" /></div>
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} colsExpanded={4} size={12} colorData={spyData?.z ? Array.from(spyData.z) : []} showValues={true} />
                     </div>
                 </div>
                 <div className="w-fit"><ArrowLongRightIcon className="size-8" /></div>
@@ -47,14 +47,14 @@ export default function KeygenVisualization({
                         <ArrowLongRightIcon className="size-8" />
                         <div className="flex flex-col items-center justify-center font-mono text-sm">
                             <div>Encapsulation Key ek <InlineMath math="\in \mathbb{B}^{384k+32}" /></div>
-                            <SquareGrid rows={8} cols={8} size={4} colorData={spyData?.publicKey} showValues={true}/>
+                            <SquareGrid rows={8} cols={8} size={4} colorData={spyData?.publicKey} showValues={true} showTooltip={false}/>
                         </div>
                     </div>
                     <div className="flex flex-row items-center gap-8">
                         <ArrowLongRightIcon className="size-8" />
                         <div className="flex flex-col items-center justify-center font-mono text-sm">
                             <div>Decapsulation Key dk <InlineMath math="\in \mathbb{B}^{768k+96}" /></div>
-                            <SquareGrid rows={8} cols={8} size={4} colorData={spyData?.secretKey} showValues={true}/>
+                            <SquareGrid rows={8} cols={8} size={4} colorData={spyData?.secretKey} showValues={true} showTooltip={false}/>
                         </div>
                     </div>
                 </div>
