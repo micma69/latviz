@@ -51,7 +51,15 @@ export interface LLLStep {
   iteration: number
   basis: number[][]
   k: number
-  action: 'reduce' | 'swap' | 'gso' | 'complete'
+  action: 'reduce' | 'swap' | 'gso' | 'complete' | 'start_lll_process' | 'complete_lll_process' | 'lovasz_check' | 'svp_enumeration'
   description: string
   calculations?: string[]
+  lllNumber?: number
+  blockStart?: number
+  coefficient?: number
+  subtractAmount?: number
+  norm_k?: number
+  norm_k_prev?: number
+  leftSide?: number
+  rightSide?: number
 }
