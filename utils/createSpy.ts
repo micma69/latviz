@@ -47,6 +47,8 @@ export interface DecapsSpyData {
     v: Uint16Array;
     sHat: Uint16Array[];
     w: Uint16Array;
+    ekPKE: Uint8Array;
+    dkPKE: Uint8Array; 
 }
 
 export interface Spy {
@@ -90,28 +92,64 @@ export interface DSAKeygenSpyData {
     t0: Int32Array[];
     t1: Int32Array[];
     tr: Uint8Array;
-    publicKey: Uint8Array;
-    secretKey: Uint8Array;
+    pk: Uint8Array;
+    sk: Uint8Array;
+    A: Uint16Array[][];
 }
 
 export interface DSASignSpyData {
+    ctx: Uint8Array;
+    rho: Uint8Array;
+    K: Uint8Array;
+    s1: Int32Array[];
+    s2: Int32Array[];
+    t0: Int32Array[];
+    tr: Uint8Array;
     mu: Uint8Array;
     rhoPrime: Uint8Array;
-    y: Int32Array[];
-    w: Int32Array[];
-    w1: Int32Array[];
-    cTilde: Uint8Array;
-    z: Int32Array[];
-    h: Int32Array[];
+    rnd: Uint8Array;
+    A: Int32Array[][];           // Fix: was Uint16Array
+    y: Int32Array[];             // Uncomment + fix type
+    w: Int32Array[];             // Uncomment + fix type
+    w1: Int32Array[];            // Uncomment + fix type
+    c: Int32Array;               // Uncomment + fix type
+    z: Int32Array[];             // Fix: was Uint16Array
+    r0: Int32Array[];            // Uncomment + fix type
+    ct0: Int32Array[];           // Uncomment + fix type
+    h: Uint8Array[];             // Fix: consistent type
+    kappa: number;               // Uncomment
+    s1Hat: Int32Array[];         // Add
+    s2Hat: Int32Array[];         // Add
+    t0Hat: Int32Array[];         // Add
+    signature: Uint8Array;
+    pk: Uint8Array;
+    sk: Uint8Array;
+    msg: Uint8Array;
+    M: Uint8Array;
 }
 
 export interface DSAVerifySpyData {
     mu: Uint8Array;
+    rho: Uint8Array;
     cTilde: Uint8Array;
-    z: Int32Array[];
-    w1: Int32Array[];
+    c: Uint16Array;
+    z: Uint16Array[];
+    w1: Uint16Array[];
+    h: Uint8Array[];
     c2: Uint8Array;
     result: boolean;
+    pk: Uint8Array;
+    signature: Uint8Array;
+    msg: Uint8Array;
+    M: Uint8Array;
+    ctx: Uint8Array;
+    t1: Uint16Array[];
+    A: Int32Array[][];           // Fix: was Uint16Array
+    ct12d: Int32Array[];         // Fix: was Uint16Array
+    Az: Int32Array[];            // Fix: was Uint16Array
+    wPrime: Int32Array[];        // Fix: was Uint16Array
+    zNtt: Int32Array[];          // Fix: was Uint16Array
+    tr: Uint8Array; 
 }
 
 export interface DSASpy {
