@@ -40,7 +40,7 @@ export default function SquareGrid({
   fullRows = rows,
   fullCols = cols,
   size = 20,
-  color = "#3b6fe8",
+  color = "#bac0cd5b",
   colorData,
   showValues = false,
   base = 256,

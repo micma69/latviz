@@ -66,7 +66,10 @@ export default function SignOuter({
                     <div><InlineMath math="M'" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.M ? Array.from(spyData.M) : []} showValues={true} />
                 </div>
-                <div className="cursor-pointer"><InlineMath math="rand" /></div>
+                <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="rnd" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rnd ? Array.from(spyData.rnd) : []} showValues={true} />
+                </div>
                 <div className="flex flex-col items-center gap-2">
                     input
                     <ArrowLongRightIcon className="size-8" />
@@ -76,7 +79,15 @@ export default function SignOuter({
                 }} className="flex rounded-lg bg-white p-3 font-mono text-sm h-24 items-center justify-center cursor-pointer">
                     Internal Signing
                 </div>
+                <div className="flex flex-col items-center gap-2">
+                    output
+                    <ArrowLongRightIcon className="size-8" />
+                </div>
             </div>
+            <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="\sigma" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.signature ? Array.from(spyData.signature) : []} showValues={true} />
+                </div>
             <Button
                 variant="secondary"
                 size="sm"

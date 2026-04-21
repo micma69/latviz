@@ -108,16 +108,19 @@ export interface DSASignSpyData {
     mu: Uint8Array;
     rhoPrime: Uint8Array;
     rnd: Uint8Array;
-    A: Uint16Array[][];
-    // y: Uint16Array[];
-    // w: Uint16Array[];
-    // w1: Uint16Array[];
-    // c: Uint16Array;
-    z: Uint16Array[];
-    // r0: Uint16Array[];
-    // ct0: Uint16Array[];
-    h: Uint16Array[];
-    // kappa: number;
+    A: Int32Array[][];           // Fix: was Uint16Array
+    y: Int32Array[];             // Uncomment + fix type
+    w: Int32Array[];             // Uncomment + fix type
+    w1: Int32Array[];            // Uncomment + fix type
+    c: Int32Array;               // Uncomment + fix type
+    z: Int32Array[];             // Fix: was Uint16Array
+    r0: Int32Array[];            // Uncomment + fix type
+    ct0: Int32Array[];           // Uncomment + fix type
+    h: Uint8Array[];             // Fix: consistent type
+    kappa: number;               // Uncomment
+    s1Hat: Int32Array[];         // Add
+    s2Hat: Int32Array[];         // Add
+    t0Hat: Int32Array[];         // Add
     signature: Uint8Array;
     pk: Uint8Array;
     sk: Uint8Array;
@@ -141,12 +144,12 @@ export interface DSAVerifySpyData {
     M: Uint8Array;
     ctx: Uint8Array;
     t1: Uint16Array[];
-    A: Uint16Array[][];
-    tr: Uint8Array;
-    zNtt: Uint16Array[]
-    wPrime: Uint16Array[];
-    ct12d: Uint16Array[];
-    Az: Uint16Array[];     
+    A: Int32Array[][];           // Fix: was Uint16Array
+    ct12d: Int32Array[];         // Fix: was Uint16Array
+    Az: Int32Array[];            // Fix: was Uint16Array
+    wPrime: Int32Array[];        // Fix: was Uint16Array
+    zNtt: Int32Array[];          // Fix: was Uint16Array
+    tr: Uint8Array; 
 }
 
 export interface DSASpy {
