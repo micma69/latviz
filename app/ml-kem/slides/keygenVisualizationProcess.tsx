@@ -135,7 +135,7 @@ export default function KeygenVisualizationProcess({
               onClick={() => onSelectVariable("keygenMatrixA")}
               className="cursor-pointer w-fit h-fit"
             >
-              <SquareGrid rows={8} cols={8} size={15} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues={true} />
+              <SquareGrid rows={8} cols={8} size={15} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues={true} base={3329} />
             </motion.div>
           </div>
 
@@ -153,7 +153,7 @@ export default function KeygenVisualizationProcess({
               onClick={() => onSelectVariable("keygenMatrixS")}
               className="cursor-pointer w-fit h-fit"
             >
-              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []} showValues={true} />
+              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []} showValues={true} base={3329} />
             </motion.div>
           </div>
 
@@ -171,7 +171,7 @@ export default function KeygenVisualizationProcess({
               onClick={() => onSelectVariable("keygenMatrixE")}
               className="cursor-pointer w-fit h-fit"
             >
-              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.eHat[0] ? Array.from(spyData.eHat[0]) : []} showValues={true} />
+              <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.eHat[0] ? Array.from(spyData.eHat[0]) : []} showValues={true} base={3329} />
             </motion.div>
           </div>
 
@@ -187,7 +187,7 @@ export default function KeygenVisualizationProcess({
                 onClick={() => onSelectVariable("keygenMatrixT")}
                 className="cursor-pointer w-fit h-fit"
               >
-                <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []} showValues={true} />
+                <SquareGrid rows={8} cols={1} size={15} colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []} showValues={true} base={3329} />
               </motion.div>
             </div>
           )}
@@ -223,11 +223,12 @@ export default function KeygenVisualizationProcess({
 
       <div>
         <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => onChangeStage("keygen0")}
-        >
-          <ChevronLeftIcon className="size-6" /> BACK
+            variant="secondary"
+            size="sm"
+            onClick={() => onChangeStage("keygen0")}
+            className="flex justify-start cursor-pointer"
+            >
+            <ChevronLeftIcon className="size-6" /> BACK
         </Button>
       </div>
     </motion.div>
