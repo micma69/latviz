@@ -58,14 +58,13 @@ INPUT D:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm1440.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx1440.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm0900.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ectt0900.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx0900.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm0900.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm1200.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx1200.tfm
+INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx1000.tfm
 OUTPUT paper.pdf
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx1000.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT .\color_representation.png
 INPUT .\color_representation.png
@@ -75,19 +74,10 @@ INPUT .\color_representation.png
 INPUT .\color_representation.png
 INPUT .\color_representation.png
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti1000.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr6.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi9.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi6.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy9.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy6.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm0600.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti0900.tfm
 INPUT paper.aux
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti0900.pk
-INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0600.pk
-INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0600.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
@@ -100,11 +90,15 @@ INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0900.pk
-INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt0900.pk
-INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
+INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
+INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
+INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi7.pfb
+INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi7.pfb
+INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
+INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb

@@ -30,3 +30,5 @@ References (will be added to paper/removed as relevant later):
 - https://www.desmos.com/calculator/5mcnbkmu5f (lattice visualization with desmos)
 https://csrc.nist.gov/Projects/post-quantum-cryptography/post-quantum-cryptography-standardization/round-3-submissions (round three algorithms for Kyber and Dilithium used for FIPS)
 - https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf
+- https://dl.acm.org/doi/epdf/10.1145/3770762.3772573
+- 
