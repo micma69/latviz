@@ -4,6 +4,11 @@
 %
 \documentclass[runningheads]{llncs}
 %
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{bbm}
+\newcommand{\bbB}{\mathbbm{B}}
+\usepackage{amsmath,mathtools,amssymb}
+\usepackage{float}
 \usepackage[T1]{fontenc}
 % T1 fonts will be used to generate the final print and online PDFs,
 % so please use T1 fonts in your manuscript whenever possible.
@@ -30,20 +35,20 @@
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{Jeslyn Theodora}
+\author{Jeslyn Theodora \and Amril Syalim, S.Kom., M.Eng., Ph.D.}
 %
 \authorrunning{Jeslyn Theodora}
 % First names are abbreviated in the running head.
 % If there are more than two authors, 'et al.' is used.
 %
-\institute{Faculty of Computer Science, University of Indonesia}
+\institute{Faculty of Computer Science, University of Indonesia, Jl. Prof. DR. Sudjono D. Pusponegoro, Pondok Cina, Kecamatan Beji, Kota Depok, Jawa Barat 16425}
 %
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Post-quantum cryptographic algorithms are gaining relevance as prevalent security measures are found vulnerable to quantum computers. Among them are the key encapsulation standard ML-KEM and the digital signature standard ML-DSA released by NIST (National Institute of Standards and Technology) in 2024. This paper details the creation of'Latviz', a digital visualization tool meant to help learners understand the entire process behind the ML-KEM and ML-DSA standards. It takes into account 
+Post-quantum cryptographic algorithms are gaining relevance as prevalent security measures are found vulnerable to quantum computers. Among them are the key encapsulation standard ML-KEM and the digital signature standard ML-DSA released by NIST (National Institute of Standards and Technology) in 2024. However despite it's relevance, there are few resources dedicated to fully describing the algorithms behind them that are easily followed. This paper details the creation of'Latviz', a digital visualization tool meant to help learners understand the entire process behind the ML-KEM and ML-DSA standards. It takes into account what types of visualizations tend to be more helpful for learners by employing visual abstractions, animations, and interactivity. (WIP AFTER I GET THAT DOWN)
 
-\keywords{Cryptography \and Post-Quantum \and Algorithm Visualization \and Visualization}
+\keywords{Cryptography \and Post-Quantum \and Algorithm Visualization \and Visualization \and ML-KEM \and ML-DSA}
 \end{abstract}
 %
 %
@@ -53,34 +58,421 @@ Ever since quantum computing was first theorized in the early 1980s (Benioff, 19
 
 Among them are its implications on cryptography. In 1994, Peter Shor proposed a quantum algorithm that, given a sufficiently powerful quantum computer, might be used to break protocols like RSA (Shor, 1994). Shor's algorithm and others like it significantly lower the difficulty of problems such as the integer factorization problem and discrete logarithm problem, which the most widely used public key algorithms base their difficulty on. This means that common security protocols are at risk of being broken sometime in the near future. Because of this, cryptology experts around the world have looked into new protocols that might have the potential to stay secure despite the continued development into quantum computers. 
 
-NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are lattice-based; ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively. ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures.
+NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are lattice-based; ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively (NIST, 2024 \& NIST, 2024). ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures.
 
-\subsection{Problem}
-However, despite their importance, there are a limited number of resources available for learning about them. Outside of NIST's official releases (NIST, 2024 \& NIST, 2024), most of they come in the from of summaries of said releases, video lectures, and simplified diagrams or visualizations. The following are some of the few that are publically available:
-\begin{itemize}
-\item pqc-vizz (ML-KEM, ML-DSA, SLH-DSA)
-\end{itemize}
+However, despite their importance, there are a limited number of resources available for learning about them. Outside of NIST's official releases and lectures, most of they come in the from of summaries of said releases and lectures, public implementations, and simplified diagrams or visualizations. The visualization and exploration tool pqc-vizz for example, provides an interactive working implementation for ML-KEM and ML-DSA that describes the overall process of using them, but skips over most of their inner workings such as their background calculations (Kalava et al., 2025). Daeukun Kang's ML-KEM from Scratch details the entire process of ML-KEM as well as the context and mathematical grounding behind it, including a working Python implementation (Kang, 2026). However, it assumes that the user has a working understanding of coding; otherwise, it is nothing more than a particularly structured summary. Other resources are similarly lacking in that they do not offer anything beyond a summary of NIST's release or they simplify their explanations to only the outermost layers.
 
-Of the examples above, 
-
-However, they tend to skip parts of the step-by-step process, not show the background calculations, as well as simplify the lattice too much (Rodríguez et al., 2024; Kalava et al., 2025).
-
-Thus, this work aims to develop a visualization tool that allows users to view the complete process behind ML-KEM and ML-DSA.
+Thus, this work aims to develop a visualization tool that allows users to view the complete process behind ML-KEM and ML-DSA in a way that is still digestible to most people (layman?).
 
 \section{Related Works}
 Visualization tools for algorithms, also known as algorithm visualization technology, have been around since the late 1970s (Hundhausen et al., 2002), ranging from basic animations (Stasko et al., 1993) to interactive demonstrations. However, the current tools available for visualizing ML-KEM and ML-DSA are limited.
 
-\subsection{ML-KEM}
-ML-KEM, also referred to as Module-Lattice-Based Key-Encapsulation Mechanism Standard, is a standard set by NIST's FIPS 203 publication that specifies a set of algorithms meant to be used to establish a shared secret key between two parties. This standard was proposed as a response to the potential unreliability of modern key generation algorithms such as RSA and AES in the face of quantum computers.
+\subsection{ML-KEM - FIPS 203}
+ML-KEM, also referred to as Module-Lattice-Based Key-Encapsulation Mechanism Standard, is a standard set by NIST's FIPS 203 publication that specifies a set of algorithms meant to be used to establish a shared private key between two parties. This standard was proposed as a response to the potential unreliability of modern key generation algorithms such as RSA in the face of quantum computers.
 
-ML-KEM is a variant of the CRYSTALS-Kyber algorithm, which is itself based on the hardness of solving the module learning with errors (MLWE) problem, which is itself based on the presumed hardness of certain computational problems in module lattices. Unlike the
+ML-KEM is a variant of the CRYSTALS-Kyber algorithm (Avanzi et al., 2021), which is itself based on the hardness of solving the module learning with errors (MLWE) problem, which is based on the presumed hardness of certain computational problems in module lattices. It is an generalization of the Learning with Errors (LWE) problem, which in essence, represents secret information as a set of equations with errors. LWE is considered quantum resistant, in that there are no known quantum algorithms that can efficiently solve it; this applies to MLWE by extension.
 
-In MLWE, given an input set of random noisy linear equations in some secret variables $x \in R_q^k$, which is constructed by taking the $k$-fold Cartesian product of a certain polynomial ring $R_q$, the task is to recover x. The presence of the noise in the equations turns what would otherwise be a straightforward linear algebra problem into a nightmare
+ML-KEM and other KEMs (Key Encapsulation Mechanisms) typically consist of three main algorithms: a key generation, key encapsulation, and key decapsulation algorithm. 
 
-In brief, Kyber follows a two stage approach: employing an IND-CPA secure public key encryption scheme that encrypts messages of a fixed length of 32 bytes, followed by a slightly tweaked Fujisaki Okamoto (FO) transform to turn it into a IND-CCA2 key encapsulation mechanism.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.36\linewidth]{images/KEM_diagram.png}
+\caption{Simplified key establishment process using KEM}
+\label{fig1}
+\end{figure}
 
-\subsection{ML-DSA}
+As shown in figure 1, KEMs are used to establish a shared private key between two parties. Party A begins by running a key generation algorithm that produces an encapsulation (public) key and decapsulation (private) key. When party B accepts the encapsulation key, they can run the encapsulation algorithm with it as an input, which produces a copy of the two parties' shared secret key \textit{K} and its associated ciphertext \textit{c}. Party B sends the ciphertext to party A, and party A runs the decapsulation algorithm using the decapsulation key and the ciphertext, producing their own copy \textit{K'} of the shared secret key.
+
+They also have multiple parameter sets, of which ML-KEM has three. In order of least to most secure and most to least efficient, they are ML-KEM-512, ML-KEM-768, and ML-KEM-1024.
+
+\begin{table}[H]
+\centering
+\label{tab:mlkem-params}
+\begin{tabular}{||c c c c c c c c c||} 
+ \hline
+  & \textit{n} & \textit{q} & \textit{k} & \textit{$\eta_1$} & \textit{$\eta_2$} & \textit{$d_u$} & \textit{$d_v$} & Required RBG strength (bits) \\ [0.5ex] 
+ \hline\hline
+ ML-KEM-512  & 256 & 3329 & 2 & 3 & 2 & 10 & 4 & 128 \\ 
+ \hline
+ ML-KEM-768  & 256 & 3329 & 3 & 2 & 2 & 10 & 4 & 192 \\
+ \hline
+ ML-KEM-1024 & 256 & 3329 & 4 & 2 & 2 & 11 & 5 & 256 \\
+ \hline
+\end{tabular}
+\caption{Parameters sets for ML-KEM (Kyber) security levels}
+\end{table}
+
+\subsubsection{ML-KEM Key Generation}
+The key generation algorithm ML-KEM.Keygen in ML-KEM produces an encapsulation key and decapsulation key using internally generated randomness.
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Output}{Output}
+\Output{encapsulation key $\mathrm{ek} \in \mathbb{B}^{384k+32}$}
+\Output{decapsulation key $\mathrm{dk} \in \mathbb{B}^{768k+96}$}
+\BlankLine
+$d \gets^{\$} \mathbb{B}^{32}$ \tcc{$d$ is 32 random bytes}
+$z \gets^{\$} \mathbb{B}^{32}$ \tcc{$z$ is 32 random bytes}
+\uIf{$d == \mathrm{NULL}$ or $z == \mathrm{NULL}$}{
+    \Return{$\bot$} \tcc{return an error indication if random bit generation failed}
+}
+$(\mathrm{ek},\mathrm{dk}) \gets \mathrm{ML\text{-}KEM.KeyGen\_internal}(d,z)$
+\BlankLine
+\Return{$(\mathrm{ek},\mathrm{dk})$}
+\caption{ML-KEM.KeyGen()}
+\label{alg:keygen}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{randomness $d \in \mathbb{B}^{32}$}
+\Input{randomness $z \in \mathbb{B}^{32}$}
+\Output{encapsulation key $\mathrm{ek} \in \mathbb{B}^{384k+32}$}
+\Output{decapsulation key $\mathrm{dk} \in \mathbb{B}^{768k+96}$}
+\BlankLine
+$(\mathrm{ek_{PKE}}, \mathrm{dk_{PKE}}) \leftarrow \mathrm{K\text{-}PKE.KeyGen}(d)$ \tcc{run key generation for K-PKE}
+$\mathrm{ek} \leftarrow \mathrm{ek_{PKE}}$ \tcc{KEM encaps key is just the PKE encryption key}
+$\mathrm{dk} \leftarrow (\mathrm{dk_{PKE}} \parallel \mathrm{ek} \parallel H(\mathrm{ek}) \parallel z)$ \tcc{KEM decaps key includes PKE decryption key}
+\Return{$(\mathrm{ek}, \mathrm{dk})$}
+\caption{ML-KEM.KeyGen\_internal($d, z$)}
+\label{alg:mlkem-keygen-internal}
+\end{algorithm}
+
+Assuming the generated randomness \textit{d} and \textit{z} making up the seed are valid, the seed is used to run Kyber's key generation algorithm K-PKE.KeyGen, which can be seen below.
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{randomness $d \in \mathbb{B}^{32}$}
+\Output{encryption key $\mathrm{ek_{PKE}} \in \mathbb{B}^{384k+32}$}
+\Output{decryption key $\mathrm{dk_{PKE}} \in \mathbb{B}^{384k}$}
+\BlankLine
+$(\rho, \sigma) \leftarrow G(d \parallel k)$ \tcc{expand 32+1 bytes to two pseudorandom 32-byte seeds}
+$N \leftarrow 0$
+\For{$i \leftarrow 0$ \KwTo $k-1$}{
+    \For{$j \leftarrow 0$ \KwTo $k-1$}{
+        $\mathbf{A}[i,j] \leftarrow \mathrm{SampleNTT}(\rho \parallel j \parallel i)$ \tcc{$j$ and $i$ are bytes 33 and 34}
+    }
+}
+\For{$i \leftarrow 0$ \KwTo $k-1$}{
+    $\mathbf{s}[i] \leftarrow \mathrm{SamplePolyCBD}_{\eta_1}(\mathrm{PRF}_{\eta_1}(\sigma, N))$
+    $N \leftarrow N + 1$
+}
+\For{$i \leftarrow 0$ \KwTo $k-1$}{
+    $\mathbf{e}[i] \leftarrow \mathrm{SamplePolyCBD}_{\eta_1}(\mathrm{PRF}_{\eta_1}(\sigma, N))$
+    $N \leftarrow N + 1$
+}
+$\hat{\mathbf{s}} \leftarrow \mathrm{NTT}(\mathbf{s})$ \tcc{run NTT $k$ times}
+$\hat{\mathbf{e}} \leftarrow \mathrm{NTT}(\mathbf{e})$ \tcc{run NTT $k$ times}
+$\hat{\mathbf{t}} \leftarrow \hat{\mathbf{A}} \circ \hat{\mathbf{s}} + \hat{\mathbf{e}}$ \tcc{noisy linear system in NTT domain}
+$\mathrm{ek_{PKE}} \leftarrow \mathrm{ByteEncode}_{12}(\hat{\mathbf{t}}) \parallel \rho$ \tcc{run ByteEncode$_{12}$ $k$ times, then append A-seed}
+$\mathrm{dk_{PKE}} \leftarrow \mathrm{ByteEncode}_{12}(\hat{\mathbf{s}})$ \tcc{run ByteEncode$_{12}$ $k$ times}
+\Return{$(\mathrm{ek_{PKE}}, \mathrm{dk_{PKE}})$}
+\caption{K-PKE.KeyGen($d$)}
+\label{alg:k-pke-keygen}
+\end{algorithm}
+
+K-PKE.KeyGen follows the
+
+\subsubsection{ML-KEM Encapsulation}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Checked input}
+\SetKwInOut{Output}{Output}
+\Input{encapsulation key $\mathrm{ek} \in \mathbb{B}^{384k+32}$}
+\Output{shared secret key $K \in \mathbb{B}^{32}$}
+\Output{ciphertext $c \in \mathbb{B}^{32(d_u k + d_v)}$}
+\BlankLine
+$m \gets^{\$} \mathbb{B}^{32}$ \tcc{$m$ is 32 random bytes}
+\uIf{$m == \mathrm{NULL}$}{
+    \Return{$\bot$}
+}
+$(K, c) \gets \mathrm{ML\text{-}KEM.Encaps\_internal}(\mathrm{ek}, m)$
+\Return{$(K, c)$}
+\caption{ML-KEM.Encaps($\mathrm{ek}$)}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{encapsulation key $\mathrm{ek} \in \mathbb{B}^{384k+32}$}
+\Input{randomness $m \in \mathbb{B}^{32}$}
+\Output{shared secret key $K \in \mathbb{B}^{32}$}
+\Output{ciphertext $c \in \mathbb{B}^{32(d_u k + d_v)}$}
+\BlankLine
+$(K, r) \leftarrow G(m \parallel H(\mathrm{ek}))$ \tcc{derive shared secret key $K$ and randomness $r$}
+$c \leftarrow \mathrm{K\text{-}PKE.Encrypt}(\mathrm{ek}, m, r)$ \tcc{encrypt $m$ using K-PKE with randomness $r$}
+\Return{$(K, c)$}
+\caption{ML-KEM.Encaps\_internal($\mathrm{ek}, m$)}
+\label{alg:mlkem-encaps-internal}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{encryption key $\mathrm{ek_{PKE}} \in \mathbb{B}^{384k+32}$}
+\Input{message $m \in \mathbb{B}^{32}$}
+\Input{randomness $r \in \mathbb{B}^{32}$}
+\Output{ciphertext $c \in \mathbb{B}^{32(d_u k + d_v)}$}
+\BlankLine
+$N \leftarrow 0$
+$\hat{\mathbf{t}} \leftarrow \mathrm{ByteDecode}_{12}(\mathrm{ek_{PKE}}[0:384k])$ \tcc{run ByteDecode$_{12}$ $k$ times}
+$\rho \leftarrow \mathrm{ek_{PKE}}[384k:384k+32]$ \tcc{extract 32-byte seed}
+\For{$i \leftarrow 0$ \KwTo $k-1$}{
+    \For{$j \leftarrow 0$ \KwTo $k-1$}{
+        $\hat{\mathbf{A}}[i,j] \leftarrow \mathrm{SampleNTT}(\rho \parallel j \parallel i)$ \tcc{$j$ and $i$ are bytes 33 and 34}
+    }
+}
+\For{$i \leftarrow 0$ \KwTo $k-1$}{
+    $\mathbf{y}[i] \leftarrow \mathrm{SamplePolyCBD}_{\eta_1}(\mathrm{PRF}_{\eta_1}(r, N))$
+    $N \leftarrow N + 1$
+}
+\For{$i \leftarrow 0$ \KwTo $k-1$}{
+    $\mathbf{e}_1[i] \leftarrow \mathrm{SamplePolyCBD}_{\eta_2}(\mathrm{PRF}_{\eta_2}(r, N))$
+    $N \leftarrow N + 1$
+}
+$e_2 \leftarrow \mathrm{SamplePolyCBD}_{\eta_2}(\mathrm{PRF}_{\eta_2}(r, N))$ \tcc{sample $e_2$ from CBD}
+$\hat{\mathbf{y}} \leftarrow \mathrm{NTT}(\mathbf{y})$ \tcc{run NTT $k$ times}
+$\mathbf{u} \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}}^{\intercal} \circ \hat{\mathbf{y}}) + \mathbf{e}_1$ \tcc{run NTT$^{-1}$ $k$ times}
+$\mu \leftarrow \mathrm{Decompress}_1(\mathrm{ByteDecode}_1(m))$
+$v \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{t}}^{\intercal} \circ \hat{\mathbf{y}}) + e_2 + \mu$ \tcc{encode plaintext $m$ into polynomial $v$}
+$c_1 \leftarrow \mathrm{ByteEncode}_{d_u}(\mathrm{Compress}_{d_u}(\mathbf{u}))$ \tcc{run ByteEncode$_{d_u}$ and Compress$_{d_u}$ $k$ times}
+$c_2 \leftarrow \mathrm{ByteEncode}_{d_v}(\mathrm{Compress}_{d_v}(v))$
+\Return{$c \leftarrow (c_1 \parallel c_2)$}
+\caption{K-PKE.Encrypt($\mathrm{ek_{PKE}}, m, r$)}
+\label{alg:k-pke-encrypt}
+\end{algorithm}
+
+\subsubsection{ML-KEM Decapsulation}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Checked input}
+\SetKwInOut{Output}{Output}
+\Input{decapsulation key $\mathrm{dk} \in \mathbb{B}^{768k+96}$}
+\Input{ciphertext $c \in \mathbb{B}^{32(d_u k + d_v)}$}
+\Output{shared secret key $K \in \mathbb{B}^{32}$}
+\BlankLine
+$K' \gets \mathrm{ML\text{-}KEM.Decaps\_internal}(\mathrm{dk}, c)$
+\Return{$K'$}
+\caption{ML-KEM.Decaps($\mathrm{dk}, c$)}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{decapsulation key $\mathrm{dk} \in \mathbb{B}^{768k+96}$}
+\Input{ciphertext $c \in \mathbb{B}^{32(d_u k + d_v)}$}
+\Output{shared secret key $K \in \mathbb{B}^{32}$}
+\BlankLine
+$\mathrm{dk_{PKE}} \leftarrow \mathrm{dk}[0:384k]$ \tcc{extract PKE decryption key}
+$\mathrm{ek_{PKE}} \leftarrow \mathrm{dk}[384k:768k+32]$ \tcc{extract PKE encryption key}
+$h \leftarrow \mathrm{dk}[768k+32:768k+64]$ \tcc{extract hash of PKE encryption key}
+$z \leftarrow \mathrm{dk}[768k+64:768k+96]$ \tcc{extract implicit rejection value}
+$m' \leftarrow \mathrm{K\text{-}PKE.Decrypt}(\mathrm{dk_{PKE}}, c)$ \tcc{decrypt ciphertext}
+$(K', r') \leftarrow G(m' \parallel h)$
+$\overline{K} \leftarrow J(z \parallel c)$
+$c' \leftarrow \mathrm{K\text{-}PKE.Encrypt}(\mathrm{ek_{PKE}}, m', r')$ \tcc{re-encrypt using derived randomness $r'$}
+\uIf{$c \neq c'$}{
+    $K' \leftarrow \overline{K}$ \tcc{if ciphertexts do not match, "implicitly reject"}
+}
+\Return{$K'$}
+\caption{ML-KEM.Decaps\_internal($\mathrm{dk}, c$)}
+\label{alg:mlkem-decaps-internal}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{decryption key $\mathrm{dk_{PKE}} \in \mathbb{B}^{384k}$}
+\Input{ciphertext $c \in \mathbb{B}^{32(d_u k + d_v)}$}
+\Output{message $m \in \mathbb{B}^{32}$}
+\BlankLine
+$c_1 \leftarrow c[0:32d_u k]$
+$c_2 \leftarrow c[32d_u k:32(d_u k + d_v)]$
+$\mathbf{u}' \leftarrow \mathrm{Decompress}_{d_u}(\mathrm{ByteDecode}_{d_u}(c_1))$ \tcc{run Decompress$_{d_u}$ and ByteDecode$_{d_u}$ $k$ times}
+$v' \leftarrow \mathrm{Decompress}_{d_v}(\mathrm{ByteDecode}_{d_v}(c_2))$
+$\hat{\mathbf{s}} \leftarrow \mathrm{ByteDecode}_{12}(\mathrm{dk_{PKE}})$ \tcc{run ByteDecode$_{12}$ $k$ times}
+$w \leftarrow v' - \mathrm{NTT}^{-1}(\hat{\mathbf{s}}^{\intercal} \circ \mathrm{NTT}(\mathbf{u}'))$ \tcc{run NTT $k$ times; run NTT$^{-1}$ once}
+$m \leftarrow \mathrm{ByteEncode}_1(\mathrm{Compress}_1(w))$ \tcc{decode plaintext $m$ from polynomial $v$}
+\Return{$m$}
+\caption{K-PKE.Decrypt($\mathrm{dk_{PKE}}, c$)}
+\label{alg:k-pke-decrypt}
+\end{algorithm}
+
+\subsection{ML-DSA - FIPS 204}
 ML-DSA, also known as Module-Lattice-Based Digital Signature Standard, is a standard set by NIST's FIPS 204 publication that specifies a set of algorithms for
+
+\subsubsection{ML-DSA Key Generation}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Output}{Output}
+\Output{public key $pk \in \mathbb{B}^{32+32k(\mathrm{bitlen}(q-1)-d)}$}
+\Output{private key $sk \in \mathbb{B}^{32+32+64+32\cdot((\ell+k)\cdot\mathrm{bitlen}(2\eta)+dk)}$}
+\BlankLine
+$\xi \leftarrow \mathbb{B}^{32}$ \tcc{choose random seed}
+\uIf{$\xi = \mathrm{NULL}$}{
+    \Return{$\bot$} \tcc{return an error indication if random bit generation failed}
+}
+\Return{$\mathrm{ML\text{-}DSA.KeyGen\_internal}(\xi)$}
+\caption{ML-DSA.KeyGen()}
+\label{alg:mldsa-keygen}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{seed $\xi \in \mathbb{B}^{32}$}
+\Output{public key $pk \in \mathbb{B}^{32+32k(\mathrm{bitlen}(q-1)-d)}$}
+\Output{private key $sk \in \mathbb{B}^{32+32+64+32\cdot((\ell+k)\cdot\mathrm{bitlen}(2\eta)+dk)}$}
+\BlankLine
+$(\rho, \rho', K) \in \mathbb{B}^{32} \times \mathbb{B}^{64} \times \mathbb{B}^{32} \leftarrow H(\xi \parallel \mathrm{IntegerToBytes}(k,1) \parallel \mathrm{IntegerToBytes}(\ell,1), 128)$
+\tcc{expand seed}
+$\hat{\mathbf{A}} \leftarrow \mathrm{ExpandA}(\rho)$ \tcc{$\mathbf{A}$ is generated and stored in NTT representation as $\hat{\mathbf{A}}$}
+$(\mathbf{s}_1, \mathbf{s}_2) \leftarrow \mathrm{ExpandS}(\rho')$
+$\mathbf{t} \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}} \circ \mathrm{NTT}(\mathbf{s}_1)) + \mathbf{s}_2$ \tcc{compute $\mathbf{t} = \mathbf{A}\mathbf{s}_1 + \mathbf{s}_2$}
+$(\mathbf{t}_1, \mathbf{t}_0) \leftarrow \mathrm{Power2Round}(\mathbf{t})$ \tcc{compress $\mathbf{t}$}
+\tcc{PowerTwoRound is applied componentwise (see explanatory text in Section 7.4)}
+$pk \leftarrow \mathrm{pkEncode}(\rho, \mathbf{t}_1)$
+$tr \leftarrow H(pk, 64)$
+$sk \leftarrow \mathrm{skEncode}(\rho, K, tr, \mathbf{s}_1, \mathbf{s}_2, \mathbf{t}_0)$ \tcc{$K$ and $tr$ are for use in signing}
+\Return{$(pk, sk)$}
+\caption{ML-DSA.KeyGen\_internal($\xi$)}
+\label{alg:mldsa-keygen-internal}
+\end{algorithm}
+
+\subsubsection{ML-DSA Signing}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{private key $sk \in \mathbb{B}^{32+32+64+32\cdot((\ell+k)\cdot\mathrm{bitlen}(2\eta)+dk)}$}
+\Input{message $M \in \{0,1\}^*$}
+\Input{context string $ctx$ (a byte string of 255 or fewer bytes)}
+\Output{signature $\sigma \in \mathbb{B}^{\lambda/4 + \ell\cdot32\cdot(1+\mathrm{bitlen}(\gamma_1-1)) + \omega + k}$}
+\BlankLine
+\uIf{$|ctx| > 255$}{
+    \Return{$\bot$} \tcc{return an error indication if the context string is too long}
+}
+$rnd \leftarrow \mathbb{B}^{32}$ \tcc{for the optional deterministic variant, substitute $rnd \leftarrow \{0\}^{32}$}
+\uIf{$rnd = \mathrm{NULL}$}{
+    \Return{$\bot$} \tcc{return an error indication if random bit generation failed}
+}
+$M' \leftarrow \mathrm{BytesToBits}(\mathrm{IntegerToBytes}(0,1) \parallel \mathrm{IntegerToBytes}(|ctx|,1) \parallel ctx) \parallel M$
+$\sigma \leftarrow \mathrm{ML\text{-}DSA.Sign\_internal}(sk, M', rnd)$
+\Return{$\sigma$}
+\caption{ML-DSA.Sign($sk, M, ctx$)}
+\label{alg:mldsa-sign}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{private key $sk \in \mathbb{B}^{32+32+64+32\cdot((\ell+k)\cdot\mathrm{bitlen}(2\eta)+dk)}$}
+\Input{formatted message $M' \in \{0,1\}^*$}
+\Input{per message randomness or dummy variable $rnd \in \mathbb{B}^{32}$}
+\Output{signature $\sigma \in \mathbb{B}^{\lambda/4 + \ell\cdot32\cdot(1+\mathrm{bitlen}(\gamma_1-1)) + \omega + k}$}
+\BlankLine
+$(\rho, K, tr, \mathbf{s}_1, \mathbf{s}_2, \mathbf{t}_0) \leftarrow \mathrm{skDecode}(sk)$
+$\hat{\mathbf{s}}_1 \leftarrow \mathrm{NTT}(\mathbf{s}_1)$
+$\hat{\mathbf{s}}_2 \leftarrow \mathrm{NTT}(\mathbf{s}_2)$
+$\hat{\mathbf{t}}_0 \leftarrow \mathrm{NTT}(\mathbf{t}_0)$
+$\hat{\mathbf{A}} \leftarrow \mathrm{ExpandA}(\rho)$ \tcc{$\mathbf{A}$ is generated and stored in NTT representation as $\hat{\mathbf{A}}$}
+$\mu \leftarrow H(\mathrm{BytesToBits}(tr) \parallel M', 64)$ \tcc{message representative}
+$\rho'' \leftarrow H(K \parallel rnd \parallel \mu, 64)$ \tcc{compute private random seed}
+$\kappa \leftarrow 0$ \tcc{initialize counter $\kappa$}
+$(\mathbf{z}, \mathbf{h}) \leftarrow \bot$
+\While{$(\mathbf{z}, \mathbf{h}) = \bot$}{
+    $\mathbf{y} \in R_q^{\ell} \leftarrow \mathrm{ExpandMask}(\rho'', \kappa)$
+    $\mathbf{w} \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}} \circ \mathrm{NTT}(\mathbf{y}))$
+    $\mathbf{w}_1 \leftarrow \mathrm{HighBits}(\mathbf{w})$ \tcc{signer's commitment}
+    \tcc{HighBits is applied componentwise (see explanatory text in Section 7.4)}
+    $\tilde{c} \leftarrow H(\mu \parallel \mathrm{w}_1\mathrm{Encode}(\mathbf{w}_1), \lambda/4)$ \tcc{commitment hash}
+    $c \in R_q \leftarrow \mathrm{SampleInBall}(\tilde{c})$ \tcc{verifier's challenge}
+    $\hat{c} \leftarrow \mathrm{NTT}(c)$
+    $\langle\langle c\mathbf{s}_1\rangle\rangle \leftarrow \mathrm{NTT}^{-1}(\hat{c} \circ \hat{\mathbf{s}}_1)$
+    $\langle\langle c\mathbf{s}_2\rangle\rangle \leftarrow \mathrm{NTT}^{-1}(\hat{c} \circ \hat{\mathbf{s}}_2)$
+    $\mathbf{z} \leftarrow \mathbf{y} + \langle\langle c\mathbf{s}_1\rangle\rangle$ \tcc{signer's response}
+    $\mathbf{r}_0 \leftarrow \mathrm{LowBits}(\mathbf{w} - \langle\langle c\mathbf{s}_2\rangle\rangle)$
+    \tcc{LowBits is applied componentwise (see explanatory text in Section 7.4)}
+    \uIf{$||\mathbf{z}||_{\infty} \geq \gamma_1 - \beta$ or $||\mathbf{r}_0||_{\infty} \geq \gamma_2 - \beta$}{
+        $(\mathbf{z}, \mathbf{h}) \leftarrow \bot$ \tcc{validity checks}
+    }
+    \Else{
+        $\langle\langle c\mathbf{t}_0\rangle\rangle \leftarrow \mathrm{NTT}^{-1}(\hat{c} \circ \hat{\mathbf{t}}_0)$
+        $\mathbf{h} \leftarrow \mathrm{MakeHint}(-\langle\langle c\mathbf{t}_0\rangle\rangle, \mathbf{w} - \langle\langle c\mathbf{s}_2\rangle\rangle + \langle\langle c\mathbf{t}_0\rangle\rangle)$ \tcc{signer's hint}
+        \tcc{MakeHint is applied componentwise (see explanatory text in Section 7.4)}
+        \uIf{$||\langle\langle c\mathbf{t}_0\rangle\rangle||_{\infty} \geq \gamma_2$ or the number of 1's in $\mathbf{h}$ is greater than $\omega$}{
+            $(\mathbf{z}, \mathbf{h}) \leftarrow \bot$
+        }
+    }
+    $\kappa \leftarrow \kappa + \ell$ \tcc{increment counter}
+}
+$\sigma \leftarrow \mathrm{sigEncode}(\tilde{c}, \mathbf{z} \bmod^{\pm} q, \mathbf{h})$
+\Return{$\sigma$}
+\caption{ML-DSA.Sign\_internal($sk, M', rnd$)}
+\label{alg:mldsa-sign-internal}
+\end{algorithm}
+
+\subsubsection{ML-DSA Verification}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{public key $pk \in \mathbb{B}^{32+32k(\mathrm{bitlen}(q-1)-d)}$}
+\Input{message $M \in \{0,1\}^*$}
+\Input{signature $\sigma \in \mathbb{B}^{\lambda/4 + \ell\cdot32\cdot(1+\mathrm{bitlen}(\gamma_1-1)) + \omega + k}$}
+\Input{context string $ctx$ (a byte string of 255 or fewer bytes)}
+\Output{Boolean}
+\BlankLine
+\uIf{$|ctx| > 255$}{
+    \Return{$\bot$} \tcc{return an error indication if the context string is too long}
+}
+$M' \leftarrow \mathrm{BytesToBits}(\mathrm{IntegerToBytes}(0,1) \parallel \mathrm{IntegerToBytes}(|ctx|,1) \parallel ctx) \parallel M$
+\Return{$\mathrm{ML\text{-}DSA.Verify\_internal}(pk, M', \sigma)$}
+\caption{ML-DSA.Verify($pk, M, \sigma, ctx$)}
+\label{alg:mldsa-verify}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{public key $pk \in \mathbb{B}^{32+32k(\mathrm{bitlen}(q-1)-d)}$}
+\Input{formatted message $M' \in \{0,1\}^*$}
+\Input{signature $\sigma \in \mathbb{B}^{\lambda/4 + \ell\cdot32\cdot(1+\mathrm{bitlen}(\gamma_1-1)) + \omega + k}$}
+\Output{Boolean}
+\BlankLine
+$(\rho, \mathbf{t}_1) \leftarrow \mathrm{pkDecode}(pk)$
+$(\tilde{c}, \mathbf{z}, \mathbf{h}) \leftarrow \mathrm{sigDecode}(\sigma)$ \tcc{signer's commitment hash $\tilde{c}$, response $\mathbf{z}$, and hint $\mathbf{h}$}
+\uIf{$\mathbf{h} = \bot$}{
+    \Return{false} \tcc{hint was not properly encoded}
+}
+$\hat{\mathbf{A}} \leftarrow \mathrm{ExpandA}(\rho)$ \tcc{$\mathbf{A}$ is generated and stored in NTT representation as $\hat{\mathbf{A}}$}
+$tr \leftarrow H(pk, 64)$
+$\mu \leftarrow H(\mathrm{BytesToBits}(tr) \parallel M', 64)$ \tcc{message representative}
+$c \in R_q \leftarrow \mathrm{SampleInBall}(\tilde{c})$ \tcc{compute verifier's challenge from $\tilde{c}$}
+$\mathbf{w}' \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}} \circ \mathrm{NTT}(\mathbf{z}) - \mathrm{NTT}(c) \circ \mathrm{NTT}(\mathbf{t}_1 \cdot 2^d))$ \tcc{$\mathbf{w}' = \mathbf{A}\mathbf{z} - c\mathbf{t}_1 \cdot 2^d$}
+$\mathbf{w}_1^{\mathrm{Approx}} \leftarrow \mathrm{UseHint}(\mathbf{h}, \mathbf{w}')$ \tcc{reconstruction of signer's commitment}
+\tcc{UseHint is applied componentwise (see explanatory text in Section 7.4)}
+$\tilde{c}' \leftarrow H(\mu \parallel \mathrm{w}_1\mathrm{Encode}(\mathbf{w}_1^{\mathrm{Approx}}), \lambda/4)$ \tcc{hash it; this should match $\tilde{c}$}
+\Return{$[[||\mathbf{z}||_{\infty} < \gamma_1 - \beta]]$ and $[[\tilde{c} = \tilde{c}']]$}
+\caption{ML-DSA.Verify\_internal($pk, M', \sigma$)}
+\label{alg:mldsa-verify-internal}
+\end{algorithm}
 
 \subsection{Existing Visualizations}
 There are a number of existing visualization tools for ML-KEM, ML-DSA, and lattices in general. They have a tendency to fall into one of the following categories.
@@ -105,8 +497,8 @@ Below is an example of a lattice visualized in that way, along with the values t
 
 \begin{figure}
 \centering
-\includegraphics[width=.48\linewidth]{color_representation.png}
-\caption{Representation of a lattice through colors} \label{fig1}
+\includegraphics[width=.48\linewidth]{images/color_representation.png}
+\caption{Representation of a lattice through colors} \label{fig2}
 \end{figure}
 
 \subsubsection{Matrix Visualization}
@@ -118,12 +510,12 @@ Visualizations as previously defined have been used in education since. Nowadays
 The developed visualization tool is a web application that provides visualizations for ML-KEM, ML-DSA, LLL, and BKZ. (elaborate later)
 
 \subsection{Architecture}
-The visualization tool is built using Next.js, a React-based framework, for the frontend, and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using an existing Javascript library and imported as needed. (insert diagram later + be more thorough)
+The visualization tool is built using Next.js, a React-based framework, for the frontend, and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using a modification of an existing Javascript library 'pqc'.
 
 \subsection{ML-KEM}
-The implementation of ML-KEM is a modified version of the algorithm privided in the pqc library\cite{pqc-vizz}. 
+The implementation of ML-KEM is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025). 
 \subsection{ML-DSA}
-This part is for explaning how ML-DSA is implemented/how the code works
+The implementation of ML-DSA is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025).
 \section{Results?}
 
 
@@ -186,6 +578,11 @@ Bennett, C. H. \& Brassard, G. (2014). Quantum cryptography: Public key distribu
 \bibitem{}
 Brassard, G. (2005). Brief history of quantum cryptography: A personal perspective. \doi{10.1109/ITWTPI.2005.1543949}
 
+\bibitem{}
+Stasko, J., Badre, A., \& Lewis, C. (1993). Do Algorithm Animations Assist Learning? An Empirical Study and Analysis. \textit{Proceedings of the SIGCHI Conference on Human Factors in Computing Systems  - CHI ’93}, 61–66. \doi{10.1145/169059.169078}
+
+\bibitem{}
+Kang, D. (2026). ML-KEM from Scratch. \textit{Github.io}. https://hulryung.github.io/ml-kem-notebooks/intro.html
 
 \end{thebibliography}
 \end{document}

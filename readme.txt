@@ -20,15 +20,3 @@ It consists of the following files:
   splncs04.bst       current LNCS BibTeX style with alphabetic sorting
 
 ---
-References (will be added to paper/removed as relevant later):
-- https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf (ML-KEM/Kyber)
-- https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf (ML-DSA/Dilithium)
-- https://ieeexplore.ieee.org/document/365700 (Shor's Algorithm(s))
-- https://github.com/nithinramkalava/pqc-vizz (interactive implementations of ML-KEM, ML-DSA, and the other one); also this is the paper: https://pqc.nithinram.com/Post-Quantum%20Security%20for%20Web%20Applications.pdf
-- https://arxiv.org/pdf/quant-ph/9508027
-- https://github.com/ryotoru/lattice-visualizer/tree/master (another example lattice visualizer with react)
-- https://www.desmos.com/calculator/5mcnbkmu5f (lattice visualization with desmos)
-https://csrc.nist.gov/Projects/post-quantum-cryptography/post-quantum-cryptography-standardization/round-3-submissions (round three algorithms for Kyber and Dilithium used for FIPS)
-- https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf
-- https://dl.acm.org/doi/epdf/10.1145/3770762.3772573
-- 
