@@ -19,6 +19,10 @@
 %\renewcommand\UrlFont{\color{blue}\rmfamily}
 %\urlstyle{rm}
 %
+
+\usepackage{listings}
+\setcounter{secnumdepth}{4}
+
 \begin{document}
 %
 \title{Visualization of LLL and BKZ}
@@ -64,7 +68,7 @@ However, just like how the historical pattern of cryptanalysis and cryptography 
 
 The problem with these lattice-based cryptanalysis techniques is that in general, they are very complex and hard to understand, especially for people who are new to the field of cryptography and cryptanalysis. We think this is where the visualization of these algorithms can be very helpful. However, most visualizations of these algorithms don't visualize the underlying mathematical concepts in an intuitive way, and in particular, these tools don't show the mathematical calculations involved between input and the output. By visualizing these algorithms in an intuitive way as well showing the calculations behind the algorithms as well some simple theoritical explanations of these algorithms, we can help the users to understand these algorithms easier. 
 \section{Related Works}
-
+j
 \subsection{lll-attack-runner}
 lll-attack-runner is a Javascript-based interactive web application for running advanced lattice basis reduction algorithms such as LLL and BKZ. It is developed by Zachary Robert Bennett with the latest update was in January 2026. Because we aim to create a Javascript-based interactive web application for visualizing lattice-based cryptographic and cryptanalysis algorithms, in which two of them are LLL and BKZ, we will use lll-attack-runner as the backend for our visualization of the LLL and BKZ algorithms. However, since we want to visualize these two algorithms in an intuitive way which is easier to understand and more practical for cryptography learners, we will develop our own frontend for the visualization.
 
@@ -87,22 +91,32 @@ For the visualization part, we will use D3 for the visualization part, combined 
 
 \section{Visualization}
 
-\subsection{Output Visualization Elements for LLL and BKZ}
+\subsection{Output Visualization and Textual Elements for LLL and BKZ}
 Visualization of both LLL and BKZ algorithms contains following five visual elements in their output section :
 
 \subsubsection{Graph Panel}
+\mbox{}
+
 This is the key visual element. Psychologically speaking, human brain is usually better at understanding visual information compared to textual ones. We design the graph panel in 2D and 3D projections, both in the fashion of the Cartesian coordinate. Each vector arrows represented in this graph panel have different colour, with their vector written in the same colour as their arrow and placed above the tip of their vector arrow. 
 
 \subsubsection{Lovasz Status Panel}
+\mbox{}
+
 The panel shows the user of the Lovasz status of the current basis. If the current basis fulfill the Lovasz condition, it will show the user a green check mark and "Satisfied" text, and if not, a red cross mark and "Not Satisfied" text will be shown to the user. 
 
 \subsubsection{Step and Calculation Details}
+\mbox{}
+
 This panel will tell the user of the current step (for example, "Basis size reduction"). The user can see the details of the calculation in the step by clicking "Show Calculations" button at the upper right corner of this panel. 
 
 \subsubsection{Current Basis Panel}
+\mbox{}
+
 Like its namesake, this panel's sole function is to show the user the current basis. 
 
 \subsubsection{Shortest Vector Panel (BKZ only)}
+\mbox{}
+
 Only for BKZ algorithm, this panel's sole function is to inform the user the shortest vectors found in the current basis. Only shown in the last step.
 
 \subsection{Visualization of the LLL Algorithm}

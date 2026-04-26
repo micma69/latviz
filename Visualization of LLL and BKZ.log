@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  26 APR 2026 20:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  26 APR 2026 22:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -170,56 +170,89 @@ File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen171
 \Gin@req@width=\dimen172
-) (D:\Program Files (D)\tex/latex/l3backend\l3backend-pdftex.def
+) (D:\Program Files (D)\tex/latex/listings\listings.sty
+\lst@mode=\count314
+\lst@gtempboxa=\box101
+\lst@token=\toks22
+\lst@length=\count315
+\lst@currlwidth=\dimen173
+\lst@column=\count316
+\lst@pos=\count317
+\lst@lostspace=\dimen174
+\lst@width=\dimen175
+\lst@newlines=\count318
+\lst@lineno=\count319
+\lst@maxwidth=\dimen176
+ (D:\Program Files (D)\tex/latex/listings\lstpatch.sty
+File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
+) (D:\Program Files (D)\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+\c@lstnumber=\count320
+\lst@skipnumbers=\count321
+\lst@framebox=\box102
+) (D:\Program Files (D)\tex/latex/listings\listings.cfg
+File: listings.cfg 2025/11/14 1.11b listings configuration
+))
+Package: listings 2025/11/14 1.11b (Carsten Heinz)
+
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
+(D:\Program Files (D)\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count314
+\l__color_backend_stack_int=\count322
 ) (Visualization of LLL and BKZ.aux)
 \openout1 = `"Visualization of LLL and BKZ.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
  (D:\Program Files (D)\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count315
-\scratchdimen=\dimen173
-\scratchbox=\box101
-\nofMPsegments=\count316
-\nofMParguments=\count317
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count318
-\MPscratchDim=\dimen174
-\MPnumerator=\count319
-\makeMPintoPDFobject=\count320
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count323
+\scratchdimen=\dimen177
+\scratchbox=\box103
+\nofMPsegments=\count324
+\nofMParguments=\count325
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count326
+\MPscratchDim=\dimen178
+\MPnumerator=\count327
+\makeMPintoPDFobject=\count328
+\everyMPtoPDFconversion=\toks24
 ) (D:\Program Files (D)\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (D:\Program Files (D)\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
+\c@lstlisting=\count329
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 40.
+(Font)              <7> on input line 44.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 40.
+(Font)              <5> on input line 44.
  [1
 
 {C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2] [3] [4]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 138.
+(Font)              <9> on input line 152.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 138.
+(Font)              <6> on input line 152.
+ [5]
 Package epstopdf Info: Source file: <fig1.eps>
 (epstopdf)                    date: 2026-04-26 19:11:51
 (epstopdf)                    size: 357553 bytes
@@ -227,31 +260,31 @@ Package epstopdf Info: Source file: <fig1.eps>
 (epstopdf)                    date: 2026-04-26 19:11:51
 (epstopdf)                    size: 36500 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=fig1-eps-converted-to.pdf fig1.eps>
-(epstopdf)             \includegraphics on input line 162.
+(epstopdf)             \includegraphics on input line 176.
 Package epstopdf Info: Output file is already uptodate.
-<fig1-eps-converted-to.pdf, id=25, 345.29pt x 142.5325pt>
+<fig1-eps-converted-to.pdf, id=29, 345.29pt x 142.5325pt>
 File: fig1-eps-converted-to.pdf Graphic file (type pdf)
 <use fig1-eps-converted-to.pdf>
-Package pdftex.def Info: fig1-eps-converted-to.pdf  used on input line 162.
+Package pdftex.def Info: fig1-eps-converted-to.pdf  used on input line 176.
 (pdftex.def)             Requested size: 347.12354pt x 143.29115pt.
- [5] [6 <./fig1-eps-converted-to.pdf>] [7] (Visualization of LLL and BKZ.aux)
+ [6 <./fig1-eps-converted-to.pdf>] [7] (Visualization of LLL and BKZ.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2064 strings out of 467866
- 30515 string characters out of 5429810
- 445777 words of memory out of 5000000
- 30961 multiletter control sequences out of 15000+600000
+ 3415 strings out of 467866
+ 49984 string characters out of 5429810
+ 466744 words of memory out of 5000000
+ 32300 multiletter control sequences out of 15000+600000
  638495 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,9n,65p,977b,262s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,9n,65p,977b,269s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0600.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on "Visualization of LLL and BKZ.pdf" (7 pages, 226158 bytes).
+Output written on "Visualization of LLL and BKZ.pdf" (7 pages, 228388 bytes).
 PDF statistics:
- 448 PDF objects out of 1000 (max. 8388607)
+ 454 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
