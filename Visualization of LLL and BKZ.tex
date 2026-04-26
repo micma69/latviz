@@ -66,7 +66,7 @@ The problem with these lattice-based cryptanalysis techniques is that in general
 \section{Related Works}
 
 \subsection{lll-attack-runner}
-lll-attack-runner is a Javascript-based interactive web application for running advanced lattice basis reduction algorithms such as LLL and BKZ. It is developed by Zachary Robert Bennett with the latest update was in January 2026. Because we aim to create a Javascript-based interactive web application for visualizing lattice-based cryptographic and cryptanalysis algorithms, in which two of them are LLL and BKZ, we will use lll-attack-runner as the backend for our visualization of the LLL and BKZ algorithms. However, since we want to visualize the algorithms in a comprehensive and intuitive way, we will develop our own frontend for the visualization.
+lll-attack-runner is a Javascript-based interactive web application for running advanced lattice basis reduction algorithms such as LLL and BKZ. It is developed by Zachary Robert Bennett with the latest update was in January 2026. Because we aim to create a Javascript-based interactive web application for visualizing lattice-based cryptographic and cryptanalysis algorithms, in which two of them are LLL and BKZ, we will use lll-attack-runner as the backend for our visualization of the LLL and BKZ algorithms. However, since we want to visualize these two algorithms in an intuitive way which is easier to understand and more practical for cryptography learners, we will develop our own frontend for the visualization.
 
 \subsection{Herramienta de software para la visualización
 de la criptografía basada en retículas}
@@ -81,28 +81,52 @@ We're using Zachary Robert Bennett's lll-attack-runner, which is an interactive 
 In each of our algorithm modules, each algorithm has its own folder, which in each of these folders, there is a single source code written in Typescript, with naming convention of the algorithm name written in lowercase. Each of these source codes are responsible for running the algorithm process which corresponds to their name. Within each of these source codes, we will use imported functions from Zachary Robert Bennett's lll-attack-runner source codes to run the algorithm process.  
 
 \subsection{Frontend}
-For the frontend part, we wil use Next.js, which is a React-based framework for building web applications. The usage of Next.js is intended to create a user-friendly interface for our visualization of the LLL and BKZ algorithms. The frontend will allow users to input their own lattice-based cryptanalysis problems and visualize the steps of the LLL and BKZ algorithms in an intuitive way.
+For the frontend part, we wil use Next.js, which is a React-based framework for building web applications, with the goal to create a user-friendly interface for our visualization of the LLL and BKZ algorithms. The user will write their own matrix (or copy-and-paste it from any sources), insert needed values (for example, delta value for both LLL and BKZ algorithm and the block size for BKZ algorithm), and the frontend will pass the values inserted by the user into the backend for the core processing. The frontend's responsibility is mainly for visualization part.
 
 For the visualization part, we will use D3 for the visualization part, combined with React to create matrices and vectors visualizations. Our secondary objective for the frontend is to create a visualization which have animations for the steps of these algorithms. We believe the animated version of these visualizations can be understand easier by the users. 
 
 \section{Visualization}
 
-\subsection{Visualization of the LLL algorithm}
-First, we have the LLL algorithm. 
+\subsection{Output Visualization Elements for LLL and BKZ}
+Visualization of both LLL and BKZ algorithms contains following five visual elements in their output section :
 
-\subsection{Visualization of the BKZ algorithm}
-Next, we have the BKZ algorithm, which is one of the more powerful lattice reduction algorithm. 
+\subsubsection{Graph Panel}
+This is the key visual element. Psychologically speaking, human brain is usually better at understanding visual information compared to textual ones. We design the graph panel in 2D and 3D projections, both in the fashion of the Cartesian coordinate. Each vector arrows represented in this graph panel have different colour, with their vector written in the same colour as their arrow and placed above the tip of their vector arrow. 
 
-\subsection{A Subsection Sample}
+\subsubsection{Lovasz Status Panel}
+The panel shows the user of the Lovasz status of the current basis. If the current basis fulfill the Lovasz condition, it will show the user a green check mark and "Satisfied" text, and if not, a red cross mark and "Not Satisfied" text will be shown to the user. 
+
+\subsubsection{Step and Calculation Details}
+This panel will tell the user of the current step (for example, "Basis size reduction"). The user can see the details of the calculation in the step by clicking "Show Calculations" button at the upper right corner of this panel. 
+
+\subsubsection{Current Basis Panel}
+Like its namesake, this panel's sole function is to show the user the current basis. 
+
+\subsubsection{Shortest Vector Panel (BKZ only)}
+Only for BKZ algorithm, this panel's sole function is to inform the user the shortest vectors found in the current basis. Only shown in the last step.
+
+\subsection{Visualization of the LLL Algorithm}
+First, we have the LLL algorithm. The input panel for this algorithm has matrix and delta value insertion fields, and located in the left half of the page. After the user inserted matrix and delta value properly, and clicked "Process Matrix" button, user can see the "Initial Matrix" as well "Initial Basis" panels below the input panel. To the right half of the page, there is the output section, contains four of five visual and textual information panels, without Shortest Vector Panel. 
+
+User can click "Back" and "Next" button in the upper part of the output section to see the previous and next steps of the LLL algorithm process. All visual and textual information panels in the output section are subjects of change according to the current step of the LLL algorithm process. 
+
+\subsection{Visualization of the BKZ Algorithm}
+Next, we have the BKZ algorithm, which is one of the more powerful lattice reduction algorithm. Because theoritically this algorithm could be comprised of multiple LLL processes, we design the output section to show the user the number of LLL processes as well an additional information called "Current Process", which provides the user of the steps that is unique to BKZ algorithm, which are the current number of the LLL process and SVP enumeration. 
+
+The only differences with LLL page is in the input panel, which has an additional, mandatory field for the block size, and in the output section, in which has Shortest Vector panel. Moreover, in the upper part of the output section, we place four additional information, which are "Block Size", "Delta", "Total LLL Processes", and "Current Process". Out of all of these additional information, only "Current Process" isn't static. 
+
+Aside from additional panels and input field, the rest of the visualization and basically mechanism of the output's UI is the same as the LLL ones. 
+
+\section{Result}
 Please note that the first paragraph of a section or subsection is
 not indented. The first paragraph that follows a table, figure,
 equation etc. does not need an indent, either.
 
 Subsequent paragraphs, however, are indented.
 
-\subsubsection{Sample Heading (Third Level)} Only two levels of
-headings should be numbered. Lower level headings remain unnumbered;
-they are formatted as run-in headings.
+\subsection{LLL Visualization} 
+
+\subsection{BKZ Visualization}
 
 \paragraph{Sample Heading (Fourth Level)}
 The contribution should contain no more than four levels of
