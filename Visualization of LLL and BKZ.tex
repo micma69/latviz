@@ -62,15 +62,11 @@ Which is why cryptographers around the world already started to develop cryptogr
 
 However, just like how the historical pattern of cryptanalysis and cryptography goes in our history, as cryptographers developed lattice-based cryptographic algorithms, the cryptanalysis experts also developed lattice-based cryptanalysis techniques in order to break the lattice-based cryptographic algorithms. The most common lattice-based cryptanalysis technique is the LLL algorithm, which is a polynomial-time algorithm for finding a short and nearly orthogonal basis for a lattice. This algorithm can be used to solve the shortest vector problem (SVP) and the closest vector problem (CVP), which are both important issues in lattice-based cryptography. Apparently, for now, the most promising lattice-based cryptanalysis technique is the BKZ algorithm, which is basically the upscaled version of the LLL algorithm. Compared to LLL, BKZ can find even shorter vectors in a lattice.
 
-The problem with these lattice-based cryptanalysis techniques is that in general, they are very complex and hard to understand, especially for people who are new to the field of cryptography and cryptanalysis. This is where the visualization of these algorithms can be very helpful. However, most visualizations of these algorithms don't visualize the underlying mathematical concepts in an intuitive way. By visualizing these algorithms in an intuitive way, we can make them easier to understand and more accessible to a wider audience. 
-
+The problem with these lattice-based cryptanalysis techniques is that in general, they are very complex and hard to understand, especially for people who are new to the field of cryptography and cryptanalysis. We think this is where the visualization of these algorithms can be very helpful. However, most visualizations of these algorithms don't visualize the underlying mathematical concepts in an intuitive way, and in particular, these tools don't show the mathematical calculations involved between input and the output. By visualizing these algorithms in an intuitive way as well showing the calculations behind the algorithms as well some simple theoritical explanations of these algorithms, we can help the users to understand these algorithms easier. 
 \section{Related Works}
 
 \subsection{lll-attack-runner}
-lll-attack-runner is a Javascript-based interactive web application for running advanced lattice basis reduction algorithms such as LLL and BKZ. It is developed by Zachary Robert Bennett with the latest update was in January 2026. Because we aim to create a Javascript-based interactive web application for visualizing lattice-based cryptographic and cryptanalysis algorithms, in which two of them are LLL and BKZ, we will be using lll-attack-runner as the backend for our visualization of the LLL and BKZ algorithms. However, since we want to visualize the algorithms in a comprehensive and intuitive way, we will develop our own frontend for the visualization.
-
-\subsection{fpylll}
-fpylll is the Python wrapper of fplll. fplll itself is a solver tool for LLL and BKZ cryptanalysis algorithms, and was developed by fplll development team. fpylll itself was maintained by Martin Albrecht. Like fplll, fpylll lacks visualization tools for the LLL and BKZ algorithms. 
+lll-attack-runner is a Javascript-based interactive web application for running advanced lattice basis reduction algorithms such as LLL and BKZ. It is developed by Zachary Robert Bennett with the latest update was in January 2026. Because we aim to create a Javascript-based interactive web application for visualizing lattice-based cryptographic and cryptanalysis algorithms, in which two of them are LLL and BKZ, we will use lll-attack-runner as the backend for our visualization of the LLL and BKZ algorithms. However, since we want to visualize the algorithms in a comprehensive and intuitive way, we will develop our own frontend for the visualization.
 
 \subsection{Herramienta de software para la visualización
 de la criptografía basada en retículas}
@@ -80,7 +76,7 @@ Which is why we will be implementing the LLL process for dimensions higher than 
 \section{Architecture}
 
 \subsection{Backend}
-We will use Zachary Robert Bennett's lll-attack-runner, which is an interactive and Javascript-based lattice-based cryptanalysis solver, as the backend for our visualization of the LLL and BKZ algorithms. We only use three source codes from lll-attack-runner, which are : lll.ts, bkz.ts, and types.ts. The lll.ts, per its filename, does the LLL algorithm process, and the same goes for bkz.ts. Both source codes needs LLLStep interface from types.ts, and for bkz.ts, it also needs LLLRun from lll.ts. Which makes sense, consider the usage of LLL algorithm in BKZ algorithm. 
+We're using Zachary Robert Bennett's lll-attack-runner, which is an interactive and Javascript-based lattice-based cryptanalysis solver, as the backend for our visualization of the LLL and BKZ algorithms. We only use three source codes from lll-attack-runner, which are : lll.ts, bkz.ts, and types.ts. The lll.ts, per its filename, does the LLL algorithm process, and the same goes for bkz.ts. Both source codes needs LLLStep interface from types.ts, and for bkz.ts, it also needs LLLRun from lll.ts. Which makes sense, consider the usage of LLL algorithm in BKZ algorithm. 
 
 In each of our algorithm modules, each algorithm has its own folder, which in each of these folders, there is a single source code written in Typescript, with naming convention of the algorithm name written in lowercase. Each of these source codes are responsible for running the algorithm process which corresponds to their name. Within each of these source codes, we will use imported functions from Zachary Robert Bennett's lll-attack-runner source codes to run the algorithm process.  
 
@@ -92,7 +88,7 @@ For the visualization part, we will use D3 for the visualization part, combined 
 \section{Visualization}
 
 \subsection{Visualization of the LLL algorithm}
-The visualization of the LLL algorithm 
+First, we have the LLL algorithm. 
 
 \subsection{Visualization of the BKZ algorithm}
 Next, we have the BKZ algorithm, which is one of the more powerful lattice reduction algorithm. 
