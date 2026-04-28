@@ -48,7 +48,7 @@
 \begin{abstract}
 Post-quantum cryptographic algorithms are gaining relevance as prevalent security measures are found vulnerable to quantum computers. Among them are the key encapsulation standard ML-KEM and the digital signature standard ML-DSA released by NIST (National Institute of Standards and Technology) in 2024. However despite it's relevance, there are few resources dedicated to fully describing the algorithms behind them that are easily followed. This paper details the creation of'Latviz', a digital visualization tool meant to help learners understand the entire process behind the ML-KEM and ML-DSA standards. It takes into account what types of visualizations tend to be more helpful for learners by employing visual abstractions, animations, and interactivity. (WIP AFTER I GET THAT DOWN)
 
-\keywords{Cryptography \and Post-Quantum \and Algorithm Visualization \and Visualization \and ML-KEM \and ML-DSA}
+\keywords{Cryptography \and Post-Quantum \and Algorithm Visualization \and Visualization \and ML-KEM \and ML-DSA \and Lattice-based Cryptography}
 \end{abstract}
 %
 %
@@ -58,7 +58,7 @@ Ever since quantum computing was first theorized in the early 1980s (Benioff, 19
 
 Among them are its implications on cryptography. In 1994, Peter Shor proposed a quantum algorithm that, given a sufficiently powerful quantum computer, might be used to break protocols like RSA (Shor, 1994). Shor's algorithm and others like it significantly lower the difficulty of problems such as the integer factorization problem and discrete logarithm problem, which the most widely used public key algorithms base their difficulty on. This means that common security protocols are at risk of being broken sometime in the near future. Because of this, cryptology experts around the world have looked into new protocols that might have the potential to stay secure despite the continued development into quantum computers. 
 
-NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are lattice-based; ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively (NIST, 2024 \& NIST, 2024). ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures.
+NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively (NIST, 2024 \& NIST, 2024). ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures. Both fall under the umbrella of lattice-based cryptography
 
 However, despite their importance, there are a limited number of resources available for learning about them. Outside of NIST's official releases and lectures, most of they come in the from of summaries of said releases and lectures, public implementations, and simplified diagrams or visualizations. The visualization and exploration tool pqc-vizz for example, provides an interactive working implementation for ML-KEM and ML-DSA that describes the overall process of using them, but skips over most of their inner workings such as their background calculations (Kalava et al., 2025). Daeukun Kang's ML-KEM from Scratch details the entire process of ML-KEM as well as the context and mathematical grounding behind it, including a working Python implementation (Kang, 2026). However, it assumes that the user has a working understanding of coding; otherwise, it is nothing more than a particularly structured summary. Other resources are similarly lacking in that they do not offer anything beyond a summary of NIST's release or they simplify their explanations to only the outermost layers.
 
@@ -67,10 +67,21 @@ Thus, this work aims to develop a visualization tool that allows users to view t
 \section{Related Works}
 Visualization tools for algorithms, also known as algorithm visualization technology, have been around since the late 1970s (Hundhausen et al., 2002), ranging from basic animations (Stasko et al., 1993) to interactive demonstrations. However, the current tools available for visualizing ML-KEM and ML-DSA are limited.
 
+\subsection{Lattice-Based Cryptography}
+A lattice is a discrete subset of n-dimensional vectors of real numbers $\mathbb{R}^n$ formed by all integer linear combinations of a set of linearly independent basis vectors. Formally, given a basis $\mathbf{B} = \{ \mathbf{b}_1, \dots, \mathbf{b}_k \} \subset \mathbb{R}^n$, a lattice $\mathcal{L}$ is defined as:
+\[
+\mathcal{L} = \left\{ \sum_{i=1}^{k} z_i \mathbf{b}_i \;\middle|\; z_i \in \mathbb{Z} \right\}
+\]
+Lattices can be visualized as regularly spaced grids extending in multiple dimensions, but their structure becomes increasingly complex and difficult to visualize in high-dimensional spaces, and especially beyond the third dimension.
+
+Lattice-based cryptography relies on the presumed hardness of certain computational problems defined over lattices. Two of the most important problems are the Shortest Vector Problem (SVP), which asks for the shortest non-zero vector in a lattice, and the Learning With Errors (LWE) problem, which involves solving systems of linear equations that have small random noise. As of now, no algorithms exist that can solve these problems efficiently even with quantum computers, and they are tentatively believed to be quantum resistant.
+
+Practical lattice-based schemes often use structured variants such as Ring-LWE and Module-LWE (MLWE), which operate over polynomial rings. These variants significantly improve efficiency while retaining the core hardness properties. MLWE in particular, provides a balance between performance and conservative security assumptions, and forms the basis of several standardized post-quantum schemes including ML-KEM and ML-DSA.
+
 \subsection{ML-KEM - FIPS 203}
 ML-KEM, also referred to as Module-Lattice-Based Key-Encapsulation Mechanism Standard, is a standard set by NIST's FIPS 203 publication that specifies a set of algorithms meant to be used to establish a shared private key between two parties. This standard was proposed as a response to the potential unreliability of modern key generation algorithms such as RSA in the face of quantum computers.
 
-ML-KEM is a variant of the CRYSTALS-Kyber algorithm (Avanzi et al., 2021), which is itself based on the hardness of solving the module learning with errors (MLWE) problem, which is based on the presumed hardness of certain computational problems in module lattices. It is an generalization of the Learning with Errors (LWE) problem, which in essence, represents secret information as a set of equations with errors. LWE is considered quantum resistant, in that there are no known quantum algorithms that can efficiently solve it; this applies to MLWE by extension.
+ML-KEM is a variant of the CRYSTALS-Kyber algorithm (Avanzi et al., 2021), which is itself based on the hardness of solving MLWE, which is based on the presumed hardness of certain computational problems in module lattices. It can be described as a generalization of the Learning with Errors (LWE) problem as previously described. Both LWE and MLWE are widely considered to be quantum resistant, in that there are no known quantum algorithms that can efficiently solve it.
 
 ML-KEM and other KEMs (Key Encapsulation Mechanisms) typically consist of three main algorithms: a key generation, key encapsulation, and key decapsulation algorithm. 
 
@@ -140,7 +151,9 @@ $\mathrm{dk} \leftarrow (\mathrm{dk_{PKE}} \parallel \mathrm{ek} \parallel H(\ma
 \label{alg:mlkem-keygen-internal}
 \end{algorithm}
 
-Assuming the generated randomness \textit{d} and \textit{z} making up the seed are valid, the seed is used to run Kyber's key generation algorithm K-PKE.KeyGen, which can be seen below.
+Assuming the generated random seeds \textit{d} and \textit{z} are valid, the seed \textit{d} is used to run Kyber's key generation algorithm K-PKE.KeyGen that outputs the encryption key and decryption key. The encapsulation key is the outputted encryption key of K-PKE. The decapsulation key consists of the outputted decryption key of K-PKE, the encapsulation key, a hash of the encapsulation key, and the random 32-byte value seed \textit{z}. 
+
+The following is the K-PKE.KeyGen algorithm in full.
 
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -175,9 +188,10 @@ $\mathrm{dk_{PKE}} \leftarrow \mathrm{ByteEncode}_{12}(\hat{\mathbf{s}})$ \tcc{r
 \label{alg:k-pke-keygen}
 \end{algorithm}
 
-K-PKE.KeyGen follows the
+K-PKE.KeyGen uses 
 
 \subsubsection{ML-KEM Encapsulation}
+The key encapsulation algorithm ML-KEM.Encaps accepts an encapsulation key and random value \textit{m} as input and produces a shared key and its associated ciphertext.
 
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -195,6 +209,8 @@ $(K, c) \gets \mathrm{ML\text{-}KEM.Encaps\_internal}(\mathrm{ek}, m)$
 \Return{$(K, c)$}
 \caption{ML-KEM.Encaps($\mathrm{ek}$)}
 \end{algorithm}
+
+A copy of shared secret \textit{K} and the randomness \textit{r} used during encryption are derived from the encapsulation key and \textit{m} via hashing. The randomness \textit{r}, the encapsulation key, and \textit{m} are then used as input for Kyber's encryption algorithm, K-PKE-Encrypt, which will encrypt \textit{m} into a ciphertext \textit{c}.
 
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -250,6 +266,7 @@ $c_2 \leftarrow \mathrm{ByteEncode}_{d_v}(\mathrm{Compress}_{d_v}(v))$
 \end{algorithm}
 
 \subsubsection{ML-KEM Decapsulation}
+The decapsulation algorithm ML-KEM.Decaps accepts a decapsulation key and ciphertext generated by ML-KEM as input and outputs a shared secret key.
 
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -312,6 +329,7 @@ $m \leftarrow \mathrm{ByteEncode}_1(\mathrm{Compress}_1(w))$ \tcc{decode plainte
 ML-DSA, also known as Module-Lattice-Based Digital Signature Standard, is a standard set by NIST's FIPS 204 publication that specifies a set of algorithms for
 
 \subsubsection{ML-DSA Key Generation}
+The key generation algorithm ML-DSA.KeyGen chooses a random 32 byte seed $\xi$ and uses it to generate a public key and private key. The seed itself is generated using an approved RBG (Random Bit Generator) such as described by Barker et al (Barker \& Kesley, 2015 \& Barker et al., 2018 \& Barker et al., 2025).
 
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -342,7 +360,7 @@ $\hat{\mathbf{A}} \leftarrow \mathrm{ExpandA}(\rho)$ \tcc{$\mathbf{A}$ is genera
 $(\mathbf{s}_1, \mathbf{s}_2) \leftarrow \mathrm{ExpandS}(\rho')$
 $\mathbf{t} \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}} \circ \mathrm{NTT}(\mathbf{s}_1)) + \mathbf{s}_2$ \tcc{compute $\mathbf{t} = \mathbf{A}\mathbf{s}_1 + \mathbf{s}_2$}
 $(\mathbf{t}_1, \mathbf{t}_0) \leftarrow \mathrm{Power2Round}(\mathbf{t})$ \tcc{compress $\mathbf{t}$}
-\tcc{PowerTwoRound is applied componentwise (see explanatory text in Section 7.4)}
+\tcc{PowerTwoRound is applied componentwise}
 $pk \leftarrow \mathrm{pkEncode}(\rho, \mathbf{t}_1)$
 $tr \leftarrow H(pk, 64)$
 $sk \leftarrow \mathrm{skEncode}(\rho, K, tr, \mathbf{s}_1, \mathbf{s}_2, \mathbf{t}_0)$ \tcc{$K$ and $tr$ are for use in signing}
@@ -352,6 +370,7 @@ $sk \leftarrow \mathrm{skEncode}(\rho, K, tr, \mathbf{s}_1, \mathbf{s}_2, \mathb
 \end{algorithm}
 
 \subsubsection{ML-DSA Signing}
+The signing algorithm ML-DSA.Sign takes a private key, a message, and a context string (a byte string of 255 or fewer bytes) as input and outputs a signature encoded as a byte string.
 
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -398,7 +417,7 @@ $(\mathbf{z}, \mathbf{h}) \leftarrow \bot$
     $\mathbf{y} \in R_q^{\ell} \leftarrow \mathrm{ExpandMask}(\rho'', \kappa)$
     $\mathbf{w} \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}} \circ \mathrm{NTT}(\mathbf{y}))$
     $\mathbf{w}_1 \leftarrow \mathrm{HighBits}(\mathbf{w})$ \tcc{signer's commitment}
-    \tcc{HighBits is applied componentwise (see explanatory text in Section 7.4)}
+    \tcc{HighBits is applied componentwise}
     $\tilde{c} \leftarrow H(\mu \parallel \mathrm{w}_1\mathrm{Encode}(\mathbf{w}_1), \lambda/4)$ \tcc{commitment hash}
     $c \in R_q \leftarrow \mathrm{SampleInBall}(\tilde{c})$ \tcc{verifier's challenge}
     $\hat{c} \leftarrow \mathrm{NTT}(c)$
@@ -406,14 +425,14 @@ $(\mathbf{z}, \mathbf{h}) \leftarrow \bot$
     $\langle\langle c\mathbf{s}_2\rangle\rangle \leftarrow \mathrm{NTT}^{-1}(\hat{c} \circ \hat{\mathbf{s}}_2)$
     $\mathbf{z} \leftarrow \mathbf{y} + \langle\langle c\mathbf{s}_1\rangle\rangle$ \tcc{signer's response}
     $\mathbf{r}_0 \leftarrow \mathrm{LowBits}(\mathbf{w} - \langle\langle c\mathbf{s}_2\rangle\rangle)$
-    \tcc{LowBits is applied componentwise (see explanatory text in Section 7.4)}
+    \tcc{LowBits is applied componentwise}
     \uIf{$||\mathbf{z}||_{\infty} \geq \gamma_1 - \beta$ or $||\mathbf{r}_0||_{\infty} \geq \gamma_2 - \beta$}{
         $(\mathbf{z}, \mathbf{h}) \leftarrow \bot$ \tcc{validity checks}
     }
     \Else{
         $\langle\langle c\mathbf{t}_0\rangle\rangle \leftarrow \mathrm{NTT}^{-1}(\hat{c} \circ \hat{\mathbf{t}}_0)$
         $\mathbf{h} \leftarrow \mathrm{MakeHint}(-\langle\langle c\mathbf{t}_0\rangle\rangle, \mathbf{w} - \langle\langle c\mathbf{s}_2\rangle\rangle + \langle\langle c\mathbf{t}_0\rangle\rangle)$ \tcc{signer's hint}
-        \tcc{MakeHint is applied componentwise (see explanatory text in Section 7.4)}
+        \tcc{MakeHint is applied componentwise}
         \uIf{$||\langle\langle c\mathbf{t}_0\rangle\rangle||_{\infty} \geq \gamma_2$ or the number of 1's in $\mathbf{h}$ is greater than $\omega$}{
             $(\mathbf{z}, \mathbf{h}) \leftarrow \bot$
         }
@@ -427,6 +446,7 @@ $\sigma \leftarrow \mathrm{sigEncode}(\tilde{c}, \mathbf{z} \bmod^{\pm} q, \math
 \end{algorithm}
 
 \subsubsection{ML-DSA Verification}
+The verification algorithm ML-DSA.Verify takes a public key, a message, a signature, and a context string as input and outputs a boolean value that returns true if the signature is valid with respect to the message and public key and false if it is invalid.
 
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -583,6 +603,15 @@ Stasko, J., Badre, A., \& Lewis, C. (1993). Do Algorithm Animations Assist Learn
 
 \bibitem{}
 Kang, D. (2026). ML-KEM from Scratch. \textit{Github.io}. https://hulryung.github.io/ml-kem-notebooks/intro.html
+
+\bibitem{}
+Barker, E. \& Kesley, J. (2015). Recommendation for Random Number Generation Using Deterministic Random Bit Generators. \textit{NIST Special Publication 800-90A}. \doi{10.6028/nist.sp.800-90ar1}
+
+\bibitem{}
+Barker et al. (2018). Recommendation for the Entropy Sources Used for Random Bit Generation. \textit{NIST Special Publication 800-90B}. \doi{10.6028/NIST.SP.800-90B}
+
+\bibitem{}
+Barker et al. (2025). Recommendation for Random Bit Generator (RBG) Constructions. \textit{NIST Special Publication 800-90C}. \doi{10.6028/nist.sp.800-90c}
 
 \end{thebibliography}
 \end{document}

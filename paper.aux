@@ -5,65 +5,66 @@
 \@writefile{toc}{\contentsline {author}{Jeslyn Theodora \and Amril Syalim, S.Kom., M.Eng., Ph.D.}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Works}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}ML-KEM - FIPS 203}{2}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Simplified key establishment process using KEM}}{3}{}\protected@file@percent }
-\newlabel{fig1}{{1}{3}{}{figure.1}{}}
-\newlabel{tab:mlkem-params}{{2.1}{3}{}{figure.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Parameters sets for ML-KEM (Kyber) security levels}}{3}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}ML-KEM Key Generation}{4}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces ML-KEM.KeyGen()}}{4}{}\protected@file@percent }
-\newlabel{alg:keygen}{{1}{4}{}{algocf.1}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces ML-KEM.KeyGen\_internal($d, z$)}}{4}{}\protected@file@percent }
-\newlabel{alg:mlkem-keygen-internal}{{2}{4}{}{algocf.2}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces K-PKE.KeyGen($d$)}}{5}{}\protected@file@percent }
-\newlabel{alg:k-pke-keygen}{{3}{5}{}{algocf.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}ML-KEM Encapsulation}{5}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {4}{\ignorespaces ML-KEM.Encaps($\mathrm  {ek}$)}}{5}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {5}{\ignorespaces ML-KEM.Encaps\_internal($\mathrm  {ek}, m$)}}{6}{}\protected@file@percent }
-\newlabel{alg:mlkem-encaps-internal}{{5}{6}{}{algocf.5}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {6}{\ignorespaces K-PKE.Encrypt($\mathrm  {ek_{PKE}}, m, r$)}}{6}{}\protected@file@percent }
-\newlabel{alg:k-pke-encrypt}{{6}{6}{}{algocf.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}ML-KEM Decapsulation}{7}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {7}{\ignorespaces ML-KEM.Decaps($\mathrm  {dk}, c$)}}{7}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {8}{\ignorespaces ML-KEM.Decaps\_internal($\mathrm  {dk}, c$)}}{7}{}\protected@file@percent }
-\newlabel{alg:mlkem-decaps-internal}{{8}{7}{}{algocf.8}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {9}{\ignorespaces K-PKE.Decrypt($\mathrm  {dk_{PKE}}, c$)}}{7}{}\protected@file@percent }
-\newlabel{alg:k-pke-decrypt}{{9}{7}{}{algocf.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}ML-DSA - FIPS 204}{8}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}ML-DSA Key Generation}{8}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {10}{\ignorespaces ML-DSA.KeyGen()}}{8}{}\protected@file@percent }
-\newlabel{alg:mldsa-keygen}{{10}{8}{}{algocf.10}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {11}{\ignorespaces ML-DSA.KeyGen\_internal($\xi $)}}{8}{}\protected@file@percent }
-\newlabel{alg:mldsa-keygen-internal}{{11}{8}{}{algocf.11}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}ML-DSA Signing}{9}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {12}{\ignorespaces ML-DSA.Sign($sk, M, ctx$)}}{9}{}\protected@file@percent }
-\newlabel{alg:mldsa-sign}{{12}{9}{}{algocf.12}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {13}{\ignorespaces ML-DSA.Sign\_internal($sk, M', rnd$)}}{10}{}\protected@file@percent }
-\newlabel{alg:mldsa-sign-internal}{{13}{10}{}{algocf.13}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}ML-DSA Verification}{11}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {14}{\ignorespaces ML-DSA.Verify($pk, M, \sigma , ctx$)}}{11}{}\protected@file@percent }
-\newlabel{alg:mldsa-verify}{{14}{11}{}{algocf.14}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {15}{\ignorespaces ML-DSA.Verify\_internal($pk, M', \sigma $)}}{11}{}\protected@file@percent }
-\newlabel{alg:mldsa-verify-internal}{{15}{11}{}{algocf.15}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Existing Visualizations}{11}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Dot Visualization}{12}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Color Visualization}{12}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Representation of a lattice through colors}}{12}{}\protected@file@percent }
-\newlabel{fig2}{{2}{12}{}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Lattice-Based Cryptography}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}ML-KEM - FIPS 203}{3}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Simplified key establishment process using KEM}}{4}{}\protected@file@percent }
+\newlabel{fig1}{{1}{4}{}{figure.1}{}}
+\newlabel{tab:mlkem-params}{{2.2}{4}{}{figure.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Parameters sets for ML-KEM (Kyber) security levels}}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}ML-KEM Key Generation}{4}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces ML-KEM.KeyGen()}}{5}{}\protected@file@percent }
+\newlabel{alg:keygen}{{1}{5}{}{algocf.1}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces ML-KEM.KeyGen\_internal($d, z$)}}{5}{}\protected@file@percent }
+\newlabel{alg:mlkem-keygen-internal}{{2}{5}{}{algocf.2}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces K-PKE.KeyGen($d$)}}{6}{}\protected@file@percent }
+\newlabel{alg:k-pke-keygen}{{3}{6}{}{algocf.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}ML-KEM Encapsulation}{6}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {4}{\ignorespaces ML-KEM.Encaps($\mathrm  {ek}$)}}{6}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {5}{\ignorespaces ML-KEM.Encaps\_internal($\mathrm  {ek}, m$)}}{7}{}\protected@file@percent }
+\newlabel{alg:mlkem-encaps-internal}{{5}{7}{}{algocf.5}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {6}{\ignorespaces K-PKE.Encrypt($\mathrm  {ek_{PKE}}, m, r$)}}{7}{}\protected@file@percent }
+\newlabel{alg:k-pke-encrypt}{{6}{7}{}{algocf.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}ML-KEM Decapsulation}{8}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {7}{\ignorespaces ML-KEM.Decaps($\mathrm  {dk}, c$)}}{8}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {8}{\ignorespaces ML-KEM.Decaps\_internal($\mathrm  {dk}, c$)}}{8}{}\protected@file@percent }
+\newlabel{alg:mlkem-decaps-internal}{{8}{8}{}{algocf.8}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {9}{\ignorespaces K-PKE.Decrypt($\mathrm  {dk_{PKE}}, c$)}}{8}{}\protected@file@percent }
+\newlabel{alg:k-pke-decrypt}{{9}{8}{}{algocf.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}ML-DSA - FIPS 204}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}ML-DSA Key Generation}{9}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {10}{\ignorespaces ML-DSA.KeyGen()}}{9}{}\protected@file@percent }
+\newlabel{alg:mldsa-keygen}{{10}{9}{}{algocf.10}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {11}{\ignorespaces ML-DSA.KeyGen\_internal($\xi $)}}{9}{}\protected@file@percent }
+\newlabel{alg:mldsa-keygen-internal}{{11}{9}{}{algocf.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}ML-DSA Signing}{9}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {12}{\ignorespaces ML-DSA.Sign($sk, M, ctx$)}}{10}{}\protected@file@percent }
+\newlabel{alg:mldsa-sign}{{12}{10}{}{algocf.12}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {13}{\ignorespaces ML-DSA.Sign\_internal($sk, M', rnd$)}}{11}{}\protected@file@percent }
+\newlabel{alg:mldsa-sign-internal}{{13}{11}{}{algocf.13}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}ML-DSA Verification}{11}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {14}{\ignorespaces ML-DSA.Verify($pk, M, \sigma , ctx$)}}{12}{}\protected@file@percent }
+\newlabel{alg:mldsa-verify}{{14}{12}{}{algocf.14}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {15}{\ignorespaces ML-DSA.Verify\_internal($pk, M', \sigma $)}}{12}{}\protected@file@percent }
+\newlabel{alg:mldsa-verify-internal}{{15}{12}{}{algocf.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Existing Visualizations}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1}Dot Visualization}{13}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2}Color Visualization}{13}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Representation of a lattice through colors}}{13}{}\protected@file@percent }
+\newlabel{fig2}{{2}{13}{}{figure.2}{}}
 \bibstyle{acm}
 \bibdata{thebibliography}
 \bibcite{fips_203}{1}
 \bibcite{fips_204}{2}
 \bibcite{shor}{3}
 \bibcite{kyber}{4}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}Matrix Visualization}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Visualization Method Effectiveness}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Visualization Tool Design}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Architecture}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}ML-KEM}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}ML-DSA}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Results?}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{13}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.3}Matrix Visualization}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Visualization Method Effectiveness}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Visualization Tool Design}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Architecture}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}ML-KEM}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}ML-DSA}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Results?}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{14}{}\protected@file@percent }
 \bibcite{pqc-vizz}{5}
 \bibcite{mwle}{6}
 \bibcite{metastudy}{7}
@@ -76,4 +77,7 @@
 \bibcite{}{14}
 \bibcite{}{15}
 \bibcite{}{16}
-\gdef \@abspage@last{14}
+\bibcite{}{17}
+\bibcite{}{18}
+\bibcite{}{19}
+\gdef \@abspage@last{15}

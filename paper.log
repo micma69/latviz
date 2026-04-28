@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.21)  25 APR 2026 23:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.21)  29 APR 2026 01:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -382,6 +382,15 @@ LaTeX Warning: Label `' multiply defined.
 
 LaTeX Warning: Label `' multiply defined.
 
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
 )
 \openout1 = `paper.aux'.
 
@@ -434,84 +443,85 @@ Overfull \hbox (2.599pt too wide) in paragraph at lines 49--50
 [1
 
 {C:/Users/Acer/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
-<images/KEM_diagram.png, id=15, 392.46625pt x 513.92pt>
+<images/KEM_diagram.png, id=23, 392.46625pt x 513.92pt>
 File: images/KEM_diagram.png Graphic file (type png)
 <use images/KEM_diagram.png>
-Package pdftex.def Info: images/KEM_diagram.png  used on input line 79.
+Package pdftex.def Info: images/KEM_diagram.png  used on input line 90.
 (pdftex.def)             Requested size: 124.96468pt x 163.63437pt.
 
-Underfull \vbox (badness 3219) has occurred while \output is active []
-
- [3 <./images/KEM_diagram.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4]
+ [3]
+Underfull \vbox (badness 3449) has occurred while \output is active []
+
+ [4 <./images/KEM_diagram.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [5]
+ [5] [6]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [6]
+ [7] [8] [9]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [8]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [9]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [10] [11]
-<images/color_representation.png, id=64, 443.40656pt x 438.13687pt>
+ [10] [11] [12]
+<images/color_representation.png, id=68, 443.40656pt x 438.13687pt>
 File: images/color_representation.png Graphic file (type png)
 <use images/color_representation.png>
-Package pdftex.def Info: images/color_representation.png  used on input line 500.
+Package pdftex.def Info: images/color_representation.png  used on input line 520.
 (pdftex.def)             Requested size: 166.61781pt x 164.64188pt.
- [12 <./images/color_representation.png>]
+ [13 <./images/color_representation.png>]
 No file paper.bbl.
 
-Underfull \hbox (badness 10000) in paragraph at lines 549--550
+Underfull \hbox (badness 10000) in paragraph at lines 569--570
 []\T1/cmr/m/n/9 Avanzi et al. (2021). CRYSTALS-Kyber. https://pq-
  []
 
-[13]
-Underfull \hbox (badness 10000) in paragraph at lines 552--553
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 572--573
 []\T1/cmr/m/n/9 Kalava et al. (2025). Post-Quantum Se-cu-rity for Web Ap-pli-ca-tions.
  []
 
 
-Underfull \hbox (badness 1337) in paragraph at lines 561--562
+Underfull \hbox (badness 1337) in paragraph at lines 581--582
 []\T1/cmr/m/n/9 Stasko, J., Badre, A., & Lewis, C. (1993). Do Al-go-rithm An-i-ma-tions As-
  []
 
 
-Underfull \hbox (badness 2865) in paragraph at lines 561--562
+Underfull \hbox (badness 2865) in paragraph at lines 581--582
 \T1/cmr/m/it/9 Con-fer-ence on Hu-man Fac-tors in Com-put-ing Sys-tems - CHI '93\T1/cmr/m/n/9 , 61^^U66.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 573--574
+Underfull \hbox (badness 10000) in paragraph at lines 593--594
 []\T1/cmr/m/n/9 Feynman, Richard. (1982). Sim-u-lat-ing Physics with Com-put-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 573--574
+Underfull \hbox (badness 10000) in paragraph at lines 593--594
 \T1/cmr/m/n/9 ers. \T1/cmr/m/it/9 In-ter-na-tional Jour-nal of The-o-ret-i-cal Physics\T1/cmr/m/n/9 , 21(6/7), 467^^U488.
  []
 
 
-Underfull \hbox (badness 2865) in paragraph at lines 582--583
+Underfull \hbox (badness 2865) in paragraph at lines 602--603
 \T1/cmr/m/it/9 Con-fer-ence on Hu-man Fac-tors in Com-put-ing Sys-tems - CHI '93\T1/cmr/m/n/9 , 61^^U66.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 585--586
+Underfull \hbox (badness 10000) in paragraph at lines 605--606
 []\T1/cmr/m/n/9 Kang, D. (2026). ML-KEM from Scratch. \T1/cmr/m/it/9 Github.io\T1/cmr/m/n/9 .
  []
 
-[14] (paper.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 611--612
+[]\T1/cmr/m/n/9 Barker et al. (2018). Rec-om-men-da-tion for the En-tropy Sources
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 611--612
+\T1/cmr/m/n/9 Used for Ran-dom Bit Gen-er-a-tion. \T1/cmr/m/it/9 NIST Spe-cial Pub-li-ca-tion 800-90B\T1/cmr/m/n/9 .
+ []
+
+[15] (paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -522,17 +532,17 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6766 strings out of 467866
- 98761 string characters out of 5428395
- 527551 words of memory out of 5000000
- 35571 multiletter control sequences out of 15000+600000
- 645658 words of font info for 81 fonts, out of 8000000 for 9000
+ 6772 strings out of 467866
+ 98861 string characters out of 5428395
+ 528552 words of memory out of 5000000
+ 35575 multiletter control sequences out of 15000+600000
+ 646278 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,18n,65p,1176b,1017s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0700.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper.pdf (14 pages, 421069 bytes).
+ <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0700.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on paper.pdf (15 pages, 440417 bytes).
 PDF statistics:
- 602 PDF objects out of 1000 (max. 8388607)
+ 612 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

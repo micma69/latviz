@@ -113,6 +113,9 @@ INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx1200.tfm
 OUTPUT paper.pdf
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx1000.tfm
+INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
+INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx7.tfm
+INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx5.tfm
 INPUT .\images\KEM_diagram.png
 INPUT .\images\KEM_diagram.png
 INPUT .\images\KEM_diagram.png
@@ -129,6 +132,8 @@ INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy9.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy6.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
+INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx9.tfm
+INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx6.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam7.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
@@ -138,9 +143,6 @@ INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx0700.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ectt1000.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm0700.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm0500.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx7.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx5.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti0700.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti0500.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
@@ -178,6 +180,8 @@ INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
+INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
+INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi5.pfb
