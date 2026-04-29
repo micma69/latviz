@@ -25,7 +25,7 @@
 
 \begin{document}
 %
-\title{Visualization of LLL and BKZ Algorithms with Vector Representations on Cartesian Coordinate}
+\title{Visualization of LLL and BKZ Algorithms with Vector Representations}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
@@ -49,25 +49,32 @@ The abstract should briefly summarize the contents of the paper in
 150--250 words.
 
 \keywords{Cryptography  \and Cryptanalisis \and Post-Quantum \and Lattice \and LLL \and BKZ.}
-\end{abstract (To-Do)}
+\end{abstract}
 %
 %
 %
 \section{Background}
 
-Cryptanalysis is the technique of analysing and breaking a ciphertext to obtain the plaintext (A. Al-Sabaawi, 2020). The history and the development of cryptanalysis itself can't be separated from the history and development of cryptography. As the cryptography techniques evolve, the cryptanalysis techniques also evolve in order to break the cryptography techniques. 
+Cryptanalysis is the technique of analysing and breaking a ciphertext to obtain the plaintext (A. Al-Sabaawi, 2020). The history and the development of cryptanalysis itself can't be separated from the history and development of cryptography. As the cryptography techniques evolve, the cryptanalysis techniques also evolve in order to break the cryptography techniques. The frequency analysis technique was used for centuries to break classic ciphers. As the cipher techniques became more complex, this cryptanalysis technique became less effective. Flash-forward to the post-WW2 and the subsequent Cold War and its aftermath, the modern cryptography is mainly key-based ones (symmetric and asymmetric). In which, one of them would eventually becomes one of the world's most widely used cryptographic techniques : the RSA (Rivest-Shamir-Adleman), developed in 1977. As a matter of fact, RSA relies heavily on the difficulty of factoring the product of two large prime numbers. 
 
-One of the earliest known recorded cryptanalysis technique is the frequency analysis technique, which was used for centuries to break classic ciphers. This technique was arguably the most common and efficient cryptanalysis technique used for breaking classic ciphers. However, as the cipher techniques became more complex, this cryptanalysis technique became less effective. After World War II, the modern cryptanalysis techniques are mostly based on complex mathematical concepts and algorithms, like number theory, algebra, and probability theory.
-
-Since the most common form of modern cryptography is key-based cryptography (symmetric and asymmetric), with the onset of the development of quantum computing and subsequently quantum cryptanalysis, many commonly used modern cryptographic algorithms are threatened by quantum cryptanalysis. For example, Shor's algorithm - a quantum algorithm to finding prime factors of an integer, can efficiently factor large integers and compute discrete logarithms. Which endangers the security of commonly used asymmetric cryptographic algorithms like RSA and ECC. Not only asymmetric cryptographic algorithms are threatened by this, Grover's algorithm - also known as Quantum Search Algorithm, can search unsorted databases quadratically faster than classical algorithms, which threatens the security of symmetric-key cryptosystems by effectively halving their key lengths. 
+Since the most common form of modern cryptography is key-based cryptography (symmetric and asymmetric), with the onset of the development of quantum computing and subsequently quantum cryptanalysis, many commonly used modern cryptographic algorithms, especially RSA, are threatened by quantum cryptanalysis. For example, Shor's algorithm - a quantum algorithm to finding prime factors of an integer, can efficiently factor large integers and compute discrete logarithms. Which endangers the security of commonly used asymmetric cryptographic algorithms like RSA and ECC. Not only asymmetric cryptographic algorithms are threatened by this, Grover's algorithm - also known as Quantum Search Algorithm, can search unsorted databases quadratically faster than classical algorithms, which threatens the security of symmetric-key cryptosystems by effectively halving their key lengths. This, combined with the fact that RSA and its fellow modern cryptographic techniques are everywhere, would potentially jeopardize the safety of communications and data privacy and safety.
 
 Which is why cryptographers around the world already started to develop cryptographic algorithms that can resist quantum cryptanalysis. These newer and stronger cryptographic algorithms are called post-quantum cryptography (PQC). Examples of PQC algorithms include Kyber and Dilithium, which are based on the hardness of lattice problems. In fact, lattice-based cryptographic algorithms dominate the PQC. The lattice-based PQC algorithms are indeed able to resist quantum computer-based cryptanalysis. For example, the quantum cryptanalysis technique of Shor's Algorithm can't break it efficiently.
 
 However, just like how the historical pattern of cryptanalysis and cryptography goes in our history, as cryptographers developed lattice-based cryptographic algorithms, the cryptanalysis experts also developed lattice-based cryptanalysis techniques in order to break the lattice-based cryptographic algorithms. The most common lattice-based cryptanalysis technique is the LLL algorithm, which is a polynomial-time algorithm for finding a short and nearly orthogonal basis for a lattice. This algorithm can be used to solve the shortest vector problem (SVP) and the closest vector problem (CVP), which are both important issues in lattice-based cryptography. Apparently, for now, the most promising lattice-based cryptanalysis technique is the BKZ algorithm, which is basically the upscaled version of the LLL algorithm. Compared to LLL, BKZ can find even shorter vectors in a lattice.
 
 The problem with these lattice-based cryptanalysis techniques is that in general, they are very complex and hard to understand, especially for people who are new to the field of cryptography and cryptanalysis. We think this is where the visualization of these algorithms can be very helpful. However, most visualizations of these algorithms don't visualize the underlying mathematical concepts in an intuitive way, and in particular, these tools don't show the mathematical calculations involved between input and the output. By visualizing these algorithms in an intuitive way as well showing the calculations behind the algorithms as well some simple theoritical explanations of these algorithms, we can help the users to understand these algorithms easier. 
+
 \section{Related Works}
-j
+
+\subsection{LLL}
+\mbox{}
+The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a 
+
+\subsection{BKZ}
+\mbox{}
+On the other hand, BKZ (Block Korkine-Zolotarev) 
+
 \subsection{lll-attack-runner}
 lll-attack-runner is a Javascript-based interactive web application for running advanced lattice basis reduction algorithms such as LLL and BKZ. It is developed by Zachary Robert Bennett with the latest update was in January 2026. Because we aim to create a Javascript-based interactive web application for visualizing lattice-based cryptographic and cryptanalysis algorithms, in which two of them are LLL and BKZ, we will use lll-attack-runner as the backend for our visualization of the LLL and BKZ algorithms. However, since we want to visualize these two algorithms in an intuitive way which is easier to understand and more practical for cryptography learners, we will develop our own frontend for the visualization.
 
@@ -76,27 +83,22 @@ de la criptografía basada en retículas}
 Authored by Jaziel D. Flores Rodríguez and his fellow colleagues, this research paper was aimed to create a visualization tool for post-quantum cryptographic algorithms. The main focus was to graphically visualize mathematical concepts behind these post-quantum cryptographic algorithms, particularly lattice concepts which are the basis of these algorithms. The tool which was developed in this research, successfully visualizes these lattice-based post-quantum cryptographic algorithms within dimensions of 2, 3, 4, and 5. However, the LLL process for dimensions higher than 3 is still not implemented in this tool, and the BKZ algorithm is also not implemented in this tool.
 Which is why we will be implementing the LLL process for dimensions higher than 3 in our visualization tool, as well as implementing the BKZ algorithm which is not implemented in this tool.
 
+\subsection{Contribution}
+The problem with LLL and BKZ is their difficulty to be learned by even the cryptography learners. Both algorithms (especially BKZ) requires sufficient mathematical understanding, especially the linear algebra. On the other hand, psychologically wise, humans are generally easier to process information visually. Some online cryptography and/or cryptanalysis tools already provide visualization for the algorithms. However, most just provide visualization for the result or the initial and the result. The mathematical processes between the initial state and the final result are rarely shown and explained. Also, for BKZ algorithm, which is much newer than LLL, the visualization tool for this algorithm is still uncommon. 
+
+Which is why we will develop a tool that not just process LLL and BKZ algorithm, but also show the visualization from the initial state until the final result, with simplified processes shown to help users understand these two algorithms easier. 
+
 \section{Architecture}
 
-\subsection{Algorithms}
+\subsection{Overview}
+insert the app's diagram here as well user interface diagrams
 
-\subsubsection{LLL}
-\mbox{}
-The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a 
-
-\subsubsection{BKZ}
-\mbox{}
-On the other hand, BKZ (Block Korkine-Zolotarev) 
-
-\subsection{Program Structure}
-\subsubsection{Backend}
-\mbox{}
-We're using Zachary Robert Bennett's lll-attack-runner, which is an interactive and Javascript-based lattice-based cryptanalysis solver, as the backend for our visualization of the LLL and BKZ algorithms. We only use three source codes from lll-attack-runner, which are : lll.ts, bkz.ts, and types.ts. The lll.ts, per its filename, does the LLL algorithm process, and the same goes for bkz.ts. Both source codes needs LLLStep interface from types.ts, and for bkz.ts, it also needs LLLRun from lll.ts. Which makes sense, consider the usage of LLL algorithm in BKZ algorithm. 
+\subsection{Backend}
+We're using Zachary Robert Bennett's lll-attack-runner, which is an interactive and Javascript-based lattice-based cryptanalysis solver, as the backend for our visualization of the LLL and BKZ algorithms. We only use three source codes from lll-attack-runner, which are : lll.ts, bkz.ts, and types.ts. The lll.ts, per its filename, does the LLL algorithm process, and the same goes for bkz.ts. Both source codes needs LLLStep interface from types.ts, and for bkz.ts, it also needs LLLRun from lll.ts. 
 
 In each of our algorithm modules, each algorithm has its own folder, which in each of these folders, there is a single source code written in Typescript, with naming convention of the algorithm name written in lowercase. Each of these source codes are responsible for running the algorithm process which corresponds to their name. Within each of these source codes, we will use imported functions from Zachary Robert Bennett's lll-attack-runner source codes to run the algorithm process.  
 
-\subsubsection{Frontend}
-\mbox{}
+\subsection{Frontend}
 For the frontend part, we wil use Next.js, which is a React-based framework for building web applications, with the goal to create a user-friendly interface for our visualization of the LLL and BKZ algorithms. The user will write their own matrix (or copy-and-paste it from any sources), insert needed values (for example, delta value for both LLL and BKZ algorithm and the block size for BKZ algorithm), and the frontend will pass the values inserted by the user into the backend for the core processing. The frontend's responsibility is mainly for visualization part.
 
 For the visualization part, we will use D3 for the visualization part, combined with React to create matrices and vectors visualizations. Our secondary objective for the frontend is to create a visualization which have animations for the steps of these algorithms. We believe the animated version of these visualizations can be understand easier by the users. 
@@ -151,9 +153,9 @@ equation etc. does not need an indent, either.
 Subsequent paragraphs, however, are indented.
 
 \subsection{LLL Visualization} 
-
+insert ss of the web here with similar matrix to bkz
 \subsection{BKZ Visualization}
-
+insert ss of the web here with similar matrix to lll
 \paragraph{Sample Heading (Fourth Level)}
 The contribution should contain no more than four levels of
 headings. Table~\ref{tab1} gives a summary of all heading levels.
