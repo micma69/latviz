@@ -49,7 +49,7 @@ The abstract should briefly summarize the contents of the paper in
 150--250 words.
 
 \keywords{Cryptography  \and Cryptanalisis \and Post-Quantum \and Lattice \and LLL \and BKZ.}
-\end{abstract}
+\end{abstract (To-Do)}
 %
 %
 %
@@ -57,9 +57,7 @@ The abstract should briefly summarize the contents of the paper in
 
 Cryptanalysis is the technique of analysing and breaking a ciphertext to obtain the plaintext (A. Al-Sabaawi, 2020). The history and the development of cryptanalysis itself can't be separated from the history and development of cryptography. As the cryptography techniques evolve, the cryptanalysis techniques also evolve in order to break the cryptography techniques. 
 
-One of the earliest known recorded cryptanalysis technique is the frequency analysis technique, which was used by Arab mathematician Al-Kindi in the 9th century to break monoalphabetic substitution ciphers. This technique relies on the fact that in any given language, certain letters and combinations of letters occur with varying frequencies. By analysing the frequency of letters in the ciphertext, a cryptanalyst can make deduce the likely substitutions used in the cipher.
-
-The frequency analysis technique was arguably the most common and efficient cryptanalysis technique used for breaking classic ciphers. However, as the cipher techniques became more complex, this cryptanalysis technique became less effective. Overall, during and after World War II, mathematics became more and more crucial in both cryptography and cryptanalysis. And the modern cryptanalysis techniques are mostly based on complex mathematical concepts and algorithms, like number theory, algebra, and probability theory.
+One of the earliest known recorded cryptanalysis technique is the frequency analysis technique, which was used for centuries to break classic ciphers. This technique was arguably the most common and efficient cryptanalysis technique used for breaking classic ciphers. However, as the cipher techniques became more complex, this cryptanalysis technique became less effective. After World War II, the modern cryptanalysis techniques are mostly based on complex mathematical concepts and algorithms, like number theory, algebra, and probability theory.
 
 Since the most common form of modern cryptography is key-based cryptography (symmetric and asymmetric), with the onset of the development of quantum computing and subsequently quantum cryptanalysis, many commonly used modern cryptographic algorithms are threatened by quantum cryptanalysis. For example, Shor's algorithm - a quantum algorithm to finding prime factors of an integer, can efficiently factor large integers and compute discrete logarithms. Which endangers the security of commonly used asymmetric cryptographic algorithms like RSA and ECC. Not only asymmetric cryptographic algorithms are threatened by this, Grover's algorithm - also known as Quantum Search Algorithm, can search unsorted databases quadratically faster than classical algorithms, which threatens the security of symmetric-key cryptosystems by effectively halving their key lengths. 
 
@@ -80,12 +78,25 @@ Which is why we will be implementing the LLL process for dimensions higher than 
 
 \section{Architecture}
 
-\subsection{Backend}
+\subsection{Algorithms}
+
+\subsubsection{LLL}
+\mbox{}
+The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a 
+
+\subsubsection{BKZ}
+\mbox{}
+On the other hand, BKZ (Block Korkine-Zolotarev) 
+
+\subsection{Program Structure}
+\subsubsection{Backend}
+\mbox{}
 We're using Zachary Robert Bennett's lll-attack-runner, which is an interactive and Javascript-based lattice-based cryptanalysis solver, as the backend for our visualization of the LLL and BKZ algorithms. We only use three source codes from lll-attack-runner, which are : lll.ts, bkz.ts, and types.ts. The lll.ts, per its filename, does the LLL algorithm process, and the same goes for bkz.ts. Both source codes needs LLLStep interface from types.ts, and for bkz.ts, it also needs LLLRun from lll.ts. Which makes sense, consider the usage of LLL algorithm in BKZ algorithm. 
 
 In each of our algorithm modules, each algorithm has its own folder, which in each of these folders, there is a single source code written in Typescript, with naming convention of the algorithm name written in lowercase. Each of these source codes are responsible for running the algorithm process which corresponds to their name. Within each of these source codes, we will use imported functions from Zachary Robert Bennett's lll-attack-runner source codes to run the algorithm process.  
 
-\subsection{Frontend}
+\subsubsection{Frontend}
+\mbox{}
 For the frontend part, we wil use Next.js, which is a React-based framework for building web applications, with the goal to create a user-friendly interface for our visualization of the LLL and BKZ algorithms. The user will write their own matrix (or copy-and-paste it from any sources), insert needed values (for example, delta value for both LLL and BKZ algorithm and the block size for BKZ algorithm), and the frontend will pass the values inserted by the user into the backend for the core processing. The frontend's responsibility is mainly for visualization part.
 
 For the visualization part, we will use D3 for the visualization part, combined with React to create matrices and vectors visualizations. Our secondary objective for the frontend is to create a visualization which have animations for the steps of these algorithms. We believe the animated version of these visualizations can be understand easier by the users. 
