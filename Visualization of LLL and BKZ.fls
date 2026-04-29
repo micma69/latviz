@@ -58,7 +58,6 @@ INPUT D:\Program Files (D)\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecrm1440.tfm
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecbx1440.tfm
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecrm0900.tfm
-INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ectt0900.tfm
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecbx0900.tfm
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\tcrm0900.tfm
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecrm1200.tfm
@@ -102,8 +101,6 @@ INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dp
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0900.pk
-INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt0900.pk
-INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk
