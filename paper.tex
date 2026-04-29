@@ -29,19 +29,19 @@
 
 \begin{document}
 %
-\title{Visualizing Lattice-based Post-Quantum Cryptographic Algorithms}
+\title{Visualizing ML-KEM and ML-DSA think of a better title lmao}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{Jeslyn Theodora \and Amril Syalim, S.Kom., M.Eng., Ph.D.}
+\author{Jeslyn Theodora \and Amril Syalim}
 %
 \authorrunning{Jeslyn Theodora}
 % First names are abbreviated in the running head.
 % If there are more than two authors, 'et al.' is used.
 %
-\institute{Faculty of Computer Science, University of Indonesia, Jl. Prof. DR. Sudjono D. Pusponegoro, Pondok Cina, Kecamatan Beji, Kota Depok, Jawa Barat 16425}
+\institute{Faculty of Computer Science, University of Indonesia.}
 %
 \maketitle              % typeset the header of the contribution
 %
@@ -114,7 +114,7 @@ They also have multiple parameter sets, of which ML-KEM has three. In order of l
 \end{table}
 
 \subsubsection{ML-KEM Key Generation}
-The key generation algorithm ML-KEM.Keygen in ML-KEM produces an encapsulation key and decapsulation key using internally generated randomness.
+The key generation algorithm ML-KEM.Keygen in ML-KEM produces an encapsulation key and decapsulation key using internally generated 32 byte seeds \textit{d} and \textit{z}.
 
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -151,7 +151,7 @@ $\mathrm{dk} \leftarrow (\mathrm{dk_{PKE}} \parallel \mathrm{ek} \parallel H(\ma
 \label{alg:mlkem-keygen-internal}
 \end{algorithm}
 
-Assuming the generated random seeds \textit{d} and \textit{z} are valid, the seed \textit{d} is used to run Kyber's key generation algorithm K-PKE.KeyGen that outputs the encryption key and decryption key. The encapsulation key is the outputted encryption key of K-PKE. The decapsulation key consists of the outputted decryption key of K-PKE, the encapsulation key, a hash of the encapsulation key, and the random 32-byte value seed \textit{z}. 
+Assuming the generated random seeds \textit{d} and \textit{z} are valid, the seed \textit{d} is used to run Kyber's key generation algorithm K-PKE.KeyGen, which outputs the encryption key and decryption key. The encapsulation key is the outputted encryption key of K-PKE. The decapsulation key consists of the outputted decryption key of K-PKE, the encapsulation key, a hash of the encapsulation key, and the random 32-byte value seed \textit{z}. 
 
 The following is the K-PKE.KeyGen algorithm in full.
 
@@ -188,7 +188,7 @@ $\mathrm{dk_{PKE}} \leftarrow \mathrm{ByteEncode}_{12}(\hat{\mathbf{s}})$ \tcc{r
 \label{alg:k-pke-keygen}
 \end{algorithm}
 
-K-PKE.KeyGen uses 
+K-PKE.KeyGen is at its core an initialization of an MLWE problem. The seed \textit{d} is used to generate
 
 \subsubsection{ML-KEM Encapsulation}
 The key encapsulation algorithm ML-KEM.Encaps accepts an encapsulation key and random value \textit{m} as input and produces a shared key and its associated ciphertext.
@@ -530,13 +530,14 @@ Visualizations as previously defined have been used in education since. Nowadays
 The developed visualization tool is a web application that provides visualizations for ML-KEM, ML-DSA, LLL, and BKZ. (elaborate later)
 
 \subsection{Architecture}
-The visualization tool is built using Next.js, a React-based framework, for the frontend, and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using a modification of an existing Javascript library 'pqc'.
+The visualization tool is built using Next.js, a React-based framework, for the frontend, and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using a modification of an existing Javascript library 'pqc' that allows for the display of the inner workings of both algorithms.
 
 \subsection{ML-KEM}
 The implementation of ML-KEM is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025). 
 \subsection{ML-DSA}
 The implementation of ML-DSA is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025).
-\section{Results?}
+\subsection{Visualization Flow}
+\section{Evaluation and Results}
 
 
 \section{Conclusion}
