@@ -10,6 +10,7 @@
 % Other font encondings may result in incorrect characters.
 %
 \usepackage{graphicx}
+\graphicspath{{./pics/}}
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
 %
@@ -34,7 +35,7 @@
 \author{Muhammad Imam Chaidar Mujaddid Al-Ghiffari\inst{1}\orcidID{0000-1111-2222-3333} \and
 Amril Syalim \inst{2,3}\orcidID{1111-2222-3333-4444}}
 %
-\authorrunning{F. Author et al.}
+\authorrunning{Muhammad Imam Chaidar Mujaddid Al-Ghiffari et al.}
 % First names are abbreviated in the running head.
 % If there are more than two authors, 'et al.' is used.
 %
@@ -108,27 +109,62 @@ Visualization of both LLL and BKZ algorithms contains following five visual elem
 
 \subsubsection{Graph Panel}
 \mbox{}
-
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{2Dvisz.png}
+    \caption{The 2D visualization}
+    \label{2D Visualization}
+\end{figure}
+\mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{3Dvisz.png}
+    \caption{The 3D visualization}
+    \label{3D Visualization}
+\end{figure}
 
 This is the key visual element. Psychologically speaking, human brain is usually better at understanding visual information compared to textual ones. We design the graph panel in 2D and 3D projections, both in the fashion of the Cartesian coordinate. Each vector arrows represented in this graph panel have different colour, with their vector written in the same colour as their arrow and placed above the tip of their vector arrow. 
 
 \subsubsection{Lovasz Status Panel}
 \mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lovasz.png}
+    \caption{The Lovasz Condition is displayed in this panel, whether it's satisfied (shown here) or not}
+    \label{Lovasz Status Panel}
+\end{figure}
 
 The panel shows the user of the Lovasz status of the current basis. If the current basis fulfill the Lovasz condition, it will show the user a green check mark and "Satisfied" text, and if not, a red cross mark and "Not Satisfied" text will be shown to the user. 
 
 \subsubsection{Step and Calculation Details}
 \mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{currentstep.png}
+    \caption{Current step. Click on the "Show Calculations" for the details}
+    \label{Step and Calculation Details}
+\end{figure}
 
 This panel will tell the user of the current step (for example, "Basis size reduction"). The user can see the details of the calculation in the step by clicking "Show Calculations" button at the upper right corner of this panel. 
 
 \subsubsection{Current Basis Panel}
 \mbox{}
-
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{currentbasis.png}
+    \caption{The current basis as with the current step}
+    \label{Current Basis Panel}
+\end{figure}
 Like its namesake, this panel's sole function is to show the user the current basis. 
 
 \subsubsection{Shortest Vector Panel (BKZ only)}
 \mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{svpres.png}
+    \caption{The SVP we gained, which only shown in the final step of the BKZ process}
+    \label{SVP}
+\end{figure}
 
 Only for BKZ algorithm, this panel's sole function is to inform the user the shortest vectors found in the current basis. Only shown in the last step.
 
