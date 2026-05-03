@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  3 MAY 2026 18:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  3 MAY 2026 20:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -252,9 +252,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2] [3] [4] [5]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 164.
+(Font)              <9> on input line 165.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 164.
+(Font)              <6> on input line 165.
 Package epstopdf Info: Source file: <fig1.eps>
 (epstopdf)                    date: 2026-04-26 19:11:51
 (epstopdf)                    size: 357553 bytes
@@ -262,12 +262,12 @@ Package epstopdf Info: Source file: <fig1.eps>
 (epstopdf)                    date: 2026-04-26 19:11:51
 (epstopdf)                    size: 36500 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=fig1-eps-converted-to.pdf fig1.eps>
-(epstopdf)             \includegraphics on input line 188.
+(epstopdf)             \includegraphics on input line 189.
 Package epstopdf Info: Output file is already uptodate.
 <fig1-eps-converted-to.pdf, id=27, 345.29pt x 142.5325pt>
 File: fig1-eps-converted-to.pdf Graphic file (type pdf)
 <use fig1-eps-converted-to.pdf>
-Package pdftex.def Info: fig1-eps-converted-to.pdf  used on input line 188.
+Package pdftex.def Info: fig1-eps-converted-to.pdf  used on input line 189.
 (pdftex.def)             Requested size: 347.12354pt x 143.29115pt.
  [6] [7 <./fig1-eps-converted-to.pdf>] (Visualization of LLL and BKZ.aux)
  ***********
