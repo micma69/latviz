@@ -46,7 +46,7 @@
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Post-quantum cryptographic algorithms are gaining relevance as prevalent security measures are found vulnerable to quantum computers. Among them are the key encapsulation standard ML-KEM and the digital signature standard ML-DSA released by NIST (National Institute of Standards and Technology) in 2024. However despite it's relevance, there are few resources dedicated to fully describing the algorithms behind them that are easily followed. This paper details the creation of'Latviz', a digital visualization tool meant to help learners understand the entire process behind the ML-KEM and ML-DSA standards. It takes into account what types of visualizations tend to be more helpful for learners by employing visual abstractions, animations, and interactivity. (WIP AFTER I GET THAT DOWN)
+Post-quantum cryptographic algorithms are gaining relevance as prevalent security measures are found vulnerable to quantum computers. Among them are the key encapsulation standard ML-KEM and the digital signature standard ML-DSA released by NIST (National Institute of Standards and Technology) in 2024. However despite it's relevance, there are few resources dedicated to fully describing the algorithms behind them that are easily followed. This paper details the creation of'Latviz', a digital visualization tool meant to help learners understand the entire process behind the ML-KEM and ML-DSA standards. It takes into account what types of visualizations tend to be more helpful for learners by employing visual abstractions, animations, and interactivity.
 
 \keywords{Cryptography \and Post-Quantum \and Algorithm Visualization \and Visualization \and ML-KEM \and ML-DSA \and Lattice-based Cryptography}
 \end{abstract}
@@ -62,7 +62,7 @@ NIST (National Institute of Standards and Technology) is one of the organization
 
 However, despite their importance, there are a limited number of resources available for learning about them. Outside of NIST's official releases and lectures, most of they come in the from of summaries of said releases and lectures, public implementations, and simplified diagrams or visualizations. The visualization and exploration tool pqc-vizz for example, provides an interactive working implementation for ML-KEM and ML-DSA that describes the overall process of using them, but skips over most of their inner workings such as their background calculations (Kalava et al., 2025). Daeukun Kang's ML-KEM from Scratch details the entire process of ML-KEM as well as the context and mathematical grounding behind it, including a working Python implementation (Kang, 2026). However, it assumes that the user has a working understanding of coding; otherwise, it is nothing more than a particularly structured summary. Other resources are similarly lacking in that they do not offer anything beyond a summary of NIST's release or they simplify their explanations to only the outermost layers.
 
-Thus, this work aims to develop a visualization tool that allows users to view the complete process behind ML-KEM and ML-DSA in a way that is still digestible to most people (layman?).
+Thus, this work aims to develop a visualization tool that allows users to view the complete process behind ML-KEM and ML-DSA in a way that is still digestible to most people. This is done by displaying the inner mechanisms such that users unfamiliar with cryptography can still follow the explanations, and by going through both processes in their entirety instead of focusing only on the inputs and outputs.
 
 \section{Related Works}
 Visualization tools for algorithms, also known as algorithm visualization technology, have been around since the late 1970s (Hundhausen et al., 2002), ranging from basic animations (Stasko et al., 1993) to interactive demonstrations. However, the current tools available for visualizing ML-KEM and ML-DSA are limited.
@@ -153,40 +153,12 @@ $\mathrm{dk} \leftarrow (\mathrm{dk_{PKE}} \parallel \mathrm{ek} \parallel H(\ma
 
 Assuming the generated random seeds \textit{d} and \textit{z} are valid, the seed \textit{d} is used to run Kyber's key generation algorithm K-PKE.KeyGen, which outputs the encryption key and decryption key. The encapsulation key is the outputted encryption key of K-PKE. The decapsulation key consists of the outputted decryption key of K-PKE, the encapsulation key, a hash of the encapsulation key, and the random 32-byte value seed \textit{z}. 
 
-The following is the K-PKE.KeyGen algorithm in full.
-
-\begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\Input{randomness $d \in \mathbb{B}^{32}$}
-\Output{encryption key $\mathrm{ek_{PKE}} \in \mathbb{B}^{384k+32}$}
-\Output{decryption key $\mathrm{dk_{PKE}} \in \mathbb{B}^{384k}$}
-\BlankLine
-$(\rho, \sigma) \leftarrow G(d \parallel k)$ \tcc{expand 32+1 bytes to two pseudorandom 32-byte seeds}
-$N \leftarrow 0$
-\For{$i \leftarrow 0$ \KwTo $k-1$}{
-    \For{$j \leftarrow 0$ \KwTo $k-1$}{
-        $\mathbf{A}[i,j] \leftarrow \mathrm{SampleNTT}(\rho \parallel j \parallel i)$ \tcc{$j$ and $i$ are bytes 33 and 34}
-    }
-}
-\For{$i \leftarrow 0$ \KwTo $k-1$}{
-    $\mathbf{s}[i] \leftarrow \mathrm{SamplePolyCBD}_{\eta_1}(\mathrm{PRF}_{\eta_1}(\sigma, N))$
-    $N \leftarrow N + 1$
-}
-\For{$i \leftarrow 0$ \KwTo $k-1$}{
-    $\mathbf{e}[i] \leftarrow \mathrm{SamplePolyCBD}_{\eta_1}(\mathrm{PRF}_{\eta_1}(\sigma, N))$
-    $N \leftarrow N + 1$
-}
-$\hat{\mathbf{s}} \leftarrow \mathrm{NTT}(\mathbf{s})$ \tcc{run NTT $k$ times}
-$\hat{\mathbf{e}} \leftarrow \mathrm{NTT}(\mathbf{e})$ \tcc{run NTT $k$ times}
-$\hat{\mathbf{t}} \leftarrow \hat{\mathbf{A}} \circ \hat{\mathbf{s}} + \hat{\mathbf{e}}$ \tcc{noisy linear system in NTT domain}
-$\mathrm{ek_{PKE}} \leftarrow \mathrm{ByteEncode}_{12}(\hat{\mathbf{t}}) \parallel \rho$ \tcc{run ByteEncode$_{12}$ $k$ times, then append A-seed}
-$\mathrm{dk_{PKE}} \leftarrow \mathrm{ByteEncode}_{12}(\hat{\mathbf{s}})$ \tcc{run ByteEncode$_{12}$ $k$ times}
-\Return{$(\mathrm{ek_{PKE}}, \mathrm{dk_{PKE}})$}
-\caption{K-PKE.KeyGen($d$)}
-\label{alg:k-pke-keygen}
-\end{algorithm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.84\linewidth]{images/kyber-keygen.png}
+\caption{Simplified key establishment process using KEM}
+\label{fig2}
+\end{figure}
 
 K-PKE.KeyGen is at its core an initialization of an MLWE problem. The seed \textit{d} is used to generate
 
@@ -228,42 +200,12 @@ $c \leftarrow \mathrm{K\text{-}PKE.Encrypt}(\mathrm{ek}, m, r)$ \tcc{encrypt $m$
 \label{alg:mlkem-encaps-internal}
 \end{algorithm}
 
-\begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\Input{encryption key $\mathrm{ek_{PKE}} \in \mathbb{B}^{384k+32}$}
-\Input{message $m \in \mathbb{B}^{32}$}
-\Input{randomness $r \in \mathbb{B}^{32}$}
-\Output{ciphertext $c \in \mathbb{B}^{32(d_u k + d_v)}$}
-\BlankLine
-$N \leftarrow 0$
-$\hat{\mathbf{t}} \leftarrow \mathrm{ByteDecode}_{12}(\mathrm{ek_{PKE}}[0:384k])$ \tcc{run ByteDecode$_{12}$ $k$ times}
-$\rho \leftarrow \mathrm{ek_{PKE}}[384k:384k+32]$ \tcc{extract 32-byte seed}
-\For{$i \leftarrow 0$ \KwTo $k-1$}{
-    \For{$j \leftarrow 0$ \KwTo $k-1$}{
-        $\hat{\mathbf{A}}[i,j] \leftarrow \mathrm{SampleNTT}(\rho \parallel j \parallel i)$ \tcc{$j$ and $i$ are bytes 33 and 34}
-    }
-}
-\For{$i \leftarrow 0$ \KwTo $k-1$}{
-    $\mathbf{y}[i] \leftarrow \mathrm{SamplePolyCBD}_{\eta_1}(\mathrm{PRF}_{\eta_1}(r, N))$
-    $N \leftarrow N + 1$
-}
-\For{$i \leftarrow 0$ \KwTo $k-1$}{
-    $\mathbf{e}_1[i] \leftarrow \mathrm{SamplePolyCBD}_{\eta_2}(\mathrm{PRF}_{\eta_2}(r, N))$
-    $N \leftarrow N + 1$
-}
-$e_2 \leftarrow \mathrm{SamplePolyCBD}_{\eta_2}(\mathrm{PRF}_{\eta_2}(r, N))$ \tcc{sample $e_2$ from CBD}
-$\hat{\mathbf{y}} \leftarrow \mathrm{NTT}(\mathbf{y})$ \tcc{run NTT $k$ times}
-$\mathbf{u} \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}}^{\intercal} \circ \hat{\mathbf{y}}) + \mathbf{e}_1$ \tcc{run NTT$^{-1}$ $k$ times}
-$\mu \leftarrow \mathrm{Decompress}_1(\mathrm{ByteDecode}_1(m))$
-$v \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{t}}^{\intercal} \circ \hat{\mathbf{y}}) + e_2 + \mu$ \tcc{encode plaintext $m$ into polynomial $v$}
-$c_1 \leftarrow \mathrm{ByteEncode}_{d_u}(\mathrm{Compress}_{d_u}(\mathbf{u}))$ \tcc{run ByteEncode$_{d_u}$ and Compress$_{d_u}$ $k$ times}
-$c_2 \leftarrow \mathrm{ByteEncode}_{d_v}(\mathrm{Compress}_{d_v}(v))$
-\Return{$c \leftarrow (c_1 \parallel c_2)$}
-\caption{K-PKE.Encrypt($\mathrm{ek_{PKE}}, m, r$)}
-\label{alg:k-pke-encrypt}
-\end{algorithm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.84\linewidth]{images/kyber-encrypt.png}
+\caption{Simplified key establishment process using KEM}
+\label{fig3}
+\end{figure}
 
 \subsubsection{ML-KEM Decapsulation}
 The decapsulation algorithm ML-KEM.Decaps accepts a decapsulation key and ciphertext generated by ML-KEM as input and outputs a shared secret key.
@@ -518,7 +460,7 @@ Below is an example of a lattice visualized in that way, along with the values t
 \begin{figure}
 \centering
 \includegraphics[width=.48\linewidth]{images/color_representation.png}
-\caption{Representation of a lattice through colors} \label{fig2}
+\caption{Representation of a lattice through colors} \label{fig4}
 \end{figure}
 
 \subsubsection{Matrix Visualization}
@@ -530,7 +472,14 @@ Visualizations as previously defined have been used in education since. Nowadays
 The developed visualization tool is a web application that provides visualizations for ML-KEM, ML-DSA, LLL, and BKZ. (elaborate later)
 
 \subsection{Architecture}
-The visualization tool is built using Next.js, a React-based framework, for the frontend, and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using a modification of an existing Javascript library 'pqc' that allows for the display of the inner workings of both algorithms.
+The visualization tool is built using Next.js, a fullstack React-based framework, along with Tailwind CSS for the frontend, and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using a modification of an existing Javascript library 'pqc' that allows for the display of the inner workings of both algorithms.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/Architecture_diagram.png}
+\caption{Latviz fullstack architecture}
+\label{fig5}
+\end{figure}
 
 \subsection{ML-KEM}
 The implementation of ML-KEM is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025). 
