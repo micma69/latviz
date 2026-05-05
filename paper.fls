@@ -157,8 +157,36 @@ INPUT .\images\kyber-encrypt.png
 INPUT .\images\kyber-encrypt.png
 INPUT .\images\kyber-encrypt.png
 INPUT .\images\kyber-encrypt.png
+INPUT .\images\kyber-decrypt.png
+INPUT .\images\kyber-decrypt.png
+INPUT .\images\kyber-decrypt.png
+INPUT .\images\kyber-decrypt.png
+INPUT .\images\kyber-decrypt.png
+INPUT .\images\kyber-decrypt.png
+INPUT .\images\kyber-decrypt.png
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti0700.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti0500.tfm
+INPUT .\images\dsa-keygen.png
+INPUT .\images\dsa-keygen.png
+INPUT .\images\dsa-keygen.png
+INPUT .\images\dsa-keygen.png
+INPUT .\images\dsa-keygen.png
+INPUT .\images\dsa-keygen.png
+INPUT .\images\dsa-keygen.png
+INPUT .\images\dsa-sign.png
+INPUT .\images\dsa-sign.png
+INPUT .\images\dsa-sign.png
+INPUT .\images\dsa-sign.png
+INPUT .\images\dsa-sign.png
+INPUT .\images\dsa-sign.png
+INPUT .\images\dsa-sign.png
+INPUT .\images\dsa-verify.png
+INPUT .\images\dsa-verify.png
+INPUT .\images\dsa-verify.png
+INPUT .\images\dsa-verify.png
+INPUT .\images\dsa-verify.png
+INPUT .\images\dsa-verify.png
+INPUT .\images\dsa-verify.png
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT .\images\color_representation.png
 INPUT .\images\color_representation.png
@@ -225,7 +253,5 @@ INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy7.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy7.pfb
-INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\symbols\msam7.pfb
-INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\symbols\msam7.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm10.pfb

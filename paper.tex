@@ -156,11 +156,11 @@ Assuming the generated random seeds \textit{d} and \textit{z} are valid, the see
 \begin{figure}[H]
 \centering
 \includegraphics[width=.84\linewidth]{images/kyber-keygen.png}
-\caption{Simplified key establishment process using KEM}
+\caption{Kyber Key Generation Algorithm K-PKE.KeyGen}
 \label{fig2}
 \end{figure}
 
-K-PKE.KeyGen is at its core an initialization of an MLWE problem. The seed \textit{d} is used to generate
+K-PKE.KeyGen initializes an instance of the MLWE problem. Input parameter \textit{k} and randomness \textit{d} together generate the seeds $\rho$ and $\sigma$
 
 \subsubsection{ML-KEM Encapsulation}
 The key encapsulation algorithm ML-KEM.Encaps accepts an encapsulation key and random value \textit{m} as input and produces a shared key and its associated ciphertext.
@@ -203,7 +203,7 @@ $c \leftarrow \mathrm{K\text{-}PKE.Encrypt}(\mathrm{ek}, m, r)$ \tcc{encrypt $m$
 \begin{figure}[H]
 \centering
 \includegraphics[width=.84\linewidth]{images/kyber-encrypt.png}
-\caption{Simplified key establishment process using KEM}
+\caption{Kyber Encryption Algorithm K-PKE.Encrypt}
 \label{fig3}
 \end{figure}
 
@@ -247,25 +247,12 @@ $c' \leftarrow \mathrm{K\text{-}PKE.Encrypt}(\mathrm{ek_{PKE}}, m', r')$ \tcc{re
 \label{alg:mlkem-decaps-internal}
 \end{algorithm}
 
-\begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\Input{decryption key $\mathrm{dk_{PKE}} \in \mathbb{B}^{384k}$}
-\Input{ciphertext $c \in \mathbb{B}^{32(d_u k + d_v)}$}
-\Output{message $m \in \mathbb{B}^{32}$}
-\BlankLine
-$c_1 \leftarrow c[0:32d_u k]$
-$c_2 \leftarrow c[32d_u k:32(d_u k + d_v)]$
-$\mathbf{u}' \leftarrow \mathrm{Decompress}_{d_u}(\mathrm{ByteDecode}_{d_u}(c_1))$ \tcc{run Decompress$_{d_u}$ and ByteDecode$_{d_u}$ $k$ times}
-$v' \leftarrow \mathrm{Decompress}_{d_v}(\mathrm{ByteDecode}_{d_v}(c_2))$
-$\hat{\mathbf{s}} \leftarrow \mathrm{ByteDecode}_{12}(\mathrm{dk_{PKE}})$ \tcc{run ByteDecode$_{12}$ $k$ times}
-$w \leftarrow v' - \mathrm{NTT}^{-1}(\hat{\mathbf{s}}^{\intercal} \circ \mathrm{NTT}(\mathbf{u}'))$ \tcc{run NTT $k$ times; run NTT$^{-1}$ once}
-$m \leftarrow \mathrm{ByteEncode}_1(\mathrm{Compress}_1(w))$ \tcc{decode plaintext $m$ from polynomial $v$}
-\Return{$m$}
-\caption{K-PKE.Decrypt($\mathrm{dk_{PKE}}, c$)}
-\label{alg:k-pke-decrypt}
-\end{algorithm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.84\linewidth]{images/kyber-decrypt.png}
+\caption{Kyber Decryption Algorithm K-PKE.Decrypt}
+\label{fig4}
+\end{figure}
 
 \subsection{ML-DSA - FIPS 204}
 ML-DSA, also known as Module-Lattice-Based Digital Signature Standard, is a standard set by NIST's FIPS 204 publication that specifies a set of algorithms for
@@ -288,28 +275,12 @@ $\xi \leftarrow \mathbb{B}^{32}$ \tcc{choose random seed}
 \label{alg:mldsa-keygen}
 \end{algorithm}
 
-\begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\Input{seed $\xi \in \mathbb{B}^{32}$}
-\Output{public key $pk \in \mathbb{B}^{32+32k(\mathrm{bitlen}(q-1)-d)}$}
-\Output{private key $sk \in \mathbb{B}^{32+32+64+32\cdot((\ell+k)\cdot\mathrm{bitlen}(2\eta)+dk)}$}
-\BlankLine
-$(\rho, \rho', K) \in \mathbb{B}^{32} \times \mathbb{B}^{64} \times \mathbb{B}^{32} \leftarrow H(\xi \parallel \mathrm{IntegerToBytes}(k,1) \parallel \mathrm{IntegerToBytes}(\ell,1), 128)$
-\tcc{expand seed}
-$\hat{\mathbf{A}} \leftarrow \mathrm{ExpandA}(\rho)$ \tcc{$\mathbf{A}$ is generated and stored in NTT representation as $\hat{\mathbf{A}}$}
-$(\mathbf{s}_1, \mathbf{s}_2) \leftarrow \mathrm{ExpandS}(\rho')$
-$\mathbf{t} \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}} \circ \mathrm{NTT}(\mathbf{s}_1)) + \mathbf{s}_2$ \tcc{compute $\mathbf{t} = \mathbf{A}\mathbf{s}_1 + \mathbf{s}_2$}
-$(\mathbf{t}_1, \mathbf{t}_0) \leftarrow \mathrm{Power2Round}(\mathbf{t})$ \tcc{compress $\mathbf{t}$}
-\tcc{PowerTwoRound is applied componentwise}
-$pk \leftarrow \mathrm{pkEncode}(\rho, \mathbf{t}_1)$
-$tr \leftarrow H(pk, 64)$
-$sk \leftarrow \mathrm{skEncode}(\rho, K, tr, \mathbf{s}_1, \mathbf{s}_2, \mathbf{t}_0)$ \tcc{$K$ and $tr$ are for use in signing}
-\Return{$(pk, sk)$}
-\caption{ML-DSA.KeyGen\_internal($\xi$)}
-\label{alg:mldsa-keygen-internal}
-\end{algorithm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.84\linewidth]{images/dsa-keygen.png}
+\caption{ML-DSA Internal Keygen Algorithm ML-DSA.KeyGen\_internal}
+\label{fig5}
+\end{figure}
 
 \subsubsection{ML-DSA Signing}
 The signing algorithm ML-DSA.Sign takes a private key, a message, and a context string (a byte string of 255 or fewer bytes) as input and outputs a signature encoded as a byte string.
@@ -337,55 +308,12 @@ $\sigma \leftarrow \mathrm{ML\text{-}DSA.Sign\_internal}(sk, M', rnd)$
 \label{alg:mldsa-sign}
 \end{algorithm}
 
-\begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\Input{private key $sk \in \mathbb{B}^{32+32+64+32\cdot((\ell+k)\cdot\mathrm{bitlen}(2\eta)+dk)}$}
-\Input{formatted message $M' \in \{0,1\}^*$}
-\Input{per message randomness or dummy variable $rnd \in \mathbb{B}^{32}$}
-\Output{signature $\sigma \in \mathbb{B}^{\lambda/4 + \ell\cdot32\cdot(1+\mathrm{bitlen}(\gamma_1-1)) + \omega + k}$}
-\BlankLine
-$(\rho, K, tr, \mathbf{s}_1, \mathbf{s}_2, \mathbf{t}_0) \leftarrow \mathrm{skDecode}(sk)$
-$\hat{\mathbf{s}}_1 \leftarrow \mathrm{NTT}(\mathbf{s}_1)$
-$\hat{\mathbf{s}}_2 \leftarrow \mathrm{NTT}(\mathbf{s}_2)$
-$\hat{\mathbf{t}}_0 \leftarrow \mathrm{NTT}(\mathbf{t}_0)$
-$\hat{\mathbf{A}} \leftarrow \mathrm{ExpandA}(\rho)$ \tcc{$\mathbf{A}$ is generated and stored in NTT representation as $\hat{\mathbf{A}}$}
-$\mu \leftarrow H(\mathrm{BytesToBits}(tr) \parallel M', 64)$ \tcc{message representative}
-$\rho'' \leftarrow H(K \parallel rnd \parallel \mu, 64)$ \tcc{compute private random seed}
-$\kappa \leftarrow 0$ \tcc{initialize counter $\kappa$}
-$(\mathbf{z}, \mathbf{h}) \leftarrow \bot$
-\While{$(\mathbf{z}, \mathbf{h}) = \bot$}{
-    $\mathbf{y} \in R_q^{\ell} \leftarrow \mathrm{ExpandMask}(\rho'', \kappa)$
-    $\mathbf{w} \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}} \circ \mathrm{NTT}(\mathbf{y}))$
-    $\mathbf{w}_1 \leftarrow \mathrm{HighBits}(\mathbf{w})$ \tcc{signer's commitment}
-    \tcc{HighBits is applied componentwise}
-    $\tilde{c} \leftarrow H(\mu \parallel \mathrm{w}_1\mathrm{Encode}(\mathbf{w}_1), \lambda/4)$ \tcc{commitment hash}
-    $c \in R_q \leftarrow \mathrm{SampleInBall}(\tilde{c})$ \tcc{verifier's challenge}
-    $\hat{c} \leftarrow \mathrm{NTT}(c)$
-    $\langle\langle c\mathbf{s}_1\rangle\rangle \leftarrow \mathrm{NTT}^{-1}(\hat{c} \circ \hat{\mathbf{s}}_1)$
-    $\langle\langle c\mathbf{s}_2\rangle\rangle \leftarrow \mathrm{NTT}^{-1}(\hat{c} \circ \hat{\mathbf{s}}_2)$
-    $\mathbf{z} \leftarrow \mathbf{y} + \langle\langle c\mathbf{s}_1\rangle\rangle$ \tcc{signer's response}
-    $\mathbf{r}_0 \leftarrow \mathrm{LowBits}(\mathbf{w} - \langle\langle c\mathbf{s}_2\rangle\rangle)$
-    \tcc{LowBits is applied componentwise}
-    \uIf{$||\mathbf{z}||_{\infty} \geq \gamma_1 - \beta$ or $||\mathbf{r}_0||_{\infty} \geq \gamma_2 - \beta$}{
-        $(\mathbf{z}, \mathbf{h}) \leftarrow \bot$ \tcc{validity checks}
-    }
-    \Else{
-        $\langle\langle c\mathbf{t}_0\rangle\rangle \leftarrow \mathrm{NTT}^{-1}(\hat{c} \circ \hat{\mathbf{t}}_0)$
-        $\mathbf{h} \leftarrow \mathrm{MakeHint}(-\langle\langle c\mathbf{t}_0\rangle\rangle, \mathbf{w} - \langle\langle c\mathbf{s}_2\rangle\rangle + \langle\langle c\mathbf{t}_0\rangle\rangle)$ \tcc{signer's hint}
-        \tcc{MakeHint is applied componentwise}
-        \uIf{$||\langle\langle c\mathbf{t}_0\rangle\rangle||_{\infty} \geq \gamma_2$ or the number of 1's in $\mathbf{h}$ is greater than $\omega$}{
-            $(\mathbf{z}, \mathbf{h}) \leftarrow \bot$
-        }
-    }
-    $\kappa \leftarrow \kappa + \ell$ \tcc{increment counter}
-}
-$\sigma \leftarrow \mathrm{sigEncode}(\tilde{c}, \mathbf{z} \bmod^{\pm} q, \mathbf{h})$
-\Return{$\sigma$}
-\caption{ML-DSA.Sign\_internal($sk, M', rnd$)}
-\label{alg:mldsa-sign-internal}
-\end{algorithm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.84\linewidth]{images/dsa-sign.png}
+\caption{ML-DSA Internal Signing Algorithm ML-DSA.Sign\_internal}
+\label{fig6}
+\end{figure}
 
 \subsubsection{ML-DSA Verification}
 The verification algorithm ML-DSA.Verify takes a public key, a message, a signature, and a context string as input and outputs a boolean value that returns true if the signature is valid with respect to the message and public key and false if it is invalid.
@@ -409,32 +337,12 @@ $M' \leftarrow \mathrm{BytesToBits}(\mathrm{IntegerToBytes}(0,1) \parallel \math
 \label{alg:mldsa-verify}
 \end{algorithm}
 
-\begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\Input{public key $pk \in \mathbb{B}^{32+32k(\mathrm{bitlen}(q-1)-d)}$}
-\Input{formatted message $M' \in \{0,1\}^*$}
-\Input{signature $\sigma \in \mathbb{B}^{\lambda/4 + \ell\cdot32\cdot(1+\mathrm{bitlen}(\gamma_1-1)) + \omega + k}$}
-\Output{Boolean}
-\BlankLine
-$(\rho, \mathbf{t}_1) \leftarrow \mathrm{pkDecode}(pk)$
-$(\tilde{c}, \mathbf{z}, \mathbf{h}) \leftarrow \mathrm{sigDecode}(\sigma)$ \tcc{signer's commitment hash $\tilde{c}$, response $\mathbf{z}$, and hint $\mathbf{h}$}
-\uIf{$\mathbf{h} = \bot$}{
-    \Return{false} \tcc{hint was not properly encoded}
-}
-$\hat{\mathbf{A}} \leftarrow \mathrm{ExpandA}(\rho)$ \tcc{$\mathbf{A}$ is generated and stored in NTT representation as $\hat{\mathbf{A}}$}
-$tr \leftarrow H(pk, 64)$
-$\mu \leftarrow H(\mathrm{BytesToBits}(tr) \parallel M', 64)$ \tcc{message representative}
-$c \in R_q \leftarrow \mathrm{SampleInBall}(\tilde{c})$ \tcc{compute verifier's challenge from $\tilde{c}$}
-$\mathbf{w}' \leftarrow \mathrm{NTT}^{-1}(\hat{\mathbf{A}} \circ \mathrm{NTT}(\mathbf{z}) - \mathrm{NTT}(c) \circ \mathrm{NTT}(\mathbf{t}_1 \cdot 2^d))$ \tcc{$\mathbf{w}' = \mathbf{A}\mathbf{z} - c\mathbf{t}_1 \cdot 2^d$}
-$\mathbf{w}_1^{\mathrm{Approx}} \leftarrow \mathrm{UseHint}(\mathbf{h}, \mathbf{w}')$ \tcc{reconstruction of signer's commitment}
-\tcc{UseHint is applied componentwise (see explanatory text in Section 7.4)}
-$\tilde{c}' \leftarrow H(\mu \parallel \mathrm{w}_1\mathrm{Encode}(\mathbf{w}_1^{\mathrm{Approx}}), \lambda/4)$ \tcc{hash it; this should match $\tilde{c}$}
-\Return{$[[||\mathbf{z}||_{\infty} < \gamma_1 - \beta]]$ and $[[\tilde{c} = \tilde{c}']]$}
-\caption{ML-DSA.Verify\_internal($pk, M', \sigma$)}
-\label{alg:mldsa-verify-internal}
-\end{algorithm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.84\linewidth]{images/dsa-verify.png}
+\caption{ML-DSA Internal Verification Algorithm ML-DSA.Verify\_internal}
+\label{fig7}
+\end{figure}
 
 \subsection{Existing Visualizations}
 There are a number of existing visualization tools for ML-KEM, ML-DSA, and lattices in general. They have a tendency to fall into one of the following categories.
@@ -460,7 +368,7 @@ Below is an example of a lattice visualized in that way, along with the values t
 \begin{figure}
 \centering
 \includegraphics[width=.48\linewidth]{images/color_representation.png}
-\caption{Representation of a lattice through colors} \label{fig4}
+\caption{Representation of a lattice through colors} \label{fig8}
 \end{figure}
 
 \subsubsection{Matrix Visualization}
@@ -478,7 +386,7 @@ The visualization tool is built using Next.js, a fullstack React-based framework
 \centering
 \includegraphics[width=.48\linewidth]{images/Architecture_diagram.png}
 \caption{Latviz fullstack architecture}
-\label{fig5}
+\label{fig9}
 \end{figure}
 
 \subsection{ML-KEM}
