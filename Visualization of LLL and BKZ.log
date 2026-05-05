@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  3 MAY 2026 20:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  6 MAY 2026 06:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -204,7 +204,23 @@ Package: listings 2025/11/14 1.11b (Carsten Heinz)
 (D:\Program Files (D)\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count322
-) (Visualization of LLL and BKZ.aux)
+) (Visualization of LLL and BKZ.aux
+
+LaTeX Warning: Label `ref_article1' multiply defined.
+
+
+LaTeX Warning: Label `ref_lncs1' multiply defined.
+
+
+LaTeX Warning: Label `ref_book1' multiply defined.
+
+
+LaTeX Warning: Label `ref_proc1' multiply defined.
+
+
+LaTeX Warning: Label `ref_url1' multiply defined.
+
+)
 \openout1 = `"Visualization of LLL and BKZ.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
@@ -248,45 +264,66 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1
 
 {C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+<./pics/lllflowchart.png, id=14, 653.44125pt x 924.45375pt>
+File: ./pics/lllflowchart.png Graphic file (type png)
+<use ./pics/lllflowchart.png>
+Package pdftex.def Info: ./pics/lllflowchart.png  used on input line 78.
+(pdftex.def)             Requested size: 242.98541pt x 343.76346pt.
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [2] [3]
-<./pics/2Dvisz.png, id=21, 411.78844pt x 353.06906pt>
+ [2] [3 <./pics/lllflowchart.png>] [4]
+<./pics/2Dvisz.png, id=27, 411.78844pt x 353.06906pt>
 File: ./pics/2Dvisz.png Graphic file (type png)
 <use ./pics/2Dvisz.png>
-Package pdftex.def Info: ./pics/2Dvisz.png  used on input line 114.
+Package pdftex.def Info: ./pics/2Dvisz.png  used on input line 122.
 (pdftex.def)             Requested size: 242.98541pt x 208.33588pt.
-<./pics/3Dvisz.png, id=23, 392.21532pt x 329.73187pt>
+<./pics/3Dvisz.png, id=28, 392.21532pt x 329.73187pt>
 File: ./pics/3Dvisz.png Graphic file (type png)
 <use ./pics/3Dvisz.png>
-Package pdftex.def Info: ./pics/3Dvisz.png  used on input line 121.
+Package pdftex.def Info: ./pics/3Dvisz.png  used on input line 129.
 (pdftex.def)             Requested size: 242.98541pt x 204.2807pt.
-<./pics/lovasz.png, id=24, 392.96812pt x 72.27pt>
+<./pics/lovasz.png, id=29, 392.96812pt x 72.27pt>
 File: ./pics/lovasz.png Graphic file (type png)
 <use ./pics/lovasz.png>
-Package pdftex.def Info: ./pics/lovasz.png  used on input line 132.
+Package pdftex.def Info: ./pics/lovasz.png  used on input line 140.
 (pdftex.def)             Requested size: 242.98541pt x 44.68782pt.
- [4] [5 <./pics/2Dvisz.png> <./pics/3Dvisz.png>]
-<./pics/currentstep.png, id=33, 391.4625pt x 75.28125pt>
+<./pics/currentstep.png, id=30, 391.4625pt x 75.28125pt>
 File: ./pics/currentstep.png Graphic file (type png)
 <use ./pics/currentstep.png>
-Package pdftex.def Info: ./pics/currentstep.png  used on input line 143.
+Package pdftex.def Info: ./pics/currentstep.png  used on input line 151.
 (pdftex.def)             Requested size: 242.98541pt x 46.72786pt.
-<./pics/currentbasis.png, id=34, 402.00188pt x 121.20282pt>
+ [5] [6 <./pics/2Dvisz.png> <./pics/3Dvisz.png>]
+<./pics/currentbasis.png, id=39, 402.00188pt x 121.20282pt>
 File: ./pics/currentbasis.png Graphic file (type png)
 <use ./pics/currentbasis.png>
-Package pdftex.def Info: ./pics/currentbasis.png  used on input line 154.
+Package pdftex.def Info: ./pics/currentbasis.png  used on input line 162.
 (pdftex.def)             Requested size: 242.98541pt x 73.25858pt.
-<./pics/svpres.png, id=35, 407.27156pt x 79.04532pt>
+<./pics/svpres.png, id=40, 407.27156pt x 79.04532pt>
 File: ./pics/svpres.png Graphic file (type png)
 <use ./pics/svpres.png>
-Package pdftex.def Info: ./pics/svpres.png  used on input line 164.
+Package pdftex.def Info: ./pics/svpres.png  used on input line 172.
 (pdftex.def)             Requested size: 242.98541pt x 47.15977pt.
- [6 <./pics/lovasz.png> <./pics/currentstep.png> <./pics/currentbasis.png>] [7 <./pics/svpres.png>]
+ [7 <./pics/lovasz.png> <./pics/currentstep.png> <./pics/currentbasis.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
+[]\T1/cmr/m/n/9 Ziyu Zhao, Jin-tai Ding: Prac-ti-cal Im-prove-ments on BKZ Al-go-rithm.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
+\T1/cmr/m/n/9 https://csrc.nist.gov/csrc/media/Events/2022/fourth-pqc-standardization-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
+\T1/cmr/m/n/9 conference/documents/papers/practical-improvements-on-bkz-algorithm-
+ []
+
+[8 <./pics/svpres.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 201.
+(Font)              <9> on input line 237.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 201.
+(Font)              <6> on input line 237.
 Package epstopdf Info: Source file: <fig1.eps>
 (epstopdf)                    date: 2026-04-26 19:11:51
 (epstopdf)                    size: 357553 bytes
@@ -294,31 +331,35 @@ Package epstopdf Info: Source file: <fig1.eps>
 (epstopdf)                    date: 2026-04-26 19:11:51
 (epstopdf)                    size: 36500 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=fig1-eps-converted-to.pdf fig1.eps>
-(epstopdf)             \includegraphics on input line 225.
+(epstopdf)             \includegraphics on input line 261.
 Package epstopdf Info: Output file is already uptodate.
-<fig1-eps-converted-to.pdf, id=47, 345.29pt x 142.5325pt>
+<fig1-eps-converted-to.pdf, id=52, 345.29pt x 142.5325pt>
 File: fig1-eps-converted-to.pdf Graphic file (type pdf)
 <use fig1-eps-converted-to.pdf>
-Package pdftex.def Info: fig1-eps-converted-to.pdf  used on input line 225.
+Package pdftex.def Info: fig1-eps-converted-to.pdf  used on input line 261.
 (pdftex.def)             Requested size: 347.12354pt x 143.29115pt.
- [8] [9 <./fig1-eps-converted-to.pdf>] (Visualization of LLL and BKZ.aux)
+ [9] [10 <./fig1-eps-converted-to.pdf>] (Visualization of LLL and BKZ.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 3473 strings out of 467866
- 51369 string characters out of 5429810
- 467887 words of memory out of 5000000
- 32359 multiletter control sequences out of 15000+600000
+ 3483 strings out of 467866
+ 51627 string characters out of 5429810
+ 467951 words of memory out of 5000000
+ 32369 multiletter control sequences out of 15000+600000
  638182 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,9n,65p,1169b,266s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,9n,65p,1169b,319s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0600.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on "Visualization of LLL and BKZ.pdf" (9 pages, 283340 bytes).
+Output written on "Visualization of LLL and BKZ.pdf" (10 pages, 309202 bytes).
 PDF statistics:
- 475 PDF objects out of 1000 (max. 8388607)
+ 487 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
