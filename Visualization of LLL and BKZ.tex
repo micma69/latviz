@@ -56,7 +56,7 @@ The abstract should briefly summarize the contents of the paper in
 %
 \section{Background}
 
-Cryptanalysis is the technique of analysing and breaking a ciphertext to obtain the plaintext (A. Al-Sabaawi, 2020). The history and the development of cryptanalysis itself can't be separated from the history and development of cryptography. As the cryptography techniques evolve, the cryptanalysis techniques also evolve in order to break the cryptography techniques. The frequency analysis technique was used for centuries to break classic ciphers. As the cipher techniques became more complex, this cryptanalysis technique became less effective. Flash-forward to the post-WW2 and the subsequent Cold War and its aftermath, the modern cryptography is mainly key-based ones (symmetric and asymmetric). In which, one of them would eventually becomes one of the world's most widely used cryptographic techniques : the RSA (Rivest-Shamir-Adleman), developed in 1977. As a matter of fact, RSA relies heavily on the difficulty of factoring the product of two large prime numbers. 
+Cryptanalysis is the technique of analysing and breaking a ciphertext to obtain the plaintext (A. Al-Sabaawi, 2020). The history and the development of cryptanalysis itself can't be separated from the history and development of cryptography. %As the cryptography techniques evolve, the cryptanalysis techniques also evolve in order to break the cryptography techniques. The frequency analysis technique was used for centuries to break classic ciphers. As the cipher techniques became more complex, this cryptanalysis technique became less effective. Flash-forward to the post-WW2 and the subsequent Cold War and its aftermath, the modern cryptography is mainly key-based ones (symmetric and asymmetric). In which, one of them would eventually becomes one of the world's most widely used cryptographic techniques : the RSA (Rivest-Shamir-Adleman), developed in 1977. As a matter of fact, RSA relies heavily on the difficulty of factoring the product of two large prime numbers.
 
 Since the most common form of modern cryptography is key-based cryptography (symmetric and asymmetric), with the onset of the development of quantum computing and subsequently quantum cryptanalysis, many commonly used modern cryptographic algorithms, especially RSA, are threatened by quantum cryptanalysis (). For example, Shor's algorithm - a quantum algorithm to finding prime factors of an integer, can efficiently factor large integers and compute discrete logarithms. Which endangers the security of commonly used asymmetric cryptographic algorithms like RSA and ECC. Not only asymmetric cryptographic algorithms are threatened by this, Grover's algorithm - also known as Quantum Search Algorithm, can search unsorted databases quadratically faster than classical algorithms, which threatens the security of symmetric-key cryptosystems by effectively halving their key lengths(). This, combined with the fact that RSA and its fellow modern cryptographic techniques are everywhere, would potentially jeopardize the safety of communications and data privacy and safety ().
 
@@ -76,7 +76,7 @@ By visualizing these algorithms in an intuitive way as well showing the calculat
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{lllflowchart.png}
-    \caption{LLL algorithm}
+    \caption{The LLL algorithm}
     \label{LLL}
 \end{figure}
 \mbox{}
@@ -84,6 +84,13 @@ The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Len
 
 
 \subsection{BKZ}
+\mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{bkzflowchart.png}
+    \caption{The BKZ algorithm}
+    \label{BKZ}
+\end{figure}
 \mbox{}
 On the other hand, BKZ (Block Korkine-Zolotarev) .... (Ziyu Zhao et al, 2022)
 
