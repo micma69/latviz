@@ -29,7 +29,7 @@
 
 \begin{document}
 %
-\title{Visualizing ML-KEM and ML-DSA think of a better title lmao}
+\title{Latviz: A Complete Process Visualization for Post-Quantum Standards ML-KEM and ML-DSA}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
@@ -96,7 +96,7 @@ ML-KEM and other KEMs (Key Encapsulation Mechanisms) typically consist of three 
 
 As shown in figure 1, KEMs are used to establish a shared private key between two parties. Party A begins by running a key generation algorithm that produces an encapsulation (public) key and decapsulation (private) key. When party B accepts the encapsulation key, they can run the encapsulation algorithm with it as an input, which produces a copy of the two parties' shared secret key \textit{K} and its associated ciphertext \textit{c}. Party B sends the ciphertext to party A, and party A runs the decapsulation algorithm using the decapsulation key and the ciphertext, producing their own copy \textit{K'} of the shared secret key.
 
-They also have multiple parameter sets, of which ML-KEM has three. In order of least to most secure and most to least efficient, they are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. Each set specifies the underlying ring dimension, module rank, noise distributions, and compression parameters. Increasing these parameters results in larger matrices, vectors, and noise levels, which enhances security at the cost of computational efficiency.
+They also have multiple parameter sets, of which ML-KEM has three. Each set specifies the underlying ring dimension, module rank, noise distributions, and compression parameters. Increasing these parameters results in larger matrices, vectors, and noise levels, which enhances security at the cost of computational efficiency. In order of least to most secure and most to least efficient, they are ML-KEM-512, ML-KEM-768, and ML-KEM-1024.
 
 \begin{table}[H]
 \centering
