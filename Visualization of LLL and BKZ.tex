@@ -107,7 +107,13 @@ Which is why we will be implementing the LLL process for dimensions higher than 
 \section{Architecture}
 
 \subsection{Overview}
-insert the app's diagram here as well user interface diagrams
+\mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{appstructure.png}
+    \caption{Program structure of Latviz's LLL and BKZ visualizers}
+    \label{Program diagram structure}
+\end{figure}
 
 \subsection{Backend}
 We're using Zachary Robert Bennett's lll-attack-runner, which is an interactive and Javascript-based lattice-based cryptanalysis solver, as the backend for our visualization of the LLL and BKZ algorithms. We only use three source codes from lll-attack-runner, which are : lll.ts, bkz.ts, and types.ts. The lll.ts, per its filename, does the LLL algorithm process, and the same goes for bkz.ts. Both source codes needs LLLStep interface from types.ts, and for bkz.ts, it also needs LLLRun from lll.ts. 
