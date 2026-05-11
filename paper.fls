@@ -194,14 +194,6 @@ INPUT .\images\dsa-verify.png
 INPUT .\images\dsa-verify.png
 INPUT .\images\dsa-verify.png
 INPUT .\images\dsa-verify.png
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
-INPUT .\images\color_representation.png
-INPUT .\images\color_representation.png
-INPUT .\images\color_representation.png
-INPUT .\images\color_representation.png
-INPUT .\images\color_representation.png
-INPUT .\images\color_representation.png
-INPUT .\images\color_representation.png
 INPUT .\images\Architecture_diagram.png
 INPUT .\images\Architecture_diagram.png
 INPUT .\images\Architecture_diagram.png
@@ -210,8 +202,6 @@ INPUT .\images\Architecture_diagram.png
 INPUT .\images\Architecture_diagram.png
 INPUT .\images\Architecture_diagram.png
 INPUT paper.aux
-INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
-INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0700.pk

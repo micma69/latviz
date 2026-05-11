@@ -54,9 +54,7 @@ Post-quantum cryptographic algorithms are gaining relevance as prevalent securit
 %
 %
 \section{Introduction}
-Ever since quantum computing was first theorized in the early 1980s (Benioff, 1980 \& Benioff, 1982), its potential capabilities have been continuously theorized and expanded upon. From improving computer simulation using quantum-based phenomena (Feynman, 1982) to applying quantum theory to improve information security (Bennett \& Brassard, 2014 \& Brassard, 2005), quantum computing has had profound implications on entire fields.
-
-Among them are its implications on cryptography. In 1994, Peter Shor proposed a quantum algorithm that, given a sufficiently powerful quantum computer, might be used to break protocols like RSA (Shor, 1994). Shor's algorithm and others like it significantly lower the difficulty of problems such as the integer factorization problem and discrete logarithm problem, which the most widely used public key algorithms base their difficulty on. This means that common security protocols are at risk of being broken sometime in the near future. Because of this, cryptology experts around the world have looked into new protocols that might have the potential to stay secure despite the continued development into quantum computers. 
+Ever since quantum computing was first theorized in the early 1980s (Benioff, 1980 \& Benioff, 1982), its potential capabilities have been continuously theorized and expanded upon. From improving computer simulation using quantum-based phenomena (Feynman, 1982) to applying quantum theory to improve information security (Bennett \& Brassard, 2014 \& Brassard, 2005), quantum computing has had profound implications on entire fields. Among them are its implications on cryptography. In 1994, Peter Shor proposed a quantum algorithm that, given a sufficiently powerful quantum computer, might be used to break protocols like RSA (Shor, 1994). Shor's algorithm and others like it significantly lower the difficulty of problems such as the integer factorization problem and discrete logarithm problem, which the most widely used public key algorithms base their difficulty on. This means that common security protocols are at risk of being broken sometime in the near future. Because of this, cryptology experts around the world have looked into new protocols that might have the potential to stay secure despite the continued development into quantum computers. 
 
 NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively (NIST, 2024 \& NIST, 2024). ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures. Both fall under the umbrella of lattice-based cryptography
 
@@ -436,39 +434,15 @@ Finally, the verifier checks that response $z$ is valid (by checking whether all
 \end{figure}
 
 \subsection{Existing Visualizations}
-There are a number of existing visualization tools for ML-KEM, ML-DSA, and lattices in general. They have a tendency to fall into one of the following categories.
+There are a number of existing visualization tools for ML-KEM, ML-DSA, and algorithms 
 
 Examples of existing visualizations and pros and cons. Categories probably? The ones who use dots, the ones who use colors, the ones who use arrows, the ones who use matrices, etcetc
-
-\subsubsection{Dot Visualization}
-Dot visualizations represent lattices as points in space, either on
-
-\subsubsection{Color Visualization}
-Lattices can be visualized through the usage of different colors, each representing a different value. The pqc-vizz tool uses colored grids in addition to matrices to represent lattices. Each value is assigned a corresponding hue, saturation, and lightness through the following formula:
-\begin{lstlisting}
-const getColor = (value: number) => {
-    const hue = (value / 255) * 240;
-    const saturation = 80;
-    const lightness = 40 + (value / 255) * 40;
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-  };
-\end{lstlisting}
-
-Below is an example of a lattice visualized in that way, along with the values that each color represents.
-
-\begin{figure}
-\centering
-\includegraphics[width=.48\linewidth]{images/color_representation.png}
-\caption{Representation of a lattice through colors} \label{fig9}
-\end{figure}
-
-\subsubsection{Matrix Visualization}
 
 \subsection{Visualization Method Effectiveness}
 Visualizations as previously defined have been used in education since. Nowadays, it is not hard to find visualization tools for subjects relating to computer science, specifically to cryptography.
 
 \section{Visualization Tool Design}
-The developed visualization tool is a web application that provides visualizations for ML-KEM, ML-DSA, LLL, and BKZ. (elaborate later)
+The developed visualization tool Latviz is a web application that provides visualizations for ML-KEM, ML-DSA, LLL, and BKZ. (elaborate later)
 
 \subsection{Architecture}
 The visualization tool is built using Next.js, a fullstack React-based framework, along with Tailwind CSS for the frontend, and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using a modification of an existing Javascript library 'pqc' that allows for the display of the inner workings of both algorithms.
@@ -481,7 +455,7 @@ The visualization tool is built using Next.js, a fullstack React-based framework
 \end{figure}
 
 \subsection{ML-KEM}
-The implementation of ML-KEM is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025). 
+The implementation of ML-KEM is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025). The implementation and its visualization is split following ML-KEM's three stages: Key Generation, Encapsulation, and Decapsulation.
 \subsection{ML-DSA}
 The implementation of ML-DSA is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025).
 \subsection{Visualization Flow}
