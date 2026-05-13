@@ -60,17 +60,24 @@ Cryptanalysis is the technique of analysing and breaking a ciphertext to obtain 
 
 The most common lattice reduction technique is the LLL algorithm, which was already developed long before the advent of quantum computing, and obviously predates the PQC algorithms as well. A polynomial-time algorithm for finding a short and nearly orthogonal basis for a lattice, this algorithm can be used to solve the shortest vector problem (SVP) and the closest vector problem (CVP), which are essential in lattice-based cryptography. We could say that LLL is the foundation of the lattice reduction cryptanalysis algorithms, and to master the subsequent algorithms, mastering the LLL before is a crucial step. 
 
-For now, the most promising lattice-based cryptanalysis technique is the BKZ algorithm, which is basically the upscaled version of the LLL algorithm (). Compared to LLL, BKZ can find even shorter vectors in a lattice () and theoritically speaking, BKZ is a far greater threat to lattice-based PQC systems compared to LLL, which are no longer a major threat for these lattice-based PQC systems. 
+For now, the most promising lattice-based cryptanalysis technique is the BKZ algorithm, which is basically the upscaled version of the LLL algorithm (). Compared to LLL, BKZ can find even shorter vectors in a lattice () and theoritically speaking, BKZ is a far greater threat to lattice-based PQC systems compared to LLL, which are no longer a major threat for these lattice-based PQC systems. To help learners learn LLL and BKZ algorithms, some online solver tools have been developed, for example fplll and fpylll, Sage Cell, and lll-attack-runner. 
 
-The problem with these lattice-based cryptanalysis techniques is that in general, they are very complex and hard to understand, especially for people who are new to the field of cryptography and cryptanalysis (). Both algorithms requires sufficient mathematical understanding, especially the linear algebra. We think this is where the visualization of these algorithms can be very helpful. Psychologically wise, humans are generally easier to process information visually (). Some online cryptography and/or cryptanalysis tools already provide visualization for the algorithms. However, most just provide visualization for the result or the initial and the result. The mathematical processes between the initial state and the final result are also rarely shown and explained. Also, for BKZ algorithm, which is much newer than LLL, the visualization tool for this algorithm is still uncommon. 
+The problems with these LLL and BKZ solvers is that they are either only show the final result, less user-friendly compared to simpler matrix tools, doesn't have visualization, or doesn't show the mathematical processes between the initial state and the final result. The first problem is true for fplll, fpylll and lll-attack-runner, as they only show the final result. The second problem is true for Sage Cell, as we can't just insert a "plain" matrix to process it, we have to wrap the matrix within either a Python code, a Sage code, or any code in at least one of languages available in the tool. To put it simply, it isn't as practical as inserting the matrix in some simpler online matrix tools, such as Calculator.net, matrixcalc.org, or Desmos. And the third problem is true for fplll and fpylll as well Sage Cell, as they don't even have built-in visualization. Sage Cell can show every step of the LLL process, however, we need to modify the code we inserted in the tool, in a manual way, so we can't use the built-in method of .lll(), and we have to use our own code. For the fourth problem, all previously mentioned LLL and BKZ algorithms solvers have this problem. None of these solvers show the mathematical processes between the initial state and the final result. For Sage Cell, there is no built-in library to show these steps.
 
-By visualizing these algorithms in an intuitive way as well showing the calculations behind the algorithms as well some simple theoritical explanations of these algorithms, we can help the users to understand these algorithms easier. Which is why we will develop a tool that not just process LLL and BKZ algorithms, but also show the visualization from the initial state until the final result, with simplified processes shown to help users understand these two algorithms easier. Our main idea for the visualization is through the usage of vectors within a Cartesian field, both in 2D and 3D projections, as well several panels that showing the current process (and its explanation), Lovasz condition status, and a button that can be pressed to go to the previous and next steps. We hope that through these visualization and textual elements, users would have it easier to understand the mechanism of both LLL and BKZ algorithms, which are increasingly becomes more relevant for the security of our data. 
+So in short, these LLL and BKZ tools aren't practical compared to several online math tools, and they don't automatically provide visualization from the beginning to the final result nor that they provide the step-by-step explanation. Which is actually an important issue, because psychologically wise, humans are generally easier to process information visually (). Additionally, "means-ends analysis" problem explanation, which is focused at the final result, can slow down the learning speed (Sweller, 1988). So we definitely need step-by-step explanations just like we need the visualizations.
+
+Our idea is that by visualizing LLL and BKZ algorithms from the beginning of the process until the final result, showing the calculations behind the algorithms, as well some simple theoritical explanations of these algorithms, we can help the users to understand these algorithms easier. Which is why we will develop a tool that not just process LLL and BKZ algorithms, but also show the visualization from the initial state until the final result, with simplified processes shown to help users understand these two algorithms easier. Our main idea for the visualization is through the usage of vectors within a Cartesian field, both in 2D and 3D projections, as well several panels that showing the current process (and its explanation), Lovasz condition status, and a button that can be pressed to go to the previous and next steps. We hope that through these visualization and textual elements, users would have it easier to understand the mechanism of both LLL and BKZ algorithms, which are increasingly becomes more relevant for the security of our data.
 
 
 \section{Related Works}
+\subsection{Learning with Errors(LWE)}
+\mbox{text}
+[LWE tuh apa, apa kaitannya sama LLL dan BKZ dan kenapa penting diketahui dan diterapkan di proses LLL dan LWE, cantumkan referensi]
+\subsection{Lattice}
+\mbox{text}
+[taroh tuh algoritma dan beberapa teori lattice, cantumkan referensi]
 
 \subsection{LLL}
-\mbox{}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{lllflowchart.png}
@@ -78,7 +85,7 @@ By visualizing these algorithms in an intuitive way as well showing the calculat
     \label{LLL}
 \end{figure}
 \mbox{}
-The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a [to be completed hehe wkwkwk]
+The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a [to be completed hehe wkwkwk] [it's for lattice reduction for guessing the encryption keys blablabla] [hubungkan dengan section sebelumnya]
 
 
 \subsection{BKZ}
@@ -110,7 +117,7 @@ Which is why we will be implementing the LLL process for dimensions higher than 
     \caption{Program structure of Latviz's LLL and BKZ visualizers}
     \label{Program diagram structure}
 \end{figure}
-
+\mbox{}
 Within our source code repository, there is a segregation between the backend and frontend. The role of these backend source codes is to process the inputs inserted from the user through the interface at the frontend. And obviously the role of the frontend section, aside from getting the inputs from the user, is to do the entire visualization jobs. Because the visualization is our main priority, we can say that the frontend section is much more complex compared to the backend one. 
 
 \subsection{Backend}
@@ -124,6 +131,8 @@ We will use Next.js, a React-based framework for building web applications, with
 For the visualization part, we will use D3 for the visualization part, combined with React to create matrices and vectors visualizations. Our secondary objective for the frontend is to create a visualization which have animations for the steps of these algorithms. We believe the animated version of these visualizations can be understand easier by the users. 
 
 \section{Visualization}
+\subsection{Vector Representations for Visualizations}
+\mbox{}
 
 \subsection{Output Visualization and Textual Elements for LLL and BKZ}
 Visualization of both LLL and BKZ algorithms contains following five visual elements in their output section :
@@ -136,14 +145,14 @@ Visualization of both LLL and BKZ algorithms contains following five visual elem
     \caption{The 2D visualization}
     \label{2D Visualization}
 \end{figure}
-\mbox{}
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{3Dvisz.png}
     \caption{The 3D visualization}
     \label{3D Visualization}
 \end{figure}
-
+\mbox{}
 This is the key visual element. Psychologically speaking, human brain is usually better at understanding visual information compared to textual ones (). We design the graph panel in 2D and 3D projections, both in the fashion of the Cartesian coordinate. Each vector arrows represented in this graph panel have different colour, with their vector written in the same colour as their arrow and placed above the tip of their vector arrow. 
 
 \subsubsection{Lovasz Status Panel}
@@ -224,6 +233,9 @@ insert ss of the web here with similar matrix to lll
 Ziyu Zhao, Jintai Ding: Practical Improvements on BKZ Algorithm. \url{https://csrc.nist.gov/csrc/media/Events/2022/fourth-pqc-standardization-conference/documents/papers/practical-improvements-on-bkz-algorithm-pqc2022.pdf}
 
 \bibitem{ref_lncs1}
+Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. Cognitive Science, 12(2), 257-285.
+
+\bibitem{ref_lncs2}
 Author, F., Author, S.: Title of a proceedings paper. In: Editor,
 F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
 Springer, Heidelberg (2016). \doi{10.10007/1234567890}
@@ -329,7 +341,7 @@ Company X and owns stock in Company Y. Author C is a member of committee Z.
 \bibitem{ref_article1}
 Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
 
-\bibitem{ref_lncs1}
+\bibitem{ref_lncs3}
 Author, F., Author, S.: Title of a proceedings paper. In: Editor,
 F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
 Springer, Heidelberg (2016). \doi{10.10007/1234567890}
