@@ -21,7 +21,8 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 export default function MLDSAPage() {
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
     const [vizStage, setVizStage] = useState<string | null>(null);
-    const [securityLevel, setSecurityLevel] = useState("ml_dsa65");
+    const [securityLevel, setSecurityLevel] = useState<DsaSecurityLevel>('ml_dsa44');
+    const [selectedParam, setSelectedParam] = useState<DsaParamKey>('q');
     const [keys, setKeys] = useState<any>(null);
     const [signature, setSignature] = useState<Uint8Array | null>(null);
     const [verifyResult, setVerifyResult] = useState<boolean | null>(null);
@@ -49,6 +50,33 @@ export default function MLDSAPage() {
         { label: 'ML-DSA-44 (128-bit security)', value: 'ml_dsa44' },
         { label: 'ML-DSA-65 (192-bit security)', value: 'ml_dsa65' },
         { label: 'ML-DSA-87 (256-bit security)', value: 'ml_dsa87' }
+    ];
+
+    const mlDsaParams = {
+        ml_dsa44: { q: 8380417, zeta: 1753, d: 13, tau: 39, lambda: 128, gamma1: "2^{17}", gamma2: "\\frac{q-1}{88}", k: 4, l: 4, eta: 2, beta: 78, omega: 80 },
+        ml_dsa65: { q: 8380417, zeta: 1753, d: 13, tau: 49, lambda: 192, gamma1: "2^{19}", gamma2: "\\frac{q-1}{32}", k: 6, l: 5, eta: 4, beta: 196, omega: 55 },
+        ml_dsa87: { q: 8380417, zeta: 1753, d: 13, tau: 60, lambda: 256, gamma1: "2^{19}", gamma2: "\\frac{q-1}{32}", k: 8, l: 7, eta: 2, beta: 120, omega: 75 },
+    } as const;
+
+    type DsaSecurityLevel = keyof typeof mlDsaParams;
+    type DsaParamKey = keyof typeof mlDsaParams.ml_dsa44;
+
+    const currentParams = mlDsaParams[securityLevel as keyof typeof mlDsaParams];
+    const currentParamValue = currentParams?.[selectedParam];
+
+    const parameters = [
+        { key: "q", label: "q" },
+        { key: "zeta", label: "ζ" },
+        { key: "d", label: "d" },
+        { key: "tau", label: "τ" },
+        { key: "lambda", label: "λ" },
+        { key: "gamma1", label: "γ₁" },
+        { key: "gamma2", label: "γ₂" },
+        { key: "k", label: "k" },
+        { key: "l", label: "l" },
+        { key: "eta", label: "η" },
+        { key: "beta", label: "β" },
+        { key: "omega", label: "ω" },
     ];
 
     const formatArray = (bytes: Uint8Array | null) => {
@@ -389,7 +417,7 @@ export default function MLDSAPage() {
                                     {vizStage === "keygen1" && <KeygenInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
                                     {vizStage === "sign0" && <SignOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
                                     {vizStage === "sign1" && <SignInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
-                                    {vizStage === "sign2" && <SignLoop />}
+                                    {vizStage === "sign2" && <SignLoop onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
                                     {vizStage === "verify0" && <VerifyOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} />}
                                     {vizStage === "verify1" && <VerifyInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} />}
                                     
@@ -399,7 +427,7 @@ export default function MLDSAPage() {
                         <div className="pl-6 pr-6 sticky h-[calc(100vh-3rem)] flex flex-col gap-4">
                             <div className="flex flex-col items-center gap-4 rounded-xl bg-white dark:bg-zinc-900 text-sm shadow-xl p-5">
                                 Select Security Level
-                                <Select value={securityLevel} onValueChange={setSecurityLevel}>
+                                <Select value={securityLevel} onValueChange={setSecurityLevel as (value: string) => void}>
                                     <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select Security Level" />
                                     </SelectTrigger>
@@ -411,6 +439,33 @@ export default function MLDSAPage() {
                                         ))}
                                     </SelectContent>
                                 </Select>
+                                {/* Clickable parameter row */}
+                                <div className="flex flex-wrap justify-center gap-1.5 w-full">
+                                {parameters.map((param) => (
+                                    <button
+                                    key={param.key}
+                                    onClick={() => setSelectedParam(param.key as DsaParamKey)}
+                                    className={`
+                                        px-2 py-1 rounded-md text-[11px] font-mono transition-all
+                                        ${selectedParam === param.key 
+                                        ? "bg-blue-600 text-white shadow-sm" 
+                                        : "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                                        }
+                                    `}
+                                    >
+                                    {param.label}
+                                    </button>
+                                ))}
+                                </div>
+
+                                {/* Value panel */}
+                                {currentParams && (
+                                <div className="w-full mt-1 p-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-center">
+                                    <div className="text-base font-mono font-bold break-all">
+                                        <InlineMath math={String(currentParamValue)} />
+                                    </div>
+                                </div>
+                                )}
                             </div>
                             <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center">
                                 {(vizStage === null || vizStage === "home") &&
