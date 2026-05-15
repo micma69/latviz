@@ -29,7 +29,7 @@
 
 \begin{document}
 %
-\title{Latviz: A Complete Process Visualization for Post-Quantum Standards ML-KEM and ML-DSA}
+\title{Latviz: A Complete Process Visualization for Post-Quantum Standards ML-KEM and ML-DSA Using Interactive Interface}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
@@ -46,7 +46,7 @@
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Post-quantum cryptographic algorithms are gaining relevance as prevalent security measures are found vulnerable to quantum computers. Among them are the key encapsulation standard ML-KEM and the digital signature standard ML-DSA released by NIST (National Institute of Standards and Technology) in 2024. However despite it's relevance, there are few resources dedicated to fully describing the algorithms behind them that are easily followed. This paper details the creation of'Latviz', a digital visualization tool meant to help learners understand the entire process behind the ML-KEM and ML-DSA standards. It takes into account what types of visualizations tend to be more helpful for learners by employing visual abstractions, animations, and interactivity.
+Post-quantum cryptographic algorithms are gaining relevance as prevalent security measures are found vulnerable to quantum computers. Among them are the key encapsulation standard ML-KEM and the digital signature standard ML-DSA released by NIST (National Institute of Standards and Technology) in 2024. However despite it's relevance, there are few resources dedicated to fully describing the algorithms behind them that are easily followed. This paper details the creation of'Latviz', a digital visualization tool meant to help learners understand the entire process behind the ML-KEM and ML-DSA standards. It takes into account the qualities that have a greater impact on the process of learning algorithms by employing interactivity and visual abstractions.
 
 \keywords{Cryptography \and Post-Quantum \and Algorithm Visualization \and Visualization \and ML-KEM \and ML-DSA \and Lattice-based Cryptography}
 \end{abstract}
@@ -54,16 +54,19 @@ Post-quantum cryptographic algorithms are gaining relevance as prevalent securit
 %
 %
 \section{Introduction}
-Ever since quantum computing was first theorized in the early 1980s (Benioff, 1980 \& Benioff, 1982), its potential capabilities have been continuously theorized and expanded upon. From improving computer simulation using quantum-based phenomena (Feynman, 1982) to applying quantum theory to improve information security (Bennett \& Brassard, 2014 \& Brassard, 2005), quantum computing has had profound implications on entire fields. Among them are its implications on cryptography. In 1994, Peter Shor proposed a quantum algorithm that, given a sufficiently powerful quantum computer, might be used to break protocols like RSA (Shor, 1994). Shor's algorithm and others like it significantly lower the difficulty of problems such as the integer factorization problem and discrete logarithm problem, which the most widely used public key algorithms base their difficulty on. This means that common security protocols are at risk of being broken sometime in the near future. Because of this, cryptology experts around the world have looked into new protocols that might have the potential to stay secure despite the continued development into quantum computers. 
+Ever since quantum computing was first theorized in the early 1980s \cite{1,2}, its potential capabilities have been continuously theorized and expanded upon. From improving computer simulation using quantum-based phenomena \cite{3} to applying quantum theory to improve information security \cite{4,5}, quantum computing has had profound implications on entire fields. Among them are its implications on cryptography. In 1994, Peter Shor proposed a quantum algorithm that, given a sufficiently powerful quantum computer, might be used to break protocols like RSA \cite{6}. Shor's algorithm and others like it significantly lower the difficulty of problems such as the integer factorization problem and discrete logarithm problem, which the most widely used public key algorithms base their difficulty on. This means that common security protocols are at risk of being broken sometime in the near future. Because of this, cryptology experts around the world have looked into new protocols that might have the potential to stay secure despite the continued development into quantum computers. 
 
-NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively (NIST, 2024 \& NIST, 2024). ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures. Both fall under the umbrella of lattice-based cryptography
+NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively \cite{7,8}. ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures. Both fall under the umbrella of lattice-based cryptography
 
-However, despite their importance, there are a limited number of resources available for learning about them. Outside of NIST's official releases and lectures, most of they come in the from of summaries of said releases and lectures, public implementations, and simplified diagrams or visualizations. The visualization and exploration tool pqc-vizz for example, provides an interactive working implementation for ML-KEM and ML-DSA that describes the overall process of using them, but skips over most of their inner workings such as their background calculations (Kalava et al., 2025). Daeukun Kang's ML-KEM from Scratch details the entire process of ML-KEM as well as the context and mathematical grounding behind it, including a working Python implementation (Kang, 2026). However, it assumes that the user has a working understanding of coding; otherwise, it is nothing more than a particularly structured summary. Other resources are similarly lacking in that they do not offer anything beyond a summary of NIST's release or they simplify their explanations to only the outermost layers.
+However, despite their importance, there are a limited number of resources available for learning about them. Outside of NIST's official releases and lectures, most of they come in the from of summaries of said releases and lectures, public implementations, and simplified diagrams or visualizations. The visualization and exploration tool pqc-vizz for example, provides an interactive working implementation for ML-KEM and ML-DSA that describes the overall process of using them, but skips over most of their inner workings such as their background calculations \cite{9}. Daeukun Kang's ML-KEM from Scratch details the entire process of ML-KEM as well as the context and mathematical grounding behind it, including a working Python implementation \cite{10}. However, it assumes that the user has a working understanding of coding; otherwise, it is nothing more than a particularly structured summary. Other resources are similarly lacking in that they do not offer anything beyond a summary of NIST's release or they simplify their explanations to only the outermost layers.
 
-Thus, this work aims to develop a visualization tool that allows users to view the complete process behind ML-KEM and ML-DSA in a way that is still digestible to most people. This is done by displaying the inner mechanisms of both algorithms such that users unfamiliar with cryptography can still follow the explanations, and as well as going through both processes in their entirety instead of focusing only on the inputs and outputs. To achieve this, the tool implements a set of features designed to improve accesibility while preserving technical accuracy.
+Thus, this work aims to develop a visualization tool Latviz that allows users to view the complete process behind ML-KEM and ML-DSA in a way that is still digestible to most people. This is done by displaying the inner mechanisms of both algorithms such that users unfamiliar with cryptography can still follow the explanations, and as well as going through both processes in their entirety instead of focusing only on the inputs and outputs. To achieve this, the tool implements a set of features designed to improve accesibility while preserving technical accuracy.
 \begin{itemize}
-\item \textbf{}:
+\item \textbf{Complete algorithmic breackdown}: Latviz provides a more in-depth breakdown of the ML-KEM and ML-DSA standards compared to existing resources. The variables and algorithms that are involved in the each stage of both standards are elaborated upon in a step-by-step manner, with the explanations simplified as to be digestible without complete understanding of the mathematical grounding required to otherwise understand it.
+\item \textbf{Interactive visual interface}: Merely viewing a visualization does not give significant advantages over conventional methods such as following lectures or reading in how they impact learning algorithms. The most successful uses of visualization tools for learning algorithms are when the tools are used as a vehicle for  actively engaging in the process of learning said algorithms \cite{11}, such as in the form of analyses of algorithmic behavior through manipulating functions and variables in the Desmos Graphic Calculator where users can directly see how certain functions and variables affect graphs. While ML-KEM and ML-DSA doesn't allow for as much interactivity as most of the variables and functions are either set or completely randomized, Latviz provides interactivity in the form of the manipulation of parameter sets, stepping through operations, and the inspection of internal states.
 \end{itemize}
+
+To evaluate the effectiveness of the tool, 
 
 \section{Related Works}
 The following section discusses inner workings of ML-KEM and ML-DSA in more depth, as well as works surrounding the effective visualization of algorithms.
@@ -84,7 +87,7 @@ It should be noted that both ML-KEM and ML-DSA employ Number Theoretic Transform
 \subsection{ML-KEM - FIPS 203}
 ML-KEM, also referred to as Module-Lattice-Based Key-Encapsulation Mechanism Standard, is a standard set by NIST's FIPS 203 publication that specifies a set of algorithms meant to be used to establish a shared private key between two parties. This standard was proposed in response to the potential unreliability of modern cryptographic key systems such as RSA in the face of quantum computers.
 
-ML-KEM is a variant of the CRYSTALS-Kyber algorithm (Avanzi et al., 2021), which is itself based on the hardness of solving MLWE, which is based on the presumed hardness of certain computational problems in module lattices. It can be described as a generalization of the Learning with Errors (LWE) problem as previously described. Both LWE and MLWE are widely considered to be quantum resistant, in that there are no known quantum algorithms that can efficiently solve it.
+ML-KEM is a variant of the CRYSTALS-Kyber algorithm \cite{12}, which is itself based on the hardness of solving MLWE, which is based on the presumed hardness of certain computational problems in module lattices. It can be described as a generalization of the Learning with Errors (LWE) problem as previously described. Both LWE and MLWE are widely considered to be quantum resistant, in that there are no known quantum algorithms that can efficiently solve it.
 
 ML-KEM and other KEMs (Key Encapsulation Mechanisms) typically consist of three main algorithms: a key generation, key encapsulation, and key decapsulation algorithm. 
 
@@ -277,7 +280,7 @@ The K-PKE.Decrypt algorithm takes a decryption key and the corresponding ciphert
 \subsection{ML-DSA - FIPS 204}
 ML-DSA, also known as Module-Lattice-Based Digital Signature Standard, is a standard set by NIST's FIPS 204 publication that defines a method for digital signature generation and methods for the verification and validation of those signatures. The standard was proposed in response to the potential unreliability of modern digital signatures in the face of steady development of quantum computers.
 
-ML-DSA is derived from the CRYSTALS-Dilithium algorithm (Bai et al., 2021), whose security is based on the computational hardness of the MLWE and a nonstandard variant of MSIS (Module-Short Integer Solution) called SelfTargetMSIS. Both MLWE and MSIS (which relies on the hardness of SVP) are considered quantum resistant, and ML-DSA inherets that quality. 
+ML-DSA is derived from the CRYSTALS-Dilithium algorithm \cite{13}, whose security is based on the computational hardness of the MLWE and a nonstandard variant of MSIS (Module-Short Integer Solution) called SelfTargetMSIS. Both MLWE and MSIS (which relies on the hardness of SVP) are considered quantum resistant, and ML-DSA inherets that quality. 
 
 ML-DSA and other digital signature schemes typically consist of three algorithms: a key generation algorithm, signing algorithm, and signature verifying algorithm.
 
@@ -331,7 +334,7 @@ Each parameter set is comprised of the variables $\tau$, $\lambda$, $\gamma_1$, 
 %\hline
 
 \subsubsection{ML-DSA Key Generation}
-The key generation algorithm ML-DSA.KeyGen chooses a random 32 byte seed $\xi$ and uses it to generate a public key and private key. The seed itself is generated using an approved RBG (Random Bit Generator) such as described by Barker et al (Barker \& Kesley, 2015 \& Barker et al., 2018 \& Barker et al., 2025).
+The key generation algorithm ML-DSA.KeyGen chooses a random 32 byte seed $\xi$ and uses it to generate a public key and private key. The seed itself is generated using an approved RBG (Random Bit Generator) such as described by Barker et al \cite{14,15,16}.
 
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -463,6 +466,7 @@ The implementation of ML-KEM is a modified version of the algorithm provided in 
 The implementation of ML-DSA is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025).
 \subsection{Visualization Flow}
 \section{Evaluation and Results}
+\subsection{Evaluation Method}
 
 
 \section{Conclusion}
@@ -482,65 +486,62 @@ propositions, and corollaries are styled the same way.
 \bibliography{thebibliography}
 %
 \begin{thebibliography}{8}
-\bibitem{fips_203}
-National Institute of Standards and Technology. (2024). Module-Lattice-Based Key-Encapsulation Mechanism Standard. \textit{Federal Information Processing Standards Publication}. \doi{10.6028/NIST.FIPS.203}
+\bibitem{1}
+Benioff, Paul. (1980). The computer as a physical system: A microscopic quantum mechanical Hamiltonian model of computers as represented by Turing machines. \textit{Journal of Statistical Physics}, 22(5), 563–591. \doi{10.1007/bf01011339}
 
-\bibitem{fips_204}
-National Institute of Standards and Technology. (2024). Module-Lattice-Based Digital Signature Standard. \textit{Federal Information Processing Standards Publication}. \doi{10.6028/NIST.FIPS.204}
+\bibitem{2}
+Benioff, Paul. (1982). Quantum mechanical hamiltonian models of turing machines. \textit{Journal of Statistical Physics}, 29(3), 515–546. \doi{10.1007/BF01342185}
 
-\bibitem{shor}
+\bibitem{3}
+Feynman, Richard. (1982). Simulating Physics with Computers. \textit{International Journal of Theoretical Physics}, 21(6/7), 467–488. \doi{10.1007/BF02650179}
+
+\bibitem{4}
+Bennett, C. H. \& Brassard, G. (2014). Quantum cryptography: Public key distribution and coin tossing. \textit{Theoretical Computer Science. Theoretical Aspects of Quantum Cryptography – celebrating 30 years of BB84}, 560(1), 7–11. \doi{10.1016/j.tcs.2014.05.025}
+
+\bibitem{5}
+Brassard, G. (2005). Brief history of quantum cryptography: A personal perspective. \doi{10.1109/ITWTPI.2005.1543949}
+
+\bibitem{6}
 Shor, P.W. (1994). Algorithms for quantum computation: discrete logarithms and factoring. \textit{Proceeding 35th Annual Symposium on Foundations of Computer Science}. \doi{10.1109/SFCS.1994.365700}
 
-\bibitem{kyber}
+\bibitem{7}
+National Institute of Standards and Technology. (2024). Module-Lattice-Based Key-Encapsulation Mechanism Standard. \textit{Federal Information Processing Standards Publication}. \doi{10.6028/NIST.FIPS.203}
+
+\bibitem{8}
+National Institute of Standards and Technology. (2024). Module-Lattice-Based Digital Signature Standard. \textit{Federal Information Processing Standards Publication}. \doi{10.6028/NIST.FIPS.204}
+
+\bibitem{9}
+Kalava et al. (2025). Post-Quantum Security for Web Applications. https://pqc.nithinram.com/Post-Quantum%20Security%20for%20Web%20Applications.pdf
+
+\bibitem{10}
+Kang, D. (2026). ML-KEM from Scratch. \textit{Github.io}. https://hulryung.github.io/ml-kem-notebooks/intro.html
+
+\bibitem{11}
+Hundhausen, C. D., Douglas, S. A., \& Stasko, J. T. (2002). A Meta-Study of Algorithm Visualization Effectiveness. \textit{Journal of Visual Languages \& Computing}, 13(3), 259–290. \doi{10.1006/jvlc.2002.0237}
+
+\bibitem{12}
 Avanzi et al. (2021). CRYSTALS-Kyber. https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf
 
-\bibitem{dilithium}
+\bibitem{13}
 Bai et al. (2021). CRYSTALS-Dilithium. https://pq-crystals.org/dilithium/data/dilithium-specification-round3-20210208.pdf
 
-\bibitem{pqc-vizz}
-Kalava et al. (2025). Post-Quantum Security for Web Applications. https://pqc.nithinram.com/Post-Quantum%20Security%20for%20Web%20Applications.pdf
+\bibitem{14}
+Barker, E. \& Kesley, J. (2015). Recommendation for Random Number Generation Using Deterministic Random Bit Generators. \textit{NIST Special Publication 800-90A}. \doi{10.6028/nist.sp.800-90ar1}
+
+\bibitem{15}
+Barker et al. (2018). Recommendation for the Entropy Sources Used for Random Bit Generation. \textit{NIST Special Publication 800-90B}. \doi{10.6028/NIST.SP.800-90B}
+
+\bibitem{16}
+Barker et al. (2025). Recommendation for Random Bit Generator (RBG) Constructions. \textit{NIST Special Publication 800-90C}. \doi{10.6028/nist.sp.800-90c}
+
+\bibitem{}
+Stasko, J., Badre, A., \& Lewis, C. (1993). Do Algorithm Animations Assist Learning? An Empirical Study and Analysis. \textit{Proceedings of the SIGCHI Conference on Human Factors in Computing Systems  - CHI ’93}, 61–66. \doi{10.1145/169059.169078}
 
 \bibitem{mwle}
 Langlois, A. \& Stehle, D. (2012). Worst-Case to Average-Case Reductions for Module Lattices. https://eprint.iacr.org/2012/090
 
-\bibitem{metastudy}
-Hundhausen, C. D., Douglas, S. A., \& Stasko, J. T. (2002). A Meta-Study of Algorithm Visualization Effectiveness. \textit{Journal of Visual Languages \& Computing}, 13(3), 259–290. \doi{10.1006/jvlc.2002.0237}
-
-\bibitem{daaal}
-Stasko, J., Badre, A., \& Lewis, C. (1993). Do Algorithm Animations Assist Learning? An Empirical Study and Analysis. \textit{Proceedings of the SIGCHI Conference on Human Factors in Computing Systems  - CHI ’93}, 61–66. \doi{10.1145/169059.169078}
-
 \bibitem{eaasailca}
 Byrne, M. D., Catrambone, R., \& Stasko, J. T. (1999). Evaluating animations as student aids in learning computer algorithms. \textit{Computers \& Education}, 33(4), 253–278. \doi{10.1016/s0360-1315(99)00023-8}
-
-\bibitem{quantumcomputing1}
-Benioff, Paul. (1980). The computer as a physical system: A microscopic quantum mechanical Hamiltonian model of computers as represented by Turing machines. \textit{Journal of Statistical Physics}, 22(5), 563–591. \doi{10.1007/bf01011339}
-
-\bibitem{quantumcomputing2}
-Benioff, Paul. (1982). Quantum mechanical hamiltonian models of turing machines. \textit{Journal of Statistical Physics}, 29(3), 515–546. \doi{10.1007/BF01342185}
-
-\bibitem{feynman}
-Feynman, Richard. (1982). Simulating Physics with Computers. \textit{International Journal of Theoretical Physics}, 21(6/7), 467–488. \doi{10.1007/BF02650179}
-
-\bibitem{}
-Bennett, C. H. \& Brassard, G. (2014). Quantum cryptography: Public key distribution and coin tossing. \textit{Theoretical Computer Science. Theoretical Aspects of Quantum Cryptography – celebrating 30 years of BB84}, 560(1), 7–11. \doi{10.1016/j.tcs.2014.05.025}
-
-\bibitem{}
-Brassard, G. (2005). Brief history of quantum cryptography: A personal perspective. \doi{10.1109/ITWTPI.2005.1543949}
-
-\bibitem{}
-Stasko, J., Badre, A., \& Lewis, C. (1993). Do Algorithm Animations Assist Learning? An Empirical Study and Analysis. \textit{Proceedings of the SIGCHI Conference on Human Factors in Computing Systems  - CHI ’93}, 61–66. \doi{10.1145/169059.169078}
-
-\bibitem{}
-Kang, D. (2026). ML-KEM from Scratch. \textit{Github.io}. https://hulryung.github.io/ml-kem-notebooks/intro.html
-
-\bibitem{}
-Barker, E. \& Kesley, J. (2015). Recommendation for Random Number Generation Using Deterministic Random Bit Generators. \textit{NIST Special Publication 800-90A}. \doi{10.6028/nist.sp.800-90ar1}
-
-\bibitem{}
-Barker et al. (2018). Recommendation for the Entropy Sources Used for Random Bit Generation. \textit{NIST Special Publication 800-90B}. \doi{10.6028/NIST.SP.800-90B}
-
-\bibitem{}
-Barker et al. (2025). Recommendation for Random Bit Generator (RBG) Constructions. \textit{NIST Special Publication 800-90C}. \doi{10.6028/nist.sp.800-90c}
 
 \end{thebibliography}
 \end{document}
