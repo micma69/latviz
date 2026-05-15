@@ -20,7 +20,7 @@
 %\renewcommand\UrlFont{\color{blue}\rmfamily}
 %\urlstyle{rm}
 %
-
+\usepackage{xurl}
 \usepackage{listings}
 \setcounter{secnumdepth}{4}
 
@@ -47,7 +47,7 @@ Amril Syalim \inst{2,3}\orcidID{1111-2222-3333-4444}}
 %
 \begin{abstract}
 
-As the quantum computing starts to threaten the current cryptographic systems such as RSA, cryptographers around the world start to develop the Post-Quantum Cryptography (PQC) algorithms, most of them are lattice-based (for example ML-KEM and ML-DSA), which are strong enough to withstand attacks from quantum-based cryptanalysis techniques such as Shor's algorithm, Grover's algorithm, and other quantum cryptanalysis algorithms. In order to strengthen these PQC algorithms, cryptographers and cryptanalysts alike also developing LLL and BKZ algorithms to test the strength of these PQC algorithm. One of the problems with LLL and BKZ is the fact that while these algorithms are able to penetrate PQC systems, they're harder to learn compared to the algorithms which they succedeed. Sufficient mathematical understanding is required in order to get proper understanding of these algorithms. Some online tools have been available, especially for LLL algorithm, in order to visualize these algorithms so learners can learn them easier. The problem is that many of these visualizations only show the initial and the final result of the input. In this paper, we will build a tool to visualize the processes of both LLL and BKZ algorithms. Through visualization with vectors on Cartesian field as well some panels such as Lovasz status panel and other panels that will explain the current stage of the process of both LLL and BKZ, we expect cryptography learners and enthusiasts alike to understand LLL and BKZ easier. 
+As the quantum computing starts to threaten the current cryptographic systems such as RSA, cryptographers around the world start to develop the Post-Quantum Cryptography (PQC) algorithms, most of them are lattice-based (for example ML-KEM and ML-DSA), which are strong enough to withstand attacks from quantum-based cryptanalysis techniques such as Shor's algorithm, Grover's algorithm, and other quantum cryptanalysis algorithms. In order to strengthen these PQC algorithms, cryptographers and cryptanalysts alike also developing LLL and BKZ algorithms to test the strength of these PQC algorithm. One of the problems with LLL and BKZ is the fact that while these algorithms are able to penetrate PQC systems, they're harder to learn compared to the algorithms which they succedeed. Sufficient mathematical understanding is required in order to get proper understanding of these algorithms. Some online tools have been available, especially for LLL algorithm, in order to visualize these algorithms so learners can learn them easier. The problem is that many of these visualizations only show the initial and the final result of the input. In this paper, we will build a tool to visualize the processes of both LLL and BKZ algorithms. Through visualization with vectors on Cartesian coordinate as well some panels such as Lovasz status panel and other panels that will explain the current stage of the process of both LLL and BKZ, we expect cryptography learners and enthusiasts alike to understand LLL and BKZ easier. 
 
 \keywords{Cryptography  \and Cryptanalysis \and Post-Quantum \and Lattice \and LLL \and BKZ.}
 \end{abstract}
@@ -64,9 +64,9 @@ For now, the most promising lattice-based cryptanalysis technique is the BKZ alg
 
 The problems with these LLL and BKZ solvers is that they are either only show the final result, less user-friendly compared to simpler matrix tools, doesn't have visualization, or doesn't show the mathematical processes between the initial state and the final result. The first problem is true for fplll, fpylll and lll-attack-runner, as they only show the final result. The second problem is true for Sage Cell, as we can't just insert a "plain" matrix to process it, we have to wrap the matrix within either a Python code, a Sage code, or any code in at least one of languages available in the tool. To put it simply, it isn't as practical as inserting the matrix in some simpler online matrix tools, such as Calculator.net, matrixcalc.org, or Desmos. And the third problem is true for fplll and fpylll as well Sage Cell, as they don't even have built-in visualization. Sage Cell can show every step of the LLL process, however, we need to modify the code we inserted in the tool, in a manual way, so we can't use the built-in method of .lll(), and we have to use our own code. For the fourth problem, all previously mentioned LLL and BKZ algorithms solvers have this problem. None of these solvers show the mathematical processes between the initial state and the final result. For Sage Cell, there is no built-in library to show these steps.
 
-So in short, these LLL and BKZ tools aren't practical compared to several online math tools, and they don't automatically provide visualization from the beginning to the final result nor that they provide the step-by-step explanation. Which is actually an important issue, because psychologically wise, humans are generally easier to process information visually (). Additionally, "means-ends analysis" problem explanation, which is focused at the final result, can slow down the learning speed (Sweller, 1988). So we definitely need step-by-step explanations just like we need the visualizations.
+So in short, these LLL and BKZ tools aren't practical compared to several online math tools, and they don't automatically provide visualization from the beginning to the final result nor that they provide the step-by-step explanation. Which is actually an important issue, because psychologically wise, humans are generally easier to process information visually (Mayer, 2001) but also how the users interact with them is also an important factor (Christopher D. Hundhausen et al, 2002). So we definitely need step-by-step explanations just like we need the visualizations, within a system that lets the user to interact with the system from the input insertion to the output visualization. For the visualization part, it's clear that visualization through vectors can significantly help users to understand the process. Why? Because the basis concept for LLL and BKZ is lattice reduction. Which is a linear algebra concept. And it is hard to teach the concepts of linear algebra without vectors (or, to be more precise, vector geometry) visualization (Konyaliouglu et al., 2011). 
 
-Our idea is that by visualizing LLL and BKZ algorithms from the beginning of the process until the final result, showing the calculations behind the algorithms, as well some simple theoritical explanations of these algorithms, we can help the users to understand these algorithms easier. Which is why we will develop a tool that not just process LLL and BKZ algorithms, but also show the visualization from the initial state until the final result, with simplified processes shown to help users understand these two algorithms easier. Our main idea for the visualization is through the usage of vectors within a Cartesian field, both in 2D and 3D projections, as well several panels that showing the current process (and its explanation), Lovasz condition status, and a button that can be pressed to go to the previous and next steps. We hope that through these visualization and textual elements, users would have it easier to understand the mechanism of both LLL and BKZ algorithms, which are increasingly becomes more relevant for the security of our data.
+Our idea is that by visualizing LLL and BKZ algorithms from the beginning of the process until the final result with vectors on 2D and 3D Cartesian coordinates, showing the calculations behind the algorithms, as well some simple theoritical explanations of these algorithms, we can help the users to understand these algorithms easier. Which is why we will develop a tool that not just process LLL and BKZ algorithms, but also show the visualization from the initial state until the final result, with simplified processes shown to help users understand these two algorithms easier. Our main idea for the visualization is through the usage of vectors within a Cartesian field, both in 2D and 3D projections, as well several panels that showing the current process (and its explanation), Lovasz condition status, and a button that can be pressed to go to the previous and next steps. We hope that through these visualization and textual elements, users would have it easier to understand the mechanism of both LLL and BKZ algorithms, which are increasingly becomes more relevant for the security of our data.
 
 
 \section{Related Works}
@@ -76,6 +76,9 @@ Our idea is that by visualizing LLL and BKZ algorithms from the beginning of the
 \subsection{Lattice}
 \mbox{text}
 [taroh tuh algoritma dan beberapa teori lattice, cantumkan referensi]
+\subsection{Lattice Reduction}
+\mbox{text}
+
 
 \subsection{LLL}
 \begin{figure}[htbp]
@@ -133,6 +136,7 @@ For the visualization part, we will use D3 for the visualization part, combined 
 \section{Visualization}
 \subsection{Vector Representations for Visualizations}
 \mbox{}
+Vector visualization is a very essential as well an intuitive concept to gain proper understanding of linear algebra concepts (Calderone Dan, 2023). This also includes LLL and BKZ algorithms. And so, we will use the vector visualization for both 2D and 3D visualization panels in each modules of LLL and BKZ, we will use vectors within 2D and 3D Cartesian fields. Here, every single vector is depicted as an arrow that connects two points from the zero vector (0,0) to a basis vector which already processed from the inserted matrix. Each arrows has different colouring scheme and is unique in terms of value, as every basis vectors are unique. No basis vectors would have more than one arrow that represents them. 
 
 \subsection{Output Visualization and Textual Elements for LLL and BKZ}
 Visualization of both LLL and BKZ algorithms contains following five visual elements in their output section :
@@ -226,21 +230,29 @@ insert ss of the web here with similar matrix to lll
 
 \section{Conclusion}
 
-\section{References}
-
 \begin{thebibliography}{8}
-\bibitem{ref_article1}
-Ziyu Zhao, Jintai Ding: Practical Improvements on BKZ Algorithm. \url{https://csrc.nist.gov/csrc/media/Events/2022/fourth-pqc-standardization-conference/documents/papers/practical-improvements-on-bkz-algorithm-pqc2022.pdf}
+\bibitem{ref_1}
+Ziyu Zhao, Jintai Ding. (2022). Practical Improvements on BKZ Algorithm. National Institute of Standards and Technology \url{https://csrc.nist.gov/csrc/media/Events/2022/fourth-pqc-standardization-conference/documents/papers/practical-improvements-on-bkz-algorithm-pqc2022.pdf}
 
-\bibitem{ref_lncs1}
-Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. Cognitive Science, 12(2), 257-285.
+\bibitem{ref_2}
+Mayer, RE. (2001). Multimedia Learning. Cambridge University Press.
 
-\bibitem{ref_lncs2}
-Author, F., Author, S.: Title of a proceedings paper. In: Editor,
-F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
-Springer, Heidelberg (2016). \doi{10.10007/1234567890}
+\bibitem{ref_3}
+Christopher D. Hundhausen, Sarah A. Douglas, John Stasko. (2002). A Meta-Study of Algorithm Visualization Effectiveness. Journal of Visual Languages and Computing, 13(3), 259-290. 
 
-\bibitem{ref_book1}
+\bibitem{ref_4}
+A.Cihan Konyaliouglu, Ahmet Isik, Abdullah Kaplan, Seyfullah Hizarci, Merve Durkaya. (2011). Visualization approach in teaching process of linear algebra. Procedia Social and Behavioral Sciences 15 (2011) 4040-4044. 
+
+\bibitem{ref_5}
+Zukowski, Stanislaw. (2003). Introduction of Lattice Theory. Journal of Formalized Mathematics, 1, 1-5. %Volume 1
+
+\bibitem{ref_6}
+Silverman, Joseph H. (2020). An Introduction to Lattices, Lattice Reduction, and Lattice-Based Cryptography. IAS/Park City Mathematics Series Graduate Summer School Lecture Notes. 
+
+\bibitem{ref_7}
+Calderone, Dan. (2023). Vector Visualizations. Github.
+
+\bibitem{ref_8}
 Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
 Location (1999)
 
@@ -252,82 +264,16 @@ on Proceedings, pp. 1--2. Publisher, Location (2010)
 LNCS Homepage, \url{http://www.springer.com/lncs}, last accessed 2023/10/25
 \end{thebibliography}
 
-\paragraph{Sample Heading (Fourth Level)}
-The contribution should contain no more than four levels of
-headings. Table~\ref{tab1} gives a summary of all heading levels.
-
-\begin{table}
-\caption{Table captions should be placed above the
-tables.}\label{tab1}
-\begin{tabular}{|l|l|l|}
-\hline
-Heading level &  Example & Font size and style\\
-\hline
-Title (centered) &  {\Large\bfseries Lecture Notes} & 14 point, bold\\
-1st-level heading &  {\large\bfseries 1 Introduction} & 12 point, bold\\
-2nd-level heading & {\bfseries 2.1 Printing Area} & 10 point, bold\\
-3rd-level heading & {\bfseries Run-in Heading in Bold.} Text follows & 10 point, bold\\
-4th-level heading & {\itshape Lowest Level Heading.} Text follows & 10 point, italic\\
-\hline
-\end{tabular}
-\end{table}
-
-
-\noindent Displayed equations are centered and set on a separate
-line.
 \begin{equation}
 x + y = z
 \end{equation}
 Please try to avoid rasterized images for line-art diagrams and
-schemas. Whenever possible, use vector graphics instead (see
-Fig.~\ref{fig1}).
+schemas. Whenever possible, use vector graphics instead
 
-\begin{figure}
-\includegraphics[width=\textwidth]{fig1.eps}
-\caption{A figure caption is always placed below the illustration.
-Please note that short captions are centered, while long ones are
-justified by the macro package automatically.} \label{fig1}
-\end{figure}
-
-\begin{theorem}
-This is a sample theorem. The run-in heading is set in bold, while
-the following text appears in italics. Definitions, lemmas,
-propositions, and corollaries are styled the same way.
-\end{theorem}
 %
 % the environments 'definition', 'lemma', 'proposition', 'corollary',
 % 'remark', and 'example' are defined in the LLNCS documentclass as well.
-%
-\begin{proof}
-Proofs, examples, and remarks have the initial word in italics,
-while the following text appears in normal font.
-\end{proof}
-For citations of references, we prefer the use of square brackets
-and consecutive numbers. Citations using labels or the author/year
-convention are also acceptable. The following bibliography provides
-a sample reference list with entries for journal
-articles~\cite{ref_article1}, an LNCS chapter~\cite{ref_lncs1}, a
-book~\cite{ref_book1}, proceedings without editors~\cite{ref_proc1},
-and a homepage~\cite{ref_url1}. Multiple citations are grouped
-\cite{ref_article1,ref_lncs1,ref_book1},
-\cite{ref_article1,ref_book1,ref_proc1,ref_url1}.
 
-\begin{credits}
-\subsubsection{\ackname} A bold run-in heading in small font size at the end of the paper is
-used for general acknowledgments, for example: This study was funded
-by X (grant number Y).
-
-\subsubsection{\discintname}
-It is now necessary to declare any competing interests or to specifically
-state that the authors have no competing interests. Please place the
-statement with a bold run-in heading in small font size beneath the
-(optional) acknowledgments\footnote{If EquinOCS, our proceedings submission
-system, is used, then the disclaimer can be provided directly in the system.},
-for example: The authors have no competing interests to declare that are
-relevant to the content of this article. Or: Author A has received research
-grants from Company W. Author B has received a speaker honorarium from
-Company X and owns stock in Company Y. Author C is a member of committee Z.
-\end{credits}
 %
 % ---- Bibliography ----
 %
@@ -337,24 +283,4 @@ Company X and owns stock in Company Y. Author C is a member of committee Z.
 % \bibliographystyle{splncs04}
 % \bibliography{mybibliography}
 %
-\begin{thebibliography}{8}
-\bibitem{ref_article1}
-Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
-
-\bibitem{ref_lncs3}
-Author, F., Author, S.: Title of a proceedings paper. In: Editor,
-F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
-Springer, Heidelberg (2016). \doi{10.10007/1234567890}
-
-\bibitem{ref_book1}
-Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
-Location (1999)
-
-\bibitem{ref_proc1}
-Author, A.-B.: Contribution title. In: 9th International Proceedings
-on Proceedings, pp. 1--2. Publisher, Location (2010)
-
-\bibitem{ref_url1}
-LNCS Homepage, \url{http://www.springer.com/lncs}, last accessed 2023/10/25
-\end{thebibliography}
 \end{document}
