@@ -21,6 +21,9 @@
 %\urlstyle{rm}
 %
 \usepackage{xurl}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{listings}
 \setcounter{secnumdepth}{4}
 
@@ -66,19 +69,31 @@ The problems with these LLL and BKZ solvers is that they are either only show th
 
 So in short, these LLL and BKZ tools aren't practical compared to several online math tools, and they don't automatically provide visualization from the beginning to the final result nor that they provide the step-by-step explanation. Which is actually an important issue, because psychologically wise, humans are generally easier to process information visually (Mayer, 2001) but also how the users interact with them is also an important factor (Christopher D. Hundhausen et al, 2002). So we definitely need step-by-step explanations just like we need the visualizations, within a system that lets the user to interact with the system from the input insertion to the output visualization. For the visualization part, it's clear that visualization through vectors can significantly help users to understand the process. Why? Because the basis concept for LLL and BKZ is lattice reduction. Which is a linear algebra concept. And it is hard to teach the concepts of linear algebra without vectors (or, to be more precise, vector geometry) visualization (Konyaliouglu et al., 2011). 
 
-Our idea is that by visualizing LLL and BKZ algorithms from the beginning of the process until the final result with vectors on 2D and 3D Cartesian coordinates, showing the calculations behind the algorithms, as well some simple theoritical explanations of these algorithms, we can help the users to understand these algorithms easier. Which is why we will develop a tool that not just process LLL and BKZ algorithms, but also show the visualization from the initial state until the final result, with simplified processes shown to help users understand these two algorithms easier. Our main idea for the visualization is through the usage of vectors within a Cartesian field, both in 2D and 3D projections, as well several panels that showing the current process (and its explanation), Lovasz condition status, and a button that can be pressed to go to the previous and next steps. We hope that through these visualization and textual elements, users would have it easier to understand the mechanism of both LLL and BKZ algorithms, which are increasingly becomes more relevant for the security of our data.
+Our idea is that by visualizing LLL and BKZ algorithms from the beginning of the process until the final result with vectors on 2D and 3D Cartesian coordinates, showing the calculations behind the algorithms, as well some simple theoritical explanations of these algorithms, we can help the users to understand these algorithms easier. The inputs are in the form of matrices. We will develop a tool that not just process LLL and BKZ algorithms, but also show the visualization from the initial state until the final result, with simplified processes shown to help users understand these two algorithms easier. Our main idea for the visualization is through the usage of vectors within a Cartesian field, both in 2D and 3D projections, as well several panels that showing the current process (and its explanation), Lovasz condition status, and a button that can be pressed to go to the previous and next steps. We hope that through these visualization and textual elements, users would have it easier to understand the mechanism of both LLL and BKZ algorithms, which are increasingly becomes more relevant for the security of our data.
 
 
 \section{Related Works}
 \subsection{Learning with Errors(LWE)}
-\mbox{text}
+\mbox{}
 [LWE tuh apa, apa kaitannya sama LLL dan BKZ dan kenapa penting diketahui dan diterapkan di proses LLL dan LWE, cantumkan referensi]
 \subsection{Lattice}
-\mbox{text}
-[taroh tuh algoritma dan beberapa teori lattice, cantumkan referensi]
+\mbox{}
+A lattice is defined as a set which contains every single linear combinations of vectors from a basis of $\mathbb{R}^n$. Therefore, we can state that a lattice is theoritically a discrete subset of vector space with the dimension size of $n$. 
+
+Let's say, we have $L$, which is a lattice, which :
+- $k$ is the rank or the dimension size of $L$
+- ${\{v_1, v_2, ....v_k\}}$ is the basis of $L$
+
+Then, $L$ must have vectors of $v_1, v_2, .....v_k$ that each of these vectors are linearly independent and such that $L = \mathbb{Z}$-linear span of ${\{v_1, v_2, ....v_k\}}$. (Silverman H. Joseph, 2020).
+
 \subsection{Lattice Reduction}
 \mbox{text}
 
+Lattice reduction is (Silverman H. Joseph, 2020)
+
+\subsection{Shortest Vector Problem}
+
+The SVP (Shortest Vector Problem) is .... (Silverman H. Joseph, 2020)
 
 \subsection{LLL}
 \begin{figure}[htbp]
@@ -88,7 +103,10 @@ Our idea is that by visualizing LLL and BKZ algorithms from the beginning of the
     \label{LLL}
 \end{figure}
 \mbox{}
-The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a [to be completed hehe wkwkwk] [it's for lattice reduction for guessing the encryption keys blablabla] [hubungkan dengan section sebelumnya]
+The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a [to be completed hehe wkwkwk] 
+[it's for lattice reduction for guessing the encryption keys blablabla] 
+
+[hubungkan dengan section sebelumnya]
 
 
 \subsection{BKZ}
@@ -244,12 +262,9 @@ Christopher D. Hundhausen, Sarah A. Douglas, John Stasko. (2002). A Meta-Study o
 A.Cihan Konyaliouglu, Ahmet Isik, Abdullah Kaplan, Seyfullah Hizarci, Merve Durkaya. (2011). Visualization approach in teaching process of linear algebra. Procedia Social and Behavioral Sciences 15 (2011) 4040-4044. 
 
 \bibitem{ref_5}
-Zukowski, Stanislaw. (2003). Introduction of Lattice Theory. Journal of Formalized Mathematics, 1, 1-5. %Volume 1
-
-\bibitem{ref_6}
 Silverman, Joseph H. (2020). An Introduction to Lattices, Lattice Reduction, and Lattice-Based Cryptography. IAS/Park City Mathematics Series Graduate Summer School Lecture Notes. 
 
-\bibitem{ref_7}
+\bibitem{ref_6}
 Calderone, Dan. (2023). Vector Visualizations. Github.
 
 \bibitem{ref_8}
