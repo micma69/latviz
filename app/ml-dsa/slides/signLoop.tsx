@@ -1,223 +1,245 @@
-import React, { useState } from 'react';
-import './Diagram.css';
+"use client";
 
-const RejectionSamplingDiagram = () => {
-  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+import React, { useEffect, useState } from "react";
+import { InlineMath } from 'react-katex';
+import { Button } from "@/components/ui/button";
+import { ChevronLeftIcon, ArrowLongRightIcon, ArrowLongDownIcon, ArrowPathIcon } from "@heroicons/react/24/solid";
+import SquareGrid from "@/components/ui/gridLattice";
+import { DSASignSpyData } from "@/utils/createSpy";
 
-  const steps = [
-    {
-      id: 1,
-      title: "Initialize",
-      description: "Set (z, h) = ⊥ to start the rejection sampling loop",
-      details: "This indicates no valid signature has been produced yet. The loop continues until a valid (z, h) pair is found.",
-      equation: null,
-      securityNote: "Rejection sampling ensures the signature doesn't leak information about the secret key."
-    },
-    {
-      id: 2,
-      title: "Sample y",
-      description: "Sample random polynomial y ← R_q",
-      details: "y is sampled uniformly from the polynomial ring R_q. This randomness is crucial for security.",
-      equation: "y ∈ R_q",
-      securityNote: "Fresh randomness each iteration prevents pattern analysis."
-    },
-    {
-      id: 3,
-      title: "Expand Mask",
-      description: "ℓ ← ExpandMask(ρ″, κ)",
-      details: "Expands a pseudorandom seed ρ″ with counter κ to generate masking values.",
-      equation: "ℓ = ExpandMask(ρ″, κ)",
-      securityNote: "Deterministic expansion allows reproducibility."
-    },
-    {
-      id: 4,
-      title: "Compute w",
-      description: "w ← NTT⁻¹(A ∘ NTT(y))",
-      details: "Transform to NTT domain, multiply by matrix A, then transform back.",
-      equation: "w = A·y (in polynomial ring)",
-      securityNote: "NTT enables fast polynomial multiplication (O(n log n) instead of O(n²))."
-    },
-    {
-      id: 5,
-      title: "Extract High Bits",
-      description: "w₁ ← HighBits(w)",
-      details: "Extract high-order bits from each component of w for compression.",
-      equation: "w = w₁·2ᵈ + w₀",
-      securityNote: "HighBits form the commitment sent to the verifier."
-    },
-    {
-      id: 6,
-      title: "Commitment Hash",
-      description: "c̃ ← H(μ ‖ w₁Encode(w₁), λ/4)",
-      details: "Hash the message μ and encoded commitment w₁.",
-      equation: "c̃ = H(μ || encode(w₁))",
-      securityNote: "Cryptographic hash ensures binding property."
-    },
-    {
-      id: 7,
-      title: "Sample Challenge",
-      description: "c ← SampleInBall(c̃)",
-      details: "Convert hash output to a challenge polynomial with τ ones.",
-      equation: "c ∈ B_τ (Hamming weight τ)",
-      securityNote: "Challenge space size ~ C(n,τ) prevents brute force."
-    },
-    {
-      id: 8,
-      title: "NTT Transform",
-      description: "ĉ ← NTT(c)",
-      details: "Convert challenge to NTT domain for efficient multiplication.",
-      equation: "ĉ = NTT(c)",
-      securityNote: "NTT domain multiplication is component-wise."
-    },
-    {
-      id: 9,
-      title: "Multiply with Secret",
-      description: "⟨⟨c·s₁⟩⟩, ⟨⟨c·s₂⟩⟩",
-      details: "Multiply challenge with secret key components in NTT domain.",
-      equation: "c·s₁, c·s₂ (polynomial multiplication)",
-      securityNote: "Secret keys s₁, s₂ are never exposed directly."
-    },
-    {
-      id: 10,
-      title: "Compute Response",
-      description: "z ← y + ⟨⟨c·s₁⟩⟩",
-      details: "Add masked randomness to challenge-weighted secret.",
-      equation: "z = y + c·s₁",
-      securityNote: "This is the main signature component."
-    },
-    {
-      id: 11,
-      title: "Low Bits",
-      description: "r₀ ← LowBits(w - ⟨⟨c·s₂⟩⟩)",
-      details: "Extract low-order bits for reconstruction.",
-      equation: "r₀ = LowBits(w - c·s₂)",
-      securityNote: "Helps verifier check without revealing secret."
-    },
-    {
-      id: 12,
-      title: "Check Norms",
-      description: "Check ‖z‖∞ and ‖r₀‖∞",
-      details: "Verify infinity norms are below thresholds.",
-      equation: "‖z‖∞ < γ₁-β AND ‖r₀‖∞ < γ₂-β",
-      securityNote: "Ensures no secret information leaks."
-    },
-    {
-      id: 13,
-      title: "Generate Hint",
-      description: "h ← MakeHint(-⟨⟨c·t₀⟩⟩, ...)",
-      details: "Create hint to help verifier reconstruct high bits.",
-      equation: "h = hint bits (0 or 1 per component)",
-      securityNote: "Limited to ω ones to control size."
-    },
-    {
-      id: 14,
-      title: "Final Checks",
-      description: "Check hint bounds and weight",
-      details: "Verify hint doesn't exceed γ₂ and has ≤ ω ones.",
-      equation: "‖c·t₀‖∞ < γ₂ AND weight(h) ≤ ω",
-      securityNote: "Prevents signature bloat and maintains correctness."
+export default function SignLoop({
+    spyData,
+    onChangeStage,
+    onSelectVariable,
+}: {
+    spyData: DSASignSpyData | null;
+    onChangeStage: (stage: string) => void;
+    onSelectVariable: (variable: string) => void;
+}) {
+    const [iterationIndex, setIterationIndex] = useState(0);
+    
+    useEffect(() => {
+        onSelectVariable("explanation");
+    }, []);
+    
+    // Get current iteration from the iterations array
+    const currentIteration = spyData?.iterations?.[iterationIndex];
+    const totalIterations = spyData?.iterations?.length || 0;
+    const isLastIteration = iterationIndex === totalIterations - 1;
+    const isAccepted = currentIteration?.accepted === true;
+    
+    const goToPrevious = () => {
+        if (iterationIndex > 0) {
+            setIterationIndex(iterationIndex - 1);
+        }
+    };
+    
+    const goToNext = () => {
+        if (iterationIndex < totalIterations - 1) {
+            setIterationIndex(iterationIndex + 1);
+        }
+    };
+    
+    if (!spyData || !spyData.iterations || totalIterations === 0) {
+        return (
+            <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4">
+                <div className="text-gray-500">No iteration data available</div>
+                <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => onChangeStage("sign0")}
+                    className="flex justify-start cursor-pointer mt-2"
+                >
+                    <ChevronLeftIcon className="size-6" /> BACK
+                </Button>
+            </div>
+        );
     }
-  ];
-
-  // Group steps for better visualization
-  const phases = [
-    { name: "Initialization", steps: [0] },
-    { name: "Sampling & NTT", steps: [1, 2, 3, 4] },
-    { name: "Commitment", steps: [5, 6, 7] },
-    { name: "Response Generation", steps: [8, 9, 10] },
-    { name: "Verification Prep", steps: [11, 12] },
-    { name: "Finalization", steps: [13] }
-  ];
-
-  return (
-    <div className="diagram-container">
-      <h1>Dilithium-Style Rejection Sampling Loop</h1>
-      <p className="subtitle">Hover over any step to see detailed explanation</p>
-
-      {/* Parameter legend */}
-      <div className="legend">
-        <h3>Parameters</h3>
-        <div className="params-grid">
-          <div><strong>γ₁, γ₂</strong> – Norm bounds for rejection</div>
-          <div><strong>β</strong> – Security margin</div>
-          <div><strong>ω</strong> – Max hint weight</div>
-          <div><strong>κ</strong> – Counter (incremented by ℓ each loop)</div>
-          <div><strong>λ</strong> – Security parameter (bits)</div>
-        </div>
-      </div>
-      
-      <div className="flowchart">
-        {/* Loop start */}
-        <div className="loop-start">
-          <div className="step-node start-node">
-            Start
-          </div>
-          <div className="arrow">↓</div>
-        </div>
-
-        {/* Rejection sampling loop container */}
-        <div className="rejection-loop">
-          <div className="loop-label">Rejection Sampling Loop</div>
-          
-          {steps.map((step, idx) => (
-            <React.Fragment key={step.id}>
-              <div 
-                className="step-wrapper"
-                onMouseEnter={() => setHoveredStep(idx)}
-                onMouseLeave={() => setHoveredStep(null)}
-              >
-                <div className={`step-node phase-${idx % 3}`}>
-                  <div className="step-number">{step.id}</div>
-                  <div className="step-title">{step.title}</div>
+    
+    return (
+        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 overflow-y-auto py-4">
+            {/* Iteration selector */}
+            <div className="flex flex-row gap-4 items-center justify-center bg-gray-100 rounded-xl p-3 w-fit border-2 border-gray-300">
+                <Button 
+                    size="sm" 
+                    variant="outline" 
+                    onClick={goToPrevious}
+                    disabled={iterationIndex === 0}
+                >
+                    Previous
+                </Button>
+                <div className="font-mono text-sm font-semibold">
+                    Iteration {iterationIndex + 1} / {totalIterations} 
+                    <span className="ml-2 text-gray-500">(κ = {currentIteration?.kappa})</span>
                 </div>
-                
-                {/* Info card that appears on hover */}
-                {hoveredStep === idx && (
-                  <div className="info-card">
-                    <h3>{step.title}</h3>
-                    <p className="step-desc">{step.description}</p>
-                    <div className="info-section">
-                      <strong>📖 Details:</strong>
-                      <p>{step.details}</p>
-                    </div>
-                    {step.equation && (
-                      <div className="info-section equation">
-                        <strong>📐 Operation:</strong>
-                        <code>{step.equation}</code>
-                      </div>
+                <Button 
+                    size="sm" 
+                    variant="outline" 
+                    onClick={goToNext}
+                    disabled={isLastIteration}
+                >
+                    Next
+                </Button>
+            </div>
+            
+            <ArrowLongDownIcon className="size-6" />
+            
+            {/* ρ'' + κ → y */}
+            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="\rho''" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
+                               colorData={spyData?.rhoPrime ? Array.from(spyData.rhoPrime) : []} 
+                               showValues={true} />
+                </div>
+                <div><InlineMath math=", \kappa" /></div>
+                <ArrowLongRightIcon className="size-6" />
+                <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="y \in R_q^\ell" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
+                               colorData={currentIteration?.y?.[0] ? Array.from(currentIteration.y[0]) : []} 
+                               showValues={true} />
+                </div>
+            </div>
+            <ArrowLongDownIcon className="size-6" />
+            {/* w = A·y */}
+            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div><InlineMath math="A \cdot y" /></div>
+                <ArrowLongRightIcon className="size-6" />
+                <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="w" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
+                               colorData={currentIteration?.w?.[0] ? Array.from(currentIteration.w[0]) : []} 
+                               showValues={true} />
+                </div>
+            </div>
+            <ArrowLongDownIcon className="size-6" />
+            {/* w₁ = HighBits(w) */}
+            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div><InlineMath math="\text{HighBits}(w)" /></div>
+                <ArrowLongRightIcon className="size-6" />
+                <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="w_1" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
+                               colorData={currentIteration?.w1?.[0] ? Array.from(currentIteration.w1[0]) : []} 
+                               showValues={true} />
+                </div>
+            </div>
+            <ArrowLongDownIcon className="size-6" />
+            {/* c̃ and c */}
+            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="\tilde{c} = H(\mu \| \mathbf{w}_1)" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
+                               colorData={currentIteration?.cTilde ? Array.from(currentIteration.cTilde) : []} 
+                               showValues={true} />
+                </div>
+                <ArrowLongRightIcon className="size-6" />
+                <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="c = \text{SampleInBall}(\tilde{c})" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
+                               colorData={currentIteration?.c ? Array.from(currentIteration.c) : []} 
+                               showValues={true} />
+                </div>
+            </div>
+            <ArrowLongDownIcon className="size-6" />
+            {/* z = y + c·s₁ with norm check */}
+            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div><InlineMath math="y + \langle c s_1 \rangle" /></div>
+                <ArrowLongRightIcon className="size-6" />
+                <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="z" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
+                               colorData={currentIteration?.z?.[0] ? Array.from(currentIteration.z[0]) : []} 
+                               showValues={true} />
+                    {currentIteration?.zNormInf !== undefined && (
+                        <div className={`text-xs font-mono ${currentIteration.zNormInf >= 131072 ? 'text-red-600' : 'text-green-600'}`}>
+                            ||z||∞ = {currentIteration.zNormInf}
+                        </div>
                     )}
-                    <div className="info-section security">
-                      <strong>🔒 Security:</strong>
-                      <p>{step.securityNote}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              {/* Arrow except after last step */}
-              {idx < steps.length - 1 && (
-                <div className="arrow">
-                  {idx === 11 ? "No →" : idx === 12 ? "Yes →" : "↓"}
-                  {idx === 11 && <span className="branch-label">valid</span>}
-                  {idx === 12 && <span className="branch-label">invalid</span>}
                 </div>
-              )}
-            </React.Fragment>
-          ))}
-          
-          {/* Loop back arrow */}
-          <div className="loop-back">
-            <div className="arrow loop-arrow">↺ κ ← κ + ℓ</div>
-          </div>
-        </div>
-        
-        {/* End node */}
-        <div className="step-node end-node">
-          Return (z, h)
-        </div>
-      </div>
-    </div>
-  );
-};
+            </div>
+            <ArrowLongDownIcon className="size-6" />
+            {/* r₀ = LowBits(w - c·s₂) with norm check */}
+            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div><InlineMath math="\text{LowBits}(\mathbf{w} - \langle c \mathbf{s}_2 \rangle)" /></div>
+                <ArrowLongRightIcon className="size-6" />
+                <div className="flex flex-col items-center gap-2">
+                    <div><InlineMath math="r_0" /></div>
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
+                                   colorData={currentIteration?.r0?.[0] ? Array.from(currentIteration.r0[0]).map(v => v + 95232) : []} 
+                               showValues={true} />
+                    {currentIteration?.r0NormInf !== undefined && (
+                        <div className={`text-xs font-mono ${currentIteration.r0NormInf >= 95232 ? 'text-red-600' : 'text-green-600'}`}>
+                            ||r₀||∞ = {currentIteration.r0NormInf}
+                        </div>
+                    )}
+                </div>
+            </div>
+            
+            {/* If accepted, show hint generation */}
+            {isAccepted && currentIteration?.h && (
+                <>
+                    <ArrowLongDownIcon className="size-6" />
+                    
+                    <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                        <div><InlineMath math="\text{MakeHint}(-\langle c t_0 \rangle, w - \langle c s_2 \rangle + -\langle c t_0 \rangle)" /></div>
+                        <ArrowLongRightIcon className="size-6" />
+                        <div className="flex flex-col items-center gap-2">
+                            <div><InlineMath math="h" /></div>
+                            <div className="text-xs font-mono">
+                                Hamming weight: {currentIteration.hammingWeight} / 80
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
 
-export default RejectionSamplingDiagram;
+            {/* Status indicator */}
+            {currentIteration?.rejected && (
+                <div className="text-red-600 font-mono text-sm flex items-center gap-2 bg-red-50 rounded-lg px-4 py-2">
+                    <ArrowPathIcon className="size-5" /> 
+                    REJECTED: {currentIteration.reason}
+                </div>
+            )}
+            {isAccepted && (
+                <div className="text-green-600 font-mono text-sm flex items-center gap-2 bg-green-50 rounded-lg px-4 py-2">
+                    ✓ ACCEPTED → signature generated
+                </div>
+            )}
+
+            {/* Iteration selector */}
+            <div className="flex flex-row gap-4 items-center justify-center bg-gray-100 rounded-xl p-3 w-fit border-2 border-gray-300">
+                <Button 
+                    size="sm" 
+                    variant="outline" 
+                    onClick={goToPrevious}
+                    disabled={iterationIndex === 0}
+                >
+                    Previous
+                </Button>
+                <div className="font-mono text-sm font-semibold">
+                    Iteration {iterationIndex + 1} / {totalIterations} 
+                    <span className="ml-2 text-gray-500">(κ = {currentIteration?.kappa})</span>
+                </div>
+                <Button 
+                    size="sm" 
+                    variant="outline" 
+                    onClick={goToNext}
+                    disabled={isLastIteration}
+                >
+                    Next
+                </Button>
+            </div>
+            
+            <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => onChangeStage("sign1")}
+                className="flex justify-start cursor-pointer mt-4"
+            >
+                <ChevronLeftIcon className="size-6" /> BACK
+            </Button>
+        </div>
+    );
+}

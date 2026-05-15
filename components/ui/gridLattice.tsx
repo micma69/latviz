@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 interface SquareGridProps {
   rows?: number;
@@ -10,25 +10,50 @@ interface SquareGridProps {
   size?: number;
   color?: string;
   colorData?: number[];
+  displayData?: number[];
   showValues?: boolean;
   base?: number;
   onClick?: () => void;
-  // Tooltip props for the whole grid
   tooltipTitle?: string;
   tooltipDescription?: string;
   tooltipDetails?: string;
   showTooltip?: boolean;
 }
 
-const getColor = (value: number, base: number) => {
-  const hue = (value / (base - 1)) * 240;
+const getColor = (value: number, min: number, max: number) => {
+  let normalized;
+  const range = max - min;
+  
+  if (range === 1) {
+    // Binary case should not reach here - handled separately
+    normalized = value === min ? 0.2 : 0.8;
+  } else if (range === 2) {
+    normalized = (value - min) / range;
+    normalized = 0.1 + normalized * 0.8;
+  } else {
+    normalized = range === 0 ? 0.5 : (value - min) / range;
+  }
+  
+  const hue = normalized * 240;
   const saturation = 80;
-  const lightness = 40 + (value / (base - 1)) * 40;
+  const lightness = 40 + normalized * 40;
   return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 };
 
-const getLabelColor = (value: number, base: number) => {
-  const lightness = 40 + (value / (base - 1)) * 40;
+const getLabelColor = (value: number, min: number, max: number) => {
+  const range = max - min;
+  
+  let normalized;
+  if (range === 1) {
+    normalized = value === min ? 0.2 : 0.8;
+  } else if (range === 2) {
+    normalized = (value - min) / range;
+    normalized = 0.1 + normalized * 0.8;
+  } else {
+    normalized = range === 0 ? 0.5 : (value - min) / range;
+  }
+  
+  const lightness = 40 + normalized * 40;
   return lightness > 60 ? "#000000aa" : "#ffffffcc";
 };
 
@@ -42,8 +67,9 @@ export default function SquareGrid({
   size = 20,
   color = "#bac0cd5b",
   colorData,
+  displayData,
   showValues = false,
-  base = 256,
+  base,
   onClick,
   tooltipTitle = "insert popup title",
   tooltipDescription = "short desc? what the numbers are probs",
@@ -61,7 +87,26 @@ export default function SquareGrid({
   const activeCols = expanded ? (colsExpanded ?? cols) : cols;
 
   const total = activeRows * activeCols;
-  const data = colorData?.slice(0, total);
+  const colorDataSlice = colorData?.slice(0, total);
+  const displayDataSlice = displayData?.slice(0, total);
+  
+  const { min, max, range } = useMemo(() => {
+    if (!colorData || colorData.length === 0) {
+      return { min: 0, max: (base ?? 256) - 1, range: (base ?? 256) - 1 };
+    }
+    
+    let minVal = Infinity;
+    let maxVal = -Infinity;
+    for (const val of colorData) {
+      if (val < minVal) minVal = val;
+      if (val > maxVal) maxVal = val;
+    }
+    if (minVal === maxVal) {
+      return { min: minVal, max: maxVal, range: 0 };
+    }
+    return { min: minVal, max: maxVal, range: maxVal - minVal };
+  }, [colorData, base]);
+  
   const effectiveSize = showValues ? Math.max(size, 16) : size;
 
   const handleClick = () => {
@@ -86,8 +131,7 @@ export default function SquareGrid({
     setShowInfoCard(false);
   };
 
-  // Calculate statistics for the tooltip
-  const values = data?.filter(v => v !== undefined) || [];
+  const values = displayDataSlice?.filter(v => v !== undefined) || colorDataSlice?.filter(v => v !== undefined) || [];
   const minValue = values.length ? Math.min(...values) : null;
   const maxValue = values.length ? Math.max(...values) : null;
   const avgValue = values.length ? Math.round(values.reduce((a, b) => a + b, 0) / values.length) : null;
@@ -107,9 +151,33 @@ export default function SquareGrid({
         }}
       >
         {Array.from({ length: total }).map((_, i) => {
-          const value = data?.[i];
-          const squareColor = value != null ? getColor(value, base) : color;
-          const labelColor = value != null ? getLabelColor(value, base) : "#ffffffcc";
+          const colorValue = colorDataSlice?.[i];
+          const displayValue = displayDataSlice?.[i] ?? colorValue;
+          const hasValue = colorValue !== undefined;
+          
+          let squareColor;
+          if (!hasValue) {
+            squareColor = "#f0f0f0";
+          } else if (range === 0) {
+            // All values are the same (e.g., all zeros)
+            squareColor = "#b81414";
+          } else if (range === 1) {
+            // Binary data (0 and 1)
+            squareColor = colorValue === min ? "#b81414" : "#a3a3f5";
+          } else {
+            // Normal gradient
+            squareColor = getColor(colorValue, min, max);
+          }
+          
+          let labelColor = "#ffffffcc";
+          if (hasValue && range === 0) {
+            labelColor = "#ffffff";
+          } else if (hasValue && range === 1) {
+            labelColor = colorValue === min ? "#ffffff" : "#000000";
+          } else if (hasValue) {
+            labelColor = getLabelColor(colorValue, min, max);
+          }
+          
           return (
             <div
               key={i}
@@ -123,9 +191,10 @@ export default function SquareGrid({
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                opacity: hasValue ? 1 : 0.5,
               }}
             >
-              {showValues && value != null && (
+              {showValues && hasValue && displayValue !== undefined && (
                 <span
                   style={{
                     fontSize: Math.max(effectiveSize * 0.3, 8),
@@ -136,7 +205,20 @@ export default function SquareGrid({
                     fontFamily: "monospace",
                   }}
                 >
-                  {value}
+                  {displayValue}
+                </span>
+              )}
+              {showValues && !hasValue && (
+                <span
+                  style={{
+                    fontSize: Math.max(effectiveSize * 0.3, 8),
+                    color: "#999",
+                    lineHeight: 1,
+                    userSelect: "none",
+                    fontFamily: "monospace",
+                  }}
+                >
+                  —
                 </span>
               )}
             </div>
@@ -144,7 +226,6 @@ export default function SquareGrid({
         })}
       </div>
 
-      {/* Info Card for the entire grid */}
       {showTooltip && showInfoCard && (
         <div
           style={{
@@ -179,14 +260,21 @@ export default function SquareGrid({
             </p>
           </div>
           
-          <div style={{ 
-            marginTop: "10px", 
-            paddingTop: "8px", 
-            borderTop: "1px solid #ecf0f1" 
-          }}>
-          </div>
+          {minValue !== null && maxValue !== null && (
+            <div style={{ 
+              marginTop: "10px", 
+              paddingTop: "8px", 
+              borderTop: "1px solid #ecf0f1",
+              fontSize: "0.75rem",
+              color: "#666"
+            }}>
+              <div>Range: {minValue} → {maxValue}</div>
+              <div>Average: {avgValue}</div>
+              {range === 0 && <div>All values identical (showing red)</div>}
+              {range === 1 && <div>Binary data: {min}=red, {max}=light blue</div>}
+            </div>
+          )}
 
-          {/* Grid dimensions info */}
           <div style={{ 
             marginTop: "10px", 
             fontSize: "0.7rem", 
