@@ -75,7 +75,12 @@ Our idea is that by visualizing LLL and BKZ algorithms from the beginning of the
 \section{Related Works}
 \subsection{Learning with Errors(LWE)}
 \mbox{}
-[LWE tuh apa, apa kaitannya sama LLL dan BKZ dan kenapa penting diketahui dan diterapkan di proses LLL dan LWE, cantumkan referensi]
+Learning with Errors (often shortened to LWE) is very essential for modern lattice-based PQC algorithms, such as NIST's ML-KEM and ML-DSA (Wang et al., 2025). Basically, this is a method to hide the information (e.g plaintext) by injecting randomized noises (errors) into a system of linear equations which represents the public matrix, which would make the attackers struggling to get the actual pieces of the information from the plaintext. To solve an LWE problem means solving a set of linear equations with errors hidden in the equations. The errors are often tiny. 
+
+For example, there is a public matrix $A$, our secret message or plaintext $s$, and a random small number to mess the equation $e$. Normally, without the latter, a cipher is usually defined as $C = As \pmod q$. With LWE however, the equation becomes $C = As + e \pmod q$. Without the small errors, we can solve the system of linear equations with Gaussian Elimination. 
+
+As the best practice, the size of the randomized error must small enough to make it decipherable for the intended receivers of the encrypted data. Small errors also able to force the attackers to switch into lattice reduction problem (because the errors resulted from attempts to solve these linear equations using Gaussian elimination), which essentially the same as searching shortest vectors (the SVP problem). Which, of course forcing the attackers to convert the system of linear equations into a lattice. 
+
 \subsection{Lattice}
 \mbox{}
 A lattice is defined as a set which contains every single linear combinations of vectors from a basis of $\mathbb{R}^n$. Therefore, we can state that a lattice is theoritically a discrete subset of vector space with the dimension size of $n$. 
@@ -85,6 +90,10 @@ Let's say, we have $L$, which is a lattice, which :
 - ${\{v_1, v_2, ....v_k\}}$ is the basis of $L$
 
 Then, $L$ must have vectors of $v_1, v_2, .....v_k$ that each of these vectors are linearly independent and such that $L = \mathbb{Z}$-linear span of ${\{v_1, v_2, ....v_k\}}$. (Silverman H. Joseph, 2020).
+
+\subsection{Lattice-based Post-Quantum Cryptography}
+\mbox{}
+The lattice-based PQC is a group of cryptographic algorithms that is 
 
 \subsection{Lattice Reduction}
 \mbox{text}
@@ -262,9 +271,12 @@ Christopher D. Hundhausen, Sarah A. Douglas, John Stasko. (2002). A Meta-Study o
 A.Cihan Konyaliouglu, Ahmet Isik, Abdullah Kaplan, Seyfullah Hizarci, Merve Durkaya. (2011). Visualization approach in teaching process of linear algebra. Procedia Social and Behavioral Sciences 15 (2011) 4040-4044. 
 
 \bibitem{ref_5}
-Silverman, Joseph H. (2020). An Introduction to Lattices, Lattice Reduction, and Lattice-Based Cryptography. IAS/Park City Mathematics Series Graduate Summer School Lecture Notes. 
+Wang Yunfei, Jin Xin, Liu Junyu. (2025). Learning with errors may remain hard against quantum holographic attacks arXiv:2509.22833
 
 \bibitem{ref_6}
+Silverman, Joseph H. (2020). An Introduction to Lattices, Lattice Reduction, and Lattice-Based Cryptography. IAS/Park City Mathematics Series Graduate Summer School Lecture Notes. 
+
+\bibitem{ref_7}
 Calderone, Dan. (2023). Vector Visualizations. Github.
 
 \bibitem{ref_8}
