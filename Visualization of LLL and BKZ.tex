@@ -77,7 +77,15 @@ Our idea is that by visualizing LLL and BKZ algorithms from the beginning of the
 \mbox{}
 Learning with Errors (often shortened to LWE) is very essential for modern lattice-based PQC algorithms, such as NIST's ML-KEM and ML-DSA (Wang et al., 2025). Basically, this is a method to hide the information (e.g plaintext) by injecting randomized noises (errors) into a system of linear equations which represents the public matrix, which would make the attackers struggling to get the actual pieces of the information from the plaintext. To solve an LWE problem means solving a set of linear equations with errors hidden in the equations. The errors are often tiny. 
 
-For example, there is a public matrix $A$, our secret message or plaintext $s$, and a random small number to mess the equation $e$. Normally, without the latter, a cipher is usually defined as $C = As \pmod q$. With LWE however, the equation becomes $C = As + e \pmod q$. Without the small errors, we can solve the system of linear equations with Gaussian Elimination. 
+For example, there is a public matrix $A$, our secret message or plaintext $s$, and a random small number to mess the equation $e$. Normally, without the latter, a cipher is usually defined as $C = As \pmod q$. With LWE however, the equation becomes $C = As + e \pmod q$. Without the small errors, we can solve the system of linear equations with Gaussian Elimination, and thus the encryption algorithm is easier to cracked. 
+
+There are two types of LWE : 
+\begin{itemize}
+\raggedright
+\item Search LWE. This approach is to find $s$ - the secret key from a noisy set of linear equations. 
+
+\item Decision LWE. This approach is to distinguish an equation with LWE from a pure random noise. Usually, a real LWE set of equations would actually at first look random, but the errors gained from the solutions (gained from lattice reduction algorithms, not Gaussian elimination) of these equations do usually cluster around the actual key. 
+\end{itemize}
 
 As the best practice, the size of the randomized error must small enough to make it decipherable for the intended receivers of the encrypted data. Small errors also able to force the attackers to switch into lattice reduction problem (because the errors resulted from attempts to solve these linear equations using Gaussian elimination), which essentially the same as searching shortest vectors (the SVP problem). Which, of course forcing the attackers to convert the system of linear equations into a lattice. 
 
@@ -91,14 +99,28 @@ Let's say, we have $L$, which is a lattice, which :
 
 Then, $L$ must have vectors of $v_1, v_2, .....v_k$ that each of these vectors are linearly independent and such that $L = \mathbb{Z}$-linear span of ${\{v_1, v_2, ....v_k\}}$. (Silverman H. Joseph, 2020).
 
+Lattice is one of the key mathematic concepts of the Post-Quantum Cryptography, in fact, of the four PQC algorithms that have been selected by NIST in order to be standardized, three are based on lattice : ML-KEM (based on CRYSTALS-Kyber), ML-DSA (based on CRYSTALS-Dilithium), and FN-DSA (based on Falcon). 
+
 \subsection{Lattice-based Post-Quantum Cryptography}
 \mbox{}
-The lattice-based PQC is a group of cryptographic algorithms that is 
+The lattice-based PQC is a group of cryptographic algorithms that like its name, are based on lattices, and their security is dependent on the hardness on two computational problems that are considered hard even for quantum cryptanalysis algorithms (such as Shor's Algorithm) to solve in the polynomial time : Shortest Vector Problem (SVP) and the Closest Vector Problem (CVP). Example for lattice-based PQC algorithms are : 
+\begin{itemize}
+\raggedright
+\item CRYSTALS-Kyber. Standardized by NIST into ML-KEM (Module Lattice-based Key Encapsulation Mechanism). This algorithm, just like its pre-standardized version, is a set of algorithms used for two parties in order to establish a shared secret key in a channel considered to be unsafe.
+\item 
+\item CRYSTALS-Dilithium. Standardized by NIST into ML-DSA (Module Lattice-based Digital Signature Algorithm). It is a set of algorithms that is used to generate as well verify digital signatures.
+\item
+\item Falcon (Fast Fourier Lattice-based Compact Signatures Over NTRU). Standardized by NIST into FN-DSA. It's also a DSA like ML-DSA. 
+\end{itemize}
+
+Because most lattice-based PQC are using LWE to make their linear equation systems noisier, the problem essentially becomes equivalent (or at least related) to finding unusually short vectors, finding close lattice points, or reducing the lattice basis into a more orthogonal form. This is how the lattice basis reduction plays a vital role - although it doesn't guarantee the lattice-based PQC algorithm to be cracked. 
 
 \subsection{Lattice Reduction}
 \mbox{text}
 
 Lattice reduction is (Silverman H. Joseph, 2020)
+
+the good, the bad, and the ugly vectors 
 
 \subsection{Shortest Vector Problem}
 
@@ -277,9 +299,12 @@ Wang Yunfei, Jin Xin, Liu Junyu. (2025). Learning with errors may remain hard ag
 Silverman, Joseph H. (2020). An Introduction to Lattices, Lattice Reduction, and Lattice-Based Cryptography. IAS/Park City Mathematics Series Graduate Summer School Lecture Notes. 
 
 \bibitem{ref_7}
-Calderone, Dan. (2023). Vector Visualizations. Github.
+Meyer Alexander. (2024). Post-Quantum Cryptography: An Analysis of Code-Based and Lattice-Based Cryptosystem. arXiv:2505.08791. 
 
 \bibitem{ref_8}
+Calderone, Dan. (2023). Vector Visualizations. Github.
+
+\bibitem{ref_9}
 Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
 Location (1999)
 
