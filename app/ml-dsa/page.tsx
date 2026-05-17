@@ -364,7 +364,7 @@ export default function MLDSAPage() {
                                             <Button
                                                 variant="outline"
                                                 size="lg"
-                                                onClick={() => {executeMLDSA("Key Generation") ; setVizStage("keygen0")}}
+                                                onClick={() => {if (!keygenSpyData) {executeMLDSA("Key Generation");} setVizStage("keygen0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Key Generation
@@ -374,7 +374,7 @@ export default function MLDSAPage() {
                                                     variant="outline"
                                                     size="lg"
                                                     disabled={!keys || message.length === 0}
-                                                    onClick={() => {executeMLDSA("Sign Message") ; setVizStage("sign0")}}
+                                                    onClick={() => {if (!signSpyData) {executeMLDSA("Sign Message");} setVizStage("sign0");}}
                                                     className="cursor-pointer h-14 px-10 text-lg"
                                                 >
                                                     Sign Message
@@ -383,7 +383,7 @@ export default function MLDSAPage() {
                                                     <div>
                                                         <textarea
                                                             value={message}
-                                                            onChange={(e) => setMessage(e.target.value)}
+                                                            onChange={(e) => {setMessage(e.target.value); setSignSpyData(null); setSignature(null)}}
                                                             placeholder="Enter a message before signing!"
                                                             className="
                                                             w-full
@@ -410,7 +410,7 @@ export default function MLDSAPage() {
                                                 variant="outline"
                                                 size="lg"
                                                 disabled={!signature}
-                                                onClick={() => {executeMLDSA("Verify Signature") ; setVizStage("verify0")}}
+                                                onClick={() => {if (!verifySpyData) {executeMLDSA("Verify Signature");} setVizStage("verify0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Verify Signature

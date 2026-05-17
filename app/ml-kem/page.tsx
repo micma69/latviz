@@ -378,7 +378,7 @@ export default function MLKEMPage() {
                                             <Button
                                                 variant="outline"
                                                 size="lg"
-                                                onClick={() => {executeMLKEM("Key Generation") ; setVizStage("keygen0")}}
+                                                onClick={() => {if (!keygenSpyData) {executeMLKEM("Key Generation");} setVizStage("keygen0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Key Generation
@@ -387,7 +387,7 @@ export default function MLKEMPage() {
                                                 variant="outline"
                                                 size="lg"
                                                 disabled={!aliceKeys}
-                                                onClick={() => {executeMLKEM("Encapsulation") ; setVizStage("encapsulation0")}}
+                                                onClick={() => {if (!encapsSpyData) {executeMLKEM("Encapsulation");} setVizStage("encapsulation0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Encapsulation
@@ -396,7 +396,7 @@ export default function MLKEMPage() {
                                                 variant="outline"
                                                 size="lg"
                                                 disabled={!cipherText}
-                                                onClick={() => {executeMLKEM("Decapsulation") ; setVizStage("decapsulation0")}}
+                                                onClick={() => {if (!decapsSpyData) {executeMLKEM("Decapsulation");} setVizStage("decapsulation0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Decapsulation
