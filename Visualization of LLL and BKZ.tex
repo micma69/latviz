@@ -116,15 +116,27 @@ The lattice-based PQC is a group of cryptographic algorithms that like its name,
 Because most lattice-based PQC are using LWE to make their linear equation systems noisier, the problem essentially becomes equivalent (or at least related) to finding unusually short vectors, finding close lattice points, or reducing the lattice basis into a more orthogonal form. This is how the lattice basis reduction plays a vital role - although it doesn't guarantee the lattice-based PQC algorithm to be cracked. 
 
 \subsection{Lattice Reduction}
-\mbox{text}
+\mbox{}
 
-Lattice reduction is (Silverman H. Joseph, 2020)
+Lattice reduction is a process to find shortest vectors or closest vectors in lattices (Silverman H. Joseph, 2020). Within a lattice reduction process, the bases considered to be "bad," highly non-orthogonal basis (where the vectors are long and meet at sharp angles) are transformed it into a better version of them, which are reasonably orthogonal (each of their respective vectors are perpendicular to each other, vectors meet at angles closer to 90 degrees, and are relatively short). Why do we need "good" bases? Because good bases make hard lattice problems computationally easier to be solved. 
 
-the good, the bad, and the ugly vectors 
+Hadamard's Inequality is a method to tell a basis is a good or bad one. 
+
+\begin{equation}
+Det(L) \leq \Vert v1 \Vert . \Vert v2 \Vert .... \Vert vn \Vert
+\end{equation}
+
+This inequality clearly states that the determinant of a lattice is always less than or equal to the product of the lengths of its basis vectors. For a bad basis, the product of the vector lengths is drastically larger than the true determinant (the determinant of the lattice where the basis belongs to). For a good basis, the product of the vector lengths are very close to the true determinant of the lattice. A "perfect" basis essentially has the same product of vector lengths with their true determinant. To put it simple, the closer the product of the vector lengths of a basis to the value of its true determinant, the better the basis is. 
+
+So, with lattice reduction, we can pick any single bad basis and turn it into a better version of it. 
+
+The most known modern lattice reduction method is Lenstra-Lenstra-Lovasz lattice reduction algorithm, often shortened to LLL. Virtually all modern mainstream lattice reduction algorithms are based on the LLL framework. For example, the Block Korkine Zolotarev (BKZ) lattice reduction algorithm uses LLL as an important kind of steps of it. 
 
 \subsection{Shortest Vector Problem}
 
-The SVP (Shortest Vector Problem) is .... (Silverman H. Joseph, 2020)
+The SVP (Shortest Vector Problem), like its namesake, is the problem of finding a shortest and non-zero vector in a lattice (Silverman H. Joseph, 2020). For a vector in a lattice to be regarded as the SVP, a vector must be the shortest one (or the shortest ones), out of all vectors in the lattice, and it must be a nonzero vector. 
+
+SVP is essential for PQC lattice reduction algorithms because it can help to solve the hidden noises injected in linear equations (the LWE problem) used in PQC algorithms. 
 
 \subsection{LLL}
 \begin{figure}[htbp]
