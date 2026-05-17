@@ -28,22 +28,22 @@ export default function SignOuter({
                         <div className="flex flex-row gap-4 items-center">
                             <div className="flex flex-col items-center gap-2">
                                 <div><InlineMath math="sk" /></div>
-                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} />
+                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => onSelectVariable("secretkey")} />
                             </div>
                             <div className="flex flex-col items-center gap-2">
                                 <div><InlineMath math="M" /></div>
-                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} />
+                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} onClick={() => onSelectVariable("message_sign")} />
                             </div>
                             <div className="flex flex-col items-center gap-2">
                                 <div><InlineMath math="ctx" /></div>
-                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} />
+                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} onClick={() => onSelectVariable("ctx_sign")} />
                             </div>
                         </div>
                 </div>
                 <div className="flex flex-col gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div className="flex flex-col items-center gap-2">
                         <div><InlineMath math="rnd" /></div>
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rnd ? Array.from(spyData.rnd) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rnd ? Array.from(spyData.rnd) : []} showValues={true} onClick={() => onSelectVariable("rnd_sign")} />
                     </div>
                 </div>
             </div>
@@ -53,16 +53,16 @@ export default function SignOuter({
                 <SquareGrid rows={1} cols={1} size={12} colorData={spyData?.ctx ? [spyData.ctx.length] : []} showValues={true} />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="ctx" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} onClick={() => onSelectVariable("ctx_sign")} />
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="M" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} onClick={() => onSelectVariable("M_sign")} />
                 </div>
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="M'" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.M ? Array.from(spyData.M) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.M ? Array.from(spyData.M) : []} showValues={true} onClick={() => onSelectVariable("M'_sign")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -85,7 +85,7 @@ export default function SignOuter({
                     <div className="text-green-700 font-semibold text-lg">Output</div>
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="\sigma" /></div>
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.signature ? Array.from(spyData.signature) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.signature ? Array.from(spyData.signature) : []} showValues={true} onClick={() => onSelectVariable("signature")} />
                     </div>
                 </div>
             </div>

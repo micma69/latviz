@@ -30,7 +30,7 @@ export default function KeygenOuter({
                             <SquareGrid
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.seed ? Array.from(spyData.seed) : []}
-                                showValues onClick={() => onSelectVariable("d")}
+                                showValues onClick={() => onSelectVariable("xi_keygen")}
                             />
                         </div>
                 </div>

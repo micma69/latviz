@@ -36,7 +36,7 @@ export default function KeygenVisualizationProcess({
                         <SquareGrid
                             rows={1} cols={4} rowsExpanded={8} size={12}
                             colorData={spyData?.rho ? Array.from(spyData.rho) : []}
-                            showValues onClick={() => onSelectVariable("rho")}
+                            showValues onClick={() => onSelectVariable("rho_keygen")}
                         />
                     </div>
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
@@ -44,7 +44,7 @@ export default function KeygenVisualizationProcess({
                         <SquareGrid
                             rows={1} cols={4} rowsExpanded={8} size={12}
                             colorData={spyData?.sigma ? Array.from(spyData.sigma) : []}
-                            showValues onClick={() => onSelectVariable("sigma")}
+                            showValues onClick={() => onSelectVariable("sigma_keygen")}
                         />
                     </div>
                 </div>            
@@ -58,7 +58,7 @@ export default function KeygenVisualizationProcess({
                             <SquareGrid
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []}
-                                showValues onClick={() => onSelectVariable("A")}
+                                showValues onClick={() => onSelectVariable("A_keygen")}
                             />
                         </div>
                     </div>
@@ -71,7 +71,7 @@ export default function KeygenVisualizationProcess({
                             <SquareGrid
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.eHat[0] ? Array.from(spyData.eHat[0]) : []}
-                                showValues onClick={() => onSelectVariable("e")}
+                                showValues onClick={() => onSelectVariable("e_keygen")}
                             />
                         </div>
                     </div>
@@ -84,7 +84,7 @@ export default function KeygenVisualizationProcess({
                             <SquareGrid
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []}
-                                showValues onClick={() => onSelectVariable("s")}
+                                showValues onClick={() => onSelectVariable("s_keygen")}
                             />
                         </div>
                     </div>
@@ -98,8 +98,8 @@ export default function KeygenVisualizationProcess({
                     <div><InlineMath math="t" /></div>
                     <SquareGrid
                         rows={1} cols={4} rowsExpanded={8} size={12}
-                        colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []}
-                        showValues onClick={() => onSelectVariable("A")}
+                        colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []}
+                        showValues onClick={() => onSelectVariable("t_keygen")}
                     />
                 </div>
             </div>
@@ -113,7 +113,7 @@ export default function KeygenVisualizationProcess({
                             rows={8} cols={8} size={4}
                             colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []}
                             showValues showTooltip
-                            onClick={() => onSelectVariable("encapskey")}
+                            onClick={() => onSelectVariable("ekPKE_keygen")}
                         />
                     </div>
                     <div className="flex flex-col items-center justify-center font-mono text-sm gap-2">
@@ -122,7 +122,7 @@ export default function KeygenVisualizationProcess({
                             rows={8} cols={8} size={4}
                             colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []}
                             showValues showTooltip
-                            onClick={() => onSelectVariable("decapskey")}
+                            onClick={() => onSelectVariable("dkPKE_keygen")}
                         />
                     </div>
                 </div>

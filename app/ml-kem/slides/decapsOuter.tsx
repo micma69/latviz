@@ -25,7 +25,7 @@ export default function DecapsulationVisualization({
                 <div className="flex flex-row gap-8 items-center justify-center">
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="c" /></div>
-                        <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} onClick={() => onSelectVariable("ciphertext_decaps")} />
                     </div>
                 </div>
             </div>
@@ -33,32 +33,32 @@ export default function DecapsulationVisualization({
                 <div className="text-blue-700 font-semibold text-lg">Input</div>
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="dk" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dk ? Array.from(spyData.dk) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dk ? Array.from(spyData.dk) : []} showValues={true} onClick={() => onSelectVariable("decapskey_decaps")} />
                 </div>
             </div>
             <ArrowLongRightIcon className="size-6" />
             <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="dk_{PKE}" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []} showValues={true} onClick={() => onSelectVariable("dkPKE_decaps")} />
                 </div>
             </div>
             <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="ek_{PKE}" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []} showValues={true} onClick={() => onSelectVariable("ekPKE_decaps")} />
                 </div>
             </div>
             <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="h" /></div>
-                    <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.h ? Array.from(spyData.h) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.h ? Array.from(spyData.h) : []} showValues={true} onClick={() => onSelectVariable("h_decaps")} />
                 </div>
             </div>
             <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="z" /></div>
-                    <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.z ? Array.from(spyData.z) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} size={12} colorData={spyData?.z ? Array.from(spyData.z) : []} showValues={true} onClick={() => onSelectVariable("z_decaps")} />
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@ export default function DecapsulationVisualization({
             <ArrowLongRightIcon className="size-6" />
             <div className="flex flex-col gap-2 items-center">
                 <div><InlineMath math="m'" /></div>
-                <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} />
+                <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} onClick={() => onSelectVariable("m_decaps")} />
             </div>
         </div>
         <div className="flex flex-row gap-4 items-center">
@@ -87,11 +87,11 @@ export default function DecapsulationVisualization({
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="K'" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} onClick={() => onSelectVariable("K'_decaps")} />
                 </div>
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="r'" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} onClick={() => onSelectVariable("r'_decaps")} />
                 </div>
             </div>
             <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
@@ -99,7 +99,7 @@ export default function DecapsulationVisualization({
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="\bar{K}" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.Kbar ? Array.from(spyData.Kbar) : []} showValues={true} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.Kbar ? Array.from(spyData.Kbar) : []} showValues={true} onClick={() => onSelectVariable("kbar_decaps")} />
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@ export default function DecapsulationVisualization({
             <ArrowLongRightIcon className="size-6" />
             <div className="flex flex-col items-center font-mono text-sm gap-2">
                 <div><InlineMath math="c'" /></div>
-                <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} />
+                <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} onClick={() => onSelectVariable("c'_decaps")} />
             </div>
         </div>
         <ArrowLongDownIcon className="size-6" />
@@ -123,7 +123,7 @@ export default function DecapsulationVisualization({
             <div className="text-green-700 font-semibold text-lg">Output</div>
             <div className="flex flex-col items-center font-mono text-sm gap-2">
                 <div className="font-mono text-sm"><InlineMath math="K'" /></div>
-                <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.Kfinal ? Array.from(spyData.Kfinal) : []} showValues={true} />
+                <SquareGrid rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.Kfinal ? Array.from(spyData.Kfinal) : []} showValues={true} onClick={() => onSelectVariable("kfinal")} />
             </div>
         </div>
         <Button

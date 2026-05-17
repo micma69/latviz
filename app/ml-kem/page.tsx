@@ -39,7 +39,20 @@ export default function MLKEMPage() {
         setsharedSecret(null);
         setVizStage(null);
         setSelectedVariable(null);
+        setKeygenSpyData(null);
+        setEncapsSpyData(null);
+        setDecapsSpyData(null);
     }, [securityLevel]);
+
+    const resetAll = (): void => {
+        setAliceKeys(null);
+        setCipherText(null);
+        setsharedSecret(null);;
+        setSelectedVariable(null);
+        setKeygenSpyData(null);
+        setEncapsSpyData(null);
+        setDecapsSpyData(null);
+    }
 
     const mlKemLevels = [
         { label: 'ML-KEM-512 (128-bit security)', value: 'ml_kem512' },
@@ -387,6 +400,15 @@ export default function MLKEMPage() {
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Decapsulation
+                                            </Button>
+                                            <Button
+                                                variant="outline"
+                                                size="lg"
+                                                disabled={!keygenSpyData}
+                                                onClick={() => {resetAll()}}
+                                                className="cursor-pointer h-14 px-10 text-lg"
+                                            >
+                                                Reset
                                             </Button>
                                         </div>
                                     )}

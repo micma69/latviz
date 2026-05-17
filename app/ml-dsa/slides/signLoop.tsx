@@ -90,7 +90,7 @@ export default function SignLoop({
                     <div><InlineMath math="\rho''" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={spyData?.rhoPrime ? Array.from(spyData.rhoPrime) : []} 
-                               showValues={true} />
+                               showValues={true} onClick={() => onSelectVariable("rhop_sign")} />
                 </div>
                 <div><InlineMath math=", \kappa" /></div>
                 <ArrowLongRightIcon className="size-6" />
@@ -98,7 +98,7 @@ export default function SignLoop({
                     <div><InlineMath math="y \in R_q^\ell" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.y?.[0] ? Array.from(currentIteration.y[0]) : []} 
-                               showValues={true} />
+                               showValues={true} onClick={() => onSelectVariable("y_sign")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -110,7 +110,7 @@ export default function SignLoop({
                     <div><InlineMath math="w" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.w?.[0] ? Array.from(currentIteration.w[0]) : []} 
-                               showValues={true} />
+                               showValues={true} onClick={() => onSelectVariable("w_sign")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -122,7 +122,7 @@ export default function SignLoop({
                     <div><InlineMath math="w_1" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.w1?.[0] ? Array.from(currentIteration.w1[0]) : []} 
-                               showValues={true} />
+                               showValues={true} onClick={() => onSelectVariable("w1_sign")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -132,14 +132,14 @@ export default function SignLoop({
                     <div><InlineMath math="\tilde{c} = H(\mu \| \mathbf{w}_1)" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.cTilde ? Array.from(currentIteration.cTilde) : []} 
-                               showValues={true} />
+                               showValues={true} onClick={() => onSelectVariable("tildec_sign")} />
                 </div>
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="c = \text{SampleInBall}(\tilde{c})" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.c ? Array.from(currentIteration.c) : []} 
-                               showValues={true} />
+                               showValues={true} onClick={() => onSelectVariable("c_sign")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -151,7 +151,7 @@ export default function SignLoop({
                     <div><InlineMath math="z" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.z?.[0] ? Array.from(currentIteration.z[0]) : []} 
-                               showValues={true} />
+                               showValues={true} onClick={() => onSelectVariable("z_sign")} />
                     {currentIteration?.zNormInf !== undefined && (
                         <div className={`text-xs font-mono ${currentIteration.zNormInf >= 131072 ? 'text-red-600' : 'text-green-600'}`}>
                             ||z||∞ = {currentIteration.zNormInf}
@@ -167,8 +167,8 @@ export default function SignLoop({
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="r_0" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
-                                   colorData={currentIteration?.r0?.[0] ? Array.from(currentIteration.r0[0]).map(v => v + 95232) : []} 
-                               showValues={true} />
+                                   colorData={currentIteration?.r0?.[0] ? Array.from(currentIteration.r0[0]) : [] } 
+                               showValues={true} onClick={() => onSelectVariable("r0_sign")} />
                     {currentIteration?.r0NormInf !== undefined && (
                         <div className={`text-xs font-mono ${currentIteration.r0NormInf >= 95232 ? 'text-red-600' : 'text-green-600'}`}>
                             ||r₀||∞ = {currentIteration.r0NormInf}

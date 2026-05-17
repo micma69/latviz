@@ -40,11 +40,16 @@ export default function MLDSAPage() {
     const [signSpyData, setSignSpyData] = useState<DSASignSpyData | null>(null);
     const [verifySpyData, setVerifySpyData] = useState<DSAVerifySpyData | null>(null);
 
-    useEffect(() => {
+    const resetAll = (): void => {
         setKeys(null);
         setSignature(null);
         setVerifyResult(null);
+    }
+
+    useEffect(() => {
+        resetAll();
     }, [securityLevel]);
+
 
     const mlDsaLevels = [
         { label: 'ML-DSA-44 (128-bit security)', value: 'ml_dsa44' },
@@ -409,6 +414,15 @@ export default function MLDSAPage() {
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Verify Signature
+                                            </Button>
+                                            <Button
+                                                variant="outline"
+                                                size="lg"
+                                                disabled={!keygenSpyData}
+                                                onClick={() => {resetAll()}}
+                                                className="cursor-pointer h-14 px-10 text-lg"
+                                            >
+                                                Reset
                                             </Button>
                                         </div>
                                     )}
