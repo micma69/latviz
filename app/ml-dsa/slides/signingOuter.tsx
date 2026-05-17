@@ -32,7 +32,7 @@ export default function SignOuter({
                             </div>
                             <div className="flex flex-col items-center gap-2">
                                 <div><InlineMath math="M" /></div>
-                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} onClick={() => onSelectVariable("message_sign")} />
+                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={(spyData?.msg ? Array.from(spyData.msg) : []).slice(2)} showValues={true} onClick={() => onSelectVariable("message_sign")} />
                             </div>
                             <div className="flex flex-col items-center gap-2">
                                 <div><InlineMath math="ctx" /></div>
@@ -57,7 +57,7 @@ export default function SignOuter({
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="M" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} onClick={() => onSelectVariable("M_sign")} />
+                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={(spyData?.msg ? Array.from(spyData.msg) : []).slice(2)} showValues={true} onClick={() => onSelectVariable("M_sign")} />
                 </div>
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">

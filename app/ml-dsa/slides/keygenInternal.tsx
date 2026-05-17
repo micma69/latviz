@@ -38,7 +38,7 @@ export default function KeygenInternal({
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="\rho" /></div>
-                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues onClick={() => {onSelectVariable("rho")}} />
+                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues onClick={() => {onSelectVariable("rho_keygen")}} />
                         </div>
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="\rho'" /></div>

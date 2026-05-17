@@ -30,7 +30,7 @@ export default function VerifyInternal({
                             <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} onClick={() => onSelectVariable("publickey")} />
                         </div>
                         <div className="flex flex-col items-center gap-2">
-                            <div><InlineMath math="M" /></div>
+                            <div><InlineMath math="M'" /></div>
                             <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} onClick={() => onSelectVariable("M_verify")} />
                         </div>
                         <div className="flex flex-col items-center gap-2">

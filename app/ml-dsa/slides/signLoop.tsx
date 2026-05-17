@@ -90,7 +90,7 @@ export default function SignLoop({
                     <div><InlineMath math="\rho''" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={spyData?.rhoPrime ? Array.from(spyData.rhoPrime) : []} 
-                               showValues={true} onClick={() => onSelectVariable("rhop_sign")} />
+                               showValues={true} onClick={() => onSelectVariable("rhop_loop")} />
                 </div>
                 <div><InlineMath math=", \kappa" /></div>
                 <ArrowLongRightIcon className="size-6" />
@@ -98,7 +98,7 @@ export default function SignLoop({
                     <div><InlineMath math="y \in R_q^\ell" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.y?.[0] ? Array.from(currentIteration.y[0]) : []} 
-                               showValues={true} onClick={() => onSelectVariable("y_sign")} />
+                               showValues={true} onClick={() => onSelectVariable("y_loop")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -110,7 +110,7 @@ export default function SignLoop({
                     <div><InlineMath math="w" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.w?.[0] ? Array.from(currentIteration.w[0]) : []} 
-                               showValues={true} onClick={() => onSelectVariable("w_sign")} />
+                               showValues={true} onClick={() => onSelectVariable("w_loop")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -122,7 +122,7 @@ export default function SignLoop({
                     <div><InlineMath math="w_1" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.w1?.[0] ? Array.from(currentIteration.w1[0]) : []} 
-                               showValues={true} onClick={() => onSelectVariable("w1_sign")} />
+                               showValues={true} onClick={() => onSelectVariable("w1_loop")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -132,14 +132,14 @@ export default function SignLoop({
                     <div><InlineMath math="\tilde{c} = H(\mu \| \mathbf{w}_1)" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.cTilde ? Array.from(currentIteration.cTilde) : []} 
-                               showValues={true} onClick={() => onSelectVariable("tildec_sign")} />
+                               showValues={true} onClick={() => onSelectVariable("tildec_loop")} />
                 </div>
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="c = \text{SampleInBall}(\tilde{c})" /></div>
                     <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} 
                                colorData={currentIteration?.c ? Array.from(currentIteration.c) : []} 
-                               showValues={true} onClick={() => onSelectVariable("c_sign")} />
+                               showValues={true} onClick={() => onSelectVariable("c_loop")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />

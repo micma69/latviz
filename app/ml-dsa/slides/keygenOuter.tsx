@@ -49,11 +49,11 @@ export default function KeygenOuter({
                     <div className="text-green-700 font-semibold text-lg">Output</div>
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="pk" /></div>
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} onClick={() => {onSelectVariable("publicKey")}} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} onClick={() => {onSelectVariable("publickey")}} />
                     </div>
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="sk" /></div>
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => {onSelectVariable("secretKey")}}/>
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => {onSelectVariable("secretkey")}}/>
                     </div>
                 </div>
             </div>

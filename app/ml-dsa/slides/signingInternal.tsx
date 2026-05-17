@@ -30,7 +30,7 @@ export default function SignInternal({
                             <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => onSelectVariable("secretkey")} />
                         </div>
                         <div className="flex flex-col items-center gap-2">
-                            <div><InlineMath math="M" /></div>
+                            <div><InlineMath math="M'" /></div>
                             <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} onClick={() => onSelectVariable("message_sign")} />
                         </div>
                         <div className="flex flex-col items-center gap-2">
