@@ -760,7 +760,7 @@ export default function LLLPage() {
                     <p>The δ is used in the Lovász condition checking :</p>
                     <p> ||b<sub>k</sub>*||² ≥ (δ - μ<sub>k,k-1</sub>²) ||b<sub>k-1</sub>*||²</p>
                     <p><strong>Effect :</strong> Larger δ gives better reduction and better orthogonality but more iterations and thus computationally heavier. Smaller δ however, requires less iterations and faster computationally, but less reduced.</p>
-                    <p>In other words, <strong>if you want a better result with heavier process, use a bigger δ. If you want a faster and lighter process, use a smaller δ</strong></p>
+                    <p>In other words, <strong>if you want a better result with heavier process, use a bigger δ. If you want a faster and lighter process, use a smaller δ.</strong></p>
                     <p>Fun fact, BKZ uses δ as well, often with bigger δ for better reduction quality.</p>
                   </div>
                 </div>
