@@ -56,6 +56,10 @@ export interface LLLStep {
   calculations?: string[]
   lllNumber?: number
   blockStart?: number
+  blockEnd?: number
+  svpSolution?: number[]
+  svpBlockBefore?: number[][]
+  svpBlockAfter?: number[][]
   coefficient?: number
   subtractAmount?: number
   norm_k?: number
