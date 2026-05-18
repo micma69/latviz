@@ -151,6 +151,7 @@ export interface DSASignSpyData {
     msg?: Uint8Array;
     M?: Uint8Array;
     random?: Uint8Array;
+    cTilde?: Uint8Array;
 }
 
 export interface DSAVerifySpyData {

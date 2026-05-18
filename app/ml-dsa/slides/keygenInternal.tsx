@@ -30,7 +30,7 @@ export default function KeygenInternal({
                             <SquareGrid
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.seed ? Array.from(spyData.seed) : []}
-                                showValues onClick={() => onSelectVariable("d")}
+                                showValues onClick={() => onSelectVariable("xi_keygen")}
                             />
                         </div>
                 </div>
@@ -38,15 +38,15 @@ export default function KeygenInternal({
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="\rho" /></div>
-                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues onClick={() => {onSelectVariable("rho")}} />
+                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues onClick={() => {onSelectVariable("rho_keygen")}} />
                         </div>
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="\rho'" /></div>
-                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rhoPrime ? Array.from(spyData.rhoPrime) : []} showValues onClick={() => {onSelectVariable("rho_prime")}} />
+                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rhoPrime ? Array.from(spyData.rhoPrime) : []} showValues onClick={() => {onSelectVariable("rhop_keygen")}} />
                         </div>
                         <div className="flex flex-col gap-2 items-center">
                             <InlineMath math="K" />
-                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} />
+                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} onClick={() => onSelectVariable("K_keygen")} />
                         </div>
                 </div>
 
@@ -58,7 +58,7 @@ export default function KeygenInternal({
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col gap-2 items-center">
                         <InlineMath math="A" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues={true} onClick={() => onSelectVariable("A_keygen")} />
                     </div>
                 </div>
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
@@ -66,11 +66,11 @@ export default function KeygenInternal({
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col gap-2 items-center">
                         <InlineMath math="s_1" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.s1[0] ? Array.from(spyData.s1[0]).map(v => v + 2) : []} displayData={spyData?.s1[0] ? Array.from(spyData.s1[0]) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.s1[0] ? Array.from(spyData.s1[0]) : []} showValues={true} onClick={() => onSelectVariable("s1_keygen")} />
                     </div>
                     <div className="flex flex-col gap-2 items-center">
                         <InlineMath math="s_2" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12}colorData={spyData?.s2[0] ? Array.from(spyData.s2[0]).map(v => v + 2) : []} displayData={spyData?.s2[0] ? Array.from(spyData.s2[0]) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12}colorData={spyData?.s2[0] ? Array.from(spyData.s2[0]) : []} showValues={true} onClick={() => onSelectVariable("s2_keygen")} />
                     </div>
                 </div>
             </div>
@@ -81,20 +81,20 @@ export default function KeygenInternal({
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col gap-2 items-center">
                         <InlineMath math="t" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.t[0] ? Array.from(spyData.t[0]) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.t[0] ? Array.from(spyData.t[0]) : []} showValues={true} onClick={() => onSelectVariable("t_keygen")} />
                     </div>
                 </div>
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div className="flex flex-col gap-2 items-center">
                         <InlineMath math="t_0" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.t0[0] ? Array.from(spyData.t0[0]) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.t0[0] ? Array.from(spyData.t0[0]) : []} showValues={true} onClick={() => onSelectVariable("t0_keygen")} />
                     </div>
                 </div>
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div className="flex flex-col gap-2 items-center">
                         <InlineMath math="t_1" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.t1[0] ? Array.from(spyData.t1[0]) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.t1[0] ? Array.from(spyData.t1[0]) : []} showValues={true} onClick={() => onSelectVariable("t1_keygen")} />
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@ export default function KeygenInternal({
                         <ArrowLongRightIcon className="size-6" />
                         <div className="flex flex-col items-center font-mono text-sm gap-2">
                             <div><InlineMath math="pk" /></div>
-                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} />
+                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} onClick={() => onSelectVariable("publickey")} />
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@ export default function KeygenInternal({
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col gap-2 items-center">
                         <InlineMath math="tr" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.tr ? Array.from(spyData.tr) : []} showValues={true} />
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.tr ? Array.from(spyData.tr) : []} showValues={true} onClick={() => onSelectVariable("tr_keygen")} />
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
@@ -126,7 +126,7 @@ export default function KeygenInternal({
                         <ArrowLongRightIcon className="size-6" />
                         <div className="flex flex-col items-center font-mono text-sm gap-2">
                             <div><InlineMath math="sk" /></div>
-                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} />
+                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => onSelectVariable("secretkey")} />
                         </div>
                     </div>
                 </div>
