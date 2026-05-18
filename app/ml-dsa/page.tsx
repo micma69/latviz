@@ -7,7 +7,7 @@ import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import * as utils from '@/lib/modified-pqc/utils';
-import { DSAKeygenSpyData, DSASignSpyData, DSAVerifySpyData, createDSASpy } from '@/utils/createSpy';
+import { DSAKeygenSpyData, DSASignSpyData, DSAVerifySpyData, createDSASpy, SignIteration } from '@/utils/createSpy';
 import SquareGrid from '@/components/ui/gridLattice';
 import KeygenOuter from './slides/keygenOuter';
 import SignOuter from './slides/signingOuter';
@@ -16,7 +16,6 @@ import KeygenInternal from './slides/keygenInternal';
 import SignInternal from './slides/signingInternal';
 import VerifyInternal from './slides/verifyInternal';
 import SignLoop from './slides/signLoop';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 export default function MLDSAPage() {
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
@@ -40,11 +39,16 @@ export default function MLDSAPage() {
     const [signSpyData, setSignSpyData] = useState<DSASignSpyData | null>(null);
     const [verifySpyData, setVerifySpyData] = useState<DSAVerifySpyData | null>(null);
 
-    useEffect(() => {
+    const resetAll = (): void => {
         setKeys(null);
         setSignature(null);
         setVerifyResult(null);
+    }
+
+    useEffect(() => {
+        resetAll();
     }, [securityLevel]);
+
 
     const mlDsaLevels = [
         { label: 'ML-DSA-44 (128-bit security)', value: 'ml_dsa44' },
@@ -78,17 +82,6 @@ export default function MLDSAPage() {
         { key: "beta", label: "β" },
         { key: "omega", label: "ω" },
     ];
-
-    const formatArray = (bytes: Uint8Array | null) => {
-        if (!bytes) return "";
-        return `[${Array.from(bytes).join(", ")}]`;
-    };
-
-    const previewArray = (bytes: Uint8Array | null, count = 5) => {
-        if (!bytes) return "";
-        const arr = Array.from(bytes.slice(0, count));
-        return `[${arr.join(", ")}, ...]`;
-    };
 
     const executeMLDSA = async (operation: string) => {
         const spy = createDSASpy();
@@ -359,7 +352,7 @@ export default function MLDSAPage() {
                                             <Button
                                                 variant="outline"
                                                 size="lg"
-                                                onClick={() => {executeMLDSA("Key Generation") ; setVizStage("keygen0")}}
+                                                onClick={() => {if (!keygenSpyData) {executeMLDSA("Key Generation");} setVizStage("keygen0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Key Generation
@@ -369,7 +362,7 @@ export default function MLDSAPage() {
                                                     variant="outline"
                                                     size="lg"
                                                     disabled={!keys || message.length === 0}
-                                                    onClick={() => {executeMLDSA("Sign Message") ; setVizStage("sign0")}}
+                                                    onClick={() => {if (!signSpyData) {executeMLDSA("Sign Message");} setVizStage("sign0");}}
                                                     className="cursor-pointer h-14 px-10 text-lg"
                                                 >
                                                     Sign Message
@@ -378,7 +371,7 @@ export default function MLDSAPage() {
                                                     <div>
                                                         <textarea
                                                             value={message}
-                                                            onChange={(e) => setMessage(e.target.value)}
+                                                            onChange={(e) => {setMessage(e.target.value); setSignSpyData(null); setSignature(null)}}
                                                             placeholder="Enter a message before signing!"
                                                             className="
                                                             w-full
@@ -405,10 +398,19 @@ export default function MLDSAPage() {
                                                 variant="outline"
                                                 size="lg"
                                                 disabled={!signature}
-                                                onClick={() => {executeMLDSA("Verify Signature") ; setVizStage("verify0")}}
+                                                onClick={() => {if (!verifySpyData) {executeMLDSA("Verify Signature");} setVizStage("verify0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Verify Signature
+                                            </Button>
+                                            <Button
+                                                variant="outline"
+                                                size="lg"
+                                                disabled={!keygenSpyData}
+                                                onClick={() => {resetAll()}}
+                                                className="cursor-pointer h-14 px-10 text-lg"
+                                            >
+                                                Reset
                                             </Button>
                                         </div>
                                     )}
@@ -468,60 +470,465 @@ export default function MLDSAPage() {
                                 )}
                             </div>
                             <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center">
-                                {(vizStage === null || vizStage === "home") &&
-                                    <div className="">Pick a stage!</div>
+                                {(vizStage === null || selectedVariable === null) &&
+                                    <div>Click a variable to see it in full!</div>
                                 }
-                                {(vizStage === "keygen0" || vizStage === "keygen1") &&
-                                    <div className="flex flex-col items-center gap-4">
-                                        Output
-                                        <div className="grid grid-cols-2 gap-6">
-                                            <div className="flex flex-col items-center gap-1">
-                                                <div><InlineMath math="pk \in \mathbb{B}^{32 + 32k(\mathrm{bitlen}(q - 1) - d)}" /></div>
-                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                    <SquareGrid rows={Math.ceil((keygenSpyData?.pk?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.pk ? Array.from(keygenSpyData.pk) : []} showValues={true}/>
-                                                </div>
-                                            </div>
-                                            <div className="flex flex-col items-center gap-1">
-                                                <div><InlineMath math="sk \in \mathbb{B}^{32 + 32 + 64 + 32 \cdot ((\ell + k)\cdot \mathrm{bitlen}(2\eta) + d_k)}" /></div>
-                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                    <SquareGrid rows={Math.ceil((keygenSpyData?.sk?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sk ? Array.from(keygenSpyData.sk) : []} showValues={true}/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                {(vizStage === "sign0" || vizStage === "sign1" || vizStage === "sign2") &&
-                                    <div className="flex flex-col items-center gap-4">
-                                        <div>Output</div>
-                                        <div className="flex flex-col items-center gap-1">
-                                            <div><InlineMath math="\sigma \in \mathbb{B}^{\lambda/4 + \ell \cdot 32 \cdot (1 + \mathrm{bitlen}(\gamma_1 - 1)) + \omega + k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.signature?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.signature ? Array.from(signSpyData.signature) : []} showValues={true}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                {(vizStage === "verify0" || vizStage === "verify1") && (
-                                    <div className="flex flex-col items-center">
-                                        <div className={`text-lg font-bold ${verifyResult ? "text-green-500" : "text-red-500"}`}>
-                                        {verifyResult ? "The Signature is Valid!" : "The Signature is Invalid!"}
-                                        </div>
 
-                                        {verifyResult && (
-                                        <CheckCircleIcon className="w-10 h-10 text-green-500 mt-2" />
-                                        )}
+                                {/* ── KEYGEN ── */}
+                                {selectedVariable === "xi_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\xi \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.seed?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.seed ? Array.from(keygenSpyData.seed) : []} showValues showTooltip={false} />
+                                        </div>
                                     </div>
-                                )}
+                                }
+
+                                {selectedVariable === "rho_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rhop_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho' \in \{0,1\}^{512}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rhoPrime ? Array.from(keygenSpyData.rhoPrime) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "K_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="K \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.K ? Array.from(keygenSpyData.K) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "A_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.A?.[0]?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s1_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="s_1 \in S_\eta^\ell" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s1[0] ? Array.from(keygenSpyData.s1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s2_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="s_2 \in S_\eta^k" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s2[0] ? Array.from(keygenSpyData.s2[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="t = As_1 + s_2 \in \mathbb{Z}_q^k" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.t[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t[0] ? Array.from(keygenSpyData.t[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t0_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="t_0 \in \mathbb{Z}_q^k" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t0[0] ? Array.from(keygenSpyData.t0[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t1_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="t_1 \in \mathbb{Z}_q^k" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.t1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t1[0] ? Array.from(keygenSpyData.t1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "publickey" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="pk \in \mathbb{B}^{32 + 32k(\mathrm{bitlen}(q-1) - d)}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.pk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.pk ? Array.from(keygenSpyData.pk) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "secretkey" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="sk \in \mathbb{B}^{32+32+64+32((\ell+k)\cdot\mathrm{bitlen}(2\eta)+d_k)}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.sk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.sk ? Array.from(keygenSpyData.sk) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tr_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{tr} \in \{0,1\}^{512}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tr ? Array.from(keygenSpyData.tr) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {/* ── SIGNING ── */}
+                                {selectedVariable === "message_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rnd_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{rnd} \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.rnd?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rnd ? Array.from(signSpyData.rnd) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "ctx_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{ctx}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.ctx ? Array.from(signSpyData.ctx) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "M_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "M'_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.M?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.M ? Array.from(signSpyData.M) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rho_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rho ? Array.from(signSpyData.rho) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "K_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="K" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.K ? Array.from(signSpyData.K) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tr_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{tr}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.tr ? Array.from(signSpyData.tr) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s1_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="s_1" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s1[0] ? Array.from(signSpyData.s1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s2_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="s_2" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s2[0] ? Array.from(signSpyData.s2[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t0_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="t_0" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.t0[0] ? Array.from(signSpyData.t0[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "A_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.A?.[0]?.[0] ? Array.from(signSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "mu_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mu \in \{0,1\}^{512}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.mu ? Array.from(signSpyData.mu) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rhop_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rhoPrime ? Array.from(signSpyData.rhoPrime) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rhop_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rhoPrime ? Array.from(signSpyData.rhoPrime) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "y_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="y \in S_{\gamma_1 - 1}^\ell" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.y?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.y?.[0] ? Array.from(signSpyData.y[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "w_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="w = Ay" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.w?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w?.[0] ? Array.from(signSpyData.w[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "w1_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="w_1 = \mathrm{HighBits}(w)" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w1?.[0] ? Array.from(signSpyData.w1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tildec_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\tilde{c} \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.cTilde ? Array.from(signSpyData.cTilde) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "c_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c \in B_{60}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.c ? Array.from(signSpyData.c) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "z_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="z = y + cs_1" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.z?.[0] ? Array.from(signSpyData.z[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "r0_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="r_0 = \mathrm{LowBits}(w - cs_2)" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.r0?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.r0?.[0] ? Array.from(signSpyData.r0[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "signature" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\sigma" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.signature?.length ?? 0) / 8)} cols={8} size={20} colorData={signSpyData?.signature ? Array.from(signSpyData.signature) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {/* ── VERIFY ── */}
+                                {selectedVariable === "M_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "message_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "ctx_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{ctx}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.ctx ? Array.from(verifySpyData.ctx) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "M'_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.msg ? Array.from(verifySpyData.msg) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "A_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.A?.[0]?.[0] ? Array.from(verifySpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tr_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{tr}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.tr ? Array.from(verifySpyData.tr) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "mu_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mu \in \{0,1\}^{512}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.mu ? Array.from(verifySpyData.mu) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tildec_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\tilde{c}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "z_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="z" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.z?.[0] ? Array.from(verifySpyData.z[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "h_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="h" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.h?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.h?.[0] ? Array.from(verifySpyData.h[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "c_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c \in B_{60}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.c ? Array.from(verifySpyData.c) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "wapprox" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="w' \approx Az - ct_1 \cdot 2^d" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.wPrime?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.wPrime?.[0] ? Array.from(verifySpyData.wPrime[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "wp1" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="w_1' = \mathrm{UseHint}(h, w')" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.w1?.[0] ? Array.from(verifySpyData.w1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tildecp_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\tilde{c}' = H(\mu \| w_1')" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
                             </div>
                             <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center">
-                                <div>
-                                    {vizStage === null &&
-                                        <div>will show full variable expansion</div>
-                                    }
-                                </div>
-                                <div>
-                                    expanded
-                                </div>
+                                empt
                             </div>
                         </div>
                     </div>    

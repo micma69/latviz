@@ -10,9 +10,7 @@ interface SquareGridProps {
   size?: number;
   color?: string;
   colorData?: number[];
-  displayData?: number[];
   showValues?: boolean;
-  base?: number;
   onClick?: () => void;
   tooltipTitle?: string;
   tooltipDescription?: string;
@@ -67,9 +65,7 @@ export default function SquareGrid({
   size = 20,
   color = "#bac0cd5b",
   colorData,
-  displayData,
   showValues = false,
-  base,
   onClick,
   tooltipTitle = "insert popup title",
   tooltipDescription = "short desc? what the numbers are probs",
@@ -88,11 +84,10 @@ export default function SquareGrid({
 
   const total = activeRows * activeCols;
   const colorDataSlice = colorData?.slice(0, total);
-  const displayDataSlice = displayData?.slice(0, total);
   
   const { min, max, range } = useMemo(() => {
     if (!colorData || colorData.length === 0) {
-      return { min: 0, max: (base ?? 256) - 1, range: (base ?? 256) - 1 };
+      return { min: 0, max: (256) - 1, range: (256) - 1 };
     }
     
     let minVal = Infinity;
@@ -105,7 +100,7 @@ export default function SquareGrid({
       return { min: minVal, max: maxVal, range: 0 };
     }
     return { min: minVal, max: maxVal, range: maxVal - minVal };
-  }, [colorData, base]);
+  }, [colorData]);
   
   const effectiveSize = showValues ? Math.max(size, 16) : size;
 
@@ -131,7 +126,7 @@ export default function SquareGrid({
     setShowInfoCard(false);
   };
 
-  const values = displayDataSlice?.filter(v => v !== undefined) || colorDataSlice?.filter(v => v !== undefined) || [];
+  const values = colorDataSlice?.filter(v => v !== undefined) || [];
   const minValue = values.length ? Math.min(...values) : null;
   const maxValue = values.length ? Math.max(...values) : null;
   const avgValue = values.length ? Math.round(values.reduce((a, b) => a + b, 0) / values.length) : null;
@@ -152,7 +147,7 @@ export default function SquareGrid({
       >
         {Array.from({ length: total }).map((_, i) => {
           const colorValue = colorDataSlice?.[i];
-          const displayValue = displayDataSlice?.[i] ?? colorValue;
+          const displayValue = colorValue;
           const hasValue = colorValue !== undefined;
           
           let squareColor;
