@@ -30,7 +30,7 @@ export default function KeygenVisualization({
                         <SquareGrid
                             rows={1} cols={4} rowsExpanded={8} size={12}
                             colorData={spyData?.d ? Array.from(spyData.d) : []}
-                            showValues onClick={() => onSelectVariable("d")}
+                            showValues variableKey="d" onClick={() => onSelectVariable("d")}
                         />
                     </div>
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
@@ -38,7 +38,7 @@ export default function KeygenVisualization({
                         <SquareGrid
                             rows={1} cols={4} rowsExpanded={8} size={12}
                             colorData={spyData?.z ? Array.from(spyData.z) : []}
-                            showValues onClick={() => onSelectVariable("z_keygen")}
+                            showValues variableKey="z_keygen" onClick={() => onSelectVariable("z_keygen")}
                         />
                     </div>
                 </div>
@@ -62,7 +62,7 @@ export default function KeygenVisualization({
                             <SquareGrid
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []}
-                                showValues onClick={() => onSelectVariable("ekPKE_keygen")}
+                                showValues variableKey="ekPKE_keygen" onClick={() => onSelectVariable("ekPKE_keygen")}
                             />
                         </div>
                     </div>
@@ -75,7 +75,7 @@ export default function KeygenVisualization({
                                 rows={8} cols={8} size={4}
                                 colorData={spyData?.publicKey}
                                 showValues showTooltip
-                                onClick={() => onSelectVariable("encapskey_keygen")}
+                                variableKey="encapskey_keygen" onClick={() => onSelectVariable("encapskey_keygen")}
                             />
                         </div>
                     </div>
@@ -88,7 +88,7 @@ export default function KeygenVisualization({
                             <SquareGrid
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []}
-                                showValues onClick={() => onSelectVariable("dkPKE_keygen")}
+                                showValues variableKey="dkPKE_keygen" onClick={() => onSelectVariable("dkPKE_keygen")}
                             />
                         </div>
                     </div>
@@ -101,6 +101,7 @@ export default function KeygenVisualization({
                             rows={8} cols={8} size={4}
                             colorData={spyData?.secretKey}
                             showValues showTooltip
+                            variableKey="decapskey_keygen"
                             onClick={() => onSelectVariable("decapskey_keygen")}
                             />
                         </div>

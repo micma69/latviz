@@ -1,4 +1,6 @@
 import { useState, useMemo } from "react";
+import Tooltip from "./tooltip";
+import { tooltipData, TooltipType } from "@/lib/tooltipData";
 
 interface SquareGridProps {
   rows?: number;
@@ -12,10 +14,9 @@ interface SquareGridProps {
   colorData?: number[];
   showValues?: boolean;
   onClick?: () => void;
-  tooltipTitle?: string;
-  tooltipDescription?: string;
-  tooltipDetails?: string;
+  tooltipType?: TooltipType;
   showTooltip?: boolean;
+  variableKey?: string;
 }
 
 const getColor = (value: number, min: number, max: number) => {
@@ -23,7 +24,6 @@ const getColor = (value: number, min: number, max: number) => {
   const range = max - min;
   
   if (range === 1) {
-    // Binary case should not reach here - handled separately
     normalized = value === min ? 0.2 : 0.8;
   } else if (range === 2) {
     normalized = (value - min) / range;
@@ -67,15 +67,18 @@ export default function SquareGrid({
   colorData,
   showValues = false,
   onClick,
-  tooltipTitle = "insert popup title",
-  tooltipDescription = "short desc? what the numbers are probs",
-  tooltipDetails = "how to make",
+  variableKey,
+  tooltipType,
   showTooltip = true,
 }: SquareGridProps) {
   const [hovered, setHovered] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [showInfoCard, setShowInfoCard] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const finalTooltipType = variableKey || tooltipType || "default";
+  
+  const tooltipContent = tooltipData[finalTooltipType as TooltipType] ?? tooltipData.default;
 
   const canExpand = rowsExpanded !== undefined || colsExpanded !== undefined;
 
@@ -154,13 +157,10 @@ export default function SquareGrid({
           if (!hasValue) {
             squareColor = "#f0f0f0";
           } else if (range === 0) {
-            // All values are the same (e.g., all zeros)
             squareColor = "#b81414";
           } else if (range === 1) {
-            // Binary data (0 and 1)
             squareColor = colorValue === min ? "#b81414" : "#a3a3f5";
           } else {
-            // Normal gradient
             squareColor = getColor(colorValue, min, max);
           }
           
@@ -221,64 +221,22 @@ export default function SquareGrid({
         })}
       </div>
 
+      {/* Simplified tooltip rendering - now using separate Tooltip component */}
       {showTooltip && showInfoCard && (
-        <div
-          style={{
-            position: "fixed",
-            left: mousePosition.x,
-            top: mousePosition.y,
-            backgroundColor: "white",
-            borderLeft: "4px solid #3498db",
-            borderRadius: "8px",
-            padding: "15px",
-            boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
-            zIndex: 1000,
-            width: "320px",
-            pointerEvents: "none",
-            animation: "slideIn 0.2s ease",
+        <Tooltip
+          title={tooltipContent.title}
+          description={tooltipContent.description}
+          details={tooltipContent.details}
+          position={mousePosition}
+          stats={{
+            min: minValue,
+            max: maxValue,
+            avg: avgValue,
+            rows: fullRows,
+            cols: fullCols,
+            range: range,
           }}
-        >
-          <h3 style={{ margin: "0 0 8px 0", color: "#2c3e50", fontSize: "1.1rem" }}>
-            {tooltipTitle}
-          </h3>
-          
-          <p style={{ color: "#7f8c8d", fontSize: "0.85rem", marginBottom: "12px" }}>
-            {tooltipDescription}
-          </p>
-          
-          <div style={{ margin: "10px 0" }}>
-            <strong style={{ display: "block", marginBottom: "4px", color: "#2c3e50" }}>
-              Details:
-            </strong>
-            <p style={{ margin: 0, lineHeight: "1.4", fontSize: "0.85rem" }}>
-              {tooltipDetails}
-            </p>
-          </div>
-          
-          {minValue !== null && maxValue !== null && (
-            <div style={{ 
-              marginTop: "10px", 
-              paddingTop: "8px", 
-              borderTop: "1px solid #ecf0f1",
-              fontSize: "0.75rem",
-              color: "#666"
-            }}>
-              <div>Range: {minValue} → {maxValue}</div>
-              <div>Average: {avgValue}</div>
-              {range === 0 && <div>All values identical (showing red)</div>}
-              {range === 1 && <div>Binary data: {min}=red, {max}=light blue</div>}
-            </div>
-          )}
-
-          <div style={{ 
-            marginTop: "10px", 
-            fontSize: "0.7rem", 
-            color: "#95a5a6",
-            textAlign: "right"
-          }}>
-            {fullRows}×{fullCols}
-          </div>
-        </div>
+        />
       )}
 
       {canExpand && (
