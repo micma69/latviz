@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import Tooltip from "./tooltip";
-import { tooltipData, TooltipType } from "@/lib/tooltipData";
+import { tooltipData as tooltipDataMlkem, TooltipType } from "@/lib/tooltipDataMlkem";
+import { tooltipData as tooltipDataMldsa } from "@/lib/tooltipDataMldsa";
 
 interface SquareGridProps {
   rows?: number;
@@ -17,6 +18,7 @@ interface SquareGridProps {
   tooltipType?: TooltipType;
   showTooltip?: boolean;
   variableKey?: string;
+  algorithm?: "mldsa" | "mlkem";
 }
 
 const getColor = (value: number, min: number, max: number) => {
@@ -56,6 +58,7 @@ const getLabelColor = (value: number, min: number, max: number) => {
 };
 
 export default function SquareGrid({
+  algorithm = "mldsa",
   rows = 8,
   cols = 8,
   rowsExpanded,
@@ -75,10 +78,9 @@ export default function SquareGrid({
   const [expanded, setExpanded] = useState(false);
   const [showInfoCard, setShowInfoCard] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const finalTooltipType = variableKey || tooltipType || "default";
   
-  const tooltipContent = tooltipData[finalTooltipType as TooltipType] ?? tooltipData.default;
+  const tooltipData = algorithm === "mldsa" ? tooltipDataMldsa : tooltipDataMlkem;
+  const tooltipContent = tooltipData[variableKey as keyof typeof tooltipData] ?? tooltipData.default;
 
   const canExpand = rowsExpanded !== undefined || colsExpanded !== undefined;
 

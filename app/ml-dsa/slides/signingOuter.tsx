@@ -28,41 +28,41 @@ export default function SignOuter({
                         <div className="flex flex-row gap-4 items-center">
                             <div className="flex flex-col items-center gap-2">
                                 <div><InlineMath math="sk" /></div>
-                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => onSelectVariable("secretkey")} />
+                                <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => onSelectVariable("secretkey")} variableKey="secretkey" />
                             </div>
                             <div className="flex flex-col items-center gap-2">
                                 <div><InlineMath math="M" /></div>
-                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={(spyData?.msg ? Array.from(spyData.msg) : []).slice(2)} showValues={true} onClick={() => onSelectVariable("message_sign")} />
+                                <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={(spyData?.msg ? Array.from(spyData.msg) : []).slice(2)} showValues={true} onClick={() => onSelectVariable("message_sign")} variableKey="message_sign" />
                             </div>
                             <div className="flex flex-col items-center gap-2">
                                 <div><InlineMath math="ctx" /></div>
-                                <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} onClick={() => onSelectVariable("ctx_sign")} />
+                                <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} onClick={() => onSelectVariable("ctx_sign")} variableKey="ctx_sign" />
                             </div>
                         </div>
                 </div>
                 <div className="flex flex-col gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div className="flex flex-col items-center gap-2">
                         <div><InlineMath math="rnd" /></div>
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rnd ? Array.from(spyData.rnd) : []} showValues={true} onClick={() => onSelectVariable("rnd_sign")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rnd ? Array.from(spyData.rnd) : []} showValues={true} variableKey="rnd_sign" onClick={() => onSelectVariable("rnd_sign")} />
                     </div>
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
             <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
-                <SquareGrid rows={1} cols={1} size={12} colorData={[0]} showValues={true} />
-                <SquareGrid rows={1} cols={1} size={12} colorData={spyData?.ctx ? [spyData.ctx.length] : []} showValues={true} />
+                <SquareGrid algorithm="mldsa" rows={1} cols={1} size={12} colorData={[0]} showValues={true} showTooltip={false} />
+                <SquareGrid algorithm="mldsa" rows={1} cols={1} size={12} colorData={spyData?.ctx ? [spyData.ctx.length] : []} showValues={true} variableKey="ctx_length" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="ctx" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} onClick={() => onSelectVariable("ctx_sign")} />
+                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} onClick={() => onSelectVariable("ctx_sign")} variableKey="ctx_sign" />
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="M" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={(spyData?.msg ? Array.from(spyData.msg) : []).slice(2)} showValues={true} onClick={() => onSelectVariable("M_sign")} />
+                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={(spyData?.msg ? Array.from(spyData.msg) : []).slice(2)} showValues={true} variableKey="M_sign" onClick={() => onSelectVariable("M_sign")} />
                 </div>
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="M'" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.M ? Array.from(spyData.M) : []} showValues={true} onClick={() => onSelectVariable("M'_sign")} />
+                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.M ? Array.from(spyData.M) : []} showValues={true} variableKey="Mp_sign" onClick={() => onSelectVariable("Mp_sign")} />
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -85,7 +85,7 @@ export default function SignOuter({
                     <div className="text-green-700 font-semibold text-lg">Output</div>
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="\sigma" /></div>
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.signature ? Array.from(spyData.signature) : []} showValues={true} onClick={() => onSelectVariable("signature")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.signature ? Array.from(spyData.signature) : []} showValues={true} onClick={() => onSelectVariable("signature")} variableKey="signature" />
                     </div>
                 </div>
             </div>

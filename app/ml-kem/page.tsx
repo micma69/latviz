@@ -475,7 +475,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="d \in \mathbb{B}^{32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.d?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.d ? Array.from(keygenSpyData.d) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.d?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.d ? Array.from(keygenSpyData.d) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -484,7 +484,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="z \in \mathbb{B}^{32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.z ? Array.from(keygenSpyData.z) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.z ? Array.from(keygenSpyData.z) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -493,7 +493,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\rho \in \mathbb{B}^{32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -502,7 +502,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\sigma \in \mathbb{B}^{32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.sigma?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sigma ? Array.from(keygenSpyData.sigma) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.sigma?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sigma ? Array.from(keygenSpyData.sigma) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -511,7 +511,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="A \in \mathbb{Z}_q^{k \times k}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil(keygenSpyData?.A?.[0]?.[0].length ?? 0) / 4} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil(keygenSpyData?.A?.[0]?.[0].length ?? 0) / 4} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -520,7 +520,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="s \in \mathbb{Z}_q^{k}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sHat[0] ? Array.from(keygenSpyData.sHat[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sHat[0] ? Array.from(keygenSpyData.sHat[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -529,7 +529,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="e \in \mathbb{Z}_q^{k}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.eHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.eHat[0] ? Array.from(keygenSpyData.eHat[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.eHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.eHat[0] ? Array.from(keygenSpyData.eHat[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -538,7 +538,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="t \in \mathbb{Z}_q^{k}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tHat[0] ? Array.from(keygenSpyData.tHat[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tHat[0] ? Array.from(keygenSpyData.tHat[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -547,7 +547,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="ek_{PKE} \in \mathbb{B}^{384k+32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.ekPKE ? Array.from(keygenSpyData.ekPKE) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.ekPKE ? Array.from(keygenSpyData.ekPKE) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -556,7 +556,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="dk_{PKE} \in \mathbb{B}^{384k}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.dkPKE ? Array.from(keygenSpyData.dkPKE) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.dkPKE ? Array.from(keygenSpyData.dkPKE) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -565,7 +565,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.publicKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.publicKey} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.publicKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.publicKey} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -574,7 +574,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.secretKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.secretKey} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.secretKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.secretKey} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -584,7 +584,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="m \in \mathbb{B}^{32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.m ? Array.from(encapsSpyData.m) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.m ? Array.from(encapsSpyData.m) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -593,7 +593,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="K" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.K ? Array.from(encapsSpyData.K) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.K ? Array.from(encapsSpyData.K) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -602,7 +602,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="r" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.r ? Array.from(encapsSpyData.r) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.r ? Array.from(encapsSpyData.r) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -611,7 +611,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.ek?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.ek ? Array.from(encapsSpyData.ek) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.ek?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.ek ? Array.from(encapsSpyData.ek) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -620,7 +620,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\rho \in \mathbb{B}^{32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.rho ? Array.from(encapsSpyData.rho) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.rho ? Array.from(encapsSpyData.rho) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -629,7 +629,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\hat{t}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.tHat[0] ? Array.from(encapsSpyData.tHat[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.tHat[0] ? Array.from(encapsSpyData.tHat[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -638,7 +638,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\mu" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.mu ? Array.from(encapsSpyData.mu) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.mu ? Array.from(encapsSpyData.mu) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -647,7 +647,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="A \in \mathbb{Z}_q^{k \times k}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.A?.[0]?.[0] ? Array.from(encapsSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.A?.[0]?.[0] ? Array.from(encapsSpyData.A[0][0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -656,7 +656,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="y" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.y[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.y[0] ? Array.from(encapsSpyData.y[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.y[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.y[0] ? Array.from(encapsSpyData.y[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -665,7 +665,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="e_1" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.e1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e1[0] ? Array.from(encapsSpyData.e1[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.e1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e1[0] ? Array.from(encapsSpyData.e1[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -674,7 +674,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="e_2" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.e2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e2 ? Array.from(encapsSpyData.e2) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.e2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e2 ? Array.from(encapsSpyData.e2) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -683,7 +683,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="u" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.u[0] ? Array.from(encapsSpyData.u[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.u[0] ? Array.from(encapsSpyData.u[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -692,7 +692,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c_1" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c1 ? Array.from(encapsSpyData.c1) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c1 ? Array.from(encapsSpyData.c1) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -701,7 +701,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="v" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.v ? Array.from(encapsSpyData.v) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.v ? Array.from(encapsSpyData.v) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -710,7 +710,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c_2" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c2 ? Array.from(encapsSpyData.c2) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c2 ? Array.from(encapsSpyData.c2) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -719,7 +719,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c = (c_1, c_2)" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((encapsSpyData?.cipherText?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.cipherText ? Array.from(encapsSpyData.cipherText) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.cipherText?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.cipherText ? Array.from(encapsSpyData.cipherText) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -729,7 +729,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c = (c_1, c_2)" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -738,7 +738,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.dk?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dk ? Array.from(decapsSpyData.dk) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.dk?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dk ? Array.from(decapsSpyData.dk) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -747,7 +747,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="ek_{PKE} \in \mathbb{B}^{384k+32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.ekPKE ? Array.from(decapsSpyData.ekPKE) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.ekPKE ? Array.from(decapsSpyData.ekPKE) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -756,7 +756,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="dk_{PKE} \in \mathbb{B}^{384k}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dkPKE ? Array.from(decapsSpyData.dkPKE) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dkPKE ? Array.from(decapsSpyData.dkPKE) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -765,7 +765,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="h = H(ek)" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.h?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.h ? Array.from(decapsSpyData.h) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.h?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.h ? Array.from(decapsSpyData.h) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -774,7 +774,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="z \in \mathbb{B}^{32}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.z ? Array.from(decapsSpyData.z) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.z ? Array.from(decapsSpyData.z) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -783,7 +783,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c_1" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c1 ? Array.from(decapsSpyData.c1) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c1 ? Array.from(decapsSpyData.c1) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -792,7 +792,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c_2" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c2 ? Array.from(decapsSpyData.c2) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c2 ? Array.from(decapsSpyData.c2) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -801,7 +801,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="u" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.u[0] ? Array.from(decapsSpyData.u[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.u[0] ? Array.from(decapsSpyData.u[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -810,7 +810,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="v" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.v ? Array.from(decapsSpyData.v) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.v ? Array.from(decapsSpyData.v) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -819,7 +819,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\hat{s}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.sHat[0] ? Array.from(decapsSpyData.sHat[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.sHat[0] ? Array.from(decapsSpyData.sHat[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -828,7 +828,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="w" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.w?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.w ? Array.from(decapsSpyData.w) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.w?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.w ? Array.from(decapsSpyData.w) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -837,25 +837,25 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="m'" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.m ? Array.from(decapsSpyData.m) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.m ? Array.from(decapsSpyData.m) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
 
-                                    {selectedVariable === "K'_decaps" &&
+                                    {selectedVariable === "Kp_decaps" &&
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="K'" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.K ? Array.from(decapsSpyData.K) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.K ? Array.from(decapsSpyData.K) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
 
-                                    {selectedVariable === "r'_decaps" &&
+                                    {selectedVariable === "rp_decaps" &&
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="r'" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.r ? Array.from(decapsSpyData.r) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.r ? Array.from(decapsSpyData.r) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -864,16 +864,16 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\bar{K}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.Kbar?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kbar ? Array.from(decapsSpyData.Kbar) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.Kbar?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kbar ? Array.from(decapsSpyData.Kbar) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
 
-                                    {selectedVariable === "c'_decaps" &&
+                                    {selectedVariable === "cp_decaps" &&
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c'" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -882,7 +882,7 @@ export default function MLKEMPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="K" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.Kfinal?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kfinal ? Array.from(decapsSpyData.Kfinal) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.Kfinal?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kfinal ? Array.from(decapsSpyData.Kfinal) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }

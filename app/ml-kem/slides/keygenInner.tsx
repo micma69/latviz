@@ -24,27 +24,27 @@ export default function KeygenVisualizationProcess({
                 <div className="flex flex-row gap-8 items-center justify-center">
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="d" /></div>
-                        <SquareGrid
+                        <SquareGrid algorithm="mlkem"
                             rows={1} cols={4} rowsExpanded={8} size={12}
                             colorData={spyData?.d ? Array.from(spyData.d) : []}
-                            showValues onClick={() => onSelectVariable("d")}
+                            showValues variableKey="d" onClick={() => onSelectVariable("d")}
                         />
                     </div>
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="\rho" /></div>
-                        <SquareGrid
+                        <SquareGrid algorithm="mlkem"
                             rows={1} cols={4} rowsExpanded={8} size={12}
                             colorData={spyData?.rho ? Array.from(spyData.rho) : []}
-                            showValues onClick={() => onSelectVariable("rho_keygen")}
+                            showValues variableKey="rho_keygen" onClick={() => onSelectVariable("rho_keygen")}
                         />
                     </div>
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="\sigma" /></div>
-                        <SquareGrid
+                        <SquareGrid algorithm="mlkem"
                             rows={1} cols={4} rowsExpanded={8} size={12}
                             colorData={spyData?.sigma ? Array.from(spyData.sigma) : []}
-                            showValues onClick={() => onSelectVariable("sigma_keygen")}
+                            showValues variableKey="sigma_keygen" onClick={() => onSelectVariable("sigma_keygen")}
                         />
                     </div>
                 </div>            
@@ -55,10 +55,10 @@ export default function KeygenVisualizationProcess({
                     <div className="flex flex-col gap-2 items-center justify-center bg-orange-100 rounded-xl p-5 w-fit border-2 border-orange-300">
                         <div className="flex flex-col items-center font-mono text-sm gap-2">
                             <div><InlineMath math="A" /></div>
-                            <SquareGrid
+                            <SquareGrid algorithm="mlkem"
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []}
-                                showValues onClick={() => onSelectVariable("A_keygen")}
+                                showValues variableKey="A_keygen" onClick={() => onSelectVariable("A_keygen")}
                             />
                         </div>
                     </div>
@@ -68,10 +68,10 @@ export default function KeygenVisualizationProcess({
                     <div className="flex flex-col gap-2 items-center justify-center bg-orange-100 rounded-xl p-5 w-fit border-2 border-orange-300">
                         <div className="flex flex-col items-center font-mono text-sm gap-2">
                             <div><InlineMath math="e" /></div>
-                            <SquareGrid
+                            <SquareGrid algorithm="mlkem"
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.eHat[0] ? Array.from(spyData.eHat[0]) : []}
-                                showValues onClick={() => onSelectVariable("e_keygen")}
+                                showValues variableKey="e_keygen" onClick={() => onSelectVariable("e_keygen")}
                             />
                         </div>
                     </div>
@@ -81,10 +81,10 @@ export default function KeygenVisualizationProcess({
                     <div className="flex flex-col gap-2 items-center justify-center bg-orange-100 rounded-xl p-5 w-fit border-2 border-orange-300">
                         <div className="flex flex-col items-center font-mono text-sm gap-2">
                             <div><InlineMath math="s" /></div>
-                            <SquareGrid
+                            <SquareGrid algorithm="mlkem"
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []}
-                                showValues onClick={() => onSelectVariable("s_keygen")}
+                                showValues variableKey="s_keygen" onClick={() => onSelectVariable("s_keygen")}
                             />
                         </div>
                     </div>
@@ -96,10 +96,10 @@ export default function KeygenVisualizationProcess({
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center font-mono text-sm gap-2">
                     <div><InlineMath math="t" /></div>
-                    <SquareGrid
+                    <SquareGrid algorithm="mlkem"
                         rows={1} cols={4} rowsExpanded={8} size={12}
                         colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []}
-                        showValues onClick={() => onSelectVariable("t_keygen")}
+                        showValues variableKey="t_keygen" onClick={() => onSelectVariable("t_keygen")}
                     />
                 </div>
             </div>
@@ -109,19 +109,19 @@ export default function KeygenVisualizationProcess({
                 <div className="flex flex-row gap-8 items-center justify-center">
                     <div className="flex flex-col items-center justify-center font-mono text-sm gap-2">
                         <InlineMath math="ek_{PKE}" />
-                        <SquareGrid
+                        <SquareGrid algorithm="mlkem"
                             rows={8} cols={8} size={4}
                             colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []}
-                            showValues showTooltip
+                            showValues showTooltip variableKey="ekPKE_keygen"
                             onClick={() => onSelectVariable("ekPKE_keygen")}
                         />
                     </div>
                     <div className="flex flex-col items-center justify-center font-mono text-sm gap-2">
                         <InlineMath math="dk_{PKE}" />
-                        <SquareGrid
+                        <SquareGrid algorithm="mlkem"
                             rows={8} cols={8} size={4}
                             colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []}
-                            showValues showTooltip
+                            showValues showTooltip variableKey="dkPKE_keygen"
                             onClick={() => onSelectVariable("dkPKE_keygen")}
                         />
                     </div>

@@ -27,10 +27,10 @@ export default function KeygenOuter({
                     <div className="text-blue-700 font-semibold text-lg">Input</div>
                         <div className="flex flex-col items-center font-mono text-sm gap-2">
                             <div><InlineMath math="\xi" /></div>
-                            <SquareGrid
+                            <SquareGrid algorithm="mldsa"
                                 rows={1} cols={4} rowsExpanded={8} size={12}
                                 colorData={spyData?.seed ? Array.from(spyData.seed) : []}
-                                showValues onClick={() => onSelectVariable("xi_keygen")}
+                                showValues variableKey="xi_keygen" onClick={() => onSelectVariable("xi_keygen")}
                             />
                         </div>
                 </div>
@@ -49,11 +49,11 @@ export default function KeygenOuter({
                     <div className="text-green-700 font-semibold text-lg">Output</div>
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="pk" /></div>
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} onClick={() => {onSelectVariable("publickey")}} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} variableKey="publickey" onClick={() => {onSelectVariable("publickey")}} />
                     </div>
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
                         <div><InlineMath math="sk" /></div>
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => {onSelectVariable("secretkey")}}/>
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} variableKey="secretkey" onClick={() => {onSelectVariable("secretkey")}}/>
                     </div>
                 </div>
             </div>

@@ -480,7 +480,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\xi \in \{0,1\}^{256}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.seed?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.seed ? Array.from(keygenSpyData.seed) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.seed?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.seed ? Array.from(keygenSpyData.seed) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -489,7 +489,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\rho \in \{0,1\}^{256}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -498,7 +498,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\rho' \in \{0,1\}^{512}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rhoPrime ? Array.from(keygenSpyData.rhoPrime) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rhoPrime ? Array.from(keygenSpyData.rhoPrime) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -507,7 +507,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="K \in \{0,1\}^{256}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.K ? Array.from(keygenSpyData.K) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.K ? Array.from(keygenSpyData.K) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -516,7 +516,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.A?.[0]?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.A?.[0]?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -525,7 +525,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="s_1 \in S_\eta^\ell" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s1[0] ? Array.from(keygenSpyData.s1[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s1[0] ? Array.from(keygenSpyData.s1[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -534,7 +534,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="s_2 \in S_\eta^k" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s2[0] ? Array.from(keygenSpyData.s2[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s2[0] ? Array.from(keygenSpyData.s2[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -543,7 +543,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="t = As_1 + s_2 \in \mathbb{Z}_q^k" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.t[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t[0] ? Array.from(keygenSpyData.t[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.t[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t[0] ? Array.from(keygenSpyData.t[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -552,7 +552,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="t_0 \in \mathbb{Z}_q^k" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t0[0] ? Array.from(keygenSpyData.t0[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t0[0] ? Array.from(keygenSpyData.t0[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -561,7 +561,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="t_1 \in \mathbb{Z}_q^k" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.t1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t1[0] ? Array.from(keygenSpyData.t1[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.t1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t1[0] ? Array.from(keygenSpyData.t1[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -570,7 +570,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="pk \in \mathbb{B}^{32 + 32k(\mathrm{bitlen}(q-1) - d)}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.pk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.pk ? Array.from(keygenSpyData.pk) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.pk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.pk ? Array.from(keygenSpyData.pk) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -579,7 +579,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="sk \in \mathbb{B}^{32+32+64+32((\ell+k)\cdot\mathrm{bitlen}(2\eta)+d_k)}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.sk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.sk ? Array.from(keygenSpyData.sk) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.sk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.sk ? Array.from(keygenSpyData.sk) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -588,7 +588,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\mathrm{tr} \in \{0,1\}^{512}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((keygenSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tr ? Array.from(keygenSpyData.tr) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tr ? Array.from(keygenSpyData.tr) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -598,7 +598,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="M" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -607,7 +607,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\mathrm{rnd} \in \{0,1\}^{256}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.rnd?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rnd ? Array.from(signSpyData.rnd) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.rnd?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rnd ? Array.from(signSpyData.rnd) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -616,7 +616,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\mathrm{ctx}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.ctx ? Array.from(signSpyData.ctx) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.ctx ? Array.from(signSpyData.ctx) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -625,16 +625,16 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="M" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
 
-                                    {selectedVariable === "M'_sign" &&
+                                    {selectedVariable === "Mp_sign" &&
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="M'" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.M?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.M ? Array.from(signSpyData.M) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.M?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.M ? Array.from(signSpyData.M) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -643,7 +643,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\rho" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rho ? Array.from(signSpyData.rho) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rho ? Array.from(signSpyData.rho) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -652,7 +652,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="K" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.K ? Array.from(signSpyData.K) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.K ? Array.from(signSpyData.K) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -661,7 +661,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\mathrm{tr}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.tr ? Array.from(signSpyData.tr) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.tr ? Array.from(signSpyData.tr) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -670,7 +670,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="s_1" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s1[0] ? Array.from(signSpyData.s1[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s1[0] ? Array.from(signSpyData.s1[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -679,7 +679,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="s_2" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s2[0] ? Array.from(signSpyData.s2[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s2[0] ? Array.from(signSpyData.s2[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -688,7 +688,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="t_0" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.t0[0] ? Array.from(signSpyData.t0[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.t0[0] ? Array.from(signSpyData.t0[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -697,7 +697,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.A?.[0]?.[0] ? Array.from(signSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.A?.[0]?.[0] ? Array.from(signSpyData.A[0][0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -706,7 +706,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\mu \in \{0,1\}^{512}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.mu ? Array.from(signSpyData.mu) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.mu ? Array.from(signSpyData.mu) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -715,7 +715,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\rho'" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rhoPrime ? Array.from(signSpyData.rhoPrime) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rhoPrime ? Array.from(signSpyData.rhoPrime) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -724,7 +724,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\rho'" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rhoPrime ? Array.from(signSpyData.rhoPrime) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rhoPrime ? Array.from(signSpyData.rhoPrime) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -733,7 +733,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="y \in S_{\gamma_1 - 1}^\ell" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.y?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.y?.[0] ? Array.from(signSpyData.y[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.y?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.y?.[0] ? Array.from(signSpyData.y[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -742,7 +742,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="w = Ay" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.w?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w?.[0] ? Array.from(signSpyData.w[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.w?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w?.[0] ? Array.from(signSpyData.w[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -751,7 +751,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="w_1 = \mathrm{HighBits}(w)" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w1?.[0] ? Array.from(signSpyData.w1[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w1?.[0] ? Array.from(signSpyData.w1[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -760,7 +760,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\tilde{c} \in \{0,1\}^{256}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.cTilde ? Array.from(signSpyData.cTilde) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.cTilde ? Array.from(signSpyData.cTilde) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -769,7 +769,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c \in B_{60}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.c ? Array.from(signSpyData.c) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.c ? Array.from(signSpyData.c) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -778,7 +778,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="z = y + cs_1" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.z?.[0] ? Array.from(signSpyData.z[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.z?.[0] ? Array.from(signSpyData.z[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -787,7 +787,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="r_0 = \mathrm{LowBits}(w - cs_2)" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.r0?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.r0?.[0] ? Array.from(signSpyData.r0[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.r0?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.r0?.[0] ? Array.from(signSpyData.r0[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -796,7 +796,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\sigma" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((signSpyData?.signature?.length ?? 0) / 8)} cols={8} size={20} colorData={signSpyData?.signature ? Array.from(signSpyData.signature) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.signature?.length ?? 0) / 8)} cols={8} size={20} colorData={signSpyData?.signature ? Array.from(signSpyData.signature) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -806,7 +806,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="M" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -815,7 +815,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="M" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -824,16 +824,16 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\mathrm{ctx}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.ctx ? Array.from(verifySpyData.ctx) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.ctx ? Array.from(verifySpyData.ctx) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
 
-                                    {selectedVariable === "M'_verify" &&
+                                    {selectedVariable === "Mp_verify" &&
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="M'" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.msg ? Array.from(verifySpyData.msg) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.msg ? Array.from(verifySpyData.msg) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -842,7 +842,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.A?.[0]?.[0] ? Array.from(verifySpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.A?.[0]?.[0] ? Array.from(verifySpyData.A[0][0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -851,7 +851,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\mathrm{tr}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.tr ? Array.from(verifySpyData.tr) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.tr ? Array.from(verifySpyData.tr) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -860,7 +860,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\mu \in \{0,1\}^{512}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.mu ? Array.from(verifySpyData.mu) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.mu ? Array.from(verifySpyData.mu) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -869,7 +869,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\tilde{c}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -878,7 +878,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="z" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.z?.[0] ? Array.from(verifySpyData.z[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.z?.[0] ? Array.from(verifySpyData.z[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -887,7 +887,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="h" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.h?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.h?.[0] ? Array.from(verifySpyData.h[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.h?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.h?.[0] ? Array.from(verifySpyData.h[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -896,7 +896,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c \in B_{60}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.c ? Array.from(verifySpyData.c) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.c ? Array.from(verifySpyData.c) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -905,7 +905,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="w' \approx Az - ct_1 \cdot 2^d" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.wPrime?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.wPrime?.[0] ? Array.from(verifySpyData.wPrime[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.wPrime?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.wPrime?.[0] ? Array.from(verifySpyData.wPrime[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -914,7 +914,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="w_1' = \mathrm{UseHint}(h, w')" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.w1?.[0] ? Array.from(verifySpyData.w1[0]) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.w1?.[0] ? Array.from(verifySpyData.w1[0]) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
@@ -923,7 +923,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\tilde{c}' = H(\mu \| w_1')" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues showTooltip={false} />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues showTooltip={false} />
                                             </div>
                                         </div>
                                     }
