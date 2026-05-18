@@ -190,24 +190,33 @@ export function runBKZ(
         }
         
         if (blockSize >= 4 && blockEnd - i >= 3) {
+          const blockBefore = block.map(row => [...row])
+          const shortVector = enumerateSVP(block, Math.min(blockSize, block.length))
+          const shortNorm = vectorNorm(shortVector)
+          const currentNorm = vectorNorm(reducedBasis[i])
+          const blockAfter = shortNorm < currentNorm - 1e-6
+            ? blockBefore.map((row, idx) => idx === 0 ? shortVector : [...row])
+            : blockBefore.map(row => [...row])
+
           if (captureSteps && steps.length < 150) {
             steps.push({
               iteration: iterations,
               basis: reducedBasis.map(row => [...row]),
               k: i,
               action: 'svp_enumeration',
-              description: `SVP enumeration on block [${i}...${blockEnd-1}] - searching for shortest vector`
+              description: `SVP enumeration on block [${i}...${blockEnd-1}] - searching for shortest vector`,
+              blockStart: i,
+              blockEnd: blockEnd - 1,
+              svpSolution: shortVector,
+              svpBlockBefore: blockBefore,
+              svpBlockAfter: blockAfter
             })
           }
-          
-          const shortVector = enumerateSVP(block, Math.min(blockSize, block.length))
-          const shortNorm = vectorNorm(shortVector)
-          const currentNorm = vectorNorm(reducedBasis[i])
-          
+
           if (shortNorm < currentNorm - 1e-6) {
             reducedBasis[i] = shortVector
             improved = true
-            
+
             if (captureSteps && steps.length < 150) {
               steps.push({
                 iteration: iterations,
