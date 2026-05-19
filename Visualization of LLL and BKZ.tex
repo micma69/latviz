@@ -144,7 +144,7 @@ SVP is essential for PQC lattice reduction algorithms because it can help to sol
 \subsection{LLL}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{lllflowchart.png}
+    \includegraphics[width=0.7\textwidth]{lllrevisi.png}
     \caption{The LLL algorithm}
     \label{LLL}
 \end{figure}
@@ -154,35 +154,46 @@ SVP is essential for PQC lattice reduction algorithms because it can help to sol
 [to do : add pseudocode]
 The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a lattice reduction algorithm. Although LLL in present days is largely ineffective to reduce lattices in many PQC algorithms such as ML-KEM and ML-DSA, the LLL is the foundation of modern lattice reduction cryptanalysis. For example, it serves as the foundation of BKZ, the upscaled version of LLL, by having several LLLs processes executed for a single BKZ process. 
 
-In the Fig.1, we can see how the algorithm works. The usual inputs are in the form of matrices, or a set linear equations. Either way, the acceptable form of input in our tool is matrix. However, in the general context, for a single LLL process, the input is in the form of a lattice basis $L$, which are in the form of a set of basis vectors ${\{v_1, v_2, ....v_n\}}$. Later for every vector within the set, they will be iteratively processed by Gram-Schmidt orthogonalization, then reduction or swap, and then examined whether the basis at the index fulfills the Lovasz Condition or not. The iteration process, however, is controlled by a variable $k$ which starts from 2nd index to the $n$-th index (the last vector). In other words, the first vector only acts as a projection reference for Gram-Schmidt orthogonalization (it only acts as the initial orthogonal basis ($\mathbf{v}_1^* = \mathbf{v}_1$)) and size reduction processes of subsequent vectors, but the first vector is never individually subjected to the swap mechanism or Lovász checking. After all subsequent vectors have gone through these processes, the loop ends and the algorithm stops. 
+In the Fig.1, we can see how the algorithm works. The usual inputs are in the form of matrices, or a set linear equations. Either way, the acceptable form of input in our tool is matrix. However, in the general context, for a single LLL process, the input is in the form of a lattice basis $L$, which are in the form of a set of basis vectors ${\{v_1, v_2, ....v_n\}}$. Later for every vector within the set, they will be iteratively processed by Gram-Schmidt orthogonalization, then reduction or swap, and then examined whether the basis at the index fulfills the Lovasz Condition or not. The iteration process, however, is controlled by a pointer variable $k$ which starts from 2nd index to the $n$-th index (the last vector). In other words, the first vector only acts as a projection reference for Gram-Schmidt orthogonalization (it only acts as the initial orthogonal basis ($\mathbf{v}_1^* = \mathbf{v}_1$)) and size reduction processes of subsequent vectors, but the first vector is never individually subjected to the vector swap mechanism (unless during the first iteration, the second vector fails to meet the Lovász Condition checking) or Lovász Condition checking. After all subsequent vectors have gone through these processes, the loop ends and the algorithm stops. 
 
 Unless the initial lattice basis is already a highly orthogonal basis, we will obtain a more orthogonalized and shorter version of the basis. Thus, with a basis that is more orthogonal and shorter, we would have it easier for recovering the LWE small errors hidden in the linear equations that form the public matrix we want to crack. 
+
+As an important note, the $\delta$ value used in Lovász Condition ranges from 0.25 as the minimum value to 0.99 as the maximum value. A higher $\delta$ yields higher quality outputs at the expense of more iterations, and a lower $\delta$ leads to fewer iterations at the expense of lower quality outputs. In other words, a higher $\delta$ makes the recovery of the LWE errors easier.
 
 \subsubsection{Initialization}
 \mbox{}
 $$\mathbf{L} = \{v_1, v_2, ....v_n\}$$
-We have $L$, a lattice basis, with $n$ vectors within it. The $L$ contains ${\{v_1, v_2, ....v_n\}}$. Assume $L$ is a "bad" basis, then our goal is to make it more orthogonal and shorter. Then, as the first step, the index pointer $k$ will point at the 2nd vector from the left. 
+We have $L$, a lattice basis, with $n$ vectors within it. The $L$ contains ${\{v_1, v_2, ....v_n\}}$. Assume $L$ is a "bad" basis, then our goal is to make it more orthogonal and shorter. 
 
 \subsubsection{Gram-Schmidt orthogonalization}
 \mbox{}
 $$\mathbf{v}_k^* = \mathbf{v}_k - \sum_{j=1}^{k-1} \frac{\langle \mathbf{v}_k, \mathbf{v}_j^* \rangle}{\|\mathbf{v}_j^*\|^2} \mathbf{v}_j^*$$
 
-After the initialization, the algorithm processes the second vector with Gram-Schmidt orthogonalization process. As a note, for the first vector ($j=1$), no projection is needed since it has no preceding vectors. 
+Right after the initialization, the algorithm processes the basis vectors sequentially. At the global scale (or the outer loop) in $L$, the algorithm performs Gram-Schmidt orthogonalization (GSO) for all vectors in $L$, produces the initial orthogonalized $\mathbf{v}_k^*$ and their corresponding projection coefficients $\mu_{k,j}$, with $1 \le j < k \le n$ before the main loop execution begins. Notice that for the first vector ($k = 1$), no projection is needed since it has no preceding vectors. Hence, $\mathbf{v}_1^* = \mathbf{v}_1$.
 
-$$\mathbf{v}_1^* = \mathbf{v}_1$$
-
-\subsubsection{Basis reduction}
+\subsubsection{Main loop}
 \mbox{}
-After the Gram-Schmidt orthogonalization process, the algorithm checks the size of the vector, and then reduces it dynamically. The vector $\mathbf{v}_k$ is iteratively updated using the following formula:
+After the global Gram-Schmidt orthogonalization process, the index pointer $k$ points at the second vector from the left (the vector of $v_2$), thus the main loop begins with the first iteration begins at $k=2$.
+
+\subsubsection{Basis reduction loop}
+\mbox{}
+The algorithm checks the size of the vector, and then performs a size reduction of the vector to ensure that the length of the projection coefficients satisfies : $$|\mu_{k,j}| \leq 0.5$$ To satisfy the condition, the algorithm uses an internal index pointer, $j$, whose sole purpose is to become the backward iterator in this basis reduction loop, and this loop starts from $j = k - 1$ down to $1$. This ensures that the current target vector $\mathbf{v}_k$ is systematically reduced against all of its preceding vectors in the basis. The vector $\mathbf{v}_k$ is then iteratively updated using the following formula :
 $$\mathbf{v}_k \leftarrow \mathbf{v}_k - \lfloor\mu_{k,j}\rceil\mathbf{v}_j$$
 
-Once the size reduction loop is complete, the updated vector is then subjected to the core step of the LLL algorithm - the Lovász Condition checking.
+Concurrently, to maintain mathematical consistency with the modified vector components, the algorithm must update $\mathbf{v}_k^*$ and the corresponding projection coefficients $\mu_{k,j}$, by fully recomputing the entire Gram-Schmidt orthogonalization sequence to get the updated $\mathbf{v}_k^*$ and $\mu_{k,j}$ values whenever $\mathbf{v}_k$ is modified inside this basis reduction loop.
+
+The basis reduction loop continues until the backward iterator $j$ has fully decreased past $1$, signifying that the $\mathbf{v}_k$ has been checked and reduced against every preceding vector in the basis $L$.
+Once the basis reduction loop ends, the updated vector is then subjected to the core step of the LLL algorithm - the Lovász Condition checking.
 
 \subsubsection{The Lovasz Condition}
 \mbox{}
 $$\|\mathbf{v}_k^*\|^2 \ge \left(\delta - \mu_{k,k-1}^2\right)\|\mathbf{v}_{k-1}^*\|^2$$
 
-Should the basis at the current iteration fulfills the Lovasz Condition, it will proceed to check whether all vectors have been examined. If that's the case ($k >= n$), then the algorithm terminates entirely. If not, then the iteration continues and $k$ will point to the next vector, until there is no vector left in the basis. 
+Using the updated $\mathbf{v}_k^*$ obtained from the preceding basis reduction loop, the algorithm evaluates whether the current vector ordering satisfies the Lovász Condition or not. 
+
+Should the basis at the current iteration satisfies the Lovasz Condition, it will proceed to check whether all vectors have been examined. If that's the case ($k >= n$), then the main loop terminates, signifying that the entire basis has been successfully reduced, and followed immediately by the termination of the algorithm altogether. 
+
+If not, then the iteration continues and $k$ will point to the next vector ($k \leftarrow k + 1$), continuing the main loop until all vectors in the basis $L$ have been fully processed. 
 
 However, if the basis fails to satisfy the Lovasz Condition at the current iteration, a vector swap mechanism is executed and followed by a re-evaluation of the basis sequence. 
 
@@ -193,13 +204,14 @@ If the current basis configuration does not satisfy the Lovász Condition at ind
     \mathbf{v}_{k-1} \leftrightarrow \mathbf{v}_k
 \end{equation}
 
-Since this swap alters the geometric orientation and structural sequence of $L$, the previously calculated Gram-Schmidt vectors and coefficients become invalid from index $k-1$ onwards. Consequently, the algorithm must retreat its iteration counter to re-evaluate the consistency of the newly swapped vectors. Then, the vector index pointer $k$ is re-adjusted using the following step:
+Since this swap alters the geometric orientation and structural sequence of $L$, the previously calculated Gram-Schmidt vectors and coefficients become invalid from index $k-1$ onwards. Consequently, the algorithm retreats its main loop iteration counter using the following step :
 
 \begin{equation}
     k \leftarrow \max(k-1, 2)
 \end{equation}
 
-This repositioning of $k$ ensures that the counter shifts backward by one step to re-examine the preceding basis relationship, while the $\max$ function serves as a logical guardrail to prevent $k$ from accessing indices lower than $2$.
+This repositioning ensures that the counter shifts backward by one step, forcing the algorithm to recompute the local Gram-Schmidt orthogonalization and re-apply the basis reduction at this lower index before the Lovász Condition can be re-evaluated.
+As the important note, the $\max$ function serves as a logical guardrail to prevent $k$ from accessing indices lower than $2$.
 
 \subsubsection{Output}
 \mbox{}
