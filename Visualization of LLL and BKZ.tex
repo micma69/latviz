@@ -93,11 +93,14 @@ As the best practice, the size of the randomized error must small enough to make
 \mbox{}
 A lattice is defined as a set which contains every single linear combinations of vectors from a basis of $\mathbb{R}^n$. Therefore, we can state that a lattice is theoritically a discrete subset of vector space with the dimension size of $n$. 
 
-Let's say, we have $L$, which is a lattice, which :
-- $k$ is the rank or the dimension size of $L$
-- ${\{v_1, v_2, ....v_k\}}$ is the basis of $L$
+Let's say, we have $L$, which is a lattice, then :
+\begin{itemize}
+\raggedright
+\item $k$ is the rank or the dimension size of $L$
+\item ${\{v_1, v_2, ....v_k\}}$ is the basis of $L$.
+\end{itemize}
 
-Then, $L$ must have vectors of $v_1, v_2, .....v_k$ that each of these vectors are linearly independent and such that $L = \mathbb{Z}$-linear span of ${\{v_1, v_2, ....v_k\}}$. (Silverman H. Joseph, 2020).
+$L$ must have vectors of $v_1, v_2, .....v_k$ that each of these vectors are linearly independent and such that $L = \mathbb{Z}$-linear span of ${\{v_1, v_2, ....v_k\}}$ (Silverman H. Joseph, 2020).
 
 Lattice is one of the key mathematic concepts of the Post-Quantum Cryptography, in fact, of the four PQC algorithms that have been selected by NIST in order to be standardized, three are based on lattice : ML-KEM (based on CRYSTALS-Kyber), ML-DSA (based on CRYSTALS-Dilithium), and FN-DSA (based on Falcon). 
 
@@ -146,14 +149,63 @@ SVP is essential for PQC lattice reduction algorithms because it can help to sol
     \label{LLL}
 \end{figure}
 \mbox{}
-The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a [to be completed hehe wkwkwk] 
-[it's for lattice reduction for guessing the encryption keys blablabla] 
 
-[hubungkan dengan section sebelumnya]
+[to do : correct the diagram and add more explanations]
+[to do : add pseudocode]
+The LLL (Lenstra-Lenstra-Lovasz) cryptanalysis algorithm, developed by Arjen Lenstra, Hendrik Lenstra, and Laszlo Lovasz in 1982, is a lattice reduction algorithm. Although LLL in present days is largely ineffective to reduce lattices in many PQC algorithms such as ML-KEM and ML-DSA, the LLL is the foundation of modern lattice reduction cryptanalysis. For example, it serves as the foundation of BKZ, the upscaled version of LLL, by having several LLLs processes executed for a single BKZ process. 
 
+In the Fig.1, we can see how the algorithm works. The usual inputs are in the form of matrices, or a set linear equations. Either way, the acceptable form of input in our tool is matrix. However, in the general context, for a single LLL process, the input is in the form of a lattice basis $L$, which are in the form of a set of basis vectors ${\{v_1, v_2, ....v_n\}}$. Later for every vector within the set, they will be iteratively processed by Gram-Schmidt orthogonalization, then reduction or swap, and then examined whether the basis at the index fulfills the Lovasz Condition or not. The iteration process, however, is controlled by a variable $k$ which starts from 2nd index to the $n$-th index (the last vector). In other words, the first vector only acts as a projection reference for Gram-Schmidt orthogonalization (it only acts as the initial orthogonal basis ($\mathbf{v}_1^* = \mathbf{v}_1$)) and size reduction processes of subsequent vectors, but the first vector is never individually subjected to the swap mechanism or Lovász checking. After all subsequent vectors have gone through these processes, the loop ends and the algorithm stops. 
+
+Unless the initial lattice basis is already a highly orthogonal basis, we will obtain a more orthogonalized and shorter version of the basis. Thus, with a basis that is more orthogonal and shorter, we would have it easier for recovering the LWE small errors hidden in the linear equations that form the public matrix we want to crack. 
+
+\subsubsection{Initialization}
+\mbox{}
+$$\mathbf{L} = \{v_1, v_2, ....v_n\}$$
+We have $L$, a lattice basis, with $n$ vectors within it. The $L$ contains ${\{v_1, v_2, ....v_n\}}$. Assume $L$ is a "bad" basis, then our goal is to make it more orthogonal and shorter. Then, as the first step, the index pointer $k$ will point at the 2nd vector from the left. 
+
+\subsubsection{Gram-Schmidt orthogonalization}
+\mbox{}
+$$\mathbf{v}_k^* = \mathbf{v}_k - \sum_{j=1}^{k-1} \frac{\langle \mathbf{v}_k, \mathbf{v}_j^* \rangle}{\|\mathbf{v}_j^*\|^2} \mathbf{v}_j^*$$
+
+After the initialization, the algorithm processes the second vector with Gram-Schmidt orthogonalization process. As a note, for the first vector ($j=1$), no projection is needed since it has no preceding vectors. 
+
+$$\mathbf{v}_1^* = \mathbf{v}_1$$
+
+\subsubsection{Basis reduction}
+\mbox{}
+After the Gram-Schmidt orthogonalization process, the algorithm checks the size of the vector, and then reduces it dynamically. The vector $\mathbf{v}_k$ is iteratively updated using the following formula:
+$$\mathbf{v}_k \leftarrow \mathbf{v}_k - \lfloor\mu_{k,j}\rceil\mathbf{v}_j$$
+
+Once the size reduction loop is complete, the updated vector is then subjected to the core step of the LLL algorithm - the Lovász Condition checking.
+
+\subsubsection{The Lovasz Condition}
+\mbox{}
+$$\|\mathbf{v}_k^*\|^2 \ge \left(\delta - \mu_{k,k-1}^2\right)\|\mathbf{v}_{k-1}^*\|^2$$
+
+Should the basis at the current iteration fulfills the Lovasz Condition, it will proceed to check whether all vectors have been examined. If that's the case ($k >= n$), then the algorithm terminates entirely. If not, then the iteration continues and $k$ will point to the next vector, until there is no vector left in the basis. 
+
+However, if the basis fails to satisfy the Lovasz Condition at the current iteration, a vector swap mechanism is executed and followed by a re-evaluation of the basis sequence. 
+
+\subsubsection{Vector swap}
+\mbox{}
+If the current basis configuration does not satisfy the Lovász Condition at index $k$, it implies that the vector $\mathbf{v}_k$ has a significantly shorter orthogonal projection compared to its predecessor, $\mathbf{v}_{k-1}$, which makes the ordering of the vectors within $L$ becomes deficient. To fix this ordering deficiency, a vector swap mechanism must be executed. The order of the two adjacent vectors within the basis is interchanged as follows:
+\begin{equation}
+    \mathbf{v}_{k-1} \leftrightarrow \mathbf{v}_k
+\end{equation}
+
+Since this swap alters the geometric orientation and structural sequence of $L$, the previously calculated Gram-Schmidt vectors and coefficients become invalid from index $k-1$ onwards. Consequently, the algorithm must retreat its iteration counter to re-evaluate the consistency of the newly swapped vectors. Then, the vector index pointer $k$ is re-adjusted using the following step:
+
+\begin{equation}
+    k \leftarrow \max(k-1, 2)
+\end{equation}
+
+This repositioning of $k$ ensures that the counter shifts backward by one step to re-examine the preceding basis relationship, while the $\max$ function serves as a logical guardrail to prevent $k$ from accessing indices lower than $2$.
+
+\subsubsection{Output}
+\mbox{}
+After all of the vectors have been examined and $L$ meets the Lovasz Condition requirement, the algorithm terminates and returns a more orthogonalized and shortened version of $L$. This way, with a better lattice basis, we would be able to recover hidden LWE errors embedded within the linear equations which form the public matrix we want to crack. 
 
 \subsection{BKZ}
-\mbox{}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{bkzflowchart.png}
@@ -174,7 +226,6 @@ Which is why we will be implementing the LLL process for dimensions higher than 
 \section{Architecture}
 
 \subsection{Overview}
-\mbox{}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{appstructure.png}

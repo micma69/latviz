@@ -103,6 +103,9 @@ INPUT .\pics\lllflowchart.png
 INPUT .\pics\lllflowchart.png
 INPUT .\pics\lllflowchart.png
 INPUT .\pics\lllflowchart.png
+INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmbx10.tfm
+INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmbx7.tfm
+INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmbx5.tfm
 INPUT .\pics\bkzflowchart.png
 INPUT .\pics\bkzflowchart.png
 INPUT .\pics\bkzflowchart.png
@@ -160,6 +163,8 @@ INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmsy9.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmsy6.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
+INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmbx9.tfm
+INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmbx6.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\symbols\msam10.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\symbols\msam7.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
@@ -181,6 +186,10 @@ INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dp
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
+INPUT D:\Program Files (D)\fonts\type1\public\amsfonts\cm\cmbx10.pfb
+INPUT D:\Program Files (D)\fonts\type1\public\amsfonts\cm\cmbx10.pfb
+INPUT D:\Program Files (D)\fonts\type1\public\amsfonts\cm\cmex10.pfb
+INPUT D:\Program Files (D)\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT D:\Program Files (D)\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT D:\Program Files (D)\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT D:\Program Files (D)\fonts\type1\public\amsfonts\cm\cmmi7.pfb
