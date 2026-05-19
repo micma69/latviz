@@ -47,30 +47,6 @@ export default function Tooltip({ title, description, details, position, stats }
           {details}
         </p>
       </div>
-      
-      {stats && (
-        <div style={{ 
-          marginTop: "10px", 
-          paddingTop: "8px", 
-          borderTop: "1px solid #ecf0f1",
-          fontSize: "0.75rem",
-          color: "#666"
-        }}>
-          <div>Range: {stats.min} → {stats.max}</div>
-          <div>Average: {stats.avg}</div>
-          {stats.range === 0 && <div>All values identical</div>}
-          {stats.range === 1 && <div>Binary data</div>}
-        </div>
-      )}
-
-      <div style={{ 
-        marginTop: "10px", 
-        fontSize: "0.7rem", 
-        color: "#95a5a6",
-        textAlign: "right"
-      }}>
-        {stats?.rows}×{stats?.cols}
-      </div>
     </div>
   );
 }

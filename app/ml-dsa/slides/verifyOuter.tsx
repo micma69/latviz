@@ -46,7 +46,7 @@ export default function VerifyOuter({
             <ArrowLongDownIcon className="size-6" />
             <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                 <SquareGrid algorithm="mldsa" rows={1} cols={1} size={12} colorData={[0]} showValues={true} showTooltip={false} />
-                <SquareGrid algorithm="mldsa" rows={1} cols={1} size={12} colorData={spyData?.ctx ? [spyData.ctx.length] : []} showValues={true} variableKey="ctx_length" />
+                <SquareGrid algorithm="mldsa" rows={1} cols={1} size={12} colorData={spyData?.ctx ? [spyData.ctx.length] : []} showValues={true} variableKey="ctx_length_verify" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="ctx" /></div>
                     <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} variableKey="ctx_verify" onClick={() => onSelectVariable("ctx_verify")}/>

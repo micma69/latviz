@@ -27,13 +27,10 @@ export default function DecapsulationVisualization({
                         <div><InlineMath math="c" /></div>
                         <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} onClick={() => onSelectVariable("ciphertext_decaps")} variableKey="ciphertext_decaps" />
                     </div>
-                </div>
-            </div>
-            <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
-                <div className="text-blue-700 font-semibold text-lg">Input</div>
-                <div className="flex flex-col gap-2 items-center">
-                    <div><InlineMath math="dk" /></div>
-                    <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dk ? Array.from(spyData.dk) : []} showValues={true} onClick={() => onSelectVariable("decapskey_decaps")} variableKey="decapskey_decaps" />
+                    <div className="flex flex-col gap-2 items-center">
+                        <div><InlineMath math="dk" /></div>
+                        <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dk ? Array.from(spyData.dk) : []} showValues={true} onClick={() => onSelectVariable("decapskey_decaps")} variableKey="decapskey_decaps" />
+                    </div>
                 </div>
             </div>
             <ArrowLongRightIcon className="size-6" />
@@ -42,20 +39,14 @@ export default function DecapsulationVisualization({
                     <div><InlineMath math="dk_{PKE}" /></div>
                     <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []} showValues={true} onClick={() => onSelectVariable("dkPKE_decaps")} variableKey="dkPKE_decaps" />
                 </div>
-            </div>
-            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="ek_{PKE}" /></div>
                     <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []} showValues={true} onClick={() => onSelectVariable("ekPKE_decaps")} variableKey="ekPKE_decaps" />
                 </div>
-            </div>
-            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="h" /></div>
                     <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.h ? Array.from(spyData.h) : []} showValues={true} variableKey="h_decaps" onClick={() => onSelectVariable("h_decaps")} />
                 </div>
-            </div>
-            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                 <div className="flex flex-col gap-2 items-center">
                     <div><InlineMath math="z" /></div>
                     <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.z ? Array.from(spyData.z) : []} showValues={true} variableKey="z_decaps" onClick={() => onSelectVariable("z_decaps")} />

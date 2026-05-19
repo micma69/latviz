@@ -26,7 +26,7 @@ export default function EncapsulationVisualizationProcess({
                     <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} variableKey="m_encaps" onClick={() => onSelectVariable("m_encaps")} />
                 </div>
                 <div className="flex flex-col items-center font-mono text-sm gap-2">
-                    <div>Randomness <InlineMath math="r" /></div>
+                    <div><InlineMath math="r" /></div>
                     <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} variableKey="r_encaps" onClick={() => onSelectVariable("r_encaps")} />
                 </div>
                 <div className="flex flex-col items-center font-mono text-sm gap-2">
@@ -43,7 +43,7 @@ export default function EncapsulationVisualizationProcess({
                     />
                 </div>
                 <div className="flex flex-col items-center font-mono text-sm gap-2">
-                    <div><InlineMath math="\hat{t}" /></div>
+                    <div><InlineMath math="t" /></div>
                     <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.tHat[0] ? Array.from(spyData.tHat[0]) : []} variableKey="t_encaps" showValues onClick={() => onSelectVariable("t_encaps")}  />
                 </div>
             </div>            

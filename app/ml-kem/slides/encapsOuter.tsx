@@ -51,7 +51,7 @@ export default function EncapsulationVisualization({
                 <ArrowLongDownIcon className="size-6" />
                 <div className="flex flex-col gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div className="flex flex-col items-center font-mono text-sm gap-2">
-                        <div>Randomness <InlineMath math="r" /></div>
+                        <div><InlineMath math="r" /></div>
                         <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} variableKey="r_encaps" onClick={() => onSelectVariable("r_encaps")} />
                     </div>
                 </div>

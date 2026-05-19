@@ -7,19 +7,19 @@ export const tooltipData = {
 
   z_keygen: {
     title: "Seed z",
-    description: "Secret seed used during decapsulation to safely handle invalid ciphertext",
+    description: "Secret 32 byte seed used during decapsulation to safely handle invalid ciphertext.",
     details: "Used to derive a replacement shared secret K on failure, making a successful or failed decapsulation indistinguishable.",
   },
 
   rho_keygen: {
     title: "Seed ρ",
-    description: "Public seed used to deterministically generate matrix A.",
-    details: "Derived from d and shared as part of the public key.",
+    description: "Public 32 byte seed used to deterministically generate matrix A.",
+    details: "Derived from d and shared as part of the encryption key.",
   },
 
   sigma_keygen: {
     title: "Seed σ",
-    description: "Secret seed used to sample the noise vectors s and e.",
+    description: "Secret 32 byte seed used to sample the noise vectors s and e.",
     details: "Produces the small random values required for lattice security.",
   },
 
@@ -31,25 +31,25 @@ export const tooltipData = {
 
   s_keygen: {
     title: "Secret vector s",
-    description: "Small secret polynomial vector forming the private key.",
+    description: "Small secret polynomial vector for forming the private key.",
     details: "Sampled from σ using bounded random noise.",
   },
 
   e_keygen: {
     title: "Error vector e",
-    description: "Small random noise added during public key generation.",
+    description: "Small random noise added during encryption key generation.",
     details: "Helps hide the secret vector s within lattice computations.",
   },
 
   t_keygen: {
     title: "Public vector t",
-    description: "Public key polynomial vector computed from A, s, and e.",
-    details: "Represents the noisy lattice product A·s + e.",
+    description: "Encryption key polynomial vector computed from A, s, and e.",
+    details: "Represents the noisy lattice product A·s + e used in making the encryption key.",
   },
 
   ekPKE_keygen: {
     title: "Encryption key",
-    description: "Encoded public key used for encryption.",
+    description: "Encoded key used for encryption. Also known as the public key.",
     details: "Contains the public vector t and seed ρ.",
   },
 
@@ -68,13 +68,19 @@ export const tooltipData = {
   decapskey_keygen: {
     title: "Decapsulation key",
     description: "Secret ML-KEM key used to recover shared secrets.",
-    details: "Includes the decryption key, public key copy, hashes, and fallback seed z.",
+    details: "Includes the decryption key, a copy of the encryption key and its hash, and fallback seed z.",
+  },
+
+  encapskey_encaps: {
+    title: "Encapsulation key",
+    description: "Public ML-KEM key used to encapsulate shared secrets.",
+    details: "Hashed and combined with m to derive K and r.",
   },
 
   m_encaps: {
     title: "Message seed m",
-    description: "Random value used to derive the shared secret and encryption randomness.",
-    details: "Combined with the public key hash during encapsulation.",
+    description: "Random value used to derive the shared secret K and encryption randomness.",
+    details: "Combined with the encryption key hash during encapsulation.",
   },
 
   K_encaps: {
@@ -85,44 +91,44 @@ export const tooltipData = {
 
   r_encaps: {
     title: "Randomness r",
-    description: "Ephemeral randomness used during encryption.",
-    details: "Drives sampling of temporary noise values.",
+    description: "Randomness used during encryption.",
+    details: "Drives sampling of temporary noise values y, e₁, and e₂.",
   },
 
   rho_encaps: {
     title: "Seed ρ",
     description: "Public seed used to reconstruct matrix A.",
-    details: "Extracted from the encapsulation key.",
+    details: "Extracted from the encapsulation key, from the last 32 bytes of ekₚₖₑ.",
   },
 
   t_encaps: {
     title: "Public vector t",
     description: "Public lattice value used during encryption.",
-    details: "Part of the recipient's encapsulation key.",
+    details: "Part of the recipient's encapsulation key, decoded from the first 384*k bytes of ekₚₖₑ.",
   },
 
   mu_encaps: {
     title: "Encoded message μ",
-    description: "Message represented as polynomial coefficients.",
+    description: "Message m represented as polynomial coefficients.",
     details: "Embedded into the ciphertext during encryption.",
   },
 
   A_encaps: {
     title: "Matrix A",
     description: "Public matrix reconstructed from seed ρ.",
-    details: "Used to generate the ciphertext components.",
+    details: "Used to generate the ciphertext components. Should be the same as matrix A in Key Generation.",
   },
 
   y_encaps: {
-    title: "Ephemeral vector y",
+    title: "Vector y",
     description: "Temporary secret vector generated during encryption.",
-    details: "Sampled from randomness r using small bounded noise values.",
+    details: "Sampled from randomness r using small bounded noise values. 'Mixes' into the the encryption key",
   },
 
-    e1_encaps: {
+  e1_encaps: {
     title: "Error vector e₁",
-    description: "Small random noise added to ciphertext component u.",
-    details: "Helps hide the ephemeral lattice computations.",
+    description: "Noise added to ciphertext component u.",
+    details: "Helps hide lattice computation A·y.",
   },
 
   e2_encaps: {
@@ -144,13 +150,13 @@ export const tooltipData = {
   },
 
   c1_encaps: {
-    title: "Compressed u",
+    title: "Ciphertext component c₁",
     description: "Compressed form of ciphertext component u.",
     details: "Stored to reduce ciphertext size.",
   },
 
   c2_encaps: {
-    title: "Compressed v",
+    title: "Ciphertext component c₂",
     description: "Compressed form of ciphertext component v.",
     details: "Contains the hidden encoded message.",
   },
@@ -162,27 +168,27 @@ export const tooltipData = {
   },
 
   ciphertext_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Ciphertext",
+    description: "Encrypted data received by the recipient.",
+    details: "Splits back into components c₁ and c₂.",
   },
 
   decapskey_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Decapsulation key",
+    description: "Secret ML-KEM key used to recover the shared secret.",
+    details: "Contains the secret key, public key copy, hashes, and fallback seed z.",
   },
 
   ekPKE_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Encryption key",
+    description: "Public encryption key extracted from the decapsulation key.",
+    details: "Used to re-encrypt and validate the received ciphertext.",
   },
 
   dkPKE_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Decryption key",
+    description: "Used to decrypt the ciphertext.",
+    details: "Contains the secret vector s used to recover the message.",
   },
 
   h_decaps: {
@@ -192,75 +198,75 @@ export const tooltipData = {
   },
 
   z_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Fallback seed z",
+    description: "Fallback seed used if ciphertext validation fails.",
+    details: "Prevents attackers from distinguishing successful and failed decapsulation by deriving a replacement shared secret.",
   },
 
   c1_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Ciphertext component c₁",
+    description: "The first 32*dᵤ*k bytes of the ciphertext.",
+    details: "Decompressed into ciphertext component u.",
   },
 
   c2_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Ciphertext component c₂",
+    description: "The rest of the ciphertext.",
+    details: "Contains the hidden encoded message. Is decompressed into ciphertext component v.",
   },
 
   u_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Ciphertext component u",
+    description: "First decompressed component of the ciphertext.",
+    details: "Used with the decryption key to recover the encoded message.",
   },
 
   v_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Ciphertext component v",
+    description: "Second decompressed component of the ciphertext.",
+    details: "Contains the encoded message mixed with lattice noise.",
   },
 
   s_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Secret vector s",
+    description: "Secret vector used for decryption.",
+    details: "Decoded from the decryption key.",
   },
 
   w_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Polynomial w",
+    description: "An approximation of the encoded message polynomial.",
+    details: "Computed from v − (sᵀ · u).",
   },
 
   m_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Recovered message m",
+    description: "Message recovered from the decrypted ciphertext.",
+    details: "Used to reconstruct the encapsulation process.",
   },
 
   Kp_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Candidate shared secret K′",
+    description: "Shared secret candidate derived from the recovered message.",
+    details: "Accepted only if ciphertext validation succeeds.",
   },
 
   rp_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Randomness r′",
+    description: "Encryption randomness reconstructed during decapsulation.",
+    details: "Used to recreate the ciphertext.",
   },
   
   kbar_decaps: {
     title: "Fallback secret K̄",
     description: "Replacement shared secret candidate.",
-    details: "Derived from z if ciphertext validation fails.",
+    details: "Derived from z if ciphertext validation fails. Prevents attackers from distinguishing successful and failed decapsulation by hiding decapsulation failures.",
   },
 
   cp_decaps: {
-    title: "Verification Data",
-    description: "Values used during signature verification",
-    details: "Includes hash values and polynomial coefficients",
+    title: "Reconstructed ciphertext c′",
+    description: "Ciphertext regenerated from m and r′.",
+    details: "Compared against the received ciphertext for validation.",
   },
 
   kfinal: {
@@ -270,9 +276,9 @@ export const tooltipData = {
   },
 
   default: {
-    title: "DEFAULTDEFAULTDEFAULT",
-    description: "Coefficient visualization",
-    details: "Each cell shows a polynomial coefficient value",
+    title: "THIS IS AN ERROR MESSAGE",
+    description: "SOMETHING IS WRONG",
+    details: "DEFAULT",
   }
 } as const;
 

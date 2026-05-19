@@ -49,6 +49,15 @@ export default function DecapsulationVisualizationProcess({
                         <ArrowLongRightIcon className="size-6" />
                         <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                             <div className="flex flex-col gap-2 items-center">
+                                <div><InlineMath math="\hat{s}" /></div>
+                                <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []} showValues onClick={() => onSelectVariable("s_decaps")} variableKey="s_decaps" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-row gap-4 items-center">
+                        <ArrowLongRightIcon className="size-6" />
+                        <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                            <div className="flex flex-col gap-2 items-center">
                                 <div><InlineMath math="u'" /></div>
                                 <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.u[0] ? Array.from(spyData.u[0]) : []} showValues onClick={() => onSelectVariable("u_decaps")} variableKey="u_decaps" />
                             </div>
@@ -57,15 +66,6 @@ export default function DecapsulationVisualizationProcess({
                             <div className="flex flex-col gap-2 items-center">
                                 <div><InlineMath math="v'" /></div>
                                 <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.v ? Array.from(spyData.v) : []} showValues onClick={() => onSelectVariable("v_decaps")} variableKey="v_decaps" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex flex-row gap-4 items-center">
-                        <ArrowLongRightIcon className="size-6" />
-                        <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
-                            <div className="flex flex-col gap-2 items-center">
-                                <div><InlineMath math="\hat{s}" /></div>
-                                <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.sHat[0] ? Array.from(spyData.sHat[0]) : []} showValues onClick={() => onSelectVariable("s_decaps")} variableKey="s_decaps" />
                             </div>
                         </div>
                     </div>

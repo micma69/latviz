@@ -86,12 +86,7 @@ export default function SignLoop({
             
             {/* ρ'' + κ → y */}
             <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
-                <div className="flex flex-col items-center gap-2">
-                    <div><InlineMath math="\rho''" /></div>
-                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} 
-                               colorData={spyData?.rhoPrime ? Array.from(spyData.rhoPrime) : []} 
-                               showValues={true} variableKey="rhop_loop" onClick={() => onSelectVariable("rhop_loop")} />
-                </div>
+                <div><InlineMath math="\rho''" /></div>
                 <div><InlineMath math=", \kappa" /></div>
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
