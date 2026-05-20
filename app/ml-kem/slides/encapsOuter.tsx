@@ -9,13 +9,15 @@ import SquareGrid from "@/components/ui/gridLattice";
 import { EncapsSpyData } from '@/utils/createSpy';
 
 export default function EncapsulationVisualization({
-  onSelectVariable,
-  onChangeStage,
-  spyData 
-
-}: { onSelectVariable: (variable: string) => void;
+    onSelectVariable,
+    onChangeStage,
+    spyData,
+    step
+}: { 
+    onSelectVariable: (variable: string) => void;
     onChangeStage: (stage: string) => void;
     spyData: EncapsSpyData | null;
+    step: number;
  }) {
   useEffect(() => {
               onSelectVariable("encapsulationBase0");
@@ -36,45 +38,51 @@ export default function EncapsulationVisualization({
                 </div>
             </div>
         </div>
-        <div className="flex flex-row gap-4">
-            <div className="flex flex-col gap-4 items-center">
-                <ArrowLongDownIcon className="size-6" />
-                <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
-                    <div className="text-green-700 font-semibold text-lg">Output</div>
-                    <div className="flex flex-col items-center  text-sm gap-2">
-                        <div><InlineMath math="K" /></div>
-                        <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} variableKey="K_encaps" onClick={() => onSelectVariable("K_encaps")} />
-                    </div>
-                </div>         
-            </div>
-            <div className="flex flex-col gap-4 items-center">
-                <ArrowLongDownIcon className="size-6" />
-                <div className="flex flex-col gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
-                    <div className="flex flex-col items-center  text-sm gap-2">
-                        <div><InlineMath math="r" /></div>
-                        <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} variableKey="r_encaps" onClick={() => onSelectVariable("r_encaps")} />
-                    </div>
+        {step >= 2 && <>
+            <div className="flex flex-row gap-4">
+                <div className="flex flex-col gap-4 items-center">
+                    <ArrowLongDownIcon className="size-6" />
+                    <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
+                        <div className="text-green-700 font-semibold text-lg">Output</div>
+                        <div className="flex flex-col items-center  text-sm gap-2">
+                            <div><InlineMath math="K" /></div>
+                            <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} variableKey="K_encaps" onClick={() => onSelectVariable("K_encaps")} />
+                        </div>
+                    </div>         
                 </div>
-                <ArrowLongDownIcon className="size-6" />
+                <div className="flex flex-col gap-4 items-center">
+                    <ArrowLongDownIcon className="size-6" />
+                    <div className="flex flex-col gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                        <div className="flex flex-col items-center  text-sm gap-2">
+                            <div><InlineMath math="r" /></div>
+                            <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} variableKey="r_encaps" onClick={() => onSelectVariable("r_encaps")} />
+                        </div>
+                    </div>
+                    <ArrowLongDownIcon className="size-6" />
+                </div>
             </div>
-        </div>
-        <div
-            onClick={() => {
-                onSelectVariable("encapsulationBase1");
-                onChangeStage("encapsulation1");
-            }}
-            className="rounded-lg bg-white p-4  text-sm flex cursor-pointer items-center justify-center w-64 shadow-sm border-2 border-gray-300"
-        >
-            Kyber-PKE Encrypt
-        </div>
-        <ArrowLongDownIcon className="size-6" />
-        <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
-            <div className="text-green-700 font-semibold text-lg">Output</div>
-            <div className="flex flex-col items-center  text-sm gap-2">
-                <div className=" text-sm"><InlineMath math="c" /></div>
-                <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.cipherText} showValues={true} variableKey="ciphertext_encaps" onClick={() => onSelectVariable("ciphertext_encaps")} />
+        </>}
+        {step >= 3 && <>
+            <div
+                onClick={() => {
+                    onSelectVariable("encapsulationBase1");
+                    onChangeStage("encapsulation1");
+                }}
+                className="rounded-lg bg-white p-4  text-sm flex cursor-pointer items-center justify-center w-64 shadow-sm border-2 border-gray-300"
+            >
+                Kyber-PKE Encrypt
             </div>
-        </div>
+        </>}
+        {step >= 4 && <>
+            <ArrowLongDownIcon className="size-6" />
+            <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
+                <div className="text-green-700 font-semibold text-lg">Output</div>
+                <div className="flex flex-col items-center  text-sm gap-2">
+                    <div className=" text-sm"><InlineMath math="c" /></div>
+                    <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.cipherText} showValues={true} variableKey="ciphertext_encaps" onClick={() => onSelectVariable("ciphertext_encaps")} />
+                </div>
+            </div>
+        </>}
         <Button
             variant="secondary"
             size="sm"
