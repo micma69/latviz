@@ -32,6 +32,10 @@ function vectorNorm(v: number[]): number {
   return Math.sqrt(dotProduct(v, v))
 }
 
+function isNonZeroVector(v: number[]): boolean {
+  return vectorNorm(v) > 1e-10
+}
+
 function gramSchmidt(basis: number[][]): { orthogonal: number[][], mu: number[][] } {
   const n = basis.length
   const orthogonal: number[][] = []
@@ -295,11 +299,14 @@ export function runLLL(basis: number[][], delta: number = 0.75, captureSteps: bo
     })
   }
 
-  const shortestVector = reducedBasis.reduce((shortest, vec) => {
-    const currentNorm = vectorNorm(vec)
-    const shortestNorm = vectorNorm(shortest)
-    return currentNorm < shortestNorm ? vec : shortest
-  }, reducedBasis[0])
+  const nonZeroVectors = reducedBasis.filter(isNonZeroVector)
+  const shortestVector = nonZeroVectors.length > 0
+    ? nonZeroVectors.reduce((shortest, vec) => {
+        const currentNorm = vectorNorm(vec)
+        const shortestNorm = vectorNorm(shortest)
+        return currentNorm < shortestNorm ? vec : shortest
+      }, nonZeroVectors[0])
+    : undefined
 
   const hasZeroVector = reducedBasis.some(vec => 
     vec.every(val => Math.abs(val) < 1e-10)
@@ -316,12 +323,16 @@ export function runLLL(basis: number[][], delta: number = 0.75, captureSteps: bo
   }
 }
 
-export function findShortVector(reducedBasis: number[][]): number[] {
-  return reducedBasis.reduce((shortest, vec) => {
+export function findShortVector(reducedBasis: number[][]): number[] | undefined {
+  const nonZeroVectors = reducedBasis.filter(isNonZeroVector)
+  if (nonZeroVectors.length === 0) {
+    return undefined
+  }
+  return nonZeroVectors.reduce((shortest, vec) => {
     const currentNorm = vectorNorm(vec)
     const shortestNorm = vectorNorm(shortest)
     return currentNorm < shortestNorm ? vec : shortest
-  }, reducedBasis[0])
+  }, nonZeroVectors[0])
 }
 
 export function validateBasis(basis: number[][]): { valid: boolean; error?: string } {
