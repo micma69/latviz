@@ -21,48 +21,58 @@ export default function VerifyInternal({
     }, []);
 
     return (
-        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4">
+        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 font-mono">
             <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
                 <div className="text-blue-700 font-semibold text-lg">Input</div>
                     <div className="flex flex-row gap-4 items-center">
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="pk" /></div>
-                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} onClick={() => onSelectVariable("publickey")} />
+                            <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} variableKey="publickey" onClick={() => onSelectVariable("publickey")} />
                         </div>
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="M'" /></div>
-                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} onClick={() => onSelectVariable("M_verify")} />
+                            <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} variableKey="M_verify" onClick={() => onSelectVariable("Mp_verify")} />
                         </div>
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="\sigma" /></div>
-                            <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.signature ? Array.from(spyData.signature) : []} showValues={true} onClick={() => onSelectVariable("signature")} />
+                            <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.signature ? Array.from(spyData.signature) : []} showValues={true} variableKey="signature" onClick={() => onSelectVariable("signature")} />
                         </div>
                     </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
             <div className="flex flex-row gap-4 items-center">
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                    <div><InlineMath math="pk" /></div>
+                    <ArrowLongRightIcon className="size-6" />
+                    <div className="flex flex-col gap-2 items-center">
+                        <InlineMath math="\rho" />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues={true} variableKey="rho_verify" onClick={() => onSelectVariable("rho_verify")} />
+                    </div>
+                    <div className="flex flex-col gap-2 items-center">
+                        <InlineMath math="t_1" />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.t1[0] ? Array.from(spyData.t1[0]) : []} showValues={true} variableKey="t1_verify" onClick={() => onSelectVariable("t1_verify")} />
+                    </div>
+                    <div className="flex flex-col gap-2 items-center">
+                        <InlineMath math="tr" />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.tr ? Array.from(spyData.tr) : []} showValues={true} variableKey="tr_verify" onClick={() => onSelectVariable("tr_verify")} />
+                    </div>
+                </div>
+            </div>
+            <div className="flex flex-row gap-4 items-center">
+                <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <InlineMath math="\rho" />
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col gap-2 items-center">
                         <InlineMath math="A" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues={true} onClick={() => onSelectVariable("A_verify")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []} showValues={true} variableKey="A_verify" onClick={() => onSelectVariable("A_verify")} />
                     </div>  
-                </div>
-                <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
-                    <div><InlineMath math="pk" /></div>
-                    <ArrowLongRightIcon className="size-6" />
-                    <div className="flex flex-col gap-2 items-center">
-                        <InlineMath math="tr" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.tr ? Array.from(spyData.tr) : []} showValues={true} onClick={() => onSelectVariable("tr_verify")} />
-                    </div>
                 </div>
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div><InlineMath math="tr, M'" /></div>
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col items-center gap-2">
                         <InlineMath math="\mu" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.mu ? Array.from(spyData.mu) : []} showValues onClick={() => onSelectVariable("mu_verify")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.mu ? Array.from(spyData.mu) : []} showValues variableKey="mu_verify" onClick={() => onSelectVariable("mu_verify")} />
                     </div>
                 </div>
             </div>
@@ -72,26 +82,26 @@ export default function VerifyInternal({
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col items-center gap-2">
                         <InlineMath math="\tilde{c}" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.cTilde ? Array.from(spyData.cTilde) : []} showValues onClick={() => onSelectVariable("tildec_verify")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.cTilde ? Array.from(spyData.cTilde) : []} showValues variableKey="tildec_verify" onClick={() => onSelectVariable("tildec_verify")} />
                     </div>
                     <div className="flex flex-col items-center gap-2">
                         <InlineMath math="z" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.z[0] ? Array.from(spyData.z[0]) : []} showValues onClick={() => onSelectVariable("z_verify")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.z[0] ? Array.from(spyData.z[0]) : []} showValues variableKey="z_verify" onClick={() => onSelectVariable("z_verify")} />
                     </div>
                     <div className="flex flex-col items-center gap-2">
                         <InlineMath math="h" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.h[0] ? Array.from(spyData.h[0]) : []} showValues onClick={() => onSelectVariable("h_verify")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.h[0] ? Array.from(spyData.h[0]) : []} showValues variableKey="h_verify" onClick={() => onSelectVariable("h_verify")} />
                     </div>
                 </div>
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div className="flex flex-col items-center gap-2">
                         <InlineMath math="\tilde{c}" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.cTilde ? Array.from(spyData.cTilde) : []} showValues onClick={() => onSelectVariable("tildec_verify")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.cTilde ? Array.from(spyData.cTilde) : []} showValues variableKey="tildec_verify" onClick={() => onSelectVariable("tildec_verify")} />
                     </div>
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col items-center gap-2">
                         <InlineMath math="c" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues onClick={() => onSelectVariable("c_verify")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues variableKey="c_verify" onClick={() => onSelectVariable("c_verify")} />
                     </div>
                 </div>
             </div>
@@ -102,7 +112,7 @@ export default function VerifyInternal({
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col items-center gap-2">
                         <InlineMath math="w'_{approx}" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.wPrime[0] ? Array.from(spyData.wPrime[0]) : []} showValues onClick={() => onSelectVariable("wapprox")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.wPrime[0] ? Array.from(spyData.wPrime[0]) : []} showValues variableKey="wapprox" onClick={() => onSelectVariable("wapprox")} />
                     </div>
                 </div>
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
@@ -110,7 +120,7 @@ export default function VerifyInternal({
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col items-center gap-2">
                         <InlineMath math="w'_1" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.w1[0] ? Array.from(spyData.w1[0]) : []} showValues onClick={() => onSelectVariable("wp1")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.w1[0] ? Array.from(spyData.w1[0]) : []} showValues variableKey="wp1" onClick={() => onSelectVariable("wp1")} />
                     </div>
                 </div>
                 <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
@@ -118,14 +128,14 @@ export default function VerifyInternal({
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col items-center gap-2">
                         <InlineMath math="\tilde{c}'" />
-                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.cTilde ? Array.from(spyData.cTilde) : []} showValues onClick={() => onSelectVariable("tildecp_verify")} />
+                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.cTilde ? Array.from(spyData.cTilde) : []} showValues variableKey="tildecp_verify" onClick={() => onSelectVariable("tildecp_verify")} />
                     </div>
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
             <div
                     className={`
-                        rounded-lg p-4 font-mono text-sm flex items-center justify-center 
+                        rounded-lg p-4  text-sm flex items-center justify-center 
                         w-64 shadow-sm border-2 transition-all duration-200
                         ${spyData?.result 
                             ? 'bg-green-50 border-green-500 text-green-700 hover:bg-green-100' 
