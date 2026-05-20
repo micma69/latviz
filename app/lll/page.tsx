@@ -3,6 +3,7 @@
 import { runLLL, parseBasisFromString } from "@/backend/lll-attack-runner-main/lll-attack-runner-main/src/lib/lll"
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
+import { formatCalculationText } from "@/lib/mathHelpers"
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import * as THREE from "three";
@@ -513,7 +514,7 @@ export default function LLLPage() {
             </div>
             
             <p className="text-slate-400 text-sm mb-3">
-              Enter numbers separated by spaces or commas, one row per line:
+              Enter numbers separated by spaces or commas, one row per line :
             </p>
             <textarea
               value={input}
@@ -717,7 +718,7 @@ export default function LLLPage() {
                         <h4 className="text-lg font-semibold text-white">Calculation Details</h4>
                         <button onClick={() => setShowCalc(false)} className="text-white text-sm px-2 py-1 rounded bg-red-600 hover:bg-red-500">Close</button>
                       </div>
-                      <pre className="text-xs text-slate-200 whitespace-pre-wrap font-mono">{getStepDetails()}</pre>
+                      <pre className="text-xs text-slate-200 whitespace-pre-wrap font-mono">{formatCalculationText(getStepDetails())}</pre>
                     </div>
                   </div>
                 )}
@@ -754,11 +755,13 @@ export default function LLLPage() {
                     <button onClick={() => setShowDeltaInfo(false)} className="text-white text-sm px-2 py-1 rounded bg-red-600 hover:bg-red-500">Close</button>
                   </div>
                   <div className="text-slate-300 text-sm space-y-2">
-                    <p><strong>Delta (δ)</strong> is a parameter in the LLL algorithm that controls the quality of the reduced basis.</p>
-                    <p><strong>Range:</strong> Typically between 0.25 and 1.0. The standard value is 0.75.</p>
-                    <p><strong>LLL Condition:</strong> δ controls the Lovász condition ||b<sub>k</sub>*||² ≥ (δ - μ<sub>k,k-1</sub>²) ||b<sub>k-1</sub>*||²</p>
-                    <p><strong>Effect:</strong> Smaller δ gives better reduction but more iterations. Larger δ is faster but less reduced.</p>
-                    <p><strong>BKZ:</strong> BKZ uses delta as well, often with smaller values for better reduction quality.</p>
+                    <p><strong>The delta value (δ) </strong> is a parameter in LLL and BKZ algorithms that controls the quality of the reduced basis.</p>
+                    <p><strong>Range : </strong> Typically between 0.25 and 1.0. By default, here, the standard value is 0.75.</p>
+                    <p>The δ is used in the Lovász condition checking :</p>
+                    <p> ||b<sub>k</sub>*||² ≥ (δ - μ<sub>k,k-1</sub>²) ||b<sub>k-1</sub>*||²</p>
+                    <p><strong>Effect :</strong> Larger δ gives better reduction and better orthogonality but more iterations and thus computationally heavier. Smaller δ however, requires less iterations and faster computationally, but less reduced.</p>
+                    <p>In other words, <strong>if you want a better result with heavier process, use a bigger δ. If you want a faster and lighter process, use a smaller δ.</strong></p>
+                    <p>Fun fact, BKZ uses δ as well, often with bigger δ for better reduction quality.</p>
                   </div>
                 </div>
               </div>

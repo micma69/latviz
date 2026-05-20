@@ -4,6 +4,7 @@ import { runLLL, parseBasisFromString } from "@/backend/lll-attack-runner-main/l
 import { runBKZ } from "@/backend/lll-attack-runner-main/lll-attack-runner-main/src/lib/bkz";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { formatCalculationText } from "@/lib/mathHelpers";
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import * as THREE from "three";
@@ -226,6 +227,7 @@ export default function BKZPage() {
   const [viewMode, setViewMode] = useState<'2d' | '3d'>('2d')
   const [delta, setDelta] = useState(0.99)
   const [deltaInput, setDeltaInput] = useState('0.99')
+  const [showDeltaInfo, setShowDeltaInfo] = useState(false)
 
   const handleProcess = () => {
     setError('')
@@ -473,11 +475,36 @@ export default function BKZPage() {
 
     if (step.action === 'svp_enumeration') {
       const blockStart = step.blockStart || 0
-      const blockEnd = Math.min(blockStart + blockSize - 1, steps[currentStep]?.basis?.length - 1)
+      const blockEnd = step.blockEnd ?? Math.min(blockStart + blockSize - 1, steps[currentStep]?.basis?.length - 1)
       actionDetail = `SVP Enumeration on block [${blockStart}...${blockEnd}]\n`
-      theoreticalExplanation = `The Shortest Vector Problem (SVP) finds the shortest non-zero vector in a lattice.\nThis enumeration searches through linear combinations of basis vectors to find shorter vectors.\n`
+      theoreticalExplanation = `The Shortest Vector Problem (SVP) finds the shortest non-zero vector in a lattice.\nIt searches through linear combinations of basis vectors to find shorter vectors in this lattice.\nIn BKZ, the search is restricted locally to a projected block.\n`
       if (step.k !== undefined) {
-        actionDetail += `Searching for vectors shorter than current b_${step.k}`
+        actionDetail += `Searching for vectors shorter than current b_${step.k}.\n`
+      }
+
+      const blockBefore = (step.svpBlockBefore ?? []) as number[][]
+      const blockAfter = (step.svpBlockAfter ?? []) as number[][]
+      if (blockBefore.length > 0) {
+        actionDetail += `\nBlock inspected for SVP search:\n`
+        for (let idx = 0; idx < blockBefore.length; idx += 1) {
+          const vec = blockBefore[idx]
+          const basisIndex = blockStart + idx
+          actionDetail += `b_${basisIndex} = [${vec.map((f) => f.toFixed(6)).join(', ')}]\n`
+        }
+      }
+
+      if (blockAfter.length > 0) {
+        actionDetail += `\nBlock after moving found SVP to the leftmost position:\n`
+        for (let idx = 0; idx < blockAfter.length; idx += 1) {
+          const vec = blockAfter[idx]
+          const basisIndex = blockStart + idx
+          actionDetail += `b_${basisIndex} = [${vec.map((f) => f.toFixed(6)).join(', ')}]\n`
+        }
+      }
+
+      const svpSolution = step.svpSolution as number[] | undefined
+      if (svpSolution) {
+        actionDetail += `\nFound SVP vector: [${svpSolution.map((f) => f.toFixed(6)).join(', ')}]\n`
       }
     } else if (step.action === 'start_lll_process') {
       const lllNum = step.lllNumber || 1
@@ -574,6 +601,13 @@ export default function BKZPage() {
             <div className="mb-4">
               <label className="block text-slate-300 text-sm mb-2">
                 Delta Value (δ)
+                <button
+                  onClick={() => setShowDeltaInfo(true)}
+                  className="ml-2 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-500"
+                  title="What is delta?"
+                >
+                  ?
+                </button>
               </label>
               <input
                 type="number"
@@ -774,7 +808,7 @@ export default function BKZPage() {
                         <h4 className="text-lg font-semibold text-white">Step Details</h4>
                         <button onClick={() => setShowCalc(false)} className="text-white text-sm px-2 py-1 rounded bg-red-600 hover:bg-red-500">Close</button>
                       </div>
-                      <pre className="text-xs text-slate-200 whitespace-pre-wrap font-mono">{getStepDetails()}</pre>
+                      <pre className="text-xs text-slate-200 whitespace-pre-wrap font-mono">{formatCalculationText(getStepDetails())}</pre>
                     </div>
                   </div>
                 )}
@@ -798,6 +832,26 @@ export default function BKZPage() {
             {!result && initialBasis && !loading && (
               <div className="bg-slate-800 rounded-lg p-6 border border-slate-700 text-slate-400 text-center">
                 Click "Process Matrix" to run the BKZ algorithm
+              </div>
+            )}
+
+            {showDeltaInfo && (
+              <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+                <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 w-full max-w-md">
+                  <div className="flex justify-between items-center mb-4">
+                    <h4 className="text-lg font-semibold text-white">About Delta (δ)</h4>
+                    <button onClick={() => setShowDeltaInfo(false)} className="text-white text-sm px-2 py-1 rounded bg-red-600 hover:bg-red-500">Close</button>
+                  </div>
+                  <div className="text-slate-300 text-sm space-y-2">
+                    <p><strong>The delta value (δ) </strong> is a parameter in LLL and BKZ algorithms that controls the quality of the reduced basis.</p>
+                    <p><strong>Range : </strong> Typically between 0.25 and 1.0. By default, here, the standard value is 0.99.</p>
+                    <p>The δ is used in the Lovász condition checking :</p>
+                    <p> ||b<sub>k</sub>*||² ≥ (δ - μ<sub>k,k-1</sub>²) ||b<sub>k-1</sub>*||²</p>
+                    <p><strong>Effect :</strong> Larger δ gives better reduction and better orthogonality but more iterations and thus computationally heavier. Smaller δ however, requires less iterations and faster computationally, but less reduced.</p>
+                    <p>In other words, <strong>if you want a better result with heavier process, use a bigger δ. If you want a faster and lighter process, use a smaller δ.</strong></p>
+                    <p>BKZ usually has a bigger δ for better reduction quality, hence the reason we set the default value to 0.99.</p>
+                  </div>
+                </div>
               </div>
             )}
 
