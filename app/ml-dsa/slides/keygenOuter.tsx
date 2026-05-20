@@ -21,42 +21,50 @@ export default function KeygenOuter({
     }, []);
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="flex flex-row gap-7 items-center h-full w-full justify-center">
-                <div className="flex flex-col items-center gap-2">
-                    <div>𝜉</div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.seed ? Array.from(spyData.seed) : []} showValues onClick={() => {onSelectVariable("xi_keygen")}} />
+        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4">
+            <div className="flex flex-row gap-4 items-center">
+                <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
+                    <div className="text-blue-700 font-semibold text-lg">Input</div>
+                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                            <div><InlineMath math="\xi" /></div>
+                            <SquareGrid
+                                rows={1} cols={4} rowsExpanded={8} size={12}
+                                colorData={spyData?.seed ? Array.from(spyData.seed) : []}
+                                showValues onClick={() => onSelectVariable("xi_keygen")}
+                            />
+                        </div>
                 </div>
-                <div className="flex flex-col items-center gap-1">
-                    input
-                    <ArrowLongRightIcon className="size-8" />
-                </div>
-                <div onClick={() => {
-                    onChangeStage("keygen1");
-                }} className="flex rounded-lg bg-white p-3 font-mono text-sm h-24 items-center justify-center cursor-pointer">
+                <ArrowLongRightIcon className="size-6" />
+                <div
+                    onClick={() => {
+                        onSelectVariable("keygen1");
+                        onChangeStage("keygen1");
+                    }}
+                    className="rounded-lg bg-white p-4 font-mono text-sm flex cursor-pointer items-center justify-center w-64 shadow-sm border-2 border-gray-300"
+                >
                     Internal Key Generation
                 </div>
-                <div className="flex flex-col items-center gap-1">
-                    output
-                    <ArrowLongRightIcon className="size-8" />
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                    <div><InlineMath math="pk" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} onClick={() => {onSelectVariable("publicKey")}} />
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                    <div><InlineMath math="sk" /></div>
-                    <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => {onSelectVariable("secretKey")}}/>
+                <ArrowLongRightIcon className="size-6" />
+                <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
+                    <div className="text-green-700 font-semibold text-lg">Output</div>
+                    <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div><InlineMath math="pk" /></div>
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} onClick={() => {onSelectVariable("publickey")}} />
+                    </div>
+                    <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div><InlineMath math="sk" /></div>
+                        <SquareGrid rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} onClick={() => {onSelectVariable("secretkey")}}/>
+                    </div>
                 </div>
             </div>
             <Button
                 variant="secondary"
                 size="sm"
                 onClick={() => onChangeStage("home")}
-                className="flex justify-start cursor-pointer"
-                >
+                className="flex justify-start cursor-pointer mt-2"
+            >
                 <ChevronLeftIcon className="size-6" /> BACK
             </Button>
-        </div> 
+        </div>
     );
 }

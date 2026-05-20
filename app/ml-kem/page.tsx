@@ -6,30 +6,24 @@ import Link from "next/link";
 import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import KeygenVisualization from './slides/keygenVisualization';
-import KeygenVisualizationProcess from './slides/keygenVisualizationProcess';
-import EncapsulationVisualization from './slides/encapsulationVisualization';
-import EncapsulationVisualizationProcess from './slides/encapsulationVisualizationProcess';
-import DecapsulationVisualization from './slides/decapsulationVisualization';
-import DecapsulationVisualizationProcess from './slides/decapsulationVisualizationProcess';
+import KeygenVisualization from './slides/keygenOuter';
+import KeygenVisualizationProcess from './slides/keygenInner';
+import EncapsulationVisualization from './slides/encapsOuter';
+import EncapsulationVisualizationProcess from './slides/encapsInner';
+import DecapsulationVisualization from './slides/decapsOuter';
+import DecapsulationVisualizationProcess from './slides/decapsInner';
 import { KeygenSpyData, EncapsSpyData, DecapsSpyData, createSpy } from '@/utils/createSpy';
 import SquareGrid from "@/components/ui/gridLattice";
 
 export default function MLKEMPage() {
     const [vizStage, setVizStage] = useState<string | null>(null);
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
-    const [securityLevel, setSecurityLevel] = useState("ml_kem768");
+    const [securityLevel, setSecurityLevel] = useState<KemSecurityLevel>('ml_kem512');
+    const [selectedParam, setSelectedParam] = useState<KemParamKey>('k');
     const [aliceKeys, setAliceKeys] = useState<{ publicKey: Uint8Array; secretKey: Uint8Array } | null>(null);
     const [cipherText, setCipherText] = useState<Uint8Array | null>(null);
     const [sharedSecret, setsharedSecret] = useState<Uint8Array | null>(null);
     const [decapsulatedSecret, setDecapsulatedSecret] = useState<Uint8Array | null>(null);
-    const [output, setOutput] = useState<string[]>([]);
-
-    const [expandedPublicKey, setExpandedPublicKey] = useState(false);
-    const [expandedSecretKey, setExpandedSecretKey] = useState(false);
-    const [expandedCipherText, setExpandedCipherText] = useState(false);
-    const [expandedSharedSecret, setExpandedSharedSecret] = useState(false);
-    const [expandedDecapsulatedSecret, setExpandedDecapsulatedSecret] = useState(false);
 
     const [flow, setFlow] = useState<Record<string, unknown> | null>(null);
     const [animationStep, setAnimationStep] = useState(0);
@@ -39,23 +33,53 @@ export default function MLKEMPage() {
     const [encapsSpyData, setEncapsSpyData] = useState<EncapsSpyData | null>(null);
     const [decapsSpyData, setDecapsSpyData] = useState<DecapsSpyData | null>(null);
 
-    const addOutput = (message: string) => {
-        setOutput(prev => [...prev, message]);
-    };
-
     useEffect(() => {
         setAliceKeys(null);
         setCipherText(null);
         setsharedSecret(null);
         setVizStage(null);
         setSelectedVariable(null);
-        setOutput(["Security level changed."]);
+        setKeygenSpyData(null);
+        setEncapsSpyData(null);
+        setDecapsSpyData(null);
     }, [securityLevel]);
+
+    const resetAll = (): void => {
+        setAliceKeys(null);
+        setCipherText(null);
+        setsharedSecret(null);;
+        setSelectedVariable(null);
+        setKeygenSpyData(null);
+        setEncapsSpyData(null);
+        setDecapsSpyData(null);
+    }
 
     const mlKemLevels = [
         { label: 'ML-KEM-512 (128-bit security)', value: 'ml_kem512' },
         { label: 'ML-KEM-768 (192-bit security)', value: 'ml_kem768' },
         { label: 'ML-KEM-1024 (256-bit security)', value: 'ml_kem1024' }
+    ];
+
+    const mlKemParams = {
+        ml_kem512: { n: 256, q: 3329, k: 2, eta1: 3, eta2: 2, du: 10, dv: 4 },
+        ml_kem768: { n: 256, q: 3329, k: 3, eta1: 2, eta2: 2, du: 10, dv: 4 },
+        ml_kem1024: { n: 256, q: 3329, k: 4, eta1: 2, eta2: 2, du: 11, dv: 5 },
+    } as const;
+
+    type KemSecurityLevel = keyof typeof mlKemParams;
+    type KemParamKey = keyof typeof mlKemParams.ml_kem512;
+
+    const currentParams = mlKemParams[securityLevel];
+    const currentParamValue = currentParams?.[selectedParam];
+
+    const parameters = [
+        { key: "n", label: "n" },
+        { key: "q", label: "q" },
+        { key: "k", label: "k" },
+        { key: "eta1", label: "η₁" },
+        { key: "eta2", label: "η₂" },
+        { key: "du", label: "dᵤ" },
+        { key: "dv", label: "dᵥ" },
     ];
 
     const executeMLKEM = async (operation: string) => {
@@ -79,9 +103,6 @@ export default function MLKEMPage() {
                     publicKey: Array.from(keys.publicKey),
                     secretKey: Array.from(keys.secretKey),
                 } : null);
-                addOutput("Key pair generated.");
-                addOutput(`Public key length: ${keys.publicKey.length} bytes`);
-                addOutput(`Secret key length: ${keys.secretKey.length} bytes`);
                 break;
             }
 
@@ -99,8 +120,6 @@ export default function MLKEMPage() {
                     cipherText: Array.from(result.cipherText),
                     sharedSecret: Array.from(result.sharedSecret),
                 } : null);
-                addOutput("Encapsulation complete.");
-                addOutput(`Ciphertext length: ${result.cipherText.length} bytes`);
                 }
                 break;
 
@@ -121,8 +140,6 @@ export default function MLKEMPage() {
                     ? Buffer.from(aliceShared).toString("hex") === Buffer.from(sharedSecret).toString("hex")
                     : false;
 
-                addOutput("Decapsulation complete.");
-                addOutput(`Secrets match: ${match ? "YES" : "NO"}`);  
                 break;
             }
 
@@ -197,17 +214,6 @@ export default function MLKEMPage() {
     }, 1200); // Advance animation every 1.2 seconds
 
     return () => clearInterval(interval);
-    };
-
-    const formatArray = (bytes: Uint8Array | null) => {
-    if (!bytes) return "";
-    return `[${Array.from(bytes).join(", ")}]`;
-    };
-
-    const previewArray = (bytes: Uint8Array | null, count = 5) => {
-        if (!bytes) return "";
-        const arr = Array.from(bytes.slice(0, count));
-        return `[${arr.join(", ")}, ...]`;
     };
 
     return (
@@ -372,7 +378,7 @@ export default function MLKEMPage() {
                                             <Button
                                                 variant="outline"
                                                 size="lg"
-                                                onClick={() => {executeMLKEM("Key Generation") ; setVizStage("keygen0")}}
+                                                onClick={() => {if (!keygenSpyData) {executeMLKEM("Key Generation");} setVizStage("keygen0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Key Generation
@@ -381,7 +387,7 @@ export default function MLKEMPage() {
                                                 variant="outline"
                                                 size="lg"
                                                 disabled={!aliceKeys}
-                                                onClick={() => {executeMLKEM("Encapsulation") ; setVizStage("encapsulation0")}}
+                                                onClick={() => {if (!encapsSpyData) {executeMLKEM("Encapsulation");} setVizStage("encapsulation0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Encapsulation
@@ -390,10 +396,19 @@ export default function MLKEMPage() {
                                                 variant="outline"
                                                 size="lg"
                                                 disabled={!cipherText}
-                                                onClick={() => {executeMLKEM("Decapsulation") ; setVizStage("decapsulation0")}}
+                                                onClick={() => {if (!decapsSpyData) {executeMLKEM("Decapsulation");} setVizStage("decapsulation0");}}
                                                 className="cursor-pointer h-14 px-10 text-lg"
                                             >
                                                 Decapsulation
+                                            </Button>
+                                            <Button
+                                                variant="outline"
+                                                size="lg"
+                                                disabled={!keygenSpyData}
+                                                onClick={() => {resetAll()}}
+                                                className="cursor-pointer h-14 px-10 text-lg"
+                                            >
+                                                Reset
                                             </Button>
                                         </div>
                                     )}
@@ -409,7 +424,7 @@ export default function MLKEMPage() {
                         <div className="pl-6 pr-6 sticky h-[calc(100vh-3rem)] flex flex-col gap-4">
                             <div className="flex flex-col items-center gap-4 rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-5">
                                 Select Security Level
-                                <Select value={securityLevel} onValueChange={setSecurityLevel}>
+                                <Select value={securityLevel} onValueChange={setSecurityLevel as (value: string) => void}>
                                     <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select Security Level" />
                                     </SelectTrigger>
@@ -421,69 +436,459 @@ export default function MLKEMPage() {
                                         ))}
                                     </SelectContent>
                                 </Select>
-                            </div>
-                            <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center">
-                                {(vizStage === null || vizStage === "home") &&
-                                    <div className="">Pick a stage!</div>
-                                }
-                                {(vizStage === "keygen0" || vizStage === "keygen1") &&
-                                    <div className="flex flex-col items-center gap-4">
-                                        Output
-                                        <div className="grid grid-cols-2 gap-6">
-                                            <div className="flex flex-col items-center gap-1">
-                                                <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
-                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                    <SquareGrid rows={Math.ceil((keygenSpyData?.publicKey?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.publicKey} showValues={true}/>
-                                                </div>
-                                            </div>
-                                            <div className="flex flex-col items-center gap-1">
-                                                <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
-                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                    <SquareGrid rows={Math.ceil((keygenSpyData?.secretKey?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.secretKey} showValues={true}/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                {(vizStage === "encapsulation0" || vizStage === "encapsulation1") &&
-                                    <div className="flex flex-col items-center gap-4">
-                                        Output
-                                        <div className="grid grid-cols-2 gap-6">
-                                            <div className="flex flex-col items-center gap-1">
-                                                <div><InlineMath math="c \in \mathbb{B}^{32(d_u k + d_v)}" /></div>
-                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                    <SquareGrid rows={Math.ceil((encapsSpyData?.cipherText?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.cipherText} showValues={true}/>
-                                                </div>
-                                            </div>
-                                            <div className="flex flex-col items-center gap-1">
-                                                <div><InlineMath math="K \in \mathbb{B}^{32}" /></div>
-                                                <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                    <SquareGrid rows={Math.ceil((encapsSpyData?.sharedSecret?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.sharedSecret} showValues={true}/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                {(vizStage === "decapsulation0" || vizStage === "decapsulation1") &&
-                                    <div className="flex flex-col items-center gap-4">
-                                        <div>Output</div>
-                                        <div className="flex flex-col items-center gap-1">
-                                            <div><InlineMath math="K \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid rows={Math.ceil((decapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.K ? Array.from(decapsSpyData.K) : []} showValues={true}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                            <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center">
-                                <div>
-                                    {vizStage === null &&
-                                        <div>will show full variable expansion</div>
-                                    }
+                                {/* Clickable parameter row */}
+                                <div className="flex flex-wrap justify-center gap-2 w-full">
+                                {parameters.map((param) => (
+                                    <button
+                                    key={param.key}
+                                    onClick={() => setSelectedParam(param.key as KemParamKey)}
+                                    className={`
+                                        px-2.5 py-1 rounded-md text-xs font-mono transition-all
+                                        ${selectedParam === param.key 
+                                        ? "bg-blue-600 text-white shadow-sm" 
+                                        : "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                                        }
+                                    `}
+                                    >
+                                    {param.label}
+                                    </button>
+                                ))}
                                 </div>
+
+                                {/* Value panel - shows current param value */}
+                                {currentParams && (
+                                <div className="w-full mt-1 p-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-center">
+                                    <div className="text-xl font-mono font-bold">
+                                    {currentParamValue}
+                                    </div>
+                                </div>
+                                )}
+                            </div>
+                            <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center p-2">
+                                {(vizStage === null || selectedVariable === null) &&
+                                    <div>Click a variable to see it in full!</div>
+                                }
+
+                                {/* ── KEYGEN ── */}
+                                {selectedVariable === "d" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="d \in \mathbb{B}^{32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.d?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.d ? Array.from(keygenSpyData.d) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "z_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="z \in \mathbb{B}^{32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.z ? Array.from(keygenSpyData.z) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rho_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho \in \mathbb{B}^{32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "sigma_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\sigma \in \mathbb{B}^{32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.sigma?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sigma ? Array.from(keygenSpyData.sigma) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "A_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="A \in \mathbb{Z}_q^{k \times k}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil(keygenSpyData?.A?.[0]?.[0].length ?? 0) / 4} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="s \in \mathbb{Z}_q^{k}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sHat[0] ? Array.from(keygenSpyData.sHat[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "e_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="e \in \mathbb{Z}_q^{k}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.eHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.eHat[0] ? Array.from(keygenSpyData.eHat[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="t \in \mathbb{Z}_q^{k}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tHat[0] ? Array.from(keygenSpyData.tHat[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "ekPKE_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="ek_{PKE} \in \mathbb{B}^{384k+32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.ekPKE ? Array.from(keygenSpyData.ekPKE) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "dkPKE_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="dk_{PKE} \in \mathbb{B}^{384k}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.dkPKE ? Array.from(keygenSpyData.dkPKE) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "encapskey_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.publicKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.publicKey} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "decapskey_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.secretKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.secretKey} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {/* ── ENCAPSULATION ── */}
+                                {selectedVariable === "m_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="m \in \mathbb{B}^{32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.m ? Array.from(encapsSpyData.m) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "K_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="K" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.K ? Array.from(encapsSpyData.K) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "r_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="r" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.r ? Array.from(encapsSpyData.r) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "encapskey_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.ek?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.ek ? Array.from(encapsSpyData.ek) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rho_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho \in \mathbb{B}^{32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.rho ? Array.from(encapsSpyData.rho) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\hat{t}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.tHat[0] ? Array.from(encapsSpyData.tHat[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "mu_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mu" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.mu ? Array.from(encapsSpyData.mu) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "A_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="A \in \mathbb{Z}_q^{k \times k}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.A?.[0]?.[0] ? Array.from(encapsSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "y_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="y" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.y[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.y[0] ? Array.from(encapsSpyData.y[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "e1_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="e_1" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.e1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e1[0] ? Array.from(encapsSpyData.e1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "e2_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="e_2" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.e2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e2 ? Array.from(encapsSpyData.e2) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "u_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="u" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.u[0] ? Array.from(encapsSpyData.u[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "c1_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c_1" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c1 ? Array.from(encapsSpyData.c1) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "v_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="v" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.v ? Array.from(encapsSpyData.v) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "c2_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c_2" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c2 ? Array.from(encapsSpyData.c2) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "ciphertext_encaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c = (c_1, c_2)" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((encapsSpyData?.cipherText?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.cipherText ? Array.from(encapsSpyData.cipherText) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {/* ── DECAPSULATION ── */}
+                                {selectedVariable === "ciphertext_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c = (c_1, c_2)" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "decapskey_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.dk?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dk ? Array.from(decapsSpyData.dk) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "ekPKE_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="ek_{PKE} \in \mathbb{B}^{384k+32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.ekPKE ? Array.from(decapsSpyData.ekPKE) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "dkPKE_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="dk_{PKE} \in \mathbb{B}^{384k}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dkPKE ? Array.from(decapsSpyData.dkPKE) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "h_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="h = H(ek)" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.h?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.h ? Array.from(decapsSpyData.h) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "z_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="z \in \mathbb{B}^{32}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.z ? Array.from(decapsSpyData.z) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "c1_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c_1" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c1 ? Array.from(decapsSpyData.c1) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "c2_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c_2" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c2 ? Array.from(decapsSpyData.c2) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "u_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="u" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.u[0] ? Array.from(decapsSpyData.u[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "v_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="v" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.v ? Array.from(decapsSpyData.v) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\hat{s}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.sHat[0] ? Array.from(decapsSpyData.sHat[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "w_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="w" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.w?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.w ? Array.from(decapsSpyData.w) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "m_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="m'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.m ? Array.from(decapsSpyData.m) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "K'_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="K'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.K ? Array.from(decapsSpyData.K) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "r'_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="r'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.r ? Array.from(decapsSpyData.r) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "kbar_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\bar{K}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.Kbar?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kbar ? Array.from(decapsSpyData.Kbar) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "c'_decaps" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "kfinal" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="K" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((decapsSpyData?.Kfinal?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kfinal ? Array.from(decapsSpyData.Kfinal) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center p-2">
                                 <div>
-                                    expanded
+                                    empt
                                 </div>
                             </div>
                         </div>
