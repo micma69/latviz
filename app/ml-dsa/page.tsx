@@ -51,20 +51,15 @@ export default function MLDSAPage() {
         setAnimationStep(0);
         setAnimationComplete(false);
         
-        setTimeout(() => {
-            animateSequence();
-        }, 500);
-    };
-
-    const animateSequence = () => {
         let currentStep = 0;
         const interval = setInterval(() => {
             currentStep++;
             setAnimationStep(currentStep);
             
+            setAnimationComplete(currentStep >= 3);
+            
             if (currentStep >= 4) {
                 clearInterval(interval);
-                setAnimationComplete(true);
                 setIsAnimating(false);
             }
         }, 1200);
@@ -215,190 +210,197 @@ export default function MLDSAPage() {
                 </div>
                 <div className="rounded-xl bg-slate-800 p-6 mb-8">
                     <h2 className="text-2xl font-bold mb-6 text-white">ML-DSA Digital Signature Process</h2>
-                    
                     <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
-                        <div className="flex flex-col md:flex-row items-center justify-center mb-8">
-                            {/* Flow diagram */}
-                            <div className="flex flex-col md:flex-row items-center justify-center w-full">
-                                
-                                {/* Signer Side (Alice) */}
-                                <div className="w-full md:w-5/12 p-4">
-                                    <div className={`bg-blue-50 rounded-xl border border-blue-200 p-6 transition-all duration-500 
-                                        ${animationStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                                        <div className="flex items-center mb-4">
-                                            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                                                <svg className="h-6 w-6 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                                </svg>
-                                            </div>
-                                            <h3 className="text-xl font-semibold text-blue-900">Signer (Alice)</h3>
-                                        </div>
-                                        
-                                        <div className="space-y-4">
-                                            {/* Step 1: Generate Keys */}
-                                            <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 
-                                                ${animationStep >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-sm font-medium text-blue-800">1. Generates Key Pair</p>
-                                                    {animationStep >= 1 && (
-                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                        </svg>
-                                                    )}
+                        {!isAnimating && animationStep === 0 && (
+                            <div className="space-y-4 h-[575px]">
+                                test
+                            </div>
+                        )}
+                        {(isAnimating || animationStep > 0) && ( 
+                            <>
+                            <div className="flex flex-col md:flex-row items-center justify-center mb-8">
+                                {/* Flow diagram */}
+                                <div className="flex flex-col md:flex-row items-center justify-center w-full">
+                                    
+                                    {/* Signer Side (Alice) */}
+                                    <div className="w-full md:w-5/12 p-4">
+                                        <div className={`bg-blue-50 rounded-xl border border-blue-200 p-6 transition-all duration-500 
+                                            ${animationStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                                            <div className="flex items-center mb-4">
+                                                <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                                    <svg className="h-6 w-6 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                    </svg>
                                                 </div>
-                                                <div className="flex justify-center space-x-4 mt-2">
-                                                    <div className="text-center">
-                                                        <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
-                                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                                            </svg>
-                                                        </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Public Key</p>
-                                                    </div>
-                                                    <div className="text-center">
-                                                        <div className="w-12 h-8 bg-gray-400 rounded border-2 border-gray-600 mx-auto flex items-center justify-center">
-                                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                                            </svg>
-                                                        </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Private Key</p>
-                                                    </div>
-                                                </div>
+                                                <h3 className="text-xl font-semibold text-blue-900">Signer (Alice)</h3>
                                             </div>
                                             
-                                            {/* Step 2: Sign Message */}
-                                            <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 delay-300
-                                                ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-sm font-medium text-blue-800">2. Signs Message (with Private Key)</p>
-                                                    {animationStep >= 2 && (
-                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                        </svg>
-                                                    )}
+                                            <div className="space-y-4">
+                                                {/* Step 1: Generate Keys */}
+                                                <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 
+                                                    ${animationStep >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <p className="text-sm font-medium text-blue-800">1. Generates Key Pair</p>
+                                                        {animationStep >= 1 && (
+                                                            <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex justify-center space-x-4 mt-2">
+                                                        <div className="text-center">
+                                                            <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
+                                                                <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                                                </svg>
+                                                            </div>
+                                                            <p className="text-xs text-gray-600 mt-1">Public Key</p>
+                                                        </div>
+                                                        <div className="text-center">
+                                                            <div className="w-12 h-8 bg-gray-400 rounded border-2 border-gray-600 mx-auto flex items-center justify-center">
+                                                                <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                                                </svg>
+                                                            </div>
+                                                            <p className="text-xs text-gray-600 mt-1">Private Key</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 
-                                                {/* Visual flow of signing process */}
-                                                <div className="flex justify-center items-center space-x-2 mt-3">
-                                                    {/* Input: Message */}
-                                                    <div className="text-center">
-                                                        <div className="w-16 h-10 bg-gray-200 rounded border border-gray-300 mx-auto flex items-center justify-center">
-                                                        </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Message</p>
-                                                    </div>
-                                                    
-                                                    {/* Arrow indicating flow */}
-                                                    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                                    </svg>
-                                                    
-                                                    {/* Private Key (shown as input to signing) */}
-                                                    <div className="text-center">
-                                                        <div className="w-16 h-10 bg-gray-400 rounded border-2 border-gray-600 mx-auto flex items-center justify-center relative">
-                                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                                {/* Step 2: Sign Message */}
+                                                <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 delay-300
+                                                    ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <p className="text-sm font-medium text-blue-800">2. Signs Message (with Private Key)</p>
+                                                        {animationStep >= 2 && (
+                                                            <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                                             </svg>
-                                                        </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Private Key</p>
+                                                        )}
                                                     </div>
                                                     
-                                                    {/* Arrow */}
-                                                    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                                    </svg>
-                                                    
-                                                    {/* Output: Signature */}
-                                                    <div className="text-center">
-                                                        <div className="w-16 h-10 bg-purple-400 rounded border-2 border-purple-600 mx-auto flex items-center justify-center">
+                                                    {/* Visual flow of signing process */}
+                                                    <div className="flex justify-center items-center space-x-2 mt-3">
+                                                        {/* Input: Message */}
+                                                        <div className="text-center">
+                                                            <div className="w-16 h-10 bg-gray-200 rounded border border-gray-300 mx-auto flex items-center justify-center">
+                                                            </div>
+                                                            <p className="text-xs text-gray-600 mt-1">Message</p>
                                                         </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Signature</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                {/* Middle Arrows */}
-                                <div className="w-full md:w-2/12 py-4 flex flex-col items-center justify-center relative">
-                                    <div className={`hidden md:block w-full h-0.5 bg-blue-300 my-2 transition-all duration-700 
-                                        ${animationStep >= 2 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
-                                    <div className="md:hidden h-20 w-0.5 bg-blue-300 my-2"></div>
-                                    
-                                    {/* Text above the line */}
-                                    {animationStep >= 2 && (
-                                        <div className="absolute -top-6 bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
-                                            Public Key + Signature + Message →
-                                        </div>
-                                    )}
-                                    
-                                    <div className={`bg-white rounded-full p-3 shadow-md transition-all duration-700 z-10
-                                        ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                
-                                {/* Verifier Side (Bob) */}
-                                <div className="w-full md:w-5/12 p-4">
-                                    <div className={`bg-green-50 rounded-xl border border-green-200 p-6 transition-all duration-500 
-                                        ${animationStep >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                                        <div className="flex items-center mb-4">
-                                            <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                                                <svg className="h-6 w-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                                </svg>
-                                            </div>
-                                            <h3 className="text-xl font-semibold text-green-900">Verifier (Bob)</h3>
-                                        </div>
-                                        
-                                        <div className="space-y-4">
-                                            {/* Step 3: Verify Signature */}
-                                            <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
-                                                ${animationStep >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-sm font-medium text-green-800">3. Verifies Signature</p>
-                                                    {animationStep >= 3 && (
-                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                        
+                                                        {/* Arrow indicating flow */}
+                                                        <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                                         </svg>
-                                                    )}
-                                                </div>
-                                                <div className="flex justify-center items-center space-x-3 mt-2">
-                                                    <div className="text-center">
-                                                        <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
-                                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                                            </svg>
-                                                        </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Public Key</p>
-                                                    </div>
-                                                    <div className="text-center">
-                                                        <div className="w-12 h-8 bg-gray-200 rounded border border-gray-300 mx-auto flex items-center justify-center">
-                                                            <span className="text-xs text-gray-600">Msg</span>
-                                                        </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Message</p>
-                                                    </div>
-                                                    <div className="text-center">
-                                                        <div className="w-12 h-8 bg-purple-400 rounded border-2 border-purple-600 mx-auto"></div>
-                                                        <p className="text-xs text-gray-600 mt-1">Signature</p>
-                                                    </div>
-                                                    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                    <div className="text-center">
-                                                        <div className={`w-12 h-8 rounded border-2 mx-auto flex items-center justify-center
-                                                            ${animationComplete ? 'bg-green-400 border-green-600' : 'bg-gray-200 border-gray-300'}`}>
-                                                            {animationComplete ? (
+                                                        
+                                                        {/* Private Key (shown as input to signing) */}
+                                                        <div className="text-center">
+                                                            <div className="w-16 h-10 bg-gray-400 rounded border-2 border-gray-600 mx-auto flex items-center justify-center relative">
                                                                 <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                                                                 </svg>
-                                                            ) : (
-                                                                <span className="text-xs text-gray-500">?</span>
-                                                            )}
+                                                            </div>
+                                                            <p className="text-xs text-gray-600 mt-1">Private Key</p>
                                                         </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Valid?</p>
+                                                        
+                                                        {/* Arrow */}
+                                                        <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                                        </svg>
+                                                        
+                                                        {/* Output: Signature */}
+                                                        <div className="text-center">
+                                                            <div className="w-16 h-10 bg-purple-400 rounded border-2 border-purple-600 mx-auto flex items-center justify-center">
+                                                            </div>
+                                                            <p className="text-xs text-gray-600 mt-1">Signature</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Middle Arrows */}
+                                    <div className="w-full md:w-2/12 py-4 flex flex-col items-center justify-center relative">
+                                        <div className={`hidden md:block w-full h-0.5 bg-blue-300 my-2 transition-all duration-700 
+                                            ${animationStep >= 2 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
+                                        <div className="md:hidden h-20 w-0.5 bg-blue-300 my-2"></div>
+                                        
+                                        {/* Text above the line */}
+                                        {animationStep >= 2 && (
+                                            <div className="absolute -top-6 bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                                Public Key + Signature + Message →
+                                            </div>
+                                        )}
+                                        
+                                        <div className={`bg-white rounded-full p-3 shadow-md transition-all duration-700 z-10
+                                            ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Verifier Side (Bob) */}
+                                    <div className="w-full md:w-5/12 p-4">
+                                        <div className={`bg-green-50 rounded-xl border border-green-200 p-6 transition-all duration-500 
+                                            ${animationStep >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                                            <div className="flex items-center mb-4">
+                                                <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                                    <svg className="h-6 w-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                    </svg>
+                                                </div>
+                                                <h3 className="text-xl font-semibold text-green-900">Verifier (Bob)</h3>
+                                            </div>
+                                            
+                                            <div className="space-y-4">
+                                                {/* Step 3: Verify Signature */}
+                                                <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
+                                                    ${animationStep >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <p className="text-sm font-medium text-green-800">3. Verifies Signature</p>
+                                                        {animationStep >= 3 && (
+                                                            <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex justify-center items-center space-x-3 mt-2">
+                                                        <div className="text-center">
+                                                            <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
+                                                                <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                                                </svg>
+                                                            </div>
+                                                            <p className="text-xs text-gray-600 mt-1">Public Key</p>
+                                                        </div>
+                                                        <div className="text-center">
+                                                            <div className="w-12 h-8 bg-gray-200 rounded border border-gray-300 mx-auto flex items-center justify-center">
+                                                                <span className="text-xs text-gray-600">Msg</span>
+                                                            </div>
+                                                            <p className="text-xs text-gray-600 mt-1">Message</p>
+                                                        </div>
+                                                        <div className="text-center">
+                                                            <div className="w-12 h-8 bg-purple-400 rounded border-2 border-purple-600 mx-auto"></div>
+                                                            <p className="text-xs text-gray-600 mt-1">Signature</p>
+                                                        </div>
+                                                        <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                        <div className="text-center">
+                                                            <div className={`w-12 h-8 rounded border-2 mx-auto flex items-center justify-center
+                                                                ${animationComplete ? 'bg-green-400 border-green-600' : 'bg-gray-200 border-gray-300'}`}>
+                                                                {animationComplete ? (
+                                                                    <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                                    </svg>
+                                                                ) : (
+                                                                    <span className="text-xs text-gray-500">?</span>
+                                                                )}
+                                                            </div>
+                                                            <p className="text-xs text-gray-600 mt-1">Valid?</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -406,28 +408,27 @@ export default function MLDSAPage() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        {/* Completion Message */}
-                        <div className={`bg-yellow-50 border border-yellow-200 rounded-lg p-4 transition-all duration-700 
-                            ${animationComplete ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                            <div className="flex items-start">
-                                <svg className="h-6 w-6 mr-2 text-green-500 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <div>
-                                    <p className="font-semibold text-green-800 mb-1">✓ Signature Verified Successfully!</p>
-                                    <p className="text-sm text-green-700 mb-2">
-                                        Bob has confirmed that the message was genuinely signed by Alice and hasn't been tampered with. The signature provides authenticity (Alice really signed it) and integrity (the message hasn't changed).
-                                    </p>
-                                    <p className="text-sm text-green-700">
-                                        (During an actual digital signature process, only the public key, message, and signature are transmitted. The private key remains confidential to the signer (Alice). Anyone with Alice's public key can verify her signatures, but only Alice can create them.)
-                                    </p>
+                            
+                            {/* Completion Message */}
+                            <div className={`bg-yellow-50 border border-yellow-200 rounded-lg p-4 transition-all duration-700 
+                                ${animationComplete ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                <div className="flex items-start">
+                                    <svg className="h-6 w-6 mr-2 text-green-500 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <div>
+                                        <p className="font-semibold text-green-800 mb-1">✓ Signature Verified Successfully!</p>
+                                        <p className="text-sm text-green-700 mb-2">
+                                            Bob has confirmed that the message was genuinely signed by Alice and hasn't been tampered with. The signature provides authenticity (Alice really signed it) and integrity (the message hasn't changed).
+                                        </p>
+                                        <p className="text-sm text-green-700">
+                                            (During an actual digital signature process, only the public key, message, and signature are transmitted. The private key remains confidential to the signer (Alice). Anyone with Alice's public key can verify her signatures, but only Alice can create them.)
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
+                        </>)}
                         </div>
-                    </div>
-                    
                     <div className="flex justify-center gap-4 mt-6">
                         <Button
                             variant="secondary"
