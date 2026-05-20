@@ -21,11 +21,11 @@ export default function KeygenInternal({
     }, []);
 
     return (
-        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4">
+        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 font-mono">
             <div className="flex flex-row gap-4 items-center">
                 <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
                     <div className="text-blue-700 font-semibold text-lg">Input</div>
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="\xi" /></div>
                             <SquareGrid algorithm="mldsa"
                                 rows={1} cols={4} rowsExpanded={8} size={12}
@@ -105,7 +105,7 @@ export default function KeygenInternal({
                     <div className="flex flex-row gap-4 items-center">
                         <div><InlineMath math="\rho, t_1" /></div>
                         <ArrowLongRightIcon className="size-6" />
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="pk" /></div>
                             <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.pk ? Array.from(spyData.pk) : []} showValues={true} variableKey="publickey" onClick={() => onSelectVariable("publickey")} />
                         </div>
@@ -124,7 +124,7 @@ export default function KeygenInternal({
                     <div className="flex flex-row gap-4 items-center">
                         <div><InlineMath math="\rho, K, tr, s_1, s_2, t_0" /></div>
                         <ArrowLongRightIcon className="size-6" />
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="sk" /></div>
                             <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} variableKey="secretkey" onClick={() => onSelectVariable("secretkey")} />
                         </div>

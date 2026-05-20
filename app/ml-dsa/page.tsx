@@ -452,7 +452,7 @@ export default function MLDSAPage() {
                                         key={param.key}
                                         onClick={() => setSelectedParam(param.key as DsaParamKey)}
                                         className={`
-                                            px-2 py-1 rounded-md text-[11px] font-mono transition-all
+                                            px-2 py-1 rounded-md text-[11px]  transition-all
                                             ${selectedParam === param.key 
                                             ? "bg-blue-600 text-white shadow-sm" 
                                             : "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700"
@@ -467,7 +467,7 @@ export default function MLDSAPage() {
                                     {/* Value panel */}
                                     {currentParams && (
                                     <div className="w-full mt-1 p-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-center">
-                                        <div className="text-base font-mono font-bold break-all">
+                                        <div className="text-base  font-bold break-all">
                                             <InlineMath math={String(currentParamValue)} />
                                         </div>
                                     </div>

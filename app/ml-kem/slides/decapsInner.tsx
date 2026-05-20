@@ -18,27 +18,27 @@ export default function DecapsulationVisualizationProcess({
     spyData: DecapsSpyData | null;
 }) {
     return (
-        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4">
+        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 font-mono">
             <div className="flex flex-row gap-4 items-center">
                 <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
                     <div className="text-blue-700 font-semibold text-lg">Input</div>
                     <div className="flex flex-col gap-8 items-center justify-center">
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="dk_{PKE}" /></div>
                             <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []} showValues={true} onClick={() => onSelectVariable("dkPKE_decaps")} variableKey="dkPKE_decaps" />
                         </div>
                     </div>
                     <div className="flex flex-row gap-8 items-center justify-center">
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="c" /></div>
                             <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} onClick={() => onSelectVariable("ciphertext_decaps")} variableKey="ciphertext_decaps" />
                         </div>
                         <ArrowLongRightIcon className="size-6" />
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="c_1" /></div>
                             <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c1 ? Array.from(spyData.c1) : []} showValues={true} onClick={() => onSelectVariable("c1_decaps")} variableKey="c1_decaps" />
                         </div>
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="c_2" /></div>
                             <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c2 ? Array.from(spyData.c2) : []} showValues={true} onClick={() => onSelectVariable("c2_decaps")} variableKey="c2_decaps" />
                         </div>
@@ -83,8 +83,8 @@ export default function DecapsulationVisualizationProcess({
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
                     <div className="text-green-700 font-semibold text-lg">Output</div>
-                    <div className="flex flex-col items-center font-mono text-sm gap-2">
-                        <div className="font-mono text-sm"><InlineMath math="m" /></div>
+                    <div className="flex flex-col items-center  text-sm gap-2">
+                        <div className=" text-sm"><InlineMath math="m" /></div>
                         <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues variableKey="m_decaps" onClick={() => onSelectVariable("m_decaps")} />
                     </div>
                 </div>

@@ -21,7 +21,7 @@ export default function SignInternal({
         }, []);
     
     return (
-        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4">
+        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 font-mono">
             <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
                 <div className="text-blue-700 font-semibold text-lg">Input</div>
                     <div className="flex flex-row gap-4 items-center">
@@ -101,14 +101,14 @@ export default function SignInternal({
                     onSelectVariable("sign2");
                     onChangeStage("sign2");
                 }}
-                className="rounded-lg bg-white p-4 font-mono text-sm flex cursor-pointer items-center justify-center w-64 shadow-sm border-2 border-gray-300"
+                className="rounded-lg bg-white p-4  text-sm flex cursor-pointer items-center justify-center w-64 shadow-sm border-2 border-gray-300"
             >
                 Valid Signature Generation Loop
             </div>
             <ArrowLongDownIcon className="size-6" />
             <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
                 <div className="text-green-700 font-semibold text-lg">Output</div>
-                <div className="flex flex-col items-center font-mono text-sm gap-2">
+                <div className="flex flex-col items-center  text-sm gap-2">
                     <div><InlineMath math="\sigma" /></div>
                     <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.signature ? Array.from(spyData.signature) : []} showValues={true} variableKey="signature" onClick={() => onSelectVariable("signature")} />
                 </div>

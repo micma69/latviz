@@ -18,12 +18,12 @@ export default function DecapsulationVisualization({
     
  }) {
   return (
-    <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4">
+    <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 font-mono">
         <div className="flex flex-row gap-4 items-center">
             <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
                 <div className="text-blue-700 font-semibold text-lg">Input</div>
                 <div className="flex flex-row gap-8 items-center justify-center">
-                    <div className="flex flex-col items-center font-mono text-sm gap-2">
+                    <div className="flex flex-col items-center  text-sm gap-2">
                         <div><InlineMath math="c" /></div>
                         <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} onClick={() => onSelectVariable("ciphertext_decaps")} variableKey="ciphertext_decaps" />
                     </div>
@@ -62,7 +62,7 @@ export default function DecapsulationVisualization({
                     onSelectVariable("decapsulationBase1");
                     onChangeStage("decapsulation1");
                 }}
-                className="rounded-lg bg-white p-4 font-mono text-sm flex cursor-pointer items-center justify-center w-64 shadow-sm border-2 border-gray-300"
+                className="rounded-lg bg-white p-4  text-sm flex cursor-pointer items-center justify-center w-64 shadow-sm border-2 border-gray-300"
             >
                 Kyber-PKE Decrypt
             </div>
@@ -99,12 +99,12 @@ export default function DecapsulationVisualization({
             <div><InlineMath math="ek_{PKE}, m', r'" /></div>
             <ArrowLongRightIcon className="size-6" />
             <div
-                className="rounded-lg bg-white p-4 font-mono text-sm flex items-center justify-center w-64 shadow-sm border-2 border-gray-300"
+                className="rounded-lg bg-white p-4  text-sm flex items-center justify-center w-64 shadow-sm border-2 border-gray-300"
             >
                 Kyber-PKE Encrypt
             </div>
             <ArrowLongRightIcon className="size-6" />
-            <div className="flex flex-col items-center font-mono text-sm gap-2">
+            <div className="flex flex-col items-center  text-sm gap-2">
                 <div><InlineMath math="c'" /></div>
                 <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} variableKey="cp_decaps" onClick={() => onSelectVariable("cp_decaps")} />
             </div>
@@ -112,8 +112,8 @@ export default function DecapsulationVisualization({
         <ArrowLongDownIcon className="size-6" />
         <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
             <div className="text-green-700 font-semibold text-lg">Output</div>
-            <div className="flex flex-col items-center font-mono text-sm gap-2">
-                <div className="font-mono text-sm"><InlineMath math="K'" /></div>
+            <div className="flex flex-col items-center  text-sm gap-2">
+                <div className=" text-sm"><InlineMath math="K'" /></div>
                 <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.Kfinal ? Array.from(spyData.Kfinal) : []} showValues={true} variableKey="kfinal" onClick={() => onSelectVariable("kfinal")} />
             </div>
         </div>

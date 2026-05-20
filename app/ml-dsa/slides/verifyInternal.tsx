@@ -21,7 +21,7 @@ export default function VerifyInternal({
     }, []);
 
     return (
-        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4">
+        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 font-mono">
             <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
                 <div className="text-blue-700 font-semibold text-lg">Input</div>
                     <div className="flex flex-row gap-4 items-center">
@@ -135,7 +135,7 @@ export default function VerifyInternal({
             <ArrowLongDownIcon className="size-6" />
             <div
                     className={`
-                        rounded-lg p-4 font-mono text-sm flex items-center justify-center 
+                        rounded-lg p-4  text-sm flex items-center justify-center 
                         w-64 shadow-sm border-2 transition-all duration-200
                         ${spyData?.result 
                             ? 'bg-green-50 border-green-500 text-green-700 hover:bg-green-100' 

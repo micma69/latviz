@@ -444,7 +444,7 @@ export default function MLKEMPage() {
                                         key={param.key}
                                         onClick={() => setSelectedParam(param.key as KemParamKey)}
                                         className={`
-                                            px-2.5 py-1 rounded-md text-xs font-mono transition-all
+                                            px-2.5 py-1 rounded-md text-xs  transition-all
                                             ${selectedParam === param.key 
                                             ? "bg-blue-600 text-white shadow-sm" 
                                             : "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700"
@@ -459,7 +459,7 @@ export default function MLKEMPage() {
                                     {/* Value panel - shows current param value */}
                                     {currentParams && (
                                     <div className="w-full mt-1 p-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-center">
-                                        <div className="text-xl font-mono font-bold">
+                                        <div className="text-xl  font-bold">
                                         {currentParamValue}
                                         </div>
                                     </div>

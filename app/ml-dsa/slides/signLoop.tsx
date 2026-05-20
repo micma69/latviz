@@ -57,7 +57,7 @@ export default function SignLoop({
     }
     
     return (
-        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 overflow-y-auto py-4">
+        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 overflow-y-auto py-4 font-mono">
             {/* Iteration selector */}
             <div className="flex flex-row gap-4 items-center justify-center bg-gray-100 rounded-xl p-3 w-fit border-2 border-gray-300">
                 <Button 
@@ -68,7 +68,7 @@ export default function SignLoop({
                 >
                     Previous
                 </Button>
-                <div className="font-mono text-sm font-semibold">
+                <div className=" text-sm font-semibold">
                     Iteration {iterationIndex + 1} / {totalIterations} 
                     <span className="ml-2 text-gray-500">(κ = {currentIteration?.kappa})</span>
                 </div>
@@ -148,7 +148,7 @@ export default function SignLoop({
                                colorData={currentIteration?.z?.[0] ? Array.from(currentIteration.z[0]) : []} 
                                showValues={true} variableKey="z_sign" onClick={() => onSelectVariable("z_sign")} />
                     {currentIteration?.zNormInf !== undefined && (
-                        <div className={`text-xs font-mono ${currentIteration.zNormInf >= 131072 ? 'text-red-600' : 'text-green-600'}`}>
+                        <div className={`text-xs  ${currentIteration.zNormInf >= 131072 ? 'text-red-600' : 'text-green-600'}`}>
                             ||z||∞ = {currentIteration.zNormInf}
                         </div>
                     )}
@@ -165,7 +165,7 @@ export default function SignLoop({
                                 colorData={currentIteration?.r0?.[0] ? Array.from(currentIteration.r0[0]) : [] } 
                                 showValues={true} variableKey="r0_sign" onClick={() => onSelectVariable("r0_sign")} />
                     {currentIteration?.r0NormInf !== undefined && (
-                        <div className={`text-xs font-mono ${currentIteration.r0NormInf >= 95232 ? 'text-red-600' : 'text-green-600'}`}>
+                        <div className={`text-xs  ${currentIteration.r0NormInf >= 95232 ? 'text-red-600' : 'text-green-600'}`}>
                             ||r₀||∞ = {currentIteration.r0NormInf}
                         </div>
                     )}
@@ -182,7 +182,7 @@ export default function SignLoop({
                         <ArrowLongRightIcon className="size-6" />
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="h" /></div>
-                            <div className="text-xs font-mono">
+                            <div className="text-xs ">
                                 Hamming weight: {currentIteration.hammingWeight} / 80
                             </div>
                         </div>
@@ -192,13 +192,13 @@ export default function SignLoop({
 
             {/* Status indicator */}
             {currentIteration?.rejected && (
-                <div className="text-red-600 font-mono text-sm flex items-center gap-2 bg-red-50 rounded-lg px-4 py-2">
+                <div className="text-red-600  text-sm flex items-center gap-2 bg-red-50 rounded-lg px-4 py-2">
                     <ArrowPathIcon className="size-5" /> 
                     REJECTED: {currentIteration.reason}
                 </div>
             )}
             {isAccepted && (
-                <div className="text-green-600 font-mono text-sm flex items-center gap-2 bg-green-50 rounded-lg px-4 py-2">
+                <div className="text-green-600  text-sm flex items-center gap-2 bg-green-50 rounded-lg px-4 py-2">
                     ✓ ACCEPTED → signature generated
                 </div>
             )}
@@ -213,7 +213,7 @@ export default function SignLoop({
                 >
                     Previous
                 </Button>
-                <div className="font-mono text-sm font-semibold">
+                <div className=" text-sm font-semibold">
                     Iteration {iterationIndex + 1} / {totalIterations} 
                     <span className="ml-2 text-gray-500">(κ = {currentIteration?.kappa})</span>
                 </div>

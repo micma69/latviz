@@ -18,11 +18,11 @@ export default function KeygenVisualizationProcess({
   spyData: KeygenSpyData | null;
 }) {
     return (
-        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4">
+        <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 font-mono">
             <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
                 <div className="text-blue-700 font-semibold text-lg">Input</div>   
                 <div className="flex flex-row gap-8 items-center justify-center">
-                    <div className="flex flex-col items-center font-mono text-sm gap-2">
+                    <div className="flex flex-col items-center  text-sm gap-2">
                         <div><InlineMath math="d" /></div>
                         <SquareGrid algorithm="mlkem"
                             rows={1} cols={4} rowsExpanded={8} size={12}
@@ -31,7 +31,7 @@ export default function KeygenVisualizationProcess({
                         />
                     </div>
                     <ArrowLongRightIcon className="size-6" />
-                    <div className="flex flex-col items-center font-mono text-sm gap-2">
+                    <div className="flex flex-col items-center  text-sm gap-2">
                         <div><InlineMath math="\rho" /></div>
                         <SquareGrid algorithm="mlkem"
                             rows={1} cols={4} rowsExpanded={8} size={12}
@@ -39,7 +39,7 @@ export default function KeygenVisualizationProcess({
                             showValues variableKey="rho_keygen" onClick={() => onSelectVariable("rho_keygen")}
                         />
                     </div>
-                    <div className="flex flex-col items-center font-mono text-sm gap-2">
+                    <div className="flex flex-col items-center  text-sm gap-2">
                         <div><InlineMath math="\sigma" /></div>
                         <SquareGrid algorithm="mlkem"
                             rows={1} cols={4} rowsExpanded={8} size={12}
@@ -53,7 +53,7 @@ export default function KeygenVisualizationProcess({
                 <div className="flex flex-col gap-4 items-center">
                     <ArrowLongDownIcon className="size-6" />
                     <div className="flex flex-col gap-2 items-center justify-center bg-orange-100 rounded-xl p-5 w-fit border-2 border-orange-300">
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="A" /></div>
                             <SquareGrid algorithm="mlkem"
                                 rows={1} cols={4} rowsExpanded={8} size={12}
@@ -66,7 +66,7 @@ export default function KeygenVisualizationProcess({
                 <div className="flex flex-col gap-4 items-center">
                     <ArrowLongDownIcon className="size-6" />
                     <div className="flex flex-col gap-2 items-center justify-center bg-orange-100 rounded-xl p-5 w-fit border-2 border-orange-300">
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="e" /></div>
                             <SquareGrid algorithm="mlkem"
                                 rows={1} cols={4} rowsExpanded={8} size={12}
@@ -79,7 +79,7 @@ export default function KeygenVisualizationProcess({
                 <div className="flex flex-col gap-4 items-center">
                     <ArrowLongDownIcon className="size-6" />
                     <div className="flex flex-col gap-2 items-center justify-center bg-orange-100 rounded-xl p-5 w-fit border-2 border-orange-300">
-                        <div className="flex flex-col items-center font-mono text-sm gap-2">
+                        <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="s" /></div>
                             <SquareGrid algorithm="mlkem"
                                 rows={1} cols={4} rowsExpanded={8} size={12}
@@ -94,7 +94,7 @@ export default function KeygenVisualizationProcess({
             <div className="flex flex-row gap-2 items-center justify-center bg-orange-100 rounded-xl p-5 w-fit border-2 border-orange-300">
                 <div><InlineMath math="A \cdot s + e" /></div>
                 <ArrowLongRightIcon className="size-6" />
-                <div className="flex flex-col items-center font-mono text-sm gap-2">
+                <div className="flex flex-col items-center  text-sm gap-2">
                     <div><InlineMath math="t" /></div>
                     <SquareGrid algorithm="mlkem"
                         rows={1} cols={4} rowsExpanded={8} size={12}
@@ -107,7 +107,7 @@ export default function KeygenVisualizationProcess({
             <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
                 <div className="text-green-700 font-semibold text-lg">Output</div>
                 <div className="flex flex-row gap-8 items-center justify-center">
-                    <div className="flex flex-col items-center justify-center font-mono text-sm gap-2">
+                    <div className="flex flex-col items-center justify-center  text-sm gap-2">
                         <InlineMath math="ek_{PKE}" />
                         <SquareGrid algorithm="mlkem"
                             rows={8} cols={8} size={4}
@@ -116,7 +116,7 @@ export default function KeygenVisualizationProcess({
                             onClick={() => onSelectVariable("ekPKE_keygen")}
                         />
                     </div>
-                    <div className="flex flex-col items-center justify-center font-mono text-sm gap-2">
+                    <div className="flex flex-col items-center justify-center  text-sm gap-2">
                         <InlineMath math="dk_{PKE}" />
                         <SquareGrid algorithm="mlkem"
                             rows={8} cols={8} size={4}
