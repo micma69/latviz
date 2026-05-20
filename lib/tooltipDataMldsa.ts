@@ -86,7 +86,7 @@ export const tooltipData = {
   rnd_sign: {
     title: "Randomness rnd",
     description: "Optional signing randomness.",
-    details: "Provides extra entropy for randomized signing.",
+    details: "Provides extra entropy for randomized signing. If not used, substituted fully with zeros.",
   },
 
   ctx_sign: {

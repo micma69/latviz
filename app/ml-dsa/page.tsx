@@ -35,13 +35,13 @@ export default function MLDSAPage() {
     useEffect(() => setStep(1), [vizStage]);
 
     const maxStep: Record<string, number> = {
-        keygen0: 0,
-        keygen1: 5,
-        sign0: 4,
-        sign1: 5,
-        sign2: 0,
-        verify0: 6,
-        verify1: 5,
+        keygen0: 3,
+        keygen1: 9,
+        sign0: 6,
+        sign1: 7,
+        sign2: 1,
+        verify0: 5,
+        verify1: 10,
     };
 
     const startAnimation = () => {
@@ -524,13 +524,13 @@ export default function MLDSAPage() {
                                         </div>
                                     )}
 
-                                    {vizStage === "keygen0" && <KeygenOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
-                                    {vizStage === "keygen1" && <KeygenInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
-                                    {vizStage === "sign0" && <SignOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
-                                    {vizStage === "sign1" && <SignInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
+                                    {vizStage === "keygen0" && <KeygenOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} step={step} />}
+                                    {vizStage === "keygen1" && <KeygenInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} step={step} />}
+                                    {vizStage === "sign0" && <SignOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} step={step} />}
+                                    {vizStage === "sign1" && <SignInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} step={step} />}
                                     {vizStage === "sign2" && <SignLoop onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
-                                    {vizStage === "verify0" && <VerifyOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} />}
-                                    {vizStage === "verify1" && <VerifyInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} />}
+                                    {vizStage === "verify0" && <VerifyOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} step={step} />}
+                                    {vizStage === "verify1" && <VerifyInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} step={step} />}
                                     
                                 </div>
                             </main>
