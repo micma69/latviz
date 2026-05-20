@@ -62,32 +62,30 @@ function projectBlock(basis: number[][], start: number, end: number): number[][]
 function enumerateSVP(basis: number[][], blockSize: number): number[] {
   const n = Math.min(blockSize, basis.length)
   const block = basis.slice(0, n)
-  
-  const { orthogonal } = gramSchmidt(block)
-  
-  let shortestVector = block[0]
-  let shortestNorm = vectorNorm(shortestVector)
-  
+
+  let shortestVector: number[] | undefined
+  let shortestNorm = Infinity
+
   for (let i = 0; i < block.length; i++) {
     const norm = vectorNorm(block[i])
-    if (norm < shortestNorm) {
+    if (norm > 1e-10 && norm < shortestNorm) {
       shortestVector = block[i]
       shortestNorm = norm
     }
   }
-  
+
   const combinations = Math.min(100, Math.pow(2, n))
   for (let mask = 1; mask < combinations; mask++) {
     let combination = new Array(block[0].length).fill(0)
     let coeffCount = 0
-    
+
     for (let i = 0; i < n; i++) {
       if (mask & (1 << i)) {
         combination = combination.map((val, idx) => val + block[i][idx])
         coeffCount++
       }
     }
-    
+
     if (coeffCount > 0) {
       const norm = vectorNorm(combination)
       if (norm > 1e-10 && norm < shortestNorm) {
@@ -96,8 +94,8 @@ function enumerateSVP(basis: number[][], blockSize: number): number[] {
       }
     }
   }
-  
-  return shortestVector
+
+  return shortestVector ?? block[0]
 }
 
 export function runBKZ(
