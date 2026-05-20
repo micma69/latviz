@@ -31,7 +31,7 @@ export default function VerifyInternal({
                         </div>
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="M'" /></div>
-                            <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} variableKey="M_verify" onClick={() => onSelectVariable("M_verify")} />
+                            <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.msg ? Array.from(spyData.msg) : []} showValues={true} variableKey="M_verify" onClick={() => onSelectVariable("Mp_verify")} />
                         </div>
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="\sigma" /></div>
