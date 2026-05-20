@@ -1,14 +1,27 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import * as pqc from 'pqc';
+import * as pqc from '@/lib/modified-pqc/ml-dsa-modified';
 import Link from "next/link";
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { InlineMath } from 'react-katex';
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import * as utils from '@/lib/modified-pqc/utils';
+import { DSAKeygenSpyData, DSASignSpyData, DSAVerifySpyData, createDSASpy, SignIteration } from '@/utils/createSpy';
+import SquareGrid from '@/components/ui/gridLattice';
+import KeygenOuter from './slides/keygenOuter';
+import SignOuter from './slides/signingOuter';
+import VerifyOuter from './slides/verifyOuter';
+import KeygenInternal from './slides/keygenInternal';
+import SignInternal from './slides/signingInternal';
+import VerifyInternal from './slides/verifyInternal';
+import SignLoop from './slides/signLoop';
 
 export default function MLDSAPage() {
-    const [securityLevel, setSecurityLevel] = useState("ml_dsa65");
-    const [output, setOutput] = useState<string[]>([]);
+    const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
+    const [vizStage, setVizStage] = useState<string | null>(null);
+    const [securityLevel, setSecurityLevel] = useState<DsaSecurityLevel>('ml_dsa44');
+    const [selectedParam, setSelectedParam] = useState<DsaParamKey>('q');
     const [keys, setKeys] = useState<any>(null);
     const [signature, setSignature] = useState<Uint8Array | null>(null);
     const [verifyResult, setVerifyResult] = useState<boolean | null>(null);
@@ -22,16 +35,20 @@ export default function MLDSAPage() {
     const [animationStep, setAnimationStep] = useState(0);
     const [animationComplete, setAnimationComplete] = useState(false);
 
-    const addOutput = (msg: string) => {
-        setOutput(prev => [...prev, msg]);
-    };
+    const [keygenSpyData, setKeygenSpyData] = useState<DSAKeygenSpyData | null>(null);
+    const [signSpyData, setSignSpyData] = useState<DSASignSpyData | null>(null);
+    const [verifySpyData, setVerifySpyData] = useState<DSAVerifySpyData | null>(null);
 
-    useEffect(() => {
+    const resetAll = (): void => {
         setKeys(null);
         setSignature(null);
         setVerifyResult(null);
-        setOutput(["Security level changed."]);
+    }
+
+    useEffect(() => {
+        resetAll();
     }, [securityLevel]);
+
 
     const mlDsaLevels = [
         { label: 'ML-DSA-44 (128-bit security)', value: 'ml_dsa44' },
@@ -39,20 +56,43 @@ export default function MLDSAPage() {
         { label: 'ML-DSA-87 (256-bit security)', value: 'ml_dsa87' }
     ];
 
-    const formatArray = (bytes: Uint8Array | null) => {
-        if (!bytes) return "";
-        return `[${Array.from(bytes).join(", ")}]`;
-    };
+    const mlDsaParams = {
+        ml_dsa44: { q: 8380417, zeta: 1753, d: 13, tau: 39, lambda: 128, gamma1: "2^{17}", gamma2: "\\frac{q-1}{88}", k: 4, l: 4, eta: 2, beta: 78, omega: 80 },
+        ml_dsa65: { q: 8380417, zeta: 1753, d: 13, tau: 49, lambda: 192, gamma1: "2^{19}", gamma2: "\\frac{q-1}{32}", k: 6, l: 5, eta: 4, beta: 196, omega: 55 },
+        ml_dsa87: { q: 8380417, zeta: 1753, d: 13, tau: 60, lambda: 256, gamma1: "2^{19}", gamma2: "\\frac{q-1}{32}", k: 8, l: 7, eta: 2, beta: 120, omega: 75 },
+    } as const;
 
-    const previewArray = (bytes: Uint8Array | null, count = 5) => {
-        if (!bytes) return "";
-        const arr = Array.from(bytes.slice(0, count));
-        return `[${arr.join(", ")}, ...]`;
-    };
+    type DsaSecurityLevel = keyof typeof mlDsaParams;
+    type DsaParamKey = keyof typeof mlDsaParams.ml_dsa44;
+
+    const currentParams = mlDsaParams[securityLevel as keyof typeof mlDsaParams];
+    const currentParamValue = currentParams?.[selectedParam];
+
+    const parameters = [
+        { key: "q", label: "q" },
+        { key: "zeta", label: "ζ" },
+        { key: "d", label: "d" },
+        { key: "tau", label: "τ" },
+        { key: "lambda", label: "λ" },
+        { key: "gamma1", label: "γ₁" },
+        { key: "gamma2", label: "γ₂" },
+        { key: "k", label: "k" },
+        { key: "l", label: "l" },
+        { key: "eta", label: "η" },
+        { key: "beta", label: "β" },
+        { key: "omega", label: "ω" },
+    ];
 
     const executeMLDSA = async (operation: string) => {
-        const algorithm = pqc.ml_dsa[securityLevel];
-        const msgBytes = pqc.utils.utf8ToBytes(message);
+        const spy = createDSASpy();
+        const algorithm = pqc.ml_dsa[securityLevel as keyof typeof pqc.ml_dsa](spy);
+        const msgBytes = utils.utf8ToBytes(message);
+
+        spy.subscribe((stage, state) => {
+            if (stage === 'keygen') setKeygenSpyData({ ...state.keygen } as DSAKeygenSpyData);
+            if (stage === 'sign') setSignSpyData({ ...state.sign } as DSASignSpyData);
+            if (stage === 'verify') setVerifySpyData({ ...state.verify } as DSAVerifySpyData);
+        });
 
         switch (operation) {
             case "Key Generation": {
@@ -60,29 +100,22 @@ export default function MLDSAPage() {
                 setKeys(newKeys);
                 setSignature(null);
                 setVerifyResult(null);
-                addOutput("Key pair generated.");
-                addOutput(`Public key length: ${newKeys.publicKey.length} bytes`);
-                addOutput(`Secret key length: ${newKeys.secretKey.length} bytes`);
                 break;
             }
 
             case "Sign Message": {
                 if (!keys) {
-                    addOutput("Generate keys first.");
                     return;
                 }
 
                 const sig = algorithm.sign(keys.secretKey, msgBytes);
                 setSignature(sig);
                 setVerifyResult(null);
-                addOutput("Message signed.");
-                addOutput(`Signature length: ${sig.length} bytes`);
                 break;
             }
 
             case "Verify Signature": {
                 if (!keys || !signature) {
-                    addOutput("Need keys and signature first.");
                     return;
                 }
 
@@ -93,16 +126,13 @@ export default function MLDSAPage() {
                 );
 
                 setVerifyResult(valid);
-                addOutput(`Signature valid: ${valid ? "YES" : "NO"}`);
                 break;
             }
 
             case "Complete Flow": {
                 const signerKeys = algorithm.keygen();
-
-                const signature = algorithm.sign(signerKeys.secretKey, message);
-
-                const isValid = algorithm.verify(signerKeys.publicKey, message, signature);
+                const signature = algorithm.sign(signerKeys.secretKey, msgBytes);
+                const isValid = algorithm.verify(signerKeys.publicKey, msgBytes, signature);
 
                 setFlow({
                     message: message,
@@ -156,177 +186,754 @@ export default function MLDSAPage() {
             }
 
             default:
-                addOutput("Unknown operation");
+                return
         }
     };
 
     return (
-        <div className="grid min-h-screen grid-cols-1 md:grid-cols-[2.5fr_1.5fr] gap-6 bg-zinc-200 p-6 dark:bg-black">
-            <div className="flex flex-col gap-4">
-                <Link href="/">
-                    <Button variant="ghost" size="sm" className="w-fit text-sm">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-4">
+            <div className="max-w-7xl mx-auto">
+                <div className="mb-12 pb-8 border-b border-slate-700 text-slate-400 text-sm">
+                    <Link href="/" className="text-blue-400 hover:text-blue-300">
                         ← Back
-                    </Button>
-                </Link>
-                <main className="flex-1 rounded-xl bg-white dark:bg-zinc-900 shadow-xl p-5">
-                    <div className="rounded-xl bg-slate-100 dark:bg-zinc-900 p-5 h-full flex items-center justify-center text-zinc-500 text-sm">
-                        FOR THE VISUALIZATION
+                    </Link>
+                </div>
+                {/* prolly add explalations here later */}
+                <div className="rounded-xl bg-slate-800 p-6 mb-8">
+                    <h2 className="text-2xl font-bold mb-6 text-white">Key Exchange Flow Visualization</h2>
+                    {flow && (
+                    <section className="mb-12">
+                    <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
+                        <div className="flex flex-col md:flex-row items-center justify-center mb-8">
+                        {/* Flow diagram */}
+                        <div className="flex flex-col md:flex-row items-center justify-center w-full">
+                            {/* Alice Side */}
+                            <div className="w-full md:w-5/12 p-4">
+                            <div className={`bg-blue-50 rounded-xl border border-blue-200 p-6 transition-all duration-500 
+                                ${animationStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                                <div className="flex items-center mb-4">
+                                <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                    <svg className="h-6 w-6 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-semibold text-blue-900">Alice</h3>
+                                </div>
+                                
+                                <div className="space-y-4">
+                                <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 
+                                    ${animationStep >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                    <p className="text-sm font-medium text-blue-800 mb-2">1. Generates Key Pair</p>
+                                    <div className="text-xs space-y-1 text-secondary-800">
+                                    <p><strong>Encapsulation Key:</strong> {Array.isArray(flow.alicePublicKey) ? 
+                                        `[${flow.alicePublicKey.join(', ')}${flow.alicePublicKey.length < 10 ? '' : '...'}]` : 
+                                        flow.alicePublicKey as React.ReactNode}</p>
+                                    <p><strong>Decapsulation Key:</strong> {Array.isArray(flow.alicePrivateKey) ? 
+                                        `[${flow.alicePrivateKey.join(', ')}${flow.alicePrivateKey.length < 10 ? '' : '...'}]` :  
+                                        flow.alicePrivateKey as React.ReactNode}</p>
+                                    </div>
+                                </div>
+                                
+                                <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 delay-700
+                                    ${animationStep >= 4 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                    <p className="text-sm font-medium text-blue-800 mb-2">4. Decapsulates Shared Secret</p>
+                                    <div className="text-xs space-y-1 text-secondary-800">
+                                    <p><strong>Shared Secret:</strong> {Array.isArray(flow.aliceSharedSecret) ? 
+                                        `[${flow.aliceSharedSecret.join(', ')}${flow.aliceSharedSecret.length < 10 ? '' : '...'}]` : 
+                                        flow.aliceSharedSecret as React.ReactNode}</p>
+                                    {animationComplete && (flow.secretsMatch as boolean) && (
+                                        <p className="mt-2 text-green-600 font-semibold">✓ Matches Bob&apos;s secret</p>
+                                    )}
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            
+                            {/* Middle Arrows */}
+                            <div className="w-full md:w-2/12 py-4 flex flex-col items-center justify-center">
+                            <div className={`hidden md:block w-full h-0.5 bg-secondary-200 my-2 transition-all duration-700 
+                                ${animationStep >= 2 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
+                            <div className="md:hidden h-20 w-0.5 bg-secondary-200 my-2"></div>
+                            
+                            <div className={`bg-white rounded-full p-3 shadow-md transition-all duration-700 
+                                ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-secondary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                </svg>
+                            </div>
+                            
+                            <div className={`hidden md:block w-full h-0.5 bg-secondary-200 my-2 transition-all duration-700 
+                                ${animationStep >= 3 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
+                            <div className="md:hidden h-20 w-0.5 bg-secondary-200 my-2"></div>
+                            </div>
+                            
+                            {/* Bob Side */}
+                            <div className="w-full md:w-5/12 p-4">
+                            <div className={`bg-green-50 rounded-xl border border-green-200 p-6 transition-all duration-500 
+                                ${animationStep >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                                <div className="flex items-center mb-4">
+                                <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                    <svg className="h-6 w-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-semibold text-green-900">Bob</h3>
+                                </div>
+                                
+                                <div className="space-y-4">
+                                <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
+                                    ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                    <p className="text-sm font-medium text-green-800 mb-2">2. Receives Alice&apos;s Encapsulation Key</p>
+                                    <div className="text-xs space-y-1 text-secondary-800">
+                                        From encapsulation key, extract the encryption key. Encrypt plaintext into ciphertext, generate shared secret key from encapsulation key.
+                                    </div>
+                                </div>
+                                
+                                <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
+                                    ${animationStep >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                    <p className="text-sm font-medium text-green-800 mb-2">3. Encapsulates Shared Secret</p>
+                                    <div className="text-xs space-y-1 text-secondary-800">
+                                    <p><strong>Ciphertext:</strong> {Array.isArray(flow.cipherText) ? 
+                                        `[${flow.cipherText.join(', ')}${flow.cipherText.length < 10 ? '' : '...'}]` : 
+                                        flow.cipherText as React.ReactNode}</p>
+                                    <p><strong>Shared Secret:</strong> {Array.isArray(flow.bobSharedSecret) ? 
+                                        `[${flow.bobSharedSecret.join(', ')}${flow.bobSharedSecret.length < 10 ? '' : '...'}]` : 
+                                        flow.bobSharedSecret as React.ReactNode}</p>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        <div className={`bg-yellow-50 border border-yellow-200 rounded-lg p-4 transition-all duration-700 
+                        ${animationComplete ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                        <div className="flex items-start">
+                            <svg className="h-6 w-6 mr-2 text-yellow-500 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div>
+                            <p className="font-semibold text-yellow-800 mb-1">Security Note:</p>
+                            <p className="text-sm text-yellow-700">
+                                During an actual key exchange, only the public key and ciphertext would be transmitted across 
+                                the network. The shared secret and private key remain confidential to each party.
+                            </p>
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                </main>
-            </div>
-            <div className="p-6 sticky top-6 h-[calc(100vh-3rem)] flex flex-col gap-4">
-                <div className="rounded-xl bg-zinc-900 text-green-400 font-mono text-xs shadow-xl p-6 h-48 overflow-y-auto">
-                    {output.length === 0 ? (
-                        <div className="text-zinc-500">...</div>
-                    ) : (
-                        output.map((line, index) => (
-                            <div key={index}>{line}</div>
-                        ))
+                    </section>
                     )}
+                        {/*<div className="rounded-xl">
+                            <p className="font-semibold text-yellow-800 mb-1"> Extra Notes:</p>
+                            <p className="text-sm text-yellow-700">
+                                During an actual key exchange, only the public key and ciphertext would be transmitted across the network. The shared secret and private key remain confidential to each party.</p>
+                        </div>*/}
+                        <div className="flex justify-center">
+                            <Button
+                                variant="secondary"
+                                size="lg"
+                                // /onClick={() => executeMLKEM("Complete Flow")}
+                            >
+                                WORK IN PROGRESS
+                            </Button>
+                        </div>
                 </div>
-                <div className="overflow-y-auto flex flex-col gap-4 pr-2">
-                    <div className="flex flex-col items-center gap-4 rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-5">
-                        Select Security Level
-                        <Select value={securityLevel} onValueChange={setSecurityLevel}>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Select Security Level" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {mlDsaLevels.map(level => (
-                                    <SelectItem key={level.value} value={level.value}>
-                                        {level.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div className="flex flex-col items-center justify-center rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-5 gap-y-4">
-                        <div className="flex flex-row gap-x-4">
-                            <Button
-                                variant="secondary"
-                                size="lg"
-                                onClick={() => executeMLDSA("Key Generation")}
-                            >
-                                Key Generation
-                            </Button>
-                            <Button
-                                variant="secondary"
-                                size="lg"
-                            >
-                                Start Animation
-                            </Button>
-                        </div>
-                        <div className="flex flex-col gap-y-2 w-full">
-                            Public Key
-                            <div className="rounded-2xl bg-slate-100 dark:bg-zinc-900 p-3 h-40">
-                                <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
-                                    {!keys ? (
-                                        <div className="text-zinc-500">No key generated</div>
-                                    ) : (
-                                        <>
-                                            <div className="break-all">
-                                                {expandedPublicKey
-                                                    ? formatArray(keys.publicKey)
-                                                    : previewArray(keys.publicKey)}
+                <div className="rounded-xl bg-slate-800 p-6 mb-8">
+                    <h2 className="text-2xl font-bold mb-6 text-white">ML-DSA Full Visualization</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-[2.5fr_1.5fr]">
+                        <div className="flex flex-col gap-4">
+                            <main className="flex-1 rounded-xl bg-white dark:bg-zinc-900 shadow-xl p-5">
+                                <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 p-5 h-full items-center justify-center">
+                                    {(vizStage === null || vizStage === "home") && (
+                                        <div className="flex flex-col gap-12 items-center justify-center">
+                                            <Button
+                                                variant="outline"
+                                                size="lg"
+                                                onClick={() => {if (!keygenSpyData) {executeMLDSA("Key Generation");} setVizStage("keygen0");}}
+                                                className="cursor-pointer h-14 px-10 text-lg"
+                                            >
+                                                Key Generation
+                                            </Button>
+                                            <div className="flex flex-col gap-4">
+                                                <Button
+                                                    variant="outline"
+                                                    size="lg"
+                                                    disabled={!keys || message.length === 0}
+                                                    onClick={() => {if (!signSpyData) {executeMLDSA("Sign Message");} setVizStage("sign0");}}
+                                                    className="cursor-pointer h-14 px-10 text-lg"
+                                                >
+                                                    Sign Message
+                                                </Button>
+                                                {keys && (
+                                                    <div>
+                                                        <textarea
+                                                            value={message}
+                                                            onChange={(e) => {setMessage(e.target.value); setSignSpyData(null); setSignature(null)}}
+                                                            placeholder="Enter a message before signing!"
+                                                            className="
+                                                            w-full
+                                                            min-h-[120px]
+                                                            rounded-lg
+                                                            border border-gray-300 dark:border-zinc-700
+                                                            bg-white dark:bg-zinc-900
+                                                            p-3
+                                                            text-sm
+                                                            text-gray-900 dark:text-gray-100
+                                                            placeholder:text-gray-400
+                                                            focus:outline-none
+                                                            focus:ring-2
+                                                            focus:ring-blue-500
+                                                            focus:border-blue-500
+                                                            resize-none
+                                                            transition
+                                                            "
+                                                        />
+                                                    </div>
+                                                )}
                                             </div>
                                             <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() => setExpandedPublicKey(!expandedPublicKey)}
+                                                variant="outline"
+                                                size="lg"
+                                                disabled={!signature}
+                                                onClick={() => {if (!verifySpyData) {executeMLDSA("Verify Signature");} setVizStage("verify0");}}
+                                                className="cursor-pointer h-14 px-10 text-lg"
                                             >
-                                                {expandedPublicKey ? "Collapse" : "Expand"}
+                                                Verify Signature
                                             </Button>
-                                        </>
+                                            <Button
+                                                variant="outline"
+                                                size="lg"
+                                                disabled={!keygenSpyData}
+                                                onClick={() => {resetAll()}}
+                                                className="cursor-pointer h-14 px-10 text-lg"
+                                            >
+                                                Reset
+                                            </Button>
+                                        </div>
                                     )}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex flex-col gap-y-2 w-full">
-                            Secret Key
-                            <div className="rounded-2xl bg-slate-100 dark:bg-zinc-900 p-3 h-40">
-                                <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
 
-                                    {!keys ? (
-                                        <div className="text-zinc-500">No key generated</div>
-                                    ) : (
-                                        <>
-                                            <div className="break-all">
-                                                {expandedSecretKey
-                                                    ? formatArray(keys.secretKey)
-                                                    : previewArray(keys.secretKey)}
-                                            </div>
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() => setExpandedSecretKey(!expandedSecretKey)}
-                                            >
-                                                {expandedSecretKey ? "Collapse" : "Expand"}
-                                            </Button>
-                                        </>
-                                    )}
+                                    {vizStage === "keygen0" && <KeygenOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
+                                    {vizStage === "keygen1" && <KeygenInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
+                                    {vizStage === "sign0" && <SignOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
+                                    {vizStage === "sign1" && <SignInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
+                                    {vizStage === "sign2" && <SignLoop onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
+                                    {vizStage === "verify0" && <VerifyOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} />}
+                                    {vizStage === "verify1" && <VerifyInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} />}
+                                    
                                 </div>
+                            </main>
+                        </div>
+                        <div className="pl-6 pr-6 sticky h-[calc(100vh-3rem)] flex flex-col gap-4">
+                            <div className="flex flex-col items-center gap-4 rounded-xl bg-white dark:bg-zinc-900 text-sm shadow-xl p-5">
+                                Select Security Level
+                                <Select value={securityLevel} onValueChange={setSecurityLevel as (value: string) => void}>
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Select Security Level" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {mlDsaLevels.map((level) => (
+                                        <SelectItem key={level.value} value={level.value}>
+                                            {level.label}
+                                        </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                {/* Clickable parameter row */}
+                                <div className="flex flex-wrap justify-center gap-1.5 w-full">
+                                {parameters.map((param) => (
+                                    <button
+                                    key={param.key}
+                                    onClick={() => setSelectedParam(param.key as DsaParamKey)}
+                                    className={`
+                                        px-2 py-1 rounded-md text-[11px] font-mono transition-all
+                                        ${selectedParam === param.key 
+                                        ? "bg-blue-600 text-white shadow-sm" 
+                                        : "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                                        }
+                                    `}
+                                    >
+                                    {param.label}
+                                    </button>
+                                ))}
+                                </div>
+
+                                {/* Value panel */}
+                                {currentParams && (
+                                <div className="w-full mt-1 p-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-center">
+                                    <div className="text-base font-mono font-bold break-all">
+                                        <InlineMath math={String(currentParamValue)} />
+                                    </div>
+                                </div>
+                                )}
+                            </div>
+                            <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center">
+                                {(vizStage === null || selectedVariable === null) &&
+                                    <div>Click a variable to see it in full!</div>
+                                }
+
+                                {/* ── KEYGEN ── */}
+                                {selectedVariable === "xi_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\xi \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.seed?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.seed ? Array.from(keygenSpyData.seed) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rho_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rhop_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho' \in \{0,1\}^{512}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rhoPrime ? Array.from(keygenSpyData.rhoPrime) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "K_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="K \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.K ? Array.from(keygenSpyData.K) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "A_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.A?.[0]?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s1_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="s_1 \in S_\eta^\ell" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s1[0] ? Array.from(keygenSpyData.s1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s2_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="s_2 \in S_\eta^k" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s2[0] ? Array.from(keygenSpyData.s2[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="t = As_1 + s_2 \in \mathbb{Z}_q^k" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.t[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t[0] ? Array.from(keygenSpyData.t[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t0_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="t_0 \in \mathbb{Z}_q^k" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t0[0] ? Array.from(keygenSpyData.t0[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t1_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="t_1 \in \mathbb{Z}_q^k" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.t1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t1[0] ? Array.from(keygenSpyData.t1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "publickey" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="pk \in \mathbb{B}^{32 + 32k(\mathrm{bitlen}(q-1) - d)}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.pk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.pk ? Array.from(keygenSpyData.pk) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "secretkey" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="sk \in \mathbb{B}^{32+32+64+32((\ell+k)\cdot\mathrm{bitlen}(2\eta)+d_k)}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.sk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.sk ? Array.from(keygenSpyData.sk) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tr_keygen" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{tr} \in \{0,1\}^{512}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((keygenSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tr ? Array.from(keygenSpyData.tr) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {/* ── SIGNING ── */}
+                                {selectedVariable === "message_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rnd_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{rnd} \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.rnd?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rnd ? Array.from(signSpyData.rnd) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "ctx_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{ctx}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.ctx ? Array.from(signSpyData.ctx) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "M_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "M'_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.M?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.M ? Array.from(signSpyData.M) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rho_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rho ? Array.from(signSpyData.rho) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "K_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="K" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.K ? Array.from(signSpyData.K) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tr_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{tr}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.tr ? Array.from(signSpyData.tr) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s1_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="s_1" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s1[0] ? Array.from(signSpyData.s1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "s2_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="s_2" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s2[0] ? Array.from(signSpyData.s2[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "t0_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="t_0" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.t0[0] ? Array.from(signSpyData.t0[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "A_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.A?.[0]?.[0] ? Array.from(signSpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "mu_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mu \in \{0,1\}^{512}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.mu ? Array.from(signSpyData.mu) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rhop_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rhoPrime ? Array.from(signSpyData.rhoPrime) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "rhop_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\rho'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rhoPrime ? Array.from(signSpyData.rhoPrime) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "y_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="y \in S_{\gamma_1 - 1}^\ell" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.y?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.y?.[0] ? Array.from(signSpyData.y[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "w_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="w = Ay" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.w?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w?.[0] ? Array.from(signSpyData.w[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "w1_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="w_1 = \mathrm{HighBits}(w)" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w1?.[0] ? Array.from(signSpyData.w1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tildec_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\tilde{c} \in \{0,1\}^{256}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.cTilde ? Array.from(signSpyData.cTilde) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "c_loop" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c \in B_{60}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.c ? Array.from(signSpyData.c) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "z_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="z = y + cs_1" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.z?.[0] ? Array.from(signSpyData.z[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "r0_sign" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="r_0 = \mathrm{LowBits}(w - cs_2)" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.r0?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.r0?.[0] ? Array.from(signSpyData.r0[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "signature" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\sigma" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((signSpyData?.signature?.length ?? 0) / 8)} cols={8} size={20} colorData={signSpyData?.signature ? Array.from(signSpyData.signature) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {/* ── VERIFY ── */}
+                                {selectedVariable === "M_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "message_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "ctx_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{ctx}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.ctx ? Array.from(verifySpyData.ctx) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "M'_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="M'" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.msg ? Array.from(verifySpyData.msg) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "A_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.A?.[0]?.[0] ? Array.from(verifySpyData.A[0][0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tr_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mathrm{tr}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.tr ? Array.from(verifySpyData.tr) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "mu_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\mu \in \{0,1\}^{512}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.mu ? Array.from(verifySpyData.mu) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tildec_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\tilde{c}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "z_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="z" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.z?.[0] ? Array.from(verifySpyData.z[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "h_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="h" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.h?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.h?.[0] ? Array.from(verifySpyData.h[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "c_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="c \in B_{60}" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.c ? Array.from(verifySpyData.c) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "wapprox" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="w' \approx Az - ct_1 \cdot 2^d" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.wPrime?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.wPrime?.[0] ? Array.from(verifySpyData.wPrime[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "wp1" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="w_1' = \mathrm{UseHint}(h, w')" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.w1?.[0] ? Array.from(verifySpyData.w1[0]) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {selectedVariable === "tildecp_verify" &&
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div><InlineMath math="\tilde{c}' = H(\mu \| w_1')" /></div>
+                                        <div className="overflow-y-auto max-h-48 w-full flex justify-center">
+                                            <SquareGrid rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues showTooltip={false} />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center">
+                                empt
                             </div>
                         </div>
-                    </div>
-                    <div className="flex flex-col gap-2 rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-5">
-                        Message to Sign
-                        <textarea
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Enter message..."
-                            className="rounded-md p-2 bg-slate-100 dark:bg-zinc-800"
-                        />
-                        <Button
-                            variant="secondary"
-                            size="lg"
-                            disabled={!keys || message.length === 0}
-                            onClick={() => executeMLDSA("Sign Message")}
-                        >
-                            Sign Message
-                        </Button>
-                        <div className="flex flex-col gap-y-2 w-full">
-                            Signature
-                            <div className="rounded-2xl bg-slate-100 dark:bg-zinc-900 p-3 h-40">
-                                <div className="overflow-y-auto rounded-xl bg-slate-200 dark:bg-zinc-800 p-4 h-full text-xs font-mono flex flex-col gap-2">
-                                    {!signature ? (
-                                        <div className="text-zinc-500">No signature generated</div>
-                                    ) : (
-                                        <>
-                                            <div className="break-all">
-                                                {expandedSignature
-                                                    ? formatArray(signature)
-                                                    : previewArray(signature)}
-                                            </div>
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() => setExpandedSignature(!expandedSignature)}
-                                            >
-                                                {expandedSignature ? "Collapse" : "Expand"}
-                                            </Button>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex flex-col items-center justify-center rounded-xl bg-white dark:bg-zinc-900 font-mono text-sm shadow-xl p-5 gap-y-4">
-                        <Button
-                            variant="secondary"
-                            size="lg"
-                            disabled={!signature}
-                            onClick={() => executeMLDSA("Verify Signature")}
-                        >
-                            Verify Signature
-                        </Button>
-                        {verifyResult !== null && (
-                            <div className={`text-lg font-bold ${verifyResult ? "text-green-500" : "text-red-500"}`}>
-                                {verifyResult ? "Signature Valid" : "Signature Invalid"}
-                            </div>
-                        )}
-                    </div>
+                    </div>    
                 </div>
             </div>
-        </div>
+        </div> 
     );
 }

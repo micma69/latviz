@@ -132,6 +132,7 @@ export function runBKZ(
   }
 
   let improved = true
+  let lllProcessCounter = 0
   
   while (improved && iterations < adaptiveMaxIterations) {
     if (Date.now() - startTime > timeoutMs) {
@@ -146,6 +147,20 @@ export function runBKZ(
       const blockEnd = Math.min(i + blockSize, n)
       
       if (blockEnd - i >= 2) {
+        lllProcessCounter++
+        
+        if (captureSteps && steps.length < 150) {
+          steps.push({
+            iteration: iterations,
+            basis: reducedBasis.map(row => [...row]),
+            k: i,
+            action: 'start_lll_process',
+            description: `Starting LLL process #${lllProcessCounter} on block [${i}...${blockEnd-1}]`,
+            lllNumber: lllProcessCounter,
+            blockStart: i
+          })
+        }
+        
         const block = reducedBasis.slice(i, blockEnd)
         const lllResult = runLLL(block, delta, false)
         
@@ -162,22 +177,53 @@ export function runBKZ(
           }
         }
         
+        if (captureSteps && steps.length < 150) {
+          steps.push({
+            iteration: iterations,
+            basis: reducedBasis.map(row => [...row]),
+            k: i,
+            action: 'complete_lll_process',
+            description: `Completed LLL process #${lllProcessCounter} on block [${i}...${blockEnd-1}]`,
+            lllNumber: lllProcessCounter,
+            blockStart: i
+          })
+        }
+        
         if (blockSize >= 4 && blockEnd - i >= 3) {
+          const blockBefore = block.map(row => [...row])
           const shortVector = enumerateSVP(block, Math.min(blockSize, block.length))
           const shortNorm = vectorNorm(shortVector)
           const currentNorm = vectorNorm(reducedBasis[i])
-          
+          const blockAfter = shortNorm < currentNorm - 1e-6
+            ? blockBefore.map((row, idx) => idx === 0 ? shortVector : [...row])
+            : blockBefore.map(row => [...row])
+
+          if (captureSteps && steps.length < 150) {
+            steps.push({
+              iteration: iterations,
+              basis: reducedBasis.map(row => [...row]),
+              k: i,
+              action: 'svp_enumeration',
+              description: `SVP enumeration on block [${i}...${blockEnd-1}] - searching for shortest vector`,
+              blockStart: i,
+              blockEnd: blockEnd - 1,
+              svpSolution: shortVector,
+              svpBlockBefore: blockBefore,
+              svpBlockAfter: blockAfter
+            })
+          }
+
           if (shortNorm < currentNorm - 1e-6) {
             reducedBasis[i] = shortVector
             improved = true
-            
+
             if (captureSteps && steps.length < 150) {
               steps.push({
                 iteration: iterations,
                 basis: reducedBasis.map(row => [...row]),
                 k: i,
                 action: 'reduce',
-                description: `BKZ: Found shorter vector at position ${i} (block ${i}-${blockEnd})`
+                description: `BKZ: Found shorter vector at position ${i} via SVP enumeration (block ${i}-${blockEnd})`
               })
             }
           }
@@ -205,7 +251,7 @@ export function runBKZ(
       basis: reducedBasis.map(row => [...row]),
       k: 0,
       action: 'complete',
-      description: `BKZ-${blockSize} reduction complete after ${iterations} iterations`
+      description: 'BKZ reduction finished'
     })
   }
 

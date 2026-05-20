@@ -3,6 +3,7 @@
 import { runLLL, parseBasisFromString } from "@/backend/lll-attack-runner-main/lll-attack-runner-main/src/lib/lll"
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
+import { formatCalculationText } from "@/lib/mathHelpers"
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import * as THREE from "three";
@@ -15,6 +16,30 @@ type ThreeDSceneProps = {
 
 function ThreeDScene({ basis }: ThreeDSceneProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
+
+  // Helper function to create text sprite
+  const createTextSprite = (text: string, color: string, fontSize: number) => {
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')!
+    context.font = `${fontSize}px Arial`
+    const metrics = context.measureText(text)
+    canvas.width = metrics.width + 20
+    canvas.height = fontSize + 10
+
+    context.fillStyle = 'rgba(0, 0, 0, 0.8)'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    context.fillStyle = color
+    context.font = `${fontSize}px Arial`
+    context.textAlign = 'center'
+    context.textBaseline = 'middle'
+    context.fillText(text, canvas.width / 2, canvas.height / 2)
+
+    const texture = new THREE.CanvasTexture(canvas)
+    const spriteMaterial = new THREE.SpriteMaterial({ map: texture })
+    const sprite = new THREE.Sprite(spriteMaterial)
+    sprite.scale.set(canvas.width / 100, canvas.height / 100, 1)
+    return sprite
+  }
 
   useEffect(() => {
     const container = containerRef.current
@@ -51,6 +76,31 @@ function ThreeDScene({ basis }: ThreeDSceneProps) {
 
     const axesHelper = new THREE.AxesHelper(maxCoord * 1.5 + 1)
     scene.add(axesHelper)
+
+    // Calculate font sizes based on maxCoord
+    const axisFontSize = Math.max(12, 24 - Math.log10(Math.max(maxCoord, 1)) * 4)
+    const vectorFontSize = Math.max(10, 20 - Math.log10(Math.max(maxCoord, 1)) * 3)
+
+    // Add axis labels
+    const step = Math.max(1, Math.ceil(maxCoord / 5))
+    for (let i = -Math.floor(maxCoord); i <= Math.floor(maxCoord); i += step) {
+      if (i !== 0) {
+        // X-axis labels
+        const xLabel = createTextSprite(i.toString(), '#ffffff', axisFontSize)
+        xLabel.position.set(i, -0.5, 0)
+        scene.add(xLabel)
+
+        // Y-axis labels
+        const yLabel = createTextSprite(i.toString(), '#ffffff', axisFontSize)
+        yLabel.position.set(-0.5, i, 0)
+        scene.add(yLabel)
+
+        // Z-axis labels
+        const zLabel = createTextSprite(i.toString(), '#ffffff', axisFontSize)
+        zLabel.position.set(0, -0.5, i)
+        scene.add(zLabel)
+      }
+    }
 
     const vectorGroup = new THREE.Group()
     const colors = [
@@ -89,6 +139,13 @@ function ThreeDScene({ basis }: ThreeDSceneProps) {
       cone.lookAt(0, 0, 0)
       cone.rotateX(Math.PI)
       vectorGroup.add(cone)
+
+      // Add vector coordinate label at the tip
+      const colorHex = '#' + colors[index % colors.length].toString(16).padStart(6, '0')
+      const coordText = `(${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)})`
+      const vectorLabel = createTextSprite(coordText, colorHex, vectorFontSize)
+      vectorLabel.position.copy(direction).add(new THREE.Vector3(0, 0.5, 0))
+      vectorGroup.add(vectorLabel)
     })
 
     scene.add(vectorGroup)
@@ -122,13 +179,23 @@ function ThreeDScene({ basis }: ThreeDSceneProps) {
       controls.dispose()
       scene.traverse((object) => {
         const obj = object as THREE.Object3D;
-        if (obj instanceof THREE.Mesh) {
+        if (obj instanceof THREE.Mesh || obj instanceof THREE.Sprite) {
           if (obj.geometry) obj.geometry.dispose()
           if (obj.material) {
             if (Array.isArray(obj.material)) {
-              obj.material.forEach((material) => (material as THREE.Material).dispose())
+              obj.material.forEach((material) => {
+                if (material instanceof THREE.Material) {
+                  material.dispose()
+                  if ('map' in material && material.map instanceof THREE.Texture) {
+                    material.map.dispose()
+                  }
+                }
+              })
             } else {
               (obj.material as THREE.Material).dispose()
+              if ('map' in obj.material && obj.material.map instanceof THREE.Texture) {
+                obj.material.map.dispose()
+              }
             }
           }
         }
@@ -153,13 +220,17 @@ export default function LLLPage() {
   const [loading, setLoading] = useState(false)
   const [showCalc, setShowCalc] = useState(false)
   const [viewMode, setViewMode] = useState<'2d' | '3d'>('2d')
-  const delta = 0.75
+  const [delta, setDelta] = useState(0.75)
+  const [deltaInput, setDeltaInput] = useState('0.75')
+  const [showDeltaInfo, setShowDeltaInfo] = useState(false)
+  const [showDeltaError, setShowDeltaError] = useState(false)
 
   const handleProcess = () => {
     setError('')
     setResult(null)
     setSteps([])
     setCurrentStep(0)
+    setShowDeltaError(false)
     
     const parsed = parseBasisFromString(input)
     
@@ -169,11 +240,18 @@ export default function LLLPage() {
       return
     }
 
+    const parsedDelta = parseFloat(deltaInput)
+    if (Number.isNaN(parsedDelta) || parsedDelta < 0.25 || parsedDelta > 1.0) {
+      setShowDeltaError(true)
+      return
+    }
+
     setInitialBasis(parsed)
+    setDelta(parsedDelta)
     
     try {
       setLoading(true)
-      const lllResult = runLLL(parsed, delta, true)
+      const lllResult = runLLL(parsed, parsedDelta, true)
       setResult(lllResult)
       if (lllResult.steps) {
         setSteps(lllResult.steps)
@@ -411,8 +489,32 @@ export default function LLLPage() {
           {/* Input Section */}
           <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
             <h2 className="text-xl font-semibold text-white mb-4">Input Matrix</h2>
+            
+            {/* Delta Input */}
+            <div className="mb-4">
+              <label className="block text-slate-300 text-sm mb-2">
+                Delta Value (δ)
+                <button
+                  onClick={() => setShowDeltaInfo(true)}
+                  className="ml-2 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-500"
+                  title="What is delta?"
+                >
+                  ?
+                </button>
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                min="0.25"
+                max="1.0"
+                value={deltaInput}
+                onChange={(e) => setDeltaInput(e.target.value)}
+                className="w-full p-2 bg-slate-700 text-white border border-slate-600 rounded font-mono text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              />
+            </div>
+            
             <p className="text-slate-400 text-sm mb-3">
-              Enter numbers separated by spaces or commas, one row per line:
+              Enter numbers separated by spaces or commas, one row per line :
             </p>
             <textarea
               value={input}
@@ -457,7 +559,7 @@ export default function LLLPage() {
             {/* Initial Basis Section */}
             {initialBasis && (
               <div className="mt-6">
-                <h3 className="text-lg font-semibold text-white mb-3">Initial Basis (δ = {delta})</h3>
+                <h3 className="text-lg font-semibold text-white mb-3">Initial Basis (δ = {deltaInput || delta})</h3>
                 <pre className="bg-slate-900 p-4 rounded text-slate-300 text-xs overflow-auto max-h-32 font-mono">
                   {formatMatrix(initialBasis)}
                 </pre>
@@ -616,7 +718,7 @@ export default function LLLPage() {
                         <h4 className="text-lg font-semibold text-white">Calculation Details</h4>
                         <button onClick={() => setShowCalc(false)} className="text-white text-sm px-2 py-1 rounded bg-red-600 hover:bg-red-500">Close</button>
                       </div>
-                      <pre className="text-xs text-slate-200 whitespace-pre-wrap font-mono">{getStepDetails()}</pre>
+                      <pre className="text-xs text-slate-200 whitespace-pre-wrap font-mono">{formatCalculationText(getStepDetails())}</pre>
                     </div>
                   </div>
                 )}
@@ -642,6 +744,38 @@ export default function LLLPage() {
             {!result && initialBasis && !loading && (
               <div className="bg-slate-800 rounded-lg p-6 border border-slate-700 text-slate-400 text-center">
                 Click "Process Matrix" to run the LLL algorithm
+              </div>
+            )}
+
+            {showDeltaInfo && (
+              <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+                <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 w-full max-w-md">
+                  <div className="flex justify-between items-center mb-4">
+                    <h4 className="text-lg font-semibold text-white">About Delta (δ)</h4>
+                    <button onClick={() => setShowDeltaInfo(false)} className="text-white text-sm px-2 py-1 rounded bg-red-600 hover:bg-red-500">Close</button>
+                  </div>
+                  <div className="text-slate-300 text-sm space-y-2">
+                    <p><strong>The delta value (δ) </strong> is a parameter in LLL and BKZ algorithms that controls the quality of the reduced basis.</p>
+                    <p><strong>Range : </strong> Typically between 0.25 and 1.0. By default, here, the standard value is 0.75.</p>
+                    <p>The δ is used in the Lovász condition checking :</p>
+                    <p> ||b<sub>k</sub>*||² ≥ (δ - μ<sub>k,k-1</sub>²) ||b<sub>k-1</sub>*||²</p>
+                    <p><strong>Effect :</strong> Larger δ gives better reduction and better orthogonality but more iterations and thus computationally heavier. Smaller δ however, requires less iterations and faster computationally, but less reduced.</p>
+                    <p>In other words, <strong>if you want a better result with heavier process, use a bigger δ. If you want a faster and lighter process, use a smaller δ.</strong></p>
+                    <p>Fun fact, BKZ uses δ as well, often with bigger δ for better reduction quality.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {showDeltaError && (
+              <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+                <div className="bg-red-950 border border-red-700 rounded-lg p-6 w-full max-w-sm">
+                  <div className="flex justify-between items-center mb-4">
+                    <h4 className="text-lg font-semibold text-white">Invalid Delta Value</h4>
+                    <button onClick={() => setShowDeltaError(false)} className="text-white text-sm px-2 py-1 rounded bg-slate-700 hover:bg-slate-600">Close</button>
+                  </div>
+                  <p className="text-slate-200 text-sm">Improper delta value. Please re-enter the delta value between 0.25 and 1.</p>
+                </div>
               </div>
             )}
           </div>
