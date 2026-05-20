@@ -24,10 +24,10 @@ export default function MLKEMPage() {
     const [cipherText, setCipherText] = useState<Uint8Array | null>(null);
     const [sharedSecret, setsharedSecret] = useState<Uint8Array | null>(null);
     const [decapsulatedSecret, setDecapsulatedSecret] = useState<Uint8Array | null>(null);
-
-    const [flow, setFlow] = useState<Record<string, unknown> | null>(null);
+    
     const [animationStep, setAnimationStep] = useState(0);
     const [animationComplete, setAnimationComplete] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const [keygenSpyData, setKeygenSpyData] = useState<KeygenSpyData | null>(null);
     const [encapsSpyData, setEncapsSpyData] = useState<EncapsSpyData | null>(null);
@@ -155,15 +155,6 @@ export default function MLKEMPage() {
                 const bobSecretArr = Array.from(bobSecret);
                 const aliceSecretArr = Array.from(aliceSecret);
 
-                setFlow({
-                    alicePublicKey: publicKeyArr.slice(0, 10),
-                    alicePrivateKey: secretKeyArr.slice(0, 10),
-                    bobSharedSecret: bobSecretArr.slice(0, 10),
-                    cipherText: cipherTextArr.slice(0, 10),
-                    aliceSharedSecret: aliceSecretArr.slice(0, 10),
-                    secretsMatch: secretsMatch
-                });
-
                 return {
                     secretsMatch,
                     keyGeneration: {
@@ -187,33 +178,36 @@ export default function MLKEMPage() {
         }
     };
 
-    useEffect(() => {
-        if (flow) {
+    const startAnimation = () => {
+        if (isAnimating) return;
+        
+        setIsAnimating(true);
         setAnimationStep(0);
         setAnimationComplete(false);
-        // Start animation sequence
-        const timer = setTimeout(() => {
+        
+        setTimeout(() => {
             animateSequence();
-            }, 500);
-            return () => clearTimeout(timer);
-            }
-    }, [flow]);
+        }, 500);
+    };
 
     const animateSequence = () => {
-    const totalSteps = 4; // Total animation steps
-    let currentStep = 0;
-    
-    const interval = setInterval(() => {
-      currentStep++;
-      setAnimationStep(currentStep);
-      
-      if (currentStep >= totalSteps) {
-        clearInterval(interval);
-        setAnimationComplete(true);
-      }
-    }, 1200); // Advance animation every 1.2 seconds
+        let currentStep = 0;
+        const interval = setInterval(() => {
+            currentStep++;
+            setAnimationStep(currentStep);
+            
+            if (currentStep >= 4) {
+                clearInterval(interval);
+                setAnimationComplete(true);
+                setIsAnimating(false);
+            }
+        }, 1200);
+    };
 
-    return () => clearInterval(interval);
+    const resetAnimation = () => {
+        setAnimationStep(0);
+        setAnimationComplete(false);
+        setIsAnimating(false);
     };
 
     return (
@@ -226,146 +220,217 @@ export default function MLKEMPage() {
                 </div>
                 {/* prolly add explalations here later */}
                 <div className="rounded-xl bg-slate-800 p-6 mb-8">
-                    <h2 className="text-2xl font-bold mb-6 text-white">Key Exchange Flow Visualization</h2>
-                    {flow && (
-                    <section className="mb-12">
+                    <h2 className="text-2xl font-bold mb-6 text-white">ML-KEM Key Exchange Process</h2>
                     <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
-                        <div className="flex flex-col md:flex-row items-center justify-center mb-8">
-                        {/* Flow diagram */}
-                        <div className="flex flex-col md:flex-row items-center justify-center w-full">
-                            {/* Alice Side */}
-                            <div className="w-full md:w-5/12 p-4">
-                            <div className={`bg-blue-50 rounded-xl border border-blue-200 p-6 transition-all duration-500 
-                                ${animationStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                                <div className="flex items-center mb-4">
-                                <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                                    <svg className="h-6 w-6 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-blue-900">Alice</h3>
-                                </div>
+                        <div className="flex flex-col md:flex-row items-center justify-center mb-8 text">
+                            {/* Flow diagram */}
+                            <div className="flex flex-col md:flex-row items-center justify-center w-full">
                                 
-                                <div className="space-y-4">
-                                <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 
-                                    ${animationStep >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                    <p className="text-sm font-medium text-blue-800 mb-2">1. Generates Key Pair</p>
-                                    <div className="text-xs space-y-1 text-secondary-800">
-                                    <p><strong>Encapsulation Key:</strong> {Array.isArray(flow.alicePublicKey) ? 
-                                        `[${flow.alicePublicKey.join(', ')}${flow.alicePublicKey.length < 10 ? '' : '...'}]` : 
-                                        flow.alicePublicKey as React.ReactNode}</p>
-                                    <p><strong>Decapsulation Key:</strong> {Array.isArray(flow.alicePrivateKey) ? 
-                                        `[${flow.alicePrivateKey.join(', ')}${flow.alicePrivateKey.length < 10 ? '' : '...'}]` :  
-                                        flow.alicePrivateKey as React.ReactNode}</p>
+                                {/* Alice Side */}
+                                <div className="w-full md:w-5/12 p-4">
+                                    <div className={`bg-blue-50 rounded-xl border border-blue-200 p-6 transition-all duration-500 
+                                        ${animationStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                                        <div className="flex items-center mb-4">
+                                            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                                <svg className="h-6 w-6 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                </svg>
+                                            </div>
+                                            <h3 className="text-xl font-semibold text-blue-900">Alice</h3>
+                                        </div>
+                                        
+                                        <div className="space-y-4">
+                                            {/* Step 1: Generate Keys */}
+                                            <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 
+                                                ${animationStep >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <p className="text-sm font-medium text-blue-800">1. Generates Key Pair</p>
+                                                    {animationStep >= 1 && (
+                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                <div className="flex justify-center space-x-4 mt-2">
+                                                    <div className="text-center">
+                                                        <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
+                                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                                            </svg>
+                                                        </div>
+                                                        <p className="text-xs text-gray-600 mt-1">Encapsulation Key</p>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <div className="w-12 h-8 bg-gray-400 rounded border-2 border-gray-600 mx-auto flex items-center justify-center">
+                                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                                            </svg>
+                                                        </div>
+                                                        <p className="text-xs text-gray-600 mt-1">Decapsulation Key</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Step 4: Decapsulate */}
+                                            <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 delay-700
+                                                ${animationStep >= 4 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <p className="text-sm font-medium text-blue-800">4. Decapsulates Shared Secret</p>
+                                                    {animationStep >= 4 && (
+                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                <div className="flex justify-center mt-2">
+                                                    <div className="text-center">
+                                                        <div className="w-16 h-8 bg-purple-400 rounded-full border-2 border-purple-600 mx-auto flex items-center justify-center">
+                                                            <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                                            </svg>
+                                                        </div>
+                                                        <p className="text-xs text-gray-600 mt-1">Shared Secret ✓</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 delay-700
-                                    ${animationStep >= 4 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                    <p className="text-sm font-medium text-blue-800 mb-2">4. Decapsulates Shared Secret</p>
-                                    <div className="text-xs space-y-1 text-secondary-800">
-                                    <p><strong>Shared Secret:</strong> {Array.isArray(flow.aliceSharedSecret) ? 
-                                        `[${flow.aliceSharedSecret.join(', ')}${flow.aliceSharedSecret.length < 10 ? '' : '...'}]` : 
-                                        flow.aliceSharedSecret as React.ReactNode}</p>
-                                    {animationComplete && (flow.secretsMatch as boolean) && (
-                                        <p className="mt-2 text-green-600 font-semibold">✓ Matches Bob&apos;s secret</p>
+                                {/* Middle Arrows */}
+                                <div className="w-full md:w-2/12 py-4 flex flex-col items-center justify-center">
+                                    <div className={`hidden md:block w-full h-0.5 bg-blue-300 my-2 transition-all duration-700 
+                                        ${animationStep >= 2 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
+                                    <div className="md:hidden h-20 w-0.5 bg-blue-300 my-2"></div>
+                                    
+                                    <div className={`bg-white rounded-full p-3 shadow-md transition-all duration-700 
+                                        ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                        </svg>
+                                    </div>
+                                    
+                                    {animationStep >= 2 && (
+                                        <div className="absolute transform translate-x-16 bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                                            E. Key →
+                                        </div>
                                     )}
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                            
-                            {/* Middle Arrows */}
-                            <div className="w-full md:w-2/12 py-4 flex flex-col items-center justify-center">
-                            <div className={`hidden md:block w-full h-0.5 bg-secondary-200 my-2 transition-all duration-700 
-                                ${animationStep >= 2 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
-                            <div className="md:hidden h-20 w-0.5 bg-secondary-200 my-2"></div>
-                            
-                            <div className={`bg-white rounded-full p-3 shadow-md transition-all duration-700 
-                                ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-secondary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                                </svg>
-                            </div>
-                            
-                            <div className={`hidden md:block w-full h-0.5 bg-secondary-200 my-2 transition-all duration-700 
-                                ${animationStep >= 3 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
-                            <div className="md:hidden h-20 w-0.5 bg-secondary-200 my-2"></div>
-                            </div>
-                            
-                            {/* Bob Side */}
-                            <div className="w-full md:w-5/12 p-4">
-                            <div className={`bg-green-50 rounded-xl border border-green-200 p-6 transition-all duration-500 
-                                ${animationStep >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                                <div className="flex items-center mb-4">
-                                <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                                    <svg className="h-6 w-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-green-900">Bob</h3>
+                                    
+                                    <div className={`hidden md:block w-full h-0.5 bg-green-300 my-2 transition-all duration-700 
+                                        ${animationStep >= 3 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
+                                    <div className="md:hidden h-20 w-0.5 bg-green-300 my-2"></div>
+                                    
+                                    {animationStep >= 3 && (
+                                        <div className="absolute transform -translate-x-16 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                                            ← Ciphertext
+                                        </div>
+                                    )}
                                 </div>
                                 
-                                <div className="space-y-4">
-                                <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
-                                    ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                    <p className="text-sm font-medium text-green-800 mb-2">2. Receives Alice&apos;s Encapsulation Key</p>
-                                    <div className="text-xs space-y-1 text-secondary-800">
-                                        From encapsulation key, extract the encryption key. Encrypt plaintext into ciphertext, generate shared secret key from encapsulation key.
+                                {/* Bob Side */}
+                                <div className="w-full md:w-5/12 p-4">
+                                    <div className={`bg-green-50 rounded-xl border border-green-200 p-6 transition-all duration-500 
+                                        ${animationStep >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                                        <div className="flex items-center mb-4">
+                                            <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                                <svg className="h-6 w-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                </svg>
+                                            </div>
+                                            <h3 className="text-xl font-semibold text-green-900">Bob</h3>
+                                        </div>
+                                        
+                                        <div className="space-y-4">
+                                            {/* Step 2: Receive Key */}
+                                            <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
+                                                ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <p className="text-sm font-medium text-green-800">2. Receives Alice's Encapsulation Key</p>
+                                                    {animationStep >= 2 && (
+                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                <div className="flex justify-center mt-2">
+                                                    <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
+                                                        <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Step 3: Encapsulate */}
+                                            <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
+                                                ${animationStep >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <p className="text-sm font-medium text-green-800">3. Encapsulates Shared Secret</p>
+                                                    {animationStep >= 3 && (
+                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                <div className="flex justify-center space-x-4 mt-2">
+                                                    <div className="text-center">
+                                                        <div className="w-12 h-8 bg-orange-400 rounded border-2 border-orange-600 mx-auto"></div>
+                                                        <p className="text-xs text-gray-600 mt-1">Ciphertext</p>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <div className="w-12 h-8 bg-purple-400 rounded-full border-2 border-purple-600 mx-auto"></div>
+                                                        <p className="text-xs text-gray-600 mt-1">Secret</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
-                                    ${animationStep >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                    <p className="text-sm font-medium text-green-800 mb-2">3. Encapsulates Shared Secret</p>
-                                    <div className="text-xs space-y-1 text-secondary-800">
-                                    <p><strong>Ciphertext:</strong> {Array.isArray(flow.cipherText) ? 
-                                        `[${flow.cipherText.join(', ')}${flow.cipherText.length < 10 ? '' : '...'}]` : 
-                                        flow.cipherText as React.ReactNode}</p>
-                                    <p><strong>Shared Secret:</strong> {Array.isArray(flow.bobSharedSecret) ? 
-                                        `[${flow.bobSharedSecret.join(', ')}${flow.bobSharedSecret.length < 10 ? '' : '...'}]` : 
-                                        flow.bobSharedSecret as React.ReactNode}</p>
-                                    </div>
-                                </div>
-                                </div>
                             </div>
-                            </div>
-                        </div>
                         </div>
                         
+                        {/* Completion Message */}
                         <div className={`bg-yellow-50 border border-yellow-200 rounded-lg p-4 transition-all duration-700 
-                        ${animationComplete ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                        <div className="flex items-start">
-                            <svg className="h-6 w-6 mr-2 text-yellow-500 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <div>
-                            <p className="font-semibold text-yellow-800 mb-1">Security Note:</p>
-                            <p className="text-sm text-yellow-700">
-                                During an actual key exchange, only the public key and ciphertext would be transmitted across 
-                                the network. The shared secret and private key remain confidential to each party.
-                            </p>
+                            ${animationComplete ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                            <div className="flex items-start">
+                                <svg className="h-6 w-6 mr-2 text-green-500 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <div>
+                                    <p className="font-semibold text-green-800 mb-1">✓ Key Exchange Complete!</p>
+                                    <p className="text-sm text-green-700">
+                                        Alice and Bob now share an identical secret key without ever transmitting it directly.
+                                        This shared secret can now be used for encrypted communication. 
+                                        <br />
+                                        <br />
+                                        (During an actual key exchange, only the encapsulation/public key and ciphertext are transmitted across the network. The shared secret and decapsulation/private key remain confidential to each party.)
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        </div>
                     </div>
-                    </section>
-                    )}
-                        {/*<div className="rounded-xl">
-                            <p className="font-semibold text-yellow-800 mb-1"> Extra Notes:</p>
-                            <p className="text-sm text-yellow-700">
-                                During an actual key exchange, only the public key and ciphertext would be transmitted across the network. The shared secret and private key remain confidential to each party.</p>
-                        </div>*/}
-                        <div className="flex justify-center">
+                    
+                    <div className="flex justify-center gap-4 mt-6">
+                        <Button
+                            variant="secondary"
+                            size="lg"
+                            onClick={startAnimation}
+                            disabled={isAnimating}
+                        >
+                            {isAnimating ? "Animating..." : "Animate Key Exchange"}
+                        </Button>
+                        
+                        {animationStep > 0 && (
                             <Button
-                                variant="secondary"
+                                variant="outline"
                                 size="lg"
-                                // /onClick={() => executeMLKEM("Complete Flow")}
+                                onClick={resetAnimation}
+                                disabled={isAnimating}
                             >
-                                WORK IN PROGRESS
+                                ↺ Reset
                             </Button>
-                        </div>
+                        )}
+                    </div>
                 </div>
                 <div className="rounded-xl bg-slate-800 p-6 mb-8">
                     <h2 className="text-2xl font-bold mb-6 text-white">ML-KEM Full Visualization</h2>
