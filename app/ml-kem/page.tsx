@@ -5,6 +5,7 @@ import * as pqc from '@/lib/modified-pqc/ml-kem-modified';
 import Link from "next/link";
 import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import KeygenVisualization from './slides/keygenOuter';
 import KeygenVisualizationProcess from './slides/keygenInner';
@@ -32,6 +33,18 @@ export default function MLKEMPage() {
     const [keygenSpyData, setKeygenSpyData] = useState<KeygenSpyData | null>(null);
     const [encapsSpyData, setEncapsSpyData] = useState<EncapsSpyData | null>(null);
     const [decapsSpyData, setDecapsSpyData] = useState<DecapsSpyData | null>(null);
+
+    const [step, setStep] = useState(1);
+    useEffect(() => setStep(1), [vizStage]);
+
+    const maxStep: Record<string, number> = {
+        keygen0: 4,
+        keygen1: 5,
+        encapsulation0: 4,
+        encapsulation1: 5,
+        decapsulation0: 6,
+        decapsulation1: 5,
+    };
 
     useEffect(() => {
         setAliceKeys(null);
@@ -477,8 +490,8 @@ export default function MLKEMPage() {
                                             </Button>
                                         </div>
                                     )}
-                                    {vizStage === "keygen0" && <KeygenVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
-                                    {vizStage === "keygen1" && <KeygenVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} />}
+                                    {vizStage === "keygen0" && <KeygenVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} step={step} />}
+                                    {vizStage === "keygen1" && <KeygenVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} step={step} />}
                                     {vizStage === "encapsulation0" && <EncapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={encapsSpyData} />}
                                     {vizStage === "encapsulation1" && <EncapsulationVisualizationProcess onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={encapsSpyData} />}
                                     {vizStage === "decapsulation0" && <DecapsulationVisualization onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={decapsSpyData} />}
@@ -952,9 +965,58 @@ export default function MLKEMPage() {
                                         </div>
                                     }
                                 </div>
-                                <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center p-2">
-                                    <div>
-                                        empt
+                                <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-48 items-center justify-center p-2">
+                                    <div className="flex items-center gap-3 bg-gray-100 dark:bg-zinc-800 rounded-full px-2 py-1 shadow-sm">
+                                        <button 
+                                            onClick={() => setStep(s => s - 1)} 
+                                            disabled={step <= 1}
+                                            className={`
+                                                p-2 rounded-full transition-all duration-200
+                                                ${step <= 1 
+                                                    ? "text-gray-400 cursor-not-allowed opacity-50" 
+                                                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 hover:shadow-md active:scale-95 cursor-pointer"
+                                                }
+                                            `}
+                                            aria-label="Previous step"
+                                        >
+                                            <ChevronLeftIcon className="size-5" />
+                                        </button>
+                                        <div className="min-w-[60px] text-center">
+                                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                                Step {step}
+                                            </span>
+                                            <span className="text-xs text-gray-400 dark:text-gray-500 ml-0.5">
+                                                / {maxStep[vizStage ?? ""] ?? 1}
+                                            </span>
+                                        </div>
+                                        <button 
+                                            onClick={() => setStep(s => s + 1)} 
+                                            disabled={step >= (maxStep[vizStage ?? ""] ?? 1)}
+                                            className={`
+                                                p-2 rounded-full transition-all duration-200
+                                                ${step >= (maxStep[vizStage ?? ""] ?? 1)
+                                                    ? "text-gray-400 cursor-not-allowed opacity-50" 
+                                                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 hover:shadow-md active:scale-95 cursor-pointer"
+                                                }
+                                            `}
+                                            aria-label="Next step"
+                                        >
+                                            <ChevronRightIcon className="size-5" />
+                                        </button>
+                                    </div>
+                                    <div className="flex gap-1.5 mt-3">
+                                        {Array.from({ length: maxStep[vizStage ?? ""] ?? 1 }).map((_, i) => (
+                                            <div
+                                                key={i}
+                                                className={`
+                                                    h-1.5 rounded-full transition-all duration-200
+                                                    ${i + 1 === step 
+                                                        ? "w-4 bg-blue-500" 
+                                                        : "w-1.5 bg-gray-300 dark:bg-zinc-600"
+                                                    }
+                                                `}
+                                            />
+                                        ))}
                                     </div>
                                 </div>
                             </div>

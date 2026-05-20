@@ -10,11 +10,13 @@ import { KeygenSpyData } from '@/utils/createSpy';
 export default function KeygenVisualization({
     onSelectVariable,
     onChangeStage,
-    spyData
+    spyData,
+    step,
 }: {
     onSelectVariable: (variable: string) => void;
     onChangeStage: (stage: string) => void;
     spyData: KeygenSpyData | null;
+    step: number;
 }) {
     useEffect(() => {
         onSelectVariable("keygenBase0");
@@ -43,71 +45,61 @@ export default function KeygenVisualization({
                     </div>
                 </div>
             </div>
-            <ArrowLongDownIcon className="size-6" />
-            <div
-                onClick={() => {
-                    onSelectVariable("keygenBase1");
-                    onChangeStage("keygen1");
-                }}
-                className="rounded-lg bg-white p-4  text-sm flex cursor-pointer items-center justify-center w-64 shadow-sm border-2 border-gray-300"
-            >
-                Kyber-PKE Key Generation
-            </div>
-            <div className="flex flex-row gap-4">
-                <div className="flex flex-col gap-4 items-center">
-                    <ArrowLongDownIcon className="size-6" />
-                    <div className="flex flex-col gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
-                        <div className="flex flex-col items-center  text-sm gap-2">
-                            <div><InlineMath math="ek_{PKE}" /></div>
-                            <SquareGrid algorithm="mlkem"
-                                rows={1} cols={4} rowsExpanded={8} size={12}
-                                colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []}
-                                showValues variableKey="ekPKE_keygen" onClick={() => onSelectVariable("ekPKE_keygen")}
-                            />
-                        </div>
+            {step >= 2 && <>
+                <ArrowLongDownIcon className="size-6" />
+                <div
+                    onClick={() => {
+                        onSelectVariable("keygenBase1");
+                        onChangeStage("keygen1");
+                    }}
+                    className="rounded-lg bg-white p-4  text-sm flex cursor-pointer items-center justify-center w-64 shadow-sm border-2 border-gray-300"
+                >
+                    Kyber-PKE Key Generation
+                </div>
+            </>}
+            {step >= 3 && <>
+                <ArrowLongDownIcon className="size-6" />
+                <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                    <div className="flex flex-col items-center  text-sm gap-2">
+                        <div><InlineMath math="ek_{PKE}" /></div>
+                        <SquareGrid algorithm="mlkem"
+                            rows={1} cols={4} rowsExpanded={8} size={12}
+                            colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []}
+                            showValues variableKey="ekPKE_keygen" onClick={() => onSelectVariable("ekPKE_keygen")}
+                        />
                     </div>
-                    <ArrowLongDownIcon className="size-6" />
-                    <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
-                        <div className="text-green-700 font-semibold text-lg">Output</div>
-                        <div className="flex flex-col items-center  text-sm gap-2">
-                            <div>Encapsulation Key <InlineMath math="ek" /></div>
-                            <SquareGrid algorithm="mlkem"
-                                rows={8} cols={8} size={4}
-                                colorData={spyData?.publicKey}
-                                showValues showTooltip
-                                variableKey="encapskey_keygen" onClick={() => onSelectVariable("encapskey_keygen")}
-                            />
-                        </div>
+                    <div className="flex flex-col items-center  text-sm gap-2">
+                        <div><InlineMath math="ek_{PKE}" /></div>
+                        <SquareGrid algorithm="mlkem"
+                            rows={1} cols={4} rowsExpanded={8} size={12}
+                            colorData={spyData?.ekPKE ? Array.from(spyData.ekPKE) : []}
+                            showValues variableKey="ekPKE_keygen" onClick={() => onSelectVariable("ekPKE_keygen")}
+                        />
                     </div>
                 </div>
-                <div className="flex flex-col gap-4 items-center">
-                    <ArrowLongDownIcon className="size-6" />
-                    <div className="flex flex-col gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
-                        <div className="flex flex-col items-center  text-sm gap-2">
-                            <div><InlineMath math="dk_{PKE}" /></div>
+            </>}
+            {step >= 4 && <>
+                <ArrowLongDownIcon className="size-6" />
+                <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
+                    <div className="text-green-700 font-semibold text-lg">Output</div>
+                    <div className="flex flex-row gap-4">
+                        <div className="flex flex-col items-center text-sm gap-2">
+                            <div>Encapsulation Key <InlineMath math="ek" /></div>
                             <SquareGrid algorithm="mlkem"
-                                rows={1} cols={4} rowsExpanded={8} size={12}
-                                colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []}
-                                showValues variableKey="dkPKE_keygen" onClick={() => onSelectVariable("dkPKE_keygen")}
+                                rows={8} cols={8} size={4} colorData={spyData?.publicKey}
+                                showValues showTooltip variableKey="encapskey_keygen" onClick={() => onSelectVariable("encapskey_keygen")}
                             />
                         </div>
-                    </div>
-                    <ArrowLongDownIcon className="size-6" />
-                    <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
-                        <div className="text-green-700 font-semibold text-lg">Output</div>
                         <div className="flex flex-col items-center  text-sm gap-2">
                             <div>Decapsulation Key <InlineMath math="dk" /></div>
                             <SquareGrid algorithm="mlkem"
-                            rows={8} cols={8} size={4}
-                            colorData={spyData?.secretKey}
-                            showValues showTooltip
-                            variableKey="decapskey_keygen"
-                            onClick={() => onSelectVariable("decapskey_keygen")}
+                            rows={8} cols={8} size={4} colorData={spyData?.secretKey}
+                            showValues showTooltip variableKey="decapskey_keygen" onClick={() => onSelectVariable("decapskey_keygen")}
                             />
                         </div>
                     </div>
                 </div>
-            </div>
+            </>}
             <Button
                 variant="secondary"
                 size="sm"

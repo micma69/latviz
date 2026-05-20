@@ -5,6 +5,7 @@ import * as pqc from '@/lib/modified-pqc/ml-dsa-modified';
 import Link from "next/link";
 import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import * as utils from '@/lib/modified-pqc/utils';
 import { DSAKeygenSpyData, DSASignSpyData, DSAVerifySpyData, createDSASpy, SignIteration } from '@/utils/createSpy';
@@ -24,16 +25,24 @@ export default function MLDSAPage() {
     const [selectedParam, setSelectedParam] = useState<DsaParamKey>('q');
     const [keys, setKeys] = useState<any>(null);
     const [signature, setSignature] = useState<Uint8Array | null>(null);
-    const [verifyResult, setVerifyResult] = useState<boolean | null>(null);
     const [message, setMessage] = useState("");
-
-    const [expandedPublicKey, setExpandedPublicKey] = useState(false);
-    const [expandedSecretKey, setExpandedSecretKey] = useState(false);
-    const [expandedSignature, setExpandedSignature] = useState(false);
 
     const [animationStep, setAnimationStep] = useState(0);
     const [animationComplete, setAnimationComplete] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
+
+    const [step, setStep] = useState(1);
+    useEffect(() => setStep(1), [vizStage]);
+
+    const maxStep: Record<string, number> = {
+        keygen0: 0,
+        keygen1: 5,
+        sign0: 4,
+        sign1: 5,
+        sign2: 0,
+        verify0: 6,
+        verify1: 5,
+    };
 
     const startAnimation = () => {
         if (isAnimating) return;
@@ -74,7 +83,6 @@ export default function MLDSAPage() {
     const resetAll = (): void => {
         setKeys(null);
         setSignature(null);
-        setVerifyResult(null);
         setKeygenSpyData(null);
         setSignSpyData(null);
         setVerifySpyData(null);
@@ -134,7 +142,6 @@ export default function MLDSAPage() {
                 const newKeys = algorithm.keygen();
                 setKeys(newKeys);
                 setSignature(null);
-                setVerifyResult(null);
                 break;
             }
 
@@ -145,7 +152,6 @@ export default function MLDSAPage() {
 
                 const sig = algorithm.sign(keys.secretKey, msgBytes);
                 setSignature(sig);
-                setVerifyResult(null);
                 break;
             }
 
@@ -160,7 +166,6 @@ export default function MLDSAPage() {
                     signature
                 );
 
-                setVerifyResult(valid);
                 break;
             }
 
@@ -1041,8 +1046,59 @@ export default function MLDSAPage() {
                                         </div>
                                     }
                                 </div>
-                                <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-full items-center justify-center p-2">
-                                    empt
+                                <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-48 items-center justify-center p-2">
+                                    <div className="flex items-center gap-3 bg-gray-100 dark:bg-zinc-800 rounded-full px-2 py-1 shadow-sm">
+                                        <button 
+                                            onClick={() => setStep(s => s - 1)} 
+                                            disabled={step <= 1}
+                                            className={`
+                                                p-2 rounded-full transition-all duration-200
+                                                ${step <= 1 
+                                                    ? "text-gray-400 cursor-not-allowed opacity-50" 
+                                                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 hover:shadow-md active:scale-95 cursor-pointer"
+                                                }
+                                            `}
+                                            aria-label="Previous step"
+                                        >
+                                            <ChevronLeftIcon className="size-5" />
+                                        </button>
+                                        <div className="min-w-[60px] text-center">
+                                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                                Step {step}
+                                            </span>
+                                            <span className="text-xs text-gray-400 dark:text-gray-500 ml-0.5">
+                                                / {maxStep[vizStage ?? ""] ?? 1}
+                                            </span>
+                                        </div>
+                                        <button 
+                                            onClick={() => setStep(s => s + 1)} 
+                                            disabled={step >= (maxStep[vizStage ?? ""] ?? 1)}
+                                            className={`
+                                                p-2 rounded-full transition-all duration-200
+                                                ${step >= (maxStep[vizStage ?? ""] ?? 1)
+                                                    ? "text-gray-400 cursor-not-allowed opacity-50" 
+                                                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 hover:shadow-md active:scale-95 cursor-pointer"
+                                                }
+                                            `}
+                                            aria-label="Next step"
+                                        >
+                                            <ChevronRightIcon className="size-5" />
+                                        </button>
+                                    </div>
+                                    <div className="flex gap-1.5 mt-3">
+                                        {Array.from({ length: maxStep[vizStage ?? ""] ?? 1 }).map((_, i) => (
+                                            <div
+                                                key={i}
+                                                className={`
+                                                    h-1.5 rounded-full transition-all duration-200
+                                                    ${i + 1 === step 
+                                                        ? "w-4 bg-blue-500" 
+                                                        : "w-1.5 bg-gray-300 dark:bg-zinc-600"
+                                                    }
+                                                `}
+                                            />
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
