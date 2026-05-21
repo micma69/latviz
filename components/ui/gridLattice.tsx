@@ -59,10 +59,10 @@ const getLabelColor = (value: number, min: number, max: number) => {
 
 export default function SquareGrid({
   algorithm = "mldsa",
-  rows = 8,
-  cols = 8,
-  rowsExpanded,
-  colsExpanded,
+  rows = 1,
+  cols = 3,
+  rowsExpanded = 8,
+  colsExpanded = 4,
   fullRows = rows,
   fullCols = cols,
   size = 20,
@@ -82,7 +82,7 @@ export default function SquareGrid({
   const tooltipData = algorithm === "mldsa" ? tooltipDataMldsa : tooltipDataMlkem;
   const tooltipContent = tooltipData[variableKey as keyof typeof tooltipData] ?? tooltipData.default;
 
-  const canExpand = rowsExpanded !== undefined || colsExpanded !== undefined;
+  const canExpand = (rowsExpanded !== undefined && rowsExpanded !== rows) || (colsExpanded !== undefined && colsExpanded !== cols);
 
   const activeRows = expanded ? (rowsExpanded ?? rows) : rows;
   const activeCols = expanded ? (colsExpanded ?? cols) : cols;
