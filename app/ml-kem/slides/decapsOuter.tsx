@@ -23,7 +23,7 @@ export default function DecapsulationVisualization({
         <div className="flex flex-row gap-4 items-center">
             <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
                 <div className="text-blue-700 font-semibold text-lg">Input</div>
-                <div className="flex flex-row gap-8 items-center justify-center">
+                <div className="flex flex-row gap-4 items-center justify-center">
                     <div className="flex flex-col items-center  text-sm gap-2">
                         <div><InlineMath math="c" /></div>
                         <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} onClick={() => onSelectVariable("ciphertext_decaps")} variableKey="ciphertext_decaps" />
@@ -36,7 +36,7 @@ export default function DecapsulationVisualization({
             </div>
             {step >= 2 && <>
                 <ArrowLongRightIcon className="size-6" />
-                <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div className="flex flex-col gap-2 items-center">
                         <div><InlineMath math="dk_{PKE}" /></div>
                         <SquareGrid algorithm="mlkem" rows={1} cols={4} rowsExpanded={4} colsExpanded={4} size={12} colorData={spyData?.dkPKE ? Array.from(spyData.dkPKE) : []} showValues={true} onClick={() => onSelectVariable("dkPKE_decaps")} variableKey="dkPKE_decaps" />

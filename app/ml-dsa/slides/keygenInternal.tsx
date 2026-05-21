@@ -39,7 +39,7 @@ export default function KeygenInternal({
                 </div>
                 {step >= 2 && <>
                     <ArrowLongRightIcon className="size-6" />
-                    <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                    <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                             <div className="flex flex-col items-center gap-2">
                                 <div><InlineMath math="\rho" /></div>
                                 <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.rho ? Array.from(spyData.rho) : []} showValues variableKey="rho_keygen" onClick={() => {onSelectVariable("rho_keygen")}} />
@@ -67,7 +67,7 @@ export default function KeygenInternal({
                         </div>
                     </div>
                     {step >= 4 && <>
-                        <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                        <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                             <InlineMath math="\rho'" />
                             <ArrowLongRightIcon className="size-6" />
                             <div className="flex flex-col gap-2 items-center">
@@ -85,7 +85,7 @@ export default function KeygenInternal({
             {step >= 5 && <>
                 <ArrowLongDownIcon className="size-6" />
                 <div className="flex flex-row gap-4 items-center">
-                    <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                    <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                         <div><InlineMath math="(A \cdot s_1) + s_2" /></div>
                         <ArrowLongRightIcon className="size-6" />
                         <div className="flex flex-col gap-2 items-center">

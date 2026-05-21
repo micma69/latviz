@@ -26,7 +26,7 @@ export default function SignInternal({
         <div className="flex flex-col items-center gap-4 h-full w-full justify-center px-4 font-mono">
             <div className="flex flex-col gap-2 items-center justify-center bg-blue-100 rounded-xl p-5 w-fit border-2 border-blue-300">
                 <div className="text-blue-700 font-semibold text-lg">Input</div>
-                    <div className="flex flex-row gap-4 items-center">
+                    <div className="flex flex-row gap-6 items-center">
                         <div className="flex flex-col items-center gap-2">
                             <div><InlineMath math="sk" /></div>
                             <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.sk ? Array.from(spyData.sk) : []} showValues={true} variableKey="secretkey" onClick={() => onSelectVariable("secretkey")} />

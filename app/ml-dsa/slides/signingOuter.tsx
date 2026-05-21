@@ -53,17 +53,11 @@ export default function SignOuter({
             </div>
             {step >= 3 && <>
                 <ArrowLongDownIcon className="size-6" />
-                <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <SquareGrid algorithm="mldsa" rows={1} cols={1} size={12} colorData={[0]} showValues={true} showTooltip={false} />
                     <SquareGrid algorithm="mldsa" rows={1} cols={1} size={12} colorData={spyData?.ctx ? [spyData.ctx.length] : []} showValues={true} variableKey="ctx_length" />
-                    <div className="flex flex-col items-center gap-2">
-                        <div><InlineMath math="ctx" /></div>
-                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={spyData?.ctx ? Array.from(spyData.ctx) : []} showValues={true} onClick={() => onSelectVariable("ctx_sign")} variableKey="ctx_sign" />
-                    </div>
-                    <div className="flex flex-col items-center gap-2">
-                        <div><InlineMath math="M" /></div>
-                        <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} colorData={(spyData?.msg ? Array.from(spyData.msg) : []).slice(2)} showValues={true} variableKey="M_sign" onClick={() => onSelectVariable("M_sign")} />
-                    </div>
+                    <div><InlineMath math="M" /></div>
+                    <div><InlineMath math="ctx" /></div>
                     {step >= 4 && <>
                         <ArrowLongRightIcon className="size-6" />
                         <div className="flex flex-col items-center gap-2">

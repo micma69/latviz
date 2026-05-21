@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import * as pqc from '@/lib/modified-pqc/ml-kem-modified';
 import Link from "next/link";
-import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
 import { ChevronLeftIcon, ChevronRightIcon, KeyIcon, LockOpenIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { VariableDisplay, MatrixDisplay } from "@/components/ui/varDisplay";
 import KeygenVisualization from './slides/keygenOuter';
 import KeygenVisualizationProcess from './slides/keygenInner';
 import EncapsulationVisualization from './slides/encapsOuter';
@@ -14,7 +14,6 @@ import EncapsulationVisualizationProcess from './slides/encapsInner';
 import DecapsulationVisualization from './slides/decapsOuter';
 import DecapsulationVisualizationProcess from './slides/decapsInner';
 import { KeygenSpyData, EncapsSpyData, DecapsSpyData, createSpy } from '@/utils/createSpy';
-import SquareGrid from "@/components/ui/gridLattice";
 
 export default function MLKEMPage() {
     const [vizStage, setVizStage] = useState<string | null>(null);
@@ -535,7 +534,6 @@ export default function MLKEMPage() {
                                             ))}
                                         </SelectContent>
                                     </Select>
-                                    {/* Clickable parameter row */}
                                     <div className="flex flex-wrap justify-center gap-2 w-full">
                                     {parameters.map((param) => (
                                         <button
@@ -554,7 +552,6 @@ export default function MLKEMPage() {
                                     ))}
                                     </div>
 
-                                    {/* Value panel - shows current param value */}
                                     {currentParams && (
                                     <div className="w-full mt-1 p-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-center">
                                         <div className="text-xl  font-bold">
@@ -563,427 +560,476 @@ export default function MLKEMPage() {
                                     </div>
                                     )}
                                 </div>
-                                <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center p-2">
-                                    {(vizStage === null || selectedVariable === null) &&
-                                        <div>Click a variable to see it in full!</div>
-                                    }
-
-                                    {/* ── KEYGEN ── */}
-                                    {selectedVariable === "d" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="d \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.d?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.d ? Array.from(keygenSpyData.d) : []} showValues variableKey='d' />
+                                <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full h-[360px] items-center justify-center p-2">
+                                    <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center p-2 overflow-hidden">
+                                        {(vizStage === null || selectedVariable === null) &&
+                                            <div className="text-center">
+                                                <p className="mb-2">Click a variable to see it in full!</p>
+                                                <p>Hover over it to see a short description!</p>
                                             </div>
-                                        </div>
-                                    }
+                                        }
+                                        
+                                        {/* ── KEYGEN ── */}
+                                        {selectedVariable === "d" &&
+                                            <VariableDisplay 
+                                                math="d \in \mathbb{B}^{32}"
+                                                description="32 byte seed"
+                                                data={keygenSpyData?.d}
+                                                variableKey="d"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "z_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="z \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.z ? Array.from(keygenSpyData.z) : []} showValues variableKey='z_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "z_keygen" &&
+                                            <VariableDisplay 
+                                                math="z \in \mathbb{B}^{32}"
+                                                description="32 byte seed"
+                                                data={keygenSpyData?.z}
+                                                variableKey="z_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rho_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\rho \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues variableKey='rho_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rho_keygen" &&
+                                            <VariableDisplay 
+                                                math="\rho \in \mathbb{B}^{32}"
+                                                description="32 byte seed for A generation"
+                                                data={keygenSpyData?.rho}
+                                                variableKey="rho_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "sigma_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\sigma \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.sigma?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sigma ? Array.from(keygenSpyData.sigma) : []} showValues variableKey='sigma_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "sigma_keygen" &&
+                                            <VariableDisplay 
+                                                math="\sigma \in \mathbb{B}^{32}"
+                                                description="32 byte seed"
+                                                data={keygenSpyData?.sigma}
+                                                variableKey="sigma_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "A_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="A \in \mathbb{Z}_q^{k \times k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil(keygenSpyData?.A?.[0]?.[0].length ?? 0) / 4} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues variableKey='A_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "A_keygen" &&
+                                            <MatrixDisplay 
+                                                math="\hat{A} \in \mathbb{Z}_q^{k \times k}"
+                                                description="k×k matrix of polynomials (NTT domain)"
+                                                matrix={keygenSpyData?.A}
+                                                variableKey="A_keygen"
+                                            />
+                                        }
 
-                                    {selectedVariable === "s_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="s \in \mathbb{Z}_q^{k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sHat[0] ? Array.from(keygenSpyData.sHat[0]) : []} showValues variableKey='s_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "s_keygen" &&
+                                            <VariableDisplay 
+                                                math="\hat{s} \in \mathbb{Z}_q^{k}"
+                                                description="secret vector in NTT domain"
+                                                data={keygenSpyData?.sHat?.[0]}
+                                                variableKey="s_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "e_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="e \in \mathbb{Z}_q^{k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.eHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.eHat[0] ? Array.from(keygenSpyData.eHat[0]) : []} showValues variableKey='e_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "e_keygen" &&
+                                            <VariableDisplay 
+                                                math="\hat{e} \in \mathbb{Z}_q^{k}"
+                                                description="error vector in NTT domain"
+                                                data={keygenSpyData?.eHat?.[0]}
+                                                variableKey="e_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "t_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="t \in \mathbb{Z}_q^{k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tHat[0] ? Array.from(keygenSpyData.tHat[0]) : []} showValues variableKey='t_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "t_keygen" &&
+                                            <VariableDisplay 
+                                                math="\hat{t} \in \mathbb{Z}_q^{k}"
+                                                description="public key component in NTT domain (t = A∘s + e)"
+                                                data={keygenSpyData?.tHat?.[0]}
+                                                variableKey="t_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "ekPKE_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="ek_{PKE} \in \mathbb{B}^{384k+32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.ekPKE ? Array.from(keygenSpyData.ekPKE) : []} showValues variableKey='ekPKE_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "ekPKE_keygen" &&
+                                            <VariableDisplay 
+                                                math="ek_{PKE} \in \mathbb{B}^{384k+32}"
+                                                description="PKE encryption key (ρ + t̂)"
+                                                data={keygenSpyData?.ekPKE}
+                                                variableKey="ekPKE_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "dkPKE_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="dk_{PKE} \in \mathbb{B}^{384k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.dkPKE ? Array.from(keygenSpyData.dkPKE) : []} showValues variableKey='dkPKE_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "dkPKE_keygen" &&
+                                            <VariableDisplay 
+                                                math="dk_{PKE} \in \mathbb{B}^{384k}"
+                                                description="PKE decryption key (ŝ)"
+                                                data={keygenSpyData?.dkPKE}
+                                                variableKey="dkPKE_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "encapskey_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.publicKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.publicKey} showValues variableKey='encapskey_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "encapskey_keygen" &&
+                                            <VariableDisplay 
+                                                math="ek \in \mathbb{B}^{384k+32}"
+                                                description="Encapsulation key (public key)"
+                                                data={keygenSpyData?.publicKey}
+                                                variableKey="encapskey_keygen"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "decapskey_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.secretKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.secretKey} showValues variableKey='decapskey_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "decapskey_keygen" &&
+                                            <VariableDisplay 
+                                                math="dk \in \mathbb{B}^{768k+96}"
+                                                description="Decapsulation key (secret key)"
+                                                data={keygenSpyData?.secretKey}
+                                                variableKey="decapskey_keygen"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {/* ── ENCAPSULATION ── */}
-                                    {selectedVariable === "m_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="m \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.m ? Array.from(encapsSpyData.m) : []} showValues variableKey='m_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {/* ── ENCAPSULATION ── */}
+                                        {selectedVariable === "m_encaps" &&
+                                            <VariableDisplay 
+                                                math="m \in \mathbb{B}^{32}"
+                                                description="32 byte random message"
+                                                data={encapsSpyData?.m}
+                                                variableKey="m_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "K_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="K" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.K ? Array.from(encapsSpyData.K) : []} showValues variableKey='K_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "K_encaps" &&
+                                            <VariableDisplay 
+                                                math="K"
+                                                description="shared secret from encapsulation"
+                                                data={encapsSpyData?.K}
+                                                variableKey="K_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "r_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="r" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.r ? Array.from(encapsSpyData.r) : []} showValues variableKey='r_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "r_encaps" &&
+                                            <VariableDisplay 
+                                                math="r"
+                                                description="randomness for encapsulation"
+                                                data={encapsSpyData?.r}
+                                                variableKey="r_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "encapskey_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.ek?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.ek ? Array.from(encapsSpyData.ek) : []} showValues variableKey='encapskey_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "encapskey_encaps" &&
+                                            <VariableDisplay 
+                                                math="ek \in \mathbb{B}^{384k+32}"
+                                                description="Encapsulation key"
+                                                data={encapsSpyData?.ek}
+                                                variableKey="encapskey_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rho_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\rho \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.rho ? Array.from(encapsSpyData.rho) : []} showValues variableKey='rho_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rho_encaps" &&
+                                            <VariableDisplay 
+                                                math="\rho \in \mathbb{B}^{32}"
+                                                description="seed from public key"
+                                                data={encapsSpyData?.rho}
+                                                variableKey="rho_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "t_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\hat{t}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.tHat[0] ? Array.from(encapsSpyData.tHat[0]) : []} showValues variableKey='t_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "t_encaps" &&
+                                            <VariableDisplay 
+                                                math="\hat{t}"
+                                                description="t̂ from public key (NTT domain)"
+                                                data={encapsSpyData?.tHat?.[0]}
+                                                variableKey="t_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "mu_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mu" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.mu ? Array.from(encapsSpyData.mu) : []} showValues variableKey='mu_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "mu_encaps" &&
+                                            <VariableDisplay 
+                                                math="\mu = H(ek)"
+                                                description="32 byte hash of public key"
+                                                data={encapsSpyData?.mu}
+                                                variableKey="mu_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "A_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="A \in \mathbb{Z}_q^{k \times k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.A?.[0]?.[0] ? Array.from(encapsSpyData.A[0][0]) : []} showValues variableKey='A_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "A_encaps" &&
+                                            <MatrixDisplay 
+                                                math="A \in \mathbb{Z}_q^{k \times k}"
+                                                description="matrix from ρ (NTT domain)"
+                                                matrix={encapsSpyData?.A}
+                                                variableKey="A_encaps"
+                                            />
+                                        }
 
-                                    {selectedVariable === "y_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="y" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.y[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.y[0] ? Array.from(encapsSpyData.y[0]) : []} showValues variableKey='y_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "y_encaps" &&
+                                            <VariableDisplay 
+                                                math="y"
+                                                description="random vector from r"
+                                                data={encapsSpyData?.y?.[0]}
+                                                variableKey="y_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "e1_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="e_1" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.e1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e1[0] ? Array.from(encapsSpyData.e1[0]) : []} showValues variableKey='e1_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "e1_encaps" &&
+                                            <VariableDisplay 
+                                                math="e_1"
+                                                description="error vector e₁"
+                                                data={encapsSpyData?.e1?.[0]}
+                                                variableKey="e1_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "e2_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="e_2" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.e2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e2 ? Array.from(encapsSpyData.e2) : []} showValues variableKey='e2_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "e2_encaps" &&
+                                            <VariableDisplay 
+                                                math="e_2"
+                                                description="error polynomial e₂"
+                                                data={encapsSpyData?.e2}
+                                                variableKey="e2_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "u_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="u" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.u[0] ? Array.from(encapsSpyData.u[0]) : []} showValues variableKey='u_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "u_encaps" &&
+                                            <VariableDisplay 
+                                                math="u = A^T y + e_1"
+                                                description="ciphertext component u"
+                                                data={encapsSpyData?.u?.[0]}
+                                                variableKey="u_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c1_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c_1" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c1 ? Array.from(encapsSpyData.c1) : []} showValues variableKey='c1_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c1_encaps" &&
+                                            <VariableDisplay 
+                                                math="c_1"
+                                                description="compressed u"
+                                                data={encapsSpyData?.c1}
+                                                variableKey="c1_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "v_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="v" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.v ? Array.from(encapsSpyData.v) : []} showValues variableKey='v_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "v_encaps" &&
+                                            <VariableDisplay 
+                                                math="v"
+                                                description="ciphertext component v"
+                                                data={encapsSpyData?.v}
+                                                variableKey="v_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c2_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c_2" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c2 ? Array.from(encapsSpyData.c2) : []} showValues variableKey='c2_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c2_encaps" &&
+                                            <VariableDisplay 
+                                                math="c_2"
+                                                description="compressed v"
+                                                data={encapsSpyData?.c2}
+                                                variableKey="c2_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "ciphertext_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.cipherText?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.cipherText ? Array.from(encapsSpyData.cipherText) : []} showValues variableKey='ciphertext_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "ciphertext_encaps" &&
+                                            <VariableDisplay 
+                                                math="c"
+                                                description="final ciphertext (compressed)"
+                                                data={encapsSpyData?.cipherText}
+                                                variableKey="ciphertext_encaps"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {/* ── DECAPSULATION ── */}
-                                    {selectedVariable === "ciphertext_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c = (c_1, c_2)" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues variableKey='ciphertext_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {/* ── DECAPSULATION ── */}
+                                        {selectedVariable === "ciphertext_decaps" &&
+                                            <VariableDisplay 
+                                                math="c"
+                                                description="received ciphertext"
+                                                data={decapsSpyData?.c}
+                                                variableKey="ciphertext_decaps"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "decapskey_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.dk?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dk ? Array.from(decapsSpyData.dk) : []} showValues variableKey='decapskey_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "decapskey_decaps" &&
+                                            <VariableDisplay 
+                                                math="dk \in \mathbb{B}^{768k+96}"
+                                                description="Decapsulation key"
+                                                data={decapsSpyData?.dk}
+                                                variableKey="decapskey_decaps"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "ekPKE_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="ek_{PKE} \in \mathbb{B}^{384k+32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.ekPKE ? Array.from(decapsSpyData.ekPKE) : []} showValues variableKey='ekPKE_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "ekPKE_decaps" &&
+                                            <VariableDisplay 
+                                                math="ek_{PKE} \in \mathbb{B}^{384k+32}"
+                                                description="PKE encryption key"
+                                                data={decapsSpyData?.ekPKE}
+                                                variableKey="ekPKE_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "dkPKE_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="dk_{PKE} \in \mathbb{B}^{384k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dkPKE ? Array.from(decapsSpyData.dkPKE) : []} showValues variableKey='dkPKE_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "dkPKE_decaps" &&
+                                            <VariableDisplay 
+                                                math="dk_{PKE} \in \mathbb{B}^{384k}"
+                                                description="PKE decryption key"
+                                                data={decapsSpyData?.dkPKE}
+                                                variableKey="dkPKE_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "h_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="h = H(ek)" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.h?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.h ? Array.from(decapsSpyData.h) : []} showValues variableKey='h_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "h_decaps" &&
+                                            <VariableDisplay 
+                                                math="h = H(ek)"
+                                                description="hash of public key"
+                                                data={decapsSpyData?.h}
+                                                variableKey="h_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "z_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="z \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.z ? Array.from(decapsSpyData.z) : []} showValues variableKey='z_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "z_decaps" &&
+                                            <VariableDisplay 
+                                                math="z \in \mathbb{B}^{32}"
+                                                description="32 byte seed from secret key"
+                                                data={decapsSpyData?.z}
+                                                variableKey="z_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c1_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c_1" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c1 ? Array.from(decapsSpyData.c1) : []} showValues variableKey='c1_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c1_decaps" &&
+                                            <VariableDisplay 
+                                                math="c_1"
+                                                description="decompressed u"
+                                                data={decapsSpyData?.c1}
+                                                variableKey="c1_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c2_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c_2" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c2 ? Array.from(decapsSpyData.c2) : []} showValues variableKey='c2_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c2_decaps" &&
+                                            <VariableDisplay 
+                                                math="c_2"
+                                                description="decompressed v"
+                                                data={decapsSpyData?.c2}
+                                                variableKey="c2_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "u_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="u" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.u[0] ? Array.from(decapsSpyData.u[0]) : []} showValues variableKey='u_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "u_decaps" &&
+                                            <VariableDisplay 
+                                                math="u'"
+                                                description="reconstructed u"
+                                                data={decapsSpyData?.u?.[0]}
+                                                variableKey="u_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "v_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="v" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.v ? Array.from(decapsSpyData.v) : []} showValues variableKey='v_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "v_decaps" &&
+                                            <VariableDisplay 
+                                                math="v'"
+                                                description="reconstructed v"
+                                                data={decapsSpyData?.v}
+                                                variableKey="v_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "s_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\hat{s}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.sHat[0] ? Array.from(decapsSpyData.sHat[0]) : []} showValues variableKey='s_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "s_decaps" &&
+                                            <VariableDisplay 
+                                                math="\hat{s}"
+                                                description="secret key component (NTT domain)"
+                                                data={decapsSpyData?.sHat?.[0]}
+                                                variableKey="s_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "w_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="w" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.w?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.w ? Array.from(decapsSpyData.w) : []} showValues variableKey='w_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "w_decaps" &&
+                                            <VariableDisplay 
+                                                math="w"
+                                                description="recovered message (v - s^T u)"
+                                                data={decapsSpyData?.w}
+                                                variableKey="w_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "m_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="m'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.m ? Array.from(decapsSpyData.m) : []} showValues variableKey='m_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "m_decaps" &&
+                                            <VariableDisplay 
+                                                math="m'"
+                                                description="decrypted message"
+                                                data={decapsSpyData?.m}
+                                                variableKey="m_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "Kp_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="K'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.K ? Array.from(decapsSpyData.K) : []} showValues variableKey='Kp_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "Kp_decaps" &&
+                                            <VariableDisplay 
+                                                math="K'"
+                                                description="derived shared secret"
+                                                data={decapsSpyData?.K}
+                                                variableKey="Kp_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rp_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="r'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.r ? Array.from(decapsSpyData.r) : []} showValues variableKey='rp_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rp_decaps" &&
+                                            <VariableDisplay 
+                                                math="r'"
+                                                description="recomputed randomness"
+                                                data={decapsSpyData?.r}
+                                                variableKey="rp_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "kbar_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\bar{K}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.Kbar?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kbar ? Array.from(decapsSpyData.Kbar) : []} showValues variableKey='kbar_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "kbar_decaps" &&
+                                            <VariableDisplay 
+                                                math="\bar{K}"
+                                                description="alternative shared secret (for failure case)"
+                                                data={decapsSpyData?.Kbar}
+                                                variableKey="kbar_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "cp_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues variableKey='cp_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "cp_decaps" &&
+                                            <VariableDisplay 
+                                                math="c'"
+                                                description="recomputed ciphertext"
+                                                data={decapsSpyData?.c}
+                                                variableKey="cp_decaps"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "kfinal" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="K" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.Kfinal?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kfinal ? Array.from(decapsSpyData.Kfinal) : []} showValues variableKey='kfinal' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "kfinal" &&
+                                            <VariableDisplay 
+                                                math="K"
+                                                description="final shared secret (K' if valid, else K̄)"
+                                                data={decapsSpyData?.Kfinal}
+                                                variableKey="kfinal"
+                                                cols={4}
+                                            />
+                                        }
+                                    </div>
                                 </div>
                                 <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-48 items-center justify-center p-2">
                                     <div className="flex items-center gap-3 bg-gray-100 dark:bg-zinc-800 rounded-full px-2 py-1 shadow-sm">

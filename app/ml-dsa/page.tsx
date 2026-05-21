@@ -7,9 +7,9 @@ import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
 import { ChevronLeftIcon, ChevronRightIcon, KeyIcon, PencilSquareIcon, CheckCircleIcon, DocumentTextIcon } from '@heroicons/react/24/solid';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { VariableDisplay, MatrixDisplay } from "@/components/ui/varDisplay";
 import * as utils from '@/lib/modified-pqc/utils';
-import { DSAKeygenSpyData, DSASignSpyData, DSAVerifySpyData, createDSASpy, SignIteration } from '@/utils/createSpy';
-import SquareGrid from '@/components/ui/gridLattice';
+import { DSAKeygenSpyData, DSASignSpyData, DSAVerifySpyData, createDSASpy } from '@/utils/createSpy';
 import KeygenOuter from './slides/keygenOuter';
 import SignOuter from './slides/signingOuter';
 import VerifyOuter from './slides/verifyOuter';
@@ -17,7 +17,6 @@ import KeygenInternal from './slides/keygenInternal';
 import SignInternal from './slides/signingInternal';
 import VerifyInternal from './slides/verifyInternal';
 import SignLoop from './slides/signLoop';
-
 
 export default function MLDSAPage() {
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
@@ -612,475 +611,523 @@ export default function MLDSAPage() {
                                     </div>
                                     )}
                                 </div>
-                                <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center p-2">
-                                    {(vizStage === null || selectedVariable === null) &&
-                                        <div>
-                                            <p className="mb-2">Click a variable to see it in full!</p>
-                                            <p>Hover over it to see a short description!</p>
-                                        </div>
-                                    }
-
-                                    {/* ── KEYGEN ── */}
-                                    {selectedVariable === "xi_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\xi \in \{0,1\}^{256}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.seed?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.seed ? Array.from(keygenSpyData.seed) : []} showValues variableKey='xi_keygen' />
+                                <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-[360px] items-center justify-center p-2">
+                                        {(vizStage === null || selectedVariable === null) &&
+                                            <div className="text-center">
+                                                <p className="mb-2">Click a variable to see it in full!</p>
+                                                <p>Hover over it to see a short description!</p>
                                             </div>
-                                        </div>
-                                    }
+                                        }
 
-                                    {selectedVariable === "rho_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\rho \in \{0,1\}^{256}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues variableKey='rho_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {/* ── KEYGEN ── */}
+                                        {selectedVariable === "xi_keygen" &&
+                                            <VariableDisplay 
+                                                math="\xi \in \{0,1\}^{256}"
+                                                description="32 byte seed"
+                                                data={keygenSpyData?.seed}
+                                                variableKey="xi_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rhop_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\rho' \in \{0,1\}^{512}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rhoPrime ? Array.from(keygenSpyData.rhoPrime) : []} showValues variableKey='rhop_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rho_keygen" &&
+                                            <VariableDisplay 
+                                                math="\rho \in \{0,1\}^{256}"
+                                                description="32 byte seed for A generation"
+                                                data={keygenSpyData?.rho}
+                                                variableKey="rho_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "K_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="K \in \{0,1\}^{256}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.K ? Array.from(keygenSpyData.K) : []} showValues variableKey='K_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rhop_keygen" &&
+                                            <VariableDisplay 
+                                                math="\rho' \in \{0,1\}^{512}"
+                                                description="64 byte seed for K and s₁, s₂"
+                                                data={keygenSpyData?.rhoPrime}
+                                                variableKey="rhop_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "A_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.A?.[0]?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues variableKey='A_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "K_keygen" &&
+                                            <VariableDisplay 
+                                                math="K \in \{0,1\}^{256}"
+                                                description="32 byte key for signing"
+                                                data={keygenSpyData?.K}
+                                                variableKey="K_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "s1_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="s_1 \in S_\eta^\ell" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s1[0] ? Array.from(keygenSpyData.s1[0]) : []} showValues variableKey='s1_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "A_keygen" &&
+                                            <MatrixDisplay 
+                                                math="A \in \mathbb{Z}_q^{k \times \ell}"
+                                                description="k×ℓ matrix of polynomials"
+                                                matrix={keygenSpyData?.A}
+                                                variableKey="A_keygen"
+                                            />
+                                        }
 
-                                    {selectedVariable === "s2_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="s_2 \in S_\eta^k" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.s2[0] ? Array.from(keygenSpyData.s2[0]) : []} showValues variableKey='s2_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "s1_keygen" &&
+                                            <VariableDisplay 
+                                                math="s_1 \in S_\eta^\ell"
+                                                description="ℓ polynomials, coefficients in [-η, η]"
+                                                data={keygenSpyData?.s1?.[0]}
+                                                variableKey="s1_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "t_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="t = As_1 + s_2 \in \mathbb{Z}_q^k" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.t[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t[0] ? Array.from(keygenSpyData.t[0]) : []} showValues variableKey='t_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "s2_keygen" &&
+                                            <VariableDisplay 
+                                                math="s_2 \in S_\eta^k"
+                                                description="k polynomials, coefficients in [-η, η]"
+                                                data={keygenSpyData?.s2?.[0]}
+                                                variableKey="s2_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "t0_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="t_0 \in \mathbb{Z}_q^k" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t0[0] ? Array.from(keygenSpyData.t0[0]) : []} showValues variableKey='t0_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "t_keygen" &&
+                                            <VariableDisplay 
+                                                math="t = As_1 + s_2 \in \mathbb{Z}_q^k"
+                                                description="k polynomials, public key component"
+                                                data={keygenSpyData?.t?.[0]}
+                                                variableKey="t_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "t1_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="t_1 \in \mathbb{Z}_q^k" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.t1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.t1[0] ? Array.from(keygenSpyData.t1[0]) : []} showValues variableKey='t1_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "t0_keygen" &&
+                                            <VariableDisplay 
+                                                math="t_0 \in \mathbb{Z}_q^k"
+                                                description="low bits of t, stored in secret key"
+                                                data={keygenSpyData?.t0?.[0]}
+                                                variableKey="t0_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "publickey" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="pk \in \mathbb{B}^{32 + 32k(\mathrm{bitlen}(q-1) - d)}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.pk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.pk ? Array.from(keygenSpyData.pk) : []} showValues variableKey='publickey' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "t1_keygen" &&
+                                            <VariableDisplay 
+                                                math="t_1 = \lfloor t / 2^d \rfloor"
+                                                description="high bits of t, stored in public key"
+                                                data={keygenSpyData?.t1?.[0]}
+                                                variableKey="t1_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "secretkey" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="sk \in \mathbb{B}^{32+32+64+32((\ell+k)\cdot\mathrm{bitlen}(2\eta)+d_k)}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.sk?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.sk ? Array.from(keygenSpyData.sk) : []} showValues variableKey='secretkey' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "tr_keygen" &&
+                                            <VariableDisplay 
+                                                math="\mathrm{tr} \in \{0,1\}^{512}"
+                                                description="64 byte hash of public key"
+                                                data={keygenSpyData?.tr}
+                                                variableKey="tr_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "tr_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mathrm{tr} \in \{0,1\}^{512}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((keygenSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tr ? Array.from(keygenSpyData.tr) : []} showValues variableKey='tr_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "publickey" &&
+                                            <VariableDisplay 
+                                                math="pk = (\rho, t_1)"
+                                                description="public key (32 + 32k bytes)"
+                                                data={keygenSpyData?.pk}
+                                                variableKey="publickey"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {/* ── SIGNING ── */}
-                                    {selectedVariable === "message_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="M" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues variableKey='message_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "secretkey" &&
+                                            <VariableDisplay 
+                                                math="sk = (\rho, K, \mathrm{tr}, s_1, s_2, t_0)"
+                                                description="secret key"
+                                                data={keygenSpyData?.sk}
+                                                variableKey="secretkey"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rnd_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mathrm{rnd} \in \{0,1\}^{256}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.rnd?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rnd ? Array.from(signSpyData.rnd) : []} showValues variableKey='rnd_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {/* ── SIGNING ── */}
+                                        {selectedVariable === "message_sign" &&
+                                            <VariableDisplay 
+                                                math="M \in \{0,1\}^*"
+                                                description="input message (variable length)"
+                                                data={signSpyData?.msg?.slice ? signSpyData.msg.slice(2) : signSpyData?.msg}
+                                                variableKey="message_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "ctx_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mathrm{ctx}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.ctx ? Array.from(signSpyData.ctx) : []} showValues variableKey='ctx_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rnd_sign" &&
+                                            <VariableDisplay 
+                                                math="\mathrm{rnd} \in \{0,1\}^{256}"
+                                                description="32 byte random for context hashing"
+                                                data={signSpyData?.rnd}
+                                                variableKey="rnd_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "M_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="M" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(signSpyData?.msg ? Array.from(signSpyData.msg) : []).slice(2)} showValues variableKey='M_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "ctx_sign" &&
+                                            <VariableDisplay 
+                                                math="\mathrm{ctx}"
+                                                description="context string (variable bytes)"
+                                                data={signSpyData?.ctx}
+                                                variableKey="ctx_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "Mp_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="M'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.M?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.M ? Array.from(signSpyData.M) : []} showValues variableKey='Mp_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "M_sign" &&
+                                            <VariableDisplay 
+                                                math="M = \rho \| \mathrm{tr} \| M"
+                                                description="prehashed message (64 bytes)"
+                                                data={signSpyData?.M}
+                                                variableKey="M_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rho_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\rho" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rho ? Array.from(signSpyData.rho) : []} showValues variableKey='rho_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "Mp_sign" &&
+                                            <VariableDisplay 
+                                                math="M' = H(M, \mathrm{ctx})"
+                                                description="hashed message with context (64 bytes)"
+                                                data={signSpyData?.msg}
+                                                variableKey="Mp_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "K_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="K" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.K ? Array.from(signSpyData.K) : []} showValues variableKey='K_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rho_sign" &&
+                                            <VariableDisplay 
+                                                math="\rho"
+                                                description="32 byte seed from public key"
+                                                data={signSpyData?.rho}
+                                                variableKey="rho_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "tr_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mathrm{tr}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.tr ? Array.from(signSpyData.tr) : []} showValues variableKey='tr_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "K_sign" &&
+                                            <VariableDisplay 
+                                                math="K"
+                                                description="32 byte key from secret key"
+                                                data={signSpyData?.K}
+                                                variableKey="K_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "s1_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="s_1" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.s1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s1[0] ? Array.from(signSpyData.s1[0]) : []} showValues variableKey='s1_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "tr_sign" &&
+                                            <VariableDisplay 
+                                                math="\mathrm{tr}"
+                                                description="64 byte hash from secret key"
+                                                data={signSpyData?.tr}
+                                                variableKey="tr_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "s2_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="s_2" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.s2[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.s2[0] ? Array.from(signSpyData.s2[0]) : []} showValues variableKey='s2_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "s1_sign" &&
+                                            <VariableDisplay 
+                                                math="s_1 \in S_\eta^\ell"
+                                                description="ℓ polynomials from secret key"
+                                                data={signSpyData?.s1?.[0]}
+                                                variableKey="s1_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "t0_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="t_0" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.t0[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.t0[0] ? Array.from(signSpyData.t0[0]) : []} showValues variableKey='t0_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "s2_sign" &&
+                                            <VariableDisplay 
+                                                math="s_2 \in S_\eta^k"
+                                                description="k polynomials from secret key"
+                                                data={signSpyData?.s2?.[0]}
+                                                variableKey="s2_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "A_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.A?.[0]?.[0] ? Array.from(signSpyData.A[0][0]) : []} showValues variableKey='A_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "t0_sign" &&
+                                            <VariableDisplay 
+                                                math="t_0"
+                                                description="low bits from secret key"
+                                                data={signSpyData?.t0?.[0]}
+                                                variableKey="t0_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "mu_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mu \in \{0,1\}^{512}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.mu ? Array.from(signSpyData.mu) : []} showValues variableKey='mu_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "A_sign" &&
+                                            <MatrixDisplay 
+                                                math="A \in \mathbb{Z}_q^{k \times \ell}"
+                                                description="matrix from public key"
+                                                matrix={signSpyData?.A}
+                                                variableKey="A_sign"
+                                            />
+                                        }
 
-                                    {selectedVariable === "rhop_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\rho''" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.rhoPrime?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.rhoPrime ? Array.from(signSpyData.rhoPrime) : []} showValues variableKey='rhop_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "mu_sign" &&
+                                            <VariableDisplay 
+                                                math="\mu \in \{0,1\}^{512}"
+                                                description="64 byte hash of tr ∥ M'"
+                                                data={signSpyData?.mu}
+                                                variableKey="mu_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "y_loop" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="y \in S_{\gamma_1 - 1}^\ell" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.y?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.y?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.y?.[0]) : []} showValues variableKey='y_loop' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rhop_sign" &&
+                                            <VariableDisplay 
+                                                math="\rho''"
+                                                description="64 byte seed for y sampling"
+                                                data={signSpyData?.rhoPrime}
+                                                variableKey="rhop_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "w_loop" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="w" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.w?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.w?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.w[0]) : []} showValues variableKey='w_loop' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "y_loop" &&
+                                            <VariableDisplay 
+                                                math="y \leftarrow S_{\gamma_1-1}^\ell"
+                                                description="random mask, fresh per iteration"
+                                                data={signSpyData?.iterations?.[currentIterationIndex]?.y?.[0]}
+                                                variableKey="y_loop"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "w1_loop" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="w_1" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.w1?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.w1[0]) : []} showValues variableKey='w1_loop' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "w_loop" &&
+                                            <VariableDisplay 
+                                                math="w = A \cdot y"
+                                                description="k polynomials"
+                                                data={signSpyData?.iterations?.[currentIterationIndex]?.w?.[0]}
+                                                variableKey="w_loop"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "tildec_loop" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\tilde{c} \in \{0,1\}^{256}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.cTilde ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.cTilde) : []} showValues variableKey='tildec_loop' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "w1_loop" &&
+                                            <VariableDisplay 
+                                                math="w_1 = \text{HighBits}(w)"
+                                                description="high bits of w"
+                                                data={signSpyData?.iterations?.[currentIterationIndex]?.w1?.[0]}
+                                                variableKey="w1_loop"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c_loop" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c \in B_{60}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.c ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.c) : []} showValues variableKey='c_loop' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "tildec_loop" &&
+                                            <VariableDisplay 
+                                                math="\tilde{c} \in \{0,1\}^{256}"
+                                                description="32 byte hash of μ ∥ w₁"
+                                                data={signSpyData?.iterations?.[currentIterationIndex]?.cTilde}
+                                                variableKey="tildec_loop"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "z_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="z" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.z?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.z[0]) : []} showValues variableKey='z_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c_loop" &&
+                                            <VariableDisplay 
+                                                math="c \in B_{60}"
+                                                description="challenge with 60 ±1 entries"
+                                                data={signSpyData?.iterations?.[currentIterationIndex]?.c}
+                                                variableKey="c_loop"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "r0_sign" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="r_0" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.r0?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.r0?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.r0[0]) : []} showValues variableKey='r0_sign' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "z_sign" &&
+                                            <VariableDisplay 
+                                                math="z = y + c s_1"
+                                                description="ℓ polynomials"
+                                                data={signSpyData?.iterations?.[currentIterationIndex]?.z?.[0]}
+                                                variableKey="z_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "signature" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\sigma" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.signature?.length ?? 0) / 8)} cols={8} size={20} colorData={signSpyData?.signature ? Array.from(signSpyData.signature) : []} showValues variableKey='signature' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "r0_sign" &&
+                                            <VariableDisplay 
+                                                math="r_0 = \text{LowBits}(w - c s_2)"
+                                                description="low bits for rejection check"
+                                                data={signSpyData?.iterations?.[currentIterationIndex]?.r0?.[0]}
+                                                variableKey="r0_sign"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {/* ── VERIFY ── */}
-                                    {selectedVariable === "M_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="M" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues variableKey='M_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "signature" &&
+                                            <VariableDisplay 
+                                                math="\sigma = (z, h, \tilde{c})"
+                                                description="final signature (~4-5 KB)"
+                                                data={signSpyData?.signature}
+                                                variableKey="signature"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "message_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="M" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={(verifySpyData?.msg ? Array.from(verifySpyData.msg) : []).slice(2)} showValues variableKey='message_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {/* ── VERIFY ── */}
+                                        {selectedVariable === "M_verify" &&
+                                            <VariableDisplay 
+                                                math="M"
+                                                description="input message"
+                                                data={signSpyData?.msg?.slice ? signSpyData.msg.slice(2) : signSpyData?.msg}
+                                                variableKey="M_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "ctx_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mathrm{ctx}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.ctx?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.ctx ? Array.from(verifySpyData.ctx) : []} showValues variableKey='ctx_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "message_verify" &&
+                                            <VariableDisplay 
+                                                math="M"
+                                                description="input message"
+                                                data={signSpyData?.msg?.slice ? signSpyData.msg.slice(2) : signSpyData?.msg}
+                                                variableKey="message_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "Mp_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="M'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.msg?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.msg ? Array.from(verifySpyData.msg) : []} showValues variableKey='Mp_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "ctx_verify" &&
+                                            <VariableDisplay 
+                                                math="\mathrm{ctx}"
+                                                description="context string"
+                                                data={verifySpyData?.ctx}
+                                                variableKey="ctx_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "A_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="A \in \mathbb{Z}_q^{k \times \ell}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.A?.[0]?.[0] ? Array.from(verifySpyData.A[0][0]) : []} showValues variableKey='A_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "Mp_verify" &&
+                                            <VariableDisplay 
+                                                math="M' = H(\rho \| \mathrm{tr} \| M, \mathrm{ctx})"
+                                                description="prehashed message (64 bytes)"
+                                                data={verifySpyData?.msg}
+                                                variableKey="Mp_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rho_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\rho" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.rho ? Array.from(verifySpyData.tr) : []} showValues variableKey='rho_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "A_verify" &&
+                                            <MatrixDisplay 
+                                                math="A \in \mathbb{Z}_q^{k \times \ell}"
+                                                description="matrix from public key"
+                                                matrix={verifySpyData?.A}
+                                                variableKey="A_verify"
+                                            />
+                                        }
 
-                                    {selectedVariable === "t1_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mathrm{t_1}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.t1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.t1[0] ? Array.from(verifySpyData.t1[0]) : []} showValues variableKey='t1_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rho_verify" &&
+                                            <VariableDisplay 
+                                                math="\rho"
+                                                description="seed from public key"
+                                                data={verifySpyData?.rho}
+                                                variableKey="rho_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "tr_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mathrm{tr}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.tr?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.tr ? Array.from(verifySpyData.tr) : []} showValues variableKey='tr_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "t1_verify" &&
+                                            <VariableDisplay 
+                                                math="t_1"
+                                                description="high bits from public key"
+                                                data={verifySpyData?.t1?.[0]}
+                                                variableKey="t1_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "mu_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mu \in \{0,1\}^{512}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.mu ? Array.from(verifySpyData.mu) : []} showValues variableKey='mu_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "tr_verify" &&
+                                            <VariableDisplay 
+                                                math="\mathrm{tr}"
+                                                description="64 byte hash from public key"
+                                                data={verifySpyData?.tr}
+                                                variableKey="tr_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "tildec_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\tilde{c}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues variableKey='tildec_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "mu_verify" &&
+                                            <VariableDisplay 
+                                                math="\mu \in \{0,1\}^{512}"
+                                                description="64 byte hash of tr ∥ M"
+                                                data={verifySpyData?.mu}
+                                                variableKey="mu_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "z_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="z" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.z?.[0] ? Array.from(verifySpyData.z[0]) : []} showValues variableKey='z_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "tildec_verify" &&
+                                            <VariableDisplay 
+                                                math="\tilde{c}"
+                                                description="hash from verification"
+                                                data={verifySpyData?.cTilde}
+                                                variableKey="tildec_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "h_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="h" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.h?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.h?.[0] ? Array.from(verifySpyData.h[0]) : []} showValues variableKey='h_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "z_verify" &&
+                                            <VariableDisplay 
+                                                math="z"
+                                                description="signature component"
+                                                data={verifySpyData?.z?.[0]}
+                                                variableKey="z_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c \in B_{60}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.c ? Array.from(verifySpyData.c) : []} showValues variableKey='c_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "h_verify" &&
+                                            <VariableDisplay 
+                                                math="h"
+                                                description="hint vector (up to 80 bits)"
+                                                data={verifySpyData?.h?.[0]}
+                                                variableKey="h_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "wapprox" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="w' \approx Az - ct_1 \cdot 2^d" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.wPrime?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.wPrime?.[0] ? Array.from(verifySpyData.wPrime[0]) : []} showValues variableKey='wapprox' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c_verify" &&
+                                            <VariableDisplay 
+                                                math="c \in B_{60}"
+                                                description="challenge with 60 ±1 entries"
+                                                data={verifySpyData?.c}
+                                                variableKey="c_verify"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "wp1" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="w_1' = \mathrm{UseHint}(h, w')" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.w1?.[0] ? Array.from(verifySpyData.w1[0]) : []} showValues variableKey='wp1' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "wapprox" &&
+                                            <VariableDisplay 
+                                                math="w' = A z - c t_1 \cdot 2^d"
+                                                description="reconstructed w"
+                                                data={verifySpyData?.wPrime?.[0]}
+                                                variableKey="wapprox"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "tildecp_verify" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\tilde{c}' = H(\mu \| w_1')" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((verifySpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={verifySpyData?.cTilde ? Array.from(verifySpyData.cTilde) : []} showValues variableKey='tildecp_verify' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "wp1" &&
+                                            <VariableDisplay 
+                                                math="w_1' = \text{HighBits}(w')"
+                                                description="high bits of reconstructed w"
+                                                data={verifySpyData?.w1?.[0]}
+                                                variableKey="wp1"
+                                                cols={4}
+                                            />
+                                        }
+
+                                        {selectedVariable === "tildecp_verify" &&
+                                            <VariableDisplay 
+                                                math="\tilde{c}' = H(\mu \| w_1')"
+                                                description="recomputed hash"
+                                                data={verifySpyData?.cTilde}
+                                                variableKey="tildecp_verify"
+                                                cols={4}
+                                            />
+                                        }
                                 </div>
                                 <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-48 items-center justify-center p-2">
                                     <div className="flex items-center gap-3 bg-gray-100 dark:bg-zinc-800 rounded-full px-2 py-1 shadow-sm">
