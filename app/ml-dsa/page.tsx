@@ -5,7 +5,7 @@ import * as pqc from '@/lib/modified-pqc/ml-dsa-modified';
 import Link from "next/link";
 import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon, KeyIcon, PencilSquareIcon, CheckCircleIcon, DocumentTextIcon } from '@heroicons/react/24/solid';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import * as utils from '@/lib/modified-pqc/utils';
 import { DSAKeygenSpyData, DSASignSpyData, DSAVerifySpyData, createDSASpy, SignIteration } from '@/utils/createSpy';
@@ -17,6 +17,7 @@ import KeygenInternal from './slides/keygenInternal';
 import SignInternal from './slides/signingInternal';
 import VerifyInternal from './slides/verifyInternal';
 import SignLoop from './slides/signLoop';
+import { Pencil } from 'lucide-react';
 
 export default function MLDSAPage() {
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
@@ -209,11 +210,34 @@ export default function MLDSAPage() {
                     </Link>
                 </div>
                 <div className="rounded-xl bg-slate-800 p-6 mb-8">
+                    <h2 className="text-2xl font-bold mb-4 text-white flex items-center">Module Lattice Based Digital Signature Standard (ML-DSA)</h2>
+                    <p className="text-slate-300 leading-relaxed mb-4">
+                        ML-DSA is a lattice-based digital signature algorithm standardized by NIST's FIPS 204 publication that provides a quantum resistant method to generate and verify digital signatures. It's set to replace current digital signature algorithms such as RSA (Rivest-Shamir-Adleman) and ECDSA (Elliptic Curve Digital Signature Algorithm) that are quantum vulnerable.
+                    </p>
+                    <p className="text-slate-300 leading-relaxed">
+                        ML-DSA is based on the hardness of the MLWE (Module Learning With Errors) problem, which is itself based on the idea of inferring a linear function over noisy data. The problem is considered to be quantum resistant, which carries over to ML-DSA.
+                    </p>
+                </div>
+                <div className="rounded-xl bg-slate-800 p-6 mb-8">
                     <h2 className="text-2xl font-bold mb-6 text-white">ML-DSA Digital Signature Process</h2>
                     <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
                         {!isAnimating && animationStep === 0 && (
-                            <div className="space-y-4 h-[575px]">
-                                test
+                            <div className="flex flex-row gap-4 h-[575px]">
+                                <div className="bg-emerald-50 rounded-lg p-4 flex-1 border border-emerald-200 flex flex-col gap-4 justify-center">
+                                    <h3 className="font-semibold text-xl text-emerald-800 text-center mb-2">Key Generation</h3>
+                                    <KeyIcon className="size-15 text-emerald-600 mx-auto mb-2" />
+                                    <p className="text-sm text-center text-emerald-700">Creates a key pair: <strong>private key</strong> (sign) and <strong>public key</strong> (verify)</p>
+                                </div>
+                                <div className="bg-blue-50 rounded-lg p-4 flex-1 border border-blue-200 flex flex-col gap-4 justify-center">
+                                    <h3 className="font-semibold text-xl text-blue-800 text-center mb-2">Signing</h3>
+                                    <PencilSquareIcon className="size-15 text-blue-600 mx-auto mb-2" />
+                                    <p className="text-sm text-center text-blue-700">Signs a message using the <strong>private key</strong> to produce a digital signature</p>
+                                </div>
+                                <div className="bg-amber-50 rounded-lg p-4 flex-1 border border-amber-200 flex flex-col gap-4 justify-center">
+                                    <h3 className="font-semibold text-xl text-amber-800 text-center mb-2">Verification</h3>
+                                    <CheckCircleIcon className="size-15 text-amber-600 mx-auto mb-2" />
+                                    <p className="text-sm text-center text-amber-700">Validates the signature using the <strong>public key</strong> to confirm authenticity</p>
+                                </div>
                             </div>
                         )}
                         {(isAnimating || animationStep > 0) && ( 
@@ -284,6 +308,7 @@ export default function MLDSAPage() {
                                                         {/* Input: Message */}
                                                         <div className="text-center">
                                                             <div className="w-16 h-10 bg-gray-200 rounded border border-gray-300 mx-auto flex items-center justify-center">
+                                                                <DocumentTextIcon className="size-5 text-white mx-auto" />
                                                             </div>
                                                             <p className="text-xs text-gray-600 mt-1">Message</p>
                                                         </div>
@@ -311,6 +336,7 @@ export default function MLDSAPage() {
                                                         {/* Output: Signature */}
                                                         <div className="text-center">
                                                             <div className="w-16 h-10 bg-purple-400 rounded border-2 border-purple-600 mx-auto flex items-center justify-center">
+                                                                <PencilSquareIcon className="size-5 text-white mx-auto" />
                                                             </div>
                                                             <p className="text-xs text-gray-600 mt-1">Signature</p>
                                                         </div>
@@ -377,12 +403,14 @@ export default function MLDSAPage() {
                                                         </div>
                                                         <div className="text-center">
                                                             <div className="w-12 h-8 bg-gray-200 rounded border border-gray-300 mx-auto flex items-center justify-center">
-                                                                <span className="text-xs text-gray-600">Msg</span>
+                                                                <DocumentTextIcon className="size-5 text-white mx-auto" />
                                                             </div>
                                                             <p className="text-xs text-gray-600 mt-1">Message</p>
                                                         </div>
                                                         <div className="text-center">
-                                                            <div className="w-12 h-8 bg-purple-400 rounded border-2 border-purple-600 mx-auto"></div>
+                                                            <div className="w-12 h-8 bg-purple-400 rounded border-2 border-purple-600 mx-auto flex items-center justify-cente">
+                                                                <PencilSquareIcon className="size-5 text-white mx-auto" />
+                                                            </div>
                                                             <p className="text-xs text-gray-600 mt-1">Signature</p>
                                                         </div>
                                                         <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

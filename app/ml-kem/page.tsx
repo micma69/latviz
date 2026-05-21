@@ -5,7 +5,7 @@ import * as pqc from '@/lib/modified-pqc/ml-kem-modified';
 import Link from "next/link";
 import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon, KeyIcon, LockOpenIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import KeygenVisualization from './slides/keygenOuter';
 import KeygenVisualizationProcess from './slides/keygenInner';
@@ -227,11 +227,34 @@ export default function MLKEMPage() {
                     </Link>
                 </div>
                 <div className="rounded-xl bg-slate-800 p-6 mb-8">
+                    <h2 className="text-2xl font-bold mb-4 text-white flex items-center">Module Lattice Based Key Encapsulation Mechanism Standard (ML-KEM)</h2>
+                    <p className="text-slate-300 leading-relaxed mb-4">
+                        ML-KEM is a lattice based key encapsulation mechanism standardized by NIST's FIPS 203 publication that provides a quantum resistant method of establishing shared secret keys between parties communicating over a public channel. It's set to replace current key encapsulation algorithms such as RSA (Rivest-Shamir-Adleman) and Diffie-Hellman.
+                    </p>
+                    <p className="text-slate-300 leading-relaxed">
+                        ML-KEM based on the hardness of the MLWE (Module Learning With Errors) problem, which is itself based on the idea of inferring a linear function over noisy data. The problem is considered to be quantum resistant, which carries over to ML-KEM.
+                    </p>
+                </div>
+                <div className="rounded-xl bg-slate-800 p-6 mb-8">
                     <h2 className="text-2xl font-bold mb-6 text-white">ML-KEM Key Exchange Process</h2>
                     <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
                         {!isAnimating && animationStep === 0 && (
-                            <div className="space-y-4 h-[555px]">
-                                test
+                            <div className="flex flex-row gap-4 h-[555px]">
+                                <div className="bg-emerald-50 rounded-lg p-4 flex-1 border border-emerald-200 flex flex-col gap-4 justify-center">
+                                    <h3 className="font-semibold text-xl text-emerald-800 text-center mb-2">Key Generation</h3>
+                                    <KeyIcon className="size-15 text-emerald-600 mx-auto mb-2" />
+                                    <p className="text-sm text-center text-emerald-700">Creates <strong>encapsulation/public + decapsulation/private</strong> key pair</p>
+                                </div>
+                                <div className="bg-blue-50 rounded-lg p-4 flex-1 border border-blue-200 flex flex-col gap-4 justify-center">
+                                    <h3 className="font-semibold text-xl text-blue-800 text-center mb-2">Encapsulation</h3>
+                                    <LockClosedIcon className="size-15 text-blue-600 mx-auto mb-2" />
+                                    <p className="text-sm text-center text-blue-700">Locks a <strong>random secret</strong> with encapsulation/public key</p>
+                                </div>
+                                <div className="bg-amber-50 rounded-lg p-4 flex-1 border border-amber-200 flex flex-col gap-4 justify-center">
+                                    <h3 className="font-semibold text-xl text-amber-800 text-center mb-2">Decapsulation</h3>
+                                    <LockOpenIcon className="size-15 text-amber-600 mx-auto mb-2" />
+                                    <p className="text-sm text-center text-amber-700">Unlocks the <strong>secret</strong> with decapsulation/private key</p>
+                                </div>
                             </div>
                         )}
                         {(isAnimating || animationStep > 0) && ( 
@@ -267,19 +290,11 @@ export default function MLKEMPage() {
                                                     </div>
                                                     <div className="flex justify-center space-x-4 mt-2">
                                                         <div className="text-center">
-                                                            <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
-                                                                <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                                                </svg>
-                                                            </div>
+                                                            <KeyIcon className="size-8 text-yellow-400 mx-auto" />
                                                             <p className="text-xs text-gray-600 mt-1">Encapsulation Key</p>
                                                         </div>
                                                         <div className="text-center">
-                                                            <div className="w-12 h-8 bg-gray-400 rounded border-2 border-gray-600 mx-auto flex items-center justify-center">
-                                                                <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                                                </svg>
-                                                            </div>
+                                                            <KeyIcon className="size-8 text-gray-400 mx-auto" />
                                                             <p className="text-xs text-gray-600 mt-1">Decapsulation Key</p>
                                                         </div>
                                                     </div>
@@ -296,7 +311,7 @@ export default function MLKEMPage() {
                                                             </svg>
                                                         )}
                                                     </div>
-                                                    <div className="flex justify-center mt-2">
+                                                    <div className="flex flex-row justify-center mt-2 gap-4">
                                                         <div className="text-center">
                                                             <div className="w-16 h-8 bg-purple-400 rounded-full border-2 border-purple-600 mx-auto flex items-center justify-center">
                                                                 <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -304,6 +319,10 @@ export default function MLKEMPage() {
                                                                 </svg>
                                                             </div>
                                                             <p className="text-xs text-gray-600 mt-1">Shared Secret ✓</p>
+                                                        </div>
+                                                        <div className="text-center">
+                                                            <KeyIcon className="size-8 text-gray-400 mx-auto" />
+                                                            <p className="text-xs text-gray-600 mt-1">Decapsulation Key</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -367,10 +386,9 @@ export default function MLKEMPage() {
                                                         )}
                                                     </div>
                                                     <div className="flex justify-center mt-2">
-                                                        <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
-                                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                                            </svg>
+                                                        <div className="text-center">
+                                                            <KeyIcon className="size-8 text-yellow-400 mx-auto" />
+                                                            <p className="text-xs text-gray-600 mt-1">Encapsulation Key</p>
                                                         </div>
                                                     </div>
                                                 </div>
