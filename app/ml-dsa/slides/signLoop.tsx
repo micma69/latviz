@@ -5,16 +5,18 @@ import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
 import { ChevronLeftIcon, ArrowLongRightIcon, ArrowLongDownIcon, ArrowPathIcon } from "@heroicons/react/24/solid";
 import SquareGrid from "@/components/ui/gridLattice";
-import { DSASignSpyData } from "@/utils/createSpy";
+import { DSASignSpyData, SignIteration } from "@/utils/createSpy";
 
 export default function SignLoop({
     spyData,
     onChangeStage,
     onSelectVariable,
+    onIterationChange,
 }: {
     spyData: DSASignSpyData | null;
     onChangeStage: (stage: string) => void;
     onSelectVariable: (variable: string) => void;
+    onIterationChange?: (index: number) => void;
 }) {
     const [iterationIndex, setIterationIndex] = useState(0);
     
@@ -27,6 +29,10 @@ export default function SignLoop({
     const totalIterations = spyData?.iterations?.length || 0;
     const isLastIteration = iterationIndex === totalIterations - 1;
     const isAccepted = currentIteration?.accepted === true;
+
+    useEffect(() => {
+        onIterationChange?.(iterationIndex);
+    }, [iterationIndex, currentIteration, onIterationChange]);
     
     const goToPrevious = () => {
         if (iterationIndex > 0) {

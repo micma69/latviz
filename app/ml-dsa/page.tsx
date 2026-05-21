@@ -17,7 +17,7 @@ import KeygenInternal from './slides/keygenInternal';
 import SignInternal from './slides/signingInternal';
 import VerifyInternal from './slides/verifyInternal';
 import SignLoop from './slides/signLoop';
-import { Pencil } from 'lucide-react';
+
 
 export default function MLDSAPage() {
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
@@ -75,6 +75,7 @@ export default function MLDSAPage() {
     const [keygenSpyData, setKeygenSpyData] = useState<DSAKeygenSpyData | null>(null);
     const [signSpyData, setSignSpyData] = useState<DSASignSpyData | null>(null);
     const [verifySpyData, setVerifySpyData] = useState<DSAVerifySpyData | null>(null);
+    const [currentIterationIndex, setCurrentIterationIndex] = useState(0);
 
     const resetAll = (): void => {
         setKeys(null);
@@ -88,6 +89,9 @@ export default function MLDSAPage() {
         resetAll();
     }, [securityLevel]);
 
+    const handleIterationChange = (index: number) => {
+        setCurrentIterationIndex(index);
+    };
 
     const mlDsaLevels = [
         { label: 'ML-DSA-44 (128-bit security)', value: 'ml_dsa44' },
@@ -557,7 +561,7 @@ export default function MLDSAPage() {
                                     {vizStage === "keygen1" && <KeygenInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} step={step} />}
                                     {vizStage === "sign0" && <SignOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} step={step} />}
                                     {vizStage === "sign1" && <SignInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} step={step} />}
-                                    {vizStage === "sign2" && <SignLoop onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} />}
+                                    {vizStage === "sign2" && <SignLoop onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} onIterationChange={handleIterationChange} />}
                                     {vizStage === "verify0" && <VerifyOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} step={step} />}
                                     {vizStage === "verify1" && <VerifyInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} step={step} />}
                                     
@@ -610,7 +614,10 @@ export default function MLDSAPage() {
                                 </div>
                                 <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center p-2">
                                     {(vizStage === null || selectedVariable === null) &&
-                                        <div>Click a variable to see it in full!</div>
+                                        <div>
+                                            <p className="mb-2">Click a variable to see it in full!</p>
+                                            <p>Hover over it to see a short description!</p>
+                                        </div>
                                     }
 
                                     {/* ── KEYGEN ── */}
@@ -862,25 +869,25 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="y \in S_{\gamma_1 - 1}^\ell" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.y?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.y?.[0] ? Array.from(signSpyData.y[0]) : []} showValues variableKey='y_loop' />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.y?.[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.y?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.y?.[0]) : []} showValues variableKey='y_loop' />
                                             </div>
                                         </div>
                                     }
 
                                     {selectedVariable === "w_loop" &&
                                         <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="w = Ay" /></div>
+                                            <div><InlineMath math="w" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.w?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w?.[0] ? Array.from(signSpyData.w[0]) : []} showValues variableKey='w_loop' />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.w?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.w?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.w[0]) : []} showValues variableKey='w_loop' />
                                             </div>
                                         </div>
                                     }
 
                                     {selectedVariable === "w1_loop" &&
                                         <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="w_1 = \mathrm{HighBits}(w)" /></div>
+                                            <div><InlineMath math="w_1" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.w1?.[0] ? Array.from(signSpyData.w1[0]) : []} showValues variableKey='w1_loop' />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.w1?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.w1?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.w1[0]) : []} showValues variableKey='w1_loop' />
                                             </div>
                                         </div>
                                     }
@@ -889,7 +896,7 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="\tilde{c} \in \{0,1\}^{256}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.cTilde ? Array.from(signSpyData.cTilde) : []} showValues variableKey='tildec_loop' />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.cTilde?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.cTilde ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.cTilde) : []} showValues variableKey='tildec_loop' />
                                             </div>
                                         </div>
                                     }
@@ -898,25 +905,25 @@ export default function MLDSAPage() {
                                         <div className="flex flex-col items-center gap-4">
                                             <div><InlineMath math="c \in B_{60}" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.c ? Array.from(signSpyData.c) : []} showValues variableKey='c_loop' />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.c ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.c) : []} showValues variableKey='c_loop' />
                                             </div>
                                         </div>
                                     }
 
                                     {selectedVariable === "z_sign" &&
                                         <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="z = y + cs_1" /></div>
+                                            <div><InlineMath math="z" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.z?.[0] ? Array.from(signSpyData.z[0]) : []} showValues variableKey='z_sign' />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.z?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.z?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.z[0]) : []} showValues variableKey='z_sign' />
                                             </div>
                                         </div>
                                     }
 
                                     {selectedVariable === "r0_sign" &&
                                         <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="r_0 = \mathrm{LowBits}(w - cs_2)" /></div>
+                                            <div><InlineMath math="r_0" /></div>
                                             <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.r0?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.r0?.[0] ? Array.from(signSpyData.r0[0]) : []} showValues variableKey='r0_sign' />
+                                                <SquareGrid algorithm="mldsa" rows={Math.ceil((signSpyData?.iterations?.[currentIterationIndex]?.r0?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={signSpyData?.iterations?.[currentIterationIndex]?.r0?.[0] ? Array.from(signSpyData?.iterations?.[currentIterationIndex]?.r0[0]) : []} showValues variableKey='r0_sign' />
                                             </div>
                                         </div>
                                     }
