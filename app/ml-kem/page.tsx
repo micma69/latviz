@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import * as pqc from '@/lib/modified-pqc/ml-kem-modified';
 import Link from "next/link";
-import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon, KeyIcon, LockOpenIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { VariableDisplay, MatrixDisplay } from "@/components/ui/varDisplay";
 import KeygenVisualization from './slides/keygenOuter';
 import KeygenVisualizationProcess from './slides/keygenInner';
 import EncapsulationVisualization from './slides/encapsOuter';
@@ -14,7 +14,6 @@ import EncapsulationVisualizationProcess from './slides/encapsInner';
 import DecapsulationVisualization from './slides/decapsOuter';
 import DecapsulationVisualizationProcess from './slides/decapsInner';
 import { KeygenSpyData, EncapsSpyData, DecapsSpyData, createSpy } from '@/utils/createSpy';
-import SquareGrid from "@/components/ui/gridLattice";
 
 export default function MLKEMPage() {
     const [vizStage, setVizStage] = useState<string | null>(null);
@@ -155,39 +154,6 @@ export default function MLKEMPage() {
 
                 break;
             }
-
-            case "Complete Flow": {
-                const keys = kem.keygen();
-                const { cipherText, sharedSecret: bobSecret } = kem.encapsulate(keys.publicKey);
-                const aliceSecret = kem.decapsulate(cipherText, keys.secretKey);
-                const secretsMatch = Buffer.compare(aliceSecret, bobSecret) === 0;
-
-                const publicKeyArr = Array.from(keys.publicKey);
-                const secretKeyArr = Array.from(keys.secretKey);
-                const cipherTextArr = Array.from(cipherText);
-                const bobSecretArr = Array.from(bobSecret);
-                const aliceSecretArr = Array.from(aliceSecret);
-
-                return {
-                    secretsMatch,
-                    keyGeneration: {
-                    publicKey: publicKeyArr,
-                    secretKey: secretKeyArr,
-                    publicKeySize: keys.publicKey.length,
-                    secretKeySize: keys.secretKey.length,
-                    },
-                    encapsulation: {
-                    cipherText: cipherTextArr,
-                    sharedSecret: bobSecretArr,
-                    cipherTextSize: cipherText.length,
-                    sharedSecretSize: bobSecret.length,
-                    },
-                    decapsulation: {
-                    sharedSecret: aliceSecretArr,
-                    secretsMatch,
-                    },
-                };
-            }
         }
     };
 
@@ -198,20 +164,15 @@ export default function MLKEMPage() {
         setAnimationStep(0);
         setAnimationComplete(false);
         
-        setTimeout(() => {
-            animateSequence();
-        }, 500);
-    };
-
-    const animateSequence = () => {
         let currentStep = 0;
         const interval = setInterval(() => {
             currentStep++;
             setAnimationStep(currentStep);
             
+            setAnimationComplete(currentStep >= 3);
+            
             if (currentStep >= 4) {
                 clearInterval(interval);
-                setAnimationComplete(true);
                 setIsAnimating(false);
             }
         }, 1200);
@@ -231,168 +192,193 @@ export default function MLKEMPage() {
                         ← Back
                     </Link>
                 </div>
-                {/* prolly add explalations here later */}
+                <div className="rounded-xl bg-slate-800 p-6 mb-8">
+                    <h2 className="text-2xl font-bold mb-4 text-white flex items-center">Module Lattice Based Key Encapsulation Mechanism Standard (ML-KEM)</h2>
+                    <p className="text-slate-300 leading-relaxed mb-4">
+                        ML-KEM is a lattice based key encapsulation mechanism standardized by NIST's FIPS 203 publication that provides a quantum resistant method of establishing shared secret keys between parties communicating over a public channel. It's set to replace current key encapsulation algorithms such as RSA (Rivest-Shamir-Adleman) and Diffie-Hellman.
+                    </p>
+                    <p className="text-slate-300 leading-relaxed">
+                        ML-KEM based on the hardness of the MLWE (Module Learning With Errors) problem, which is itself based on the idea of inferring a linear function over noisy data. The problem is considered to be quantum resistant, which carries over to ML-KEM.
+                    </p>
+                </div>
                 <div className="rounded-xl bg-slate-800 p-6 mb-8">
                     <h2 className="text-2xl font-bold mb-6 text-white">ML-KEM Key Exchange Process</h2>
                     <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
-                        <div className="flex flex-col md:flex-row items-center justify-center mb-8 text">
-                            {/* Flow diagram */}
-                            <div className="flex flex-col md:flex-row items-center justify-center w-full">
-                                
-                                {/* Alice Side */}
-                                <div className="w-full md:w-5/12 p-4">
-                                    <div className={`bg-blue-50 rounded-xl border border-blue-200 p-6 transition-all duration-500 
-                                        ${animationStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                                        <div className="flex items-center mb-4">
-                                            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                                                <svg className="h-6 w-6 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                                </svg>
-                                            </div>
-                                            <h3 className="text-xl font-semibold text-blue-900">Alice</h3>
-                                        </div>
-                                        
-                                        <div className="space-y-4">
-                                            {/* Step 1: Generate Keys */}
-                                            <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 
-                                                ${animationStep >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-sm font-medium text-blue-800">1. Generates Key Pair</p>
-                                                    {animationStep >= 1 && (
-                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                        </svg>
-                                                    )}
+                        {!isAnimating && animationStep === 0 && (
+                            <div className="flex flex-row gap-4 h-[555px]">
+                                <div className="bg-emerald-50 rounded-lg p-4 flex-1 border border-emerald-200 flex flex-col gap-4 justify-center">
+                                    <h3 className="font-semibold text-xl text-emerald-800 text-center mb-2">Key Generation</h3>
+                                    <KeyIcon className="size-15 text-emerald-600 mx-auto mb-2" />
+                                    <p className="text-sm text-center text-emerald-700">Creates <strong>encapsulation/public + decapsulation/private</strong> key pair</p>
+                                </div>
+                                <div className="bg-blue-50 rounded-lg p-4 flex-1 border border-blue-200 flex flex-col gap-4 justify-center">
+                                    <h3 className="font-semibold text-xl text-blue-800 text-center mb-2">Encapsulation</h3>
+                                    <LockClosedIcon className="size-15 text-blue-600 mx-auto mb-2" />
+                                    <p className="text-sm text-center text-blue-700">Locks a <strong>random secret</strong> with encapsulation/public key</p>
+                                </div>
+                                <div className="bg-amber-50 rounded-lg p-4 flex-1 border border-amber-200 flex flex-col gap-4 justify-center">
+                                    <h3 className="font-semibold text-xl text-amber-800 text-center mb-2">Decapsulation</h3>
+                                    <LockOpenIcon className="size-15 text-amber-600 mx-auto mb-2" />
+                                    <p className="text-sm text-center text-amber-700">Unlocks the <strong>secret</strong> with decapsulation/private key</p>
+                                </div>
+                            </div>
+                        )}
+                        {(isAnimating || animationStep > 0) && ( 
+                            <>
+                            <div className="flex flex-col md:flex-row items-center justify-center mb-8 text">
+                                {/* Flow diagram */}
+                                <div className="flex flex-col md:flex-row items-center justify-center w-full">
+                                    
+                                    {/* Alice Side */}
+                                    <div className="w-full md:w-5/12 p-4">
+                                        <div className={`bg-blue-50 rounded-xl border border-blue-200 p-6 transition-all duration-500 
+                                            ${animationStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                                            <div className="flex items-center mb-4">
+                                                <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                                    <svg className="h-6 w-6 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                    </svg>
                                                 </div>
-                                                <div className="flex justify-center space-x-4 mt-2">
-                                                    <div className="text-center">
-                                                        <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
-                                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                                            </svg>
-                                                        </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Encapsulation Key</p>
-                                                    </div>
-                                                    <div className="text-center">
-                                                        <div className="w-12 h-8 bg-gray-400 rounded border-2 border-gray-600 mx-auto flex items-center justify-center">
-                                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                                            </svg>
-                                                        </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Decapsulation Key</p>
-                                                    </div>
-                                                </div>
+                                                <h3 className="text-xl font-semibold text-blue-900">Alice</h3>
                                             </div>
                                             
-                                            {/* Step 4: Decapsulate */}
-                                            <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 delay-700
-                                                ${animationStep >= 4 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-sm font-medium text-blue-800">4. Decapsulates Shared Secret</p>
-                                                    {animationStep >= 4 && (
-                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                        </svg>
-                                                    )}
-                                                </div>
-                                                <div className="flex justify-center mt-2">
-                                                    <div className="text-center">
-                                                        <div className="w-16 h-8 bg-purple-400 rounded-full border-2 border-purple-600 mx-auto flex items-center justify-center">
-                                                            <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                            <div className="space-y-4">
+                                                {/* Step 1: Generate Keys */}
+                                                <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 
+                                                    ${animationStep >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <p className="text-sm font-medium text-blue-800">1. Generates Key Pair</p>
+                                                        {animationStep >= 1 && (
+                                                            <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                                             </svg>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex justify-center space-x-4 mt-2">
+                                                        <div className="text-center">
+                                                            <KeyIcon className="size-8 text-yellow-400 mx-auto" />
+                                                            <p className="text-xs text-gray-600 mt-1">Encapsulation Key</p>
                                                         </div>
-                                                        <p className="text-xs text-gray-600 mt-1">Shared Secret ✓</p>
+                                                        <div className="text-center">
+                                                            <KeyIcon className="size-8 text-gray-400 mx-auto" />
+                                                            <p className="text-xs text-gray-600 mt-1">Decapsulation Key</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                {/* Step 4: Decapsulate */}
+                                                <div className={`bg-white rounded-lg p-4 border border-blue-100 transition-all duration-500 delay-700
+                                                    ${animationStep >= 4 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <p className="text-sm font-medium text-blue-800">4. Decapsulates Shared Secret</p>
+                                                        {animationStep >= 4 && (
+                                                            <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex flex-row justify-center mt-2 gap-4">
+                                                        <div className="text-center">
+                                                            <div className="w-16 h-8 bg-purple-400 rounded-full border-2 border-purple-600 mx-auto flex items-center justify-center">
+                                                                <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                                                </svg>
+                                                            </div>
+                                                            <p className="text-xs text-gray-600 mt-1">Shared Secret ✓</p>
+                                                        </div>
+                                                        <div className="text-center">
+                                                            <KeyIcon className="size-8 text-gray-400 mx-auto" />
+                                                            <p className="text-xs text-gray-600 mt-1">Decapsulation Key</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                {/* Middle Arrows */}
-                                <div className="w-full md:w-2/12 py-4 flex flex-col items-center justify-center">
-                                    <div className={`hidden md:block w-full h-0.5 bg-blue-300 my-2 transition-all duration-700 
-                                        ${animationStep >= 2 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
-                                    <div className="md:hidden h-20 w-0.5 bg-blue-300 my-2"></div>
                                     
-                                    <div className={`bg-white rounded-full p-3 shadow-md transition-all duration-700 
-                                        ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                                        </svg>
-                                    </div>
-                                    
-                                    {animationStep >= 2 && (
-                                        <div className="absolute transform translate-x-16 bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
-                                            E. Key →
-                                        </div>
-                                    )}
-                                    
-                                    <div className={`hidden md:block w-full h-0.5 bg-green-300 my-2 transition-all duration-700 
-                                        ${animationStep >= 3 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
-                                    <div className="md:hidden h-20 w-0.5 bg-green-300 my-2"></div>
-                                    
-                                    {animationStep >= 3 && (
-                                        <div className="absolute transform -translate-x-16 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
-                                            ← Ciphertext
-                                        </div>
-                                    )}
-                                </div>
-                                
-                                {/* Bob Side */}
-                                <div className="w-full md:w-5/12 p-4">
-                                    <div className={`bg-green-50 rounded-xl border border-green-200 p-6 transition-all duration-500 
-                                        ${animationStep >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                                        <div className="flex items-center mb-4">
-                                            <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                                                <svg className="h-6 w-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                                </svg>
-                                            </div>
-                                            <h3 className="text-xl font-semibold text-green-900">Bob</h3>
+                                    {/* Middle Arrows */}
+                                    <div className="w-full md:w-2/12 py-4 flex flex-col items-center justify-center">
+                                        <div className={`hidden md:block w-full h-0.5 bg-blue-300 my-2 transition-all duration-700 
+                                            ${animationStep >= 2 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
+                                        <div className="md:hidden h-20 w-0.5 bg-blue-300 my-2"></div>
+                                        
+                                        <div className={`bg-white rounded-full p-3 shadow-md transition-all duration-700 
+                                            ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                            </svg>
                                         </div>
                                         
-                                        <div className="space-y-4">
-                                            {/* Step 2: Receive Key */}
-                                            <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
-                                                ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-sm font-medium text-green-800">2. Receives Alice's Encapsulation Key</p>
-                                                    {animationStep >= 2 && (
-                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                        </svg>
-                                                    )}
+                                        {animationStep >= 2 && (
+                                            <div className="absolute transform translate-x-16 bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                                                E. Key →
+                                            </div>
+                                        )}
+                                        
+                                        <div className={`hidden md:block w-full h-0.5 bg-green-300 my-2 transition-all duration-700 
+                                            ${animationStep >= 3 ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}></div>
+                                        <div className="md:hidden h-20 w-0.5 bg-green-300 my-2"></div>
+                                        
+                                        {animationStep >= 3 && (
+                                            <div className="absolute transform -translate-x-16 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                                                ← Ciphertext
+                                            </div>
+                                        )}
+                                    </div>
+                                    
+                                    {/* Bob Side */}
+                                    <div className="w-full md:w-5/12 p-4">
+                                        <div className={`bg-green-50 rounded-xl border border-green-200 p-6 transition-all duration-500 
+                                            ${animationStep >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                                            <div className="flex items-center mb-4">
+                                                <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                                    <svg className="h-6 w-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                    </svg>
                                                 </div>
-                                                <div className="flex justify-center mt-2">
-                                                    <div className="w-12 h-8 bg-yellow-400 rounded border-2 border-yellow-600 mx-auto flex items-center justify-center">
-                                                        <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                                        </svg>
-                                                    </div>
-                                                </div>
+                                                <h3 className="text-xl font-semibold text-green-900">Bob</h3>
                                             </div>
                                             
-                                            {/* Step 3: Encapsulate */}
-                                            <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
-                                                ${animationStep >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-sm font-medium text-green-800">3. Encapsulates Shared Secret</p>
-                                                    {animationStep >= 3 && (
-                                                        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                        </svg>
-                                                    )}
-                                                </div>
-                                                <div className="flex justify-center space-x-4 mt-2">
-                                                    <div className="text-center">
-                                                        <div className="w-12 h-8 bg-orange-400 rounded border-2 border-orange-600 mx-auto"></div>
-                                                        <p className="text-xs text-gray-600 mt-1">Ciphertext</p>
+                                            <div className="space-y-4">
+                                                {/* Step 2: Receive Key */}
+                                                <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
+                                                    ${animationStep >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <p className="text-sm font-medium text-green-800">2. Receives Alice's Encapsulation Key</p>
+                                                        {animationStep >= 2 && (
+                                                            <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                        )}
                                                     </div>
-                                                    <div className="text-center">
-                                                        <div className="w-12 h-8 bg-purple-400 rounded-full border-2 border-purple-600 mx-auto"></div>
-                                                        <p className="text-xs text-gray-600 mt-1">Secret</p>
+                                                    <div className="flex justify-center mt-2">
+                                                        <div className="text-center">
+                                                            <KeyIcon className="size-8 text-yellow-400 mx-auto" />
+                                                            <p className="text-xs text-gray-600 mt-1">Encapsulation Key</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                {/* Step 3: Encapsulate */}
+                                                <div className={`bg-white rounded-lg p-4 border border-green-100 transition-all duration-500 
+                                                    ${animationStep >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <p className="text-sm font-medium text-green-800">3. Encapsulates Shared Secret</p>
+                                                        {animationStep >= 3 && (
+                                                            <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex justify-center space-x-4 mt-2">
+                                                        <div className="text-center">
+                                                            <div className="w-12 h-8 bg-orange-400 rounded border-2 border-orange-600 mx-auto"></div>
+                                                            <p className="text-xs text-gray-600 mt-1">Ciphertext</p>
+                                                        </div>
+                                                        <div className="text-center">
+                                                            <div className="w-12 h-8 bg-purple-400 rounded-full border-2 border-purple-600 mx-auto"></div>
+                                                            <p className="text-xs text-gray-600 mt-1">Secret</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -400,27 +386,27 @@ export default function MLKEMPage() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        {/* Completion Message */}
-                        <div className={`bg-yellow-50 border border-yellow-200 rounded-lg p-4 transition-all duration-700 
-                            ${animationComplete ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                            <div className="flex items-start">
-                                <svg className="h-6 w-6 mr-2 text-green-500 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <div>
-                                    <p className="font-semibold text-green-800 mb-1">✓ Key Exchange Complete!</p>
-                                    <p className="text-sm text-green-700">
-                                        Alice and Bob now share an identical secret key without ever transmitting it directly.
-                                        This shared secret can now be used for encrypted communication. 
-                                        <br />
-                                        <br />
-                                        (During an actual key exchange, only the encapsulation/public key and ciphertext are transmitted across the network. The shared secret and decapsulation/private key remain confidential to each party.)
-                                    </p>
+                            
+                            {/* Completion Message */}
+                            <div className={`bg-yellow-50 border border-yellow-200 rounded-lg p-4 transition-all duration-700 
+                                ${animationComplete ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                                <div className="flex items-start">
+                                    <svg className="h-6 w-6 mr-2 text-green-500 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <div>
+                                        <p className="font-semibold text-green-800 mb-1">✓ Key Exchange Complete!</p>
+                                        <p className="text-sm text-green-700">
+                                            Alice and Bob now share an identical secret key without ever transmitting it directly.
+                                            This shared secret can now be used for encrypted communication. 
+                                            <br />
+                                            <br />
+                                            (During an actual key exchange, only the encapsulation/public key and ciphertext are transmitted across the network. The shared secret and decapsulation/private key remain confidential to each party.)
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </>)}
                     </div>
                     
                     <div className="flex justify-center gap-4 mt-6">
@@ -515,7 +501,6 @@ export default function MLKEMPage() {
                                             ))}
                                         </SelectContent>
                                     </Select>
-                                    {/* Clickable parameter row */}
                                     <div className="flex flex-wrap justify-center gap-2 w-full">
                                     {parameters.map((param) => (
                                         <button
@@ -534,7 +519,6 @@ export default function MLKEMPage() {
                                     ))}
                                     </div>
 
-                                    {/* Value panel - shows current param value */}
                                     {currentParams && (
                                     <div className="w-full mt-1 p-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-center">
                                         <div className="text-xl  font-bold">
@@ -543,427 +527,476 @@ export default function MLKEMPage() {
                                     </div>
                                     )}
                                 </div>
-                                <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center p-2">
-                                    {(vizStage === null || selectedVariable === null) &&
-                                        <div>Click a variable to see it in full!</div>
-                                    }
-
-                                    {/* ── KEYGEN ── */}
-                                    {selectedVariable === "d" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="d \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.d?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.d ? Array.from(keygenSpyData.d) : []} showValues variableKey='d' />
+                                <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full h-[360px] items-center justify-center p-2">
+                                    <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center p-2 overflow-hidden">
+                                        {(vizStage === null || selectedVariable === null) &&
+                                            <div className="text-center">
+                                                <p className="mb-2">Click a variable to see it in full!</p>
+                                                <p>Hover over it to see a short description!</p>
                                             </div>
-                                        </div>
-                                    }
+                                        }
+                                        
+                                        {/* ── KEYGEN ── */}
+                                        {selectedVariable === "d" &&
+                                            <VariableDisplay 
+                                                math="d \in \mathbb{B}^{32}"
+                                                description="32 byte seed"
+                                                data={keygenSpyData?.d}
+                                                variableKey="d"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "z_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="z \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.z ? Array.from(keygenSpyData.z) : []} showValues variableKey='z_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "z_keygen" &&
+                                            <VariableDisplay 
+                                                math="z \in \mathbb{B}^{32}"
+                                                description="32 byte seed"
+                                                data={keygenSpyData?.z}
+                                                variableKey="z_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rho_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\rho \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.rho ? Array.from(keygenSpyData.rho) : []} showValues variableKey='rho_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rho_keygen" &&
+                                            <VariableDisplay 
+                                                math="\rho \in \mathbb{B}^{32}"
+                                                description="32 byte seed for A generation"
+                                                data={keygenSpyData?.rho}
+                                                variableKey="rho_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "sigma_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\sigma \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.sigma?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sigma ? Array.from(keygenSpyData.sigma) : []} showValues variableKey='sigma_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "sigma_keygen" &&
+                                            <VariableDisplay 
+                                                math="\sigma \in \mathbb{B}^{32}"
+                                                description="32 byte seed"
+                                                data={keygenSpyData?.sigma}
+                                                variableKey="sigma_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "A_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="A \in \mathbb{Z}_q^{k \times k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil(keygenSpyData?.A?.[0]?.[0].length ?? 0) / 4} cols={4} size={20} colorData={keygenSpyData?.A?.[0]?.[0] ? Array.from(keygenSpyData.A[0][0]) : []} showValues variableKey='A_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "A_keygen" &&
+                                            <MatrixDisplay 
+                                                math="\hat{A} \in \mathbb{Z}_q^{k \times k}"
+                                                description="k×k matrix of polynomials (NTT domain)"
+                                                matrix={keygenSpyData?.A}
+                                                variableKey="A_keygen"
+                                            />
+                                        }
 
-                                    {selectedVariable === "s_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="s \in \mathbb{Z}_q^{k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.sHat[0] ? Array.from(keygenSpyData.sHat[0]) : []} showValues variableKey='s_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "s_keygen" &&
+                                            <VariableDisplay 
+                                                math="\hat{s} \in \mathbb{Z}_q^{k}"
+                                                description="secret vector in NTT domain"
+                                                data={keygenSpyData?.sHat?.[0]}
+                                                variableKey="s_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "e_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="e \in \mathbb{Z}_q^{k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.eHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.eHat[0] ? Array.from(keygenSpyData.eHat[0]) : []} showValues variableKey='e_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "e_keygen" &&
+                                            <VariableDisplay 
+                                                math="\hat{e} \in \mathbb{Z}_q^{k}"
+                                                description="error vector in NTT domain"
+                                                data={keygenSpyData?.eHat?.[0]}
+                                                variableKey="e_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "t_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="t \in \mathbb{Z}_q^{k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.tHat[0] ? Array.from(keygenSpyData.tHat[0]) : []} showValues variableKey='t_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "t_keygen" &&
+                                            <VariableDisplay 
+                                                math="\hat{t} \in \mathbb{Z}_q^{k}"
+                                                description="public key component in NTT domain (t = A∘s + e)"
+                                                data={keygenSpyData?.tHat?.[0]}
+                                                variableKey="t_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "ekPKE_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="ek_{PKE} \in \mathbb{B}^{384k+32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.ekPKE ? Array.from(keygenSpyData.ekPKE) : []} showValues variableKey='ekPKE_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "ekPKE_keygen" &&
+                                            <VariableDisplay 
+                                                math="ek_{PKE} \in \mathbb{B}^{384k+32}"
+                                                description="PKE encryption key (ρ + t̂)"
+                                                data={keygenSpyData?.ekPKE}
+                                                variableKey="ekPKE_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "dkPKE_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="dk_{PKE} \in \mathbb{B}^{384k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={keygenSpyData?.dkPKE ? Array.from(keygenSpyData.dkPKE) : []} showValues variableKey='dkPKE_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "dkPKE_keygen" &&
+                                            <VariableDisplay 
+                                                math="dk_{PKE} \in \mathbb{B}^{384k}"
+                                                description="PKE decryption key (ŝ)"
+                                                data={keygenSpyData?.dkPKE}
+                                                variableKey="dkPKE_keygen"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "encapskey_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.publicKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.publicKey} showValues variableKey='encapskey_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "encapskey_keygen" &&
+                                            <VariableDisplay 
+                                                math="ek \in \mathbb{B}^{384k+32}"
+                                                description="Encapsulation key (public key)"
+                                                data={keygenSpyData?.publicKey}
+                                                variableKey="encapskey_keygen"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "decapskey_keygen" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((keygenSpyData?.secretKey?.length ?? 0) / 8)} cols={8} size={20} colorData={keygenSpyData?.secretKey} showValues variableKey='decapskey_keygen' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "decapskey_keygen" &&
+                                            <VariableDisplay 
+                                                math="dk \in \mathbb{B}^{768k+96}"
+                                                description="Decapsulation key (secret key)"
+                                                data={keygenSpyData?.secretKey}
+                                                variableKey="decapskey_keygen"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {/* ── ENCAPSULATION ── */}
-                                    {selectedVariable === "m_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="m \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.m ? Array.from(encapsSpyData.m) : []} showValues variableKey='m_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {/* ── ENCAPSULATION ── */}
+                                        {selectedVariable === "m_encaps" &&
+                                            <VariableDisplay 
+                                                math="m \in \mathbb{B}^{32}"
+                                                description="32 byte random message"
+                                                data={encapsSpyData?.m}
+                                                variableKey="m_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "K_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="K" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.K ? Array.from(encapsSpyData.K) : []} showValues variableKey='K_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "K_encaps" &&
+                                            <VariableDisplay 
+                                                math="K"
+                                                description="shared secret from encapsulation"
+                                                data={encapsSpyData?.K}
+                                                variableKey="K_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "r_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="r" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.r ? Array.from(encapsSpyData.r) : []} showValues variableKey='r_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "r_encaps" &&
+                                            <VariableDisplay 
+                                                math="r"
+                                                description="randomness for encapsulation"
+                                                data={encapsSpyData?.r}
+                                                variableKey="r_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "encapskey_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="ek \in \mathbb{B}^{384k+32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.ek?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.ek ? Array.from(encapsSpyData.ek) : []} showValues variableKey='encapskey_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "encapskey_encaps" &&
+                                            <VariableDisplay 
+                                                math="ek \in \mathbb{B}^{384k+32}"
+                                                description="Encapsulation key"
+                                                data={encapsSpyData?.ek}
+                                                variableKey="encapskey_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rho_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\rho \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.rho?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.rho ? Array.from(encapsSpyData.rho) : []} showValues variableKey='rho_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rho_encaps" &&
+                                            <VariableDisplay 
+                                                math="\rho \in \mathbb{B}^{32}"
+                                                description="seed from public key"
+                                                data={encapsSpyData?.rho}
+                                                variableKey="rho_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "t_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\hat{t}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.tHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.tHat[0] ? Array.from(encapsSpyData.tHat[0]) : []} showValues variableKey='t_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "t_encaps" &&
+                                            <VariableDisplay 
+                                                math="\hat{t}"
+                                                description="t̂ from public key (NTT domain)"
+                                                data={encapsSpyData?.tHat?.[0]}
+                                                variableKey="t_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "mu_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\mu" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.mu?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.mu ? Array.from(encapsSpyData.mu) : []} showValues variableKey='mu_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "mu_encaps" &&
+                                            <VariableDisplay 
+                                                math="\mu = H(ek)"
+                                                description="32 byte hash of public key"
+                                                data={encapsSpyData?.mu}
+                                                variableKey="mu_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "A_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="A \in \mathbb{Z}_q^{k \times k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.A?.[0]?.[0].length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.A?.[0]?.[0] ? Array.from(encapsSpyData.A[0][0]) : []} showValues variableKey='A_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "A_encaps" &&
+                                            <MatrixDisplay 
+                                                math="\hat{A} \in \mathbb{Z}_q^{k \times k}"
+                                                description="matrix from ρ (NTT domain)"
+                                                matrix={encapsSpyData?.A}
+                                                variableKey="A_encaps"
+                                            />
+                                        }
 
-                                    {selectedVariable === "y_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="y" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.y[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.y[0] ? Array.from(encapsSpyData.y[0]) : []} showValues variableKey='y_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "y_encaps" &&
+                                            <VariableDisplay 
+                                                math="y"
+                                                description="random vector from r"
+                                                data={encapsSpyData?.y?.[0]}
+                                                variableKey="y_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "e1_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="e_1" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.e1[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e1[0] ? Array.from(encapsSpyData.e1[0]) : []} showValues variableKey='e1_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "e1_encaps" &&
+                                            <VariableDisplay 
+                                                math="e_1"
+                                                description="error vector e₁"
+                                                data={encapsSpyData?.e1?.[0]}
+                                                variableKey="e1_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "e2_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="e_2" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.e2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.e2 ? Array.from(encapsSpyData.e2) : []} showValues variableKey='e2_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "e2_encaps" &&
+                                            <VariableDisplay 
+                                                math="e_2"
+                                                description="error polynomial e₂"
+                                                data={encapsSpyData?.e2}
+                                                variableKey="e2_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "u_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="u" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.u[0] ? Array.from(encapsSpyData.u[0]) : []} showValues variableKey='u_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "u_encaps" &&
+                                            <VariableDisplay 
+                                                math="u = A^T y + e_1"
+                                                description="ciphertext component u"
+                                                data={encapsSpyData?.u?.[0]}
+                                                variableKey="u_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c1_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c_1" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c1 ? Array.from(encapsSpyData.c1) : []} showValues variableKey='c1_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c1_encaps" &&
+                                            <VariableDisplay 
+                                                math="c_1"
+                                                description="compressed u"
+                                                data={encapsSpyData?.c1}
+                                                variableKey="c1_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "v_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="v" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.v ? Array.from(encapsSpyData.v) : []} showValues variableKey='v_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "v_encaps" &&
+                                            <VariableDisplay 
+                                                math="v"
+                                                description="ciphertext component v"
+                                                data={encapsSpyData?.v}
+                                                variableKey="v_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c2_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c_2" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.c2 ? Array.from(encapsSpyData.c2) : []} showValues variableKey='c2_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c2_encaps" &&
+                                            <VariableDisplay 
+                                                math="c_2"
+                                                description="compressed v"
+                                                data={encapsSpyData?.c2}
+                                                variableKey="c2_encaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "ciphertext_encaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((encapsSpyData?.cipherText?.length ?? 0) / 4)} cols={4} size={20} colorData={encapsSpyData?.cipherText ? Array.from(encapsSpyData.cipherText) : []} showValues variableKey='ciphertext_encaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "ciphertext_encaps" &&
+                                            <VariableDisplay 
+                                                math="c"
+                                                description="final ciphertext (compressed)"
+                                                data={encapsSpyData?.cipherText}
+                                                variableKey="ciphertext_encaps"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {/* ── DECAPSULATION ── */}
-                                    {selectedVariable === "ciphertext_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c = (c_1, c_2)" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues variableKey='ciphertext_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {/* ── DECAPSULATION ── */}
+                                        {selectedVariable === "ciphertext_decaps" &&
+                                            <VariableDisplay 
+                                                math="c"
+                                                description="received ciphertext"
+                                                data={decapsSpyData?.c}
+                                                variableKey="ciphertext_decaps"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "decapskey_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="dk \in \mathbb{B}^{768k+96}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.dk?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dk ? Array.from(decapsSpyData.dk) : []} showValues variableKey='decapskey_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "decapskey_decaps" &&
+                                            <VariableDisplay 
+                                                math="dk \in \mathbb{B}^{768k+96}"
+                                                description="Decapsulation key"
+                                                data={decapsSpyData?.dk}
+                                                variableKey="decapskey_decaps"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "ekPKE_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="ek_{PKE} \in \mathbb{B}^{384k+32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.ekPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.ekPKE ? Array.from(decapsSpyData.ekPKE) : []} showValues variableKey='ekPKE_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "ekPKE_decaps" &&
+                                            <VariableDisplay 
+                                                math="ek_{PKE} \in \mathbb{B}^{384k+32}"
+                                                description="PKE encryption key"
+                                                data={decapsSpyData?.ekPKE}
+                                                variableKey="ekPKE_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "dkPKE_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="dk_{PKE} \in \mathbb{B}^{384k}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.dkPKE?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.dkPKE ? Array.from(decapsSpyData.dkPKE) : []} showValues variableKey='dkPKE_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "dkPKE_decaps" &&
+                                            <VariableDisplay 
+                                                math="dk_{PKE} \in \mathbb{B}^{384k}"
+                                                description="PKE decryption key"
+                                                data={decapsSpyData?.dkPKE}
+                                                variableKey="dkPKE_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "h_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="h = H(ek)" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.h?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.h ? Array.from(decapsSpyData.h) : []} showValues variableKey='h_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "h_decaps" &&
+                                            <VariableDisplay 
+                                                math="h = H(ek)"
+                                                description="hash of public key"
+                                                data={decapsSpyData?.h}
+                                                variableKey="h_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "z_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="z \in \mathbb{B}^{32}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.z?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.z ? Array.from(decapsSpyData.z) : []} showValues variableKey='z_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "z_decaps" &&
+                                            <VariableDisplay 
+                                                math="z \in \mathbb{B}^{32}"
+                                                description="32 byte seed from secret key"
+                                                data={decapsSpyData?.z}
+                                                variableKey="z_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c1_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c_1" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c1?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c1 ? Array.from(decapsSpyData.c1) : []} showValues variableKey='c1_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c1_decaps" &&
+                                            <VariableDisplay 
+                                                math="c_1"
+                                                description="decompressed u"
+                                                data={decapsSpyData?.c1}
+                                                variableKey="c1_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "c2_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c_2" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c2?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c2 ? Array.from(decapsSpyData.c2) : []} showValues variableKey='c2_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "c2_decaps" &&
+                                            <VariableDisplay 
+                                                math="c_2"
+                                                description="decompressed v"
+                                                data={decapsSpyData?.c2}
+                                                variableKey="c2_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "u_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="u" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.u[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.u[0] ? Array.from(decapsSpyData.u[0]) : []} showValues variableKey='u_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "u_decaps" &&
+                                            <VariableDisplay 
+                                                math="u'"
+                                                description="reconstructed u"
+                                                data={decapsSpyData?.u?.[0]}
+                                                variableKey="u_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "v_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="v" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.v?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.v ? Array.from(decapsSpyData.v) : []} showValues variableKey='v_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "v_decaps" &&
+                                            <VariableDisplay 
+                                                math="v'"
+                                                description="reconstructed v"
+                                                data={decapsSpyData?.v}
+                                                variableKey="v_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "s_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\hat{s}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.sHat[0]?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.sHat[0] ? Array.from(decapsSpyData.sHat[0]) : []} showValues variableKey='s_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "s_decaps" &&
+                                            <VariableDisplay 
+                                                math="\hat{s}"
+                                                description="secret key component (NTT domain)"
+                                                data={decapsSpyData?.sHat?.[0]}
+                                                variableKey="s_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "w_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="w" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.w?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.w ? Array.from(decapsSpyData.w) : []} showValues variableKey='w_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "w_decaps" &&
+                                            <VariableDisplay 
+                                                math="w"
+                                                description="recovered message (v - s^T u)"
+                                                data={decapsSpyData?.w}
+                                                variableKey="w_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "m_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="m'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.m?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.m ? Array.from(decapsSpyData.m) : []} showValues variableKey='m_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "m_decaps" &&
+                                            <VariableDisplay 
+                                                math="m'"
+                                                description="decrypted message"
+                                                data={decapsSpyData?.m}
+                                                variableKey="m_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "Kp_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="K'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.K?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.K ? Array.from(decapsSpyData.K) : []} showValues variableKey='Kp_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "Kp_decaps" &&
+                                            <VariableDisplay 
+                                                math="K'"
+                                                description="derived shared secret"
+                                                data={decapsSpyData?.K}
+                                                variableKey="Kp_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "rp_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="r'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.r?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.r ? Array.from(decapsSpyData.r) : []} showValues variableKey='rp_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "rp_decaps" &&
+                                            <VariableDisplay 
+                                                math="r'"
+                                                description="recomputed randomness"
+                                                data={decapsSpyData?.r}
+                                                variableKey="rp_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "kbar_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="\bar{K}" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.Kbar?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kbar ? Array.from(decapsSpyData.Kbar) : []} showValues variableKey='kbar_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "kbar_decaps" &&
+                                            <VariableDisplay 
+                                                math="\bar{K}"
+                                                description="alternative shared secret (for failure case)"
+                                                data={decapsSpyData?.Kbar}
+                                                variableKey="kbar_decaps"
+                                                cols={4}
+                                            />
+                                        }
 
-                                    {selectedVariable === "cp_decaps" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="c'" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.c?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.c ? Array.from(decapsSpyData.c) : []} showValues variableKey='cp_decaps' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "cp_decaps" &&
+                                            <VariableDisplay 
+                                                math="c'"
+                                                description="recomputed ciphertext"
+                                                data={decapsSpyData?.c}
+                                                variableKey="cp_decaps"
+                                                cols={8}
+                                            />
+                                        }
 
-                                    {selectedVariable === "kfinal" &&
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div><InlineMath math="K" /></div>
-                                            <div className="overflow-y-auto max-h-48 w-full flex justify-center">
-                                                <SquareGrid algorithm="mlkem" rows={Math.ceil((decapsSpyData?.Kfinal?.length ?? 0) / 4)} cols={4} size={20} colorData={decapsSpyData?.Kfinal ? Array.from(decapsSpyData.Kfinal) : []} showValues variableKey='kfinal' />
-                                            </div>
-                                        </div>
-                                    }
+                                        {selectedVariable === "kfinal" &&
+                                            <VariableDisplay 
+                                                math="K"
+                                                description="final shared secret (K' if valid, else K̄)"
+                                                data={decapsSpyData?.Kfinal}
+                                                variableKey="kfinal"
+                                                cols={4}
+                                            />
+                                        }
+                                    </div>
                                 </div>
                                 <div className="flex flex-col rounded-xl bg-white dark:bg-zinc-900 h-48 items-center justify-center p-2">
                                     <div className="flex items-center gap-3 bg-gray-100 dark:bg-zinc-800 rounded-full px-2 py-1 shadow-sm">

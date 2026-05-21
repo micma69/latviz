@@ -11,10 +11,12 @@ export default function SignLoop({
     spyData,
     onChangeStage,
     onSelectVariable,
+    onIterationChange,
 }: {
     spyData: DSASignSpyData | null;
     onChangeStage: (stage: string) => void;
     onSelectVariable: (variable: string) => void;
+    onIterationChange?: (index: number) => void;
 }) {
     const [iterationIndex, setIterationIndex] = useState(0);
     
@@ -27,6 +29,10 @@ export default function SignLoop({
     const totalIterations = spyData?.iterations?.length || 0;
     const isLastIteration = iterationIndex === totalIterations - 1;
     const isAccepted = currentIteration?.accepted === true;
+
+    useEffect(() => {
+        onIterationChange?.(iterationIndex);
+    }, [iterationIndex, currentIteration, onIterationChange]);
     
     const goToPrevious = () => {
         if (iterationIndex > 0) {
@@ -91,7 +97,7 @@ export default function SignLoop({
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="y \in R_q^\ell" /></div>
-                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} 
+                    <SquareGrid algorithm="mldsa"  size={12} 
                                colorData={currentIteration?.y?.[0] ? Array.from(currentIteration.y[0]) : []} 
                                showValues={true} variableKey="y_loop" onClick={() => onSelectVariable("y_loop")} />
                 </div>
@@ -103,7 +109,7 @@ export default function SignLoop({
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="w" /></div>
-                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} 
+                    <SquareGrid algorithm="mldsa"  size={12} 
                                colorData={currentIteration?.w?.[0] ? Array.from(currentIteration.w[0]) : []} 
                                showValues={true} variableKey="w_loop" onClick={() => onSelectVariable("w_loop")} />
                 </div>
@@ -115,7 +121,7 @@ export default function SignLoop({
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="w_1" /></div>
-                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} 
+                    <SquareGrid algorithm="mldsa"  size={12} 
                                colorData={currentIteration?.w1?.[0] ? Array.from(currentIteration.w1[0]) : []} 
                                showValues={true} variableKey="w1_loop" onClick={() => onSelectVariable("w1_loop")} />
                 </div>
@@ -125,14 +131,14 @@ export default function SignLoop({
             <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="\tilde{c} = H(\mu \| \mathbf{w}_1)" /></div>
-                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} 
+                    <SquareGrid algorithm="mldsa"  size={12} 
                                colorData={currentIteration?.cTilde ? Array.from(currentIteration.cTilde) : []} 
                                showValues={true} variableKey="tildec_loop" onClick={() => onSelectVariable("tildec_loop")} />
                 </div>
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="c = \text{SampleInBall}(\tilde{c})" /></div>
-                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} 
+                    <SquareGrid algorithm="mldsa"  size={12} 
                                colorData={currentIteration?.c ? Array.from(currentIteration.c) : []} 
                                showValues={true} variableKey="c_loop" onClick={() => onSelectVariable("c_loop")} />
                 </div>
@@ -144,7 +150,7 @@ export default function SignLoop({
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="z" /></div>
-                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} 
+                    <SquareGrid algorithm="mldsa"  size={12} 
                                colorData={currentIteration?.z?.[0] ? Array.from(currentIteration.z[0]) : []} 
                                showValues={true} variableKey="z_sign" onClick={() => onSelectVariable("z_sign")} />
                     {currentIteration?.zNormInf !== undefined && (
@@ -161,7 +167,7 @@ export default function SignLoop({
                 <ArrowLongRightIcon className="size-6" />
                 <div className="flex flex-col items-center gap-2">
                     <div><InlineMath math="r_0" /></div>
-                    <SquareGrid algorithm="mldsa" rows={1} cols={4} rowsExpanded={8} size={12} 
+                    <SquareGrid algorithm="mldsa"  size={12} 
                                 colorData={currentIteration?.r0?.[0] ? Array.from(currentIteration.r0[0]) : [] } 
                                 showValues={true} variableKey="r0_sign" onClick={() => onSelectVariable("r0_sign")} />
                     {currentIteration?.r0NormInf !== undefined && (
