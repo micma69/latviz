@@ -76,8 +76,7 @@ export default function EncapsulationVisualizationProcess({
                             <div className="flex flex-col items-center  text-sm gap-2">
                                 <div><InlineMath math="A" /></div>
                                 <SquareGrid algorithm="mlkem"
-                                     size={12} size={12}
-                                    colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []}
+                                    size={12} colorData={spyData?.A?.[0]?.[0] ? Array.from(spyData.A[0][0]) : []}
                                     showValues variableKey="A_encaps" onClick={() => onSelectVariable("A_encaps")}
                                 />
                             </div>
