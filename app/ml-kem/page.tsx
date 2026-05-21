@@ -154,39 +154,6 @@ export default function MLKEMPage() {
 
                 break;
             }
-
-            case "Complete Flow": {
-                const keys = kem.keygen();
-                const { cipherText, sharedSecret: bobSecret } = kem.encapsulate(keys.publicKey);
-                const aliceSecret = kem.decapsulate(cipherText, keys.secretKey);
-                const secretsMatch = Buffer.compare(aliceSecret, bobSecret) === 0;
-
-                const publicKeyArr = Array.from(keys.publicKey);
-                const secretKeyArr = Array.from(keys.secretKey);
-                const cipherTextArr = Array.from(cipherText);
-                const bobSecretArr = Array.from(bobSecret);
-                const aliceSecretArr = Array.from(aliceSecret);
-
-                return {
-                    secretsMatch,
-                    keyGeneration: {
-                    publicKey: publicKeyArr,
-                    secretKey: secretKeyArr,
-                    publicKeySize: keys.publicKey.length,
-                    secretKeySize: keys.secretKey.length,
-                    },
-                    encapsulation: {
-                    cipherText: cipherTextArr,
-                    sharedSecret: bobSecretArr,
-                    cipherTextSize: cipherText.length,
-                    sharedSecretSize: bobSecret.length,
-                    },
-                    decapsulation: {
-                    sharedSecret: aliceSecretArr,
-                    secretsMatch,
-                    },
-                };
-            }
         }
     };
 

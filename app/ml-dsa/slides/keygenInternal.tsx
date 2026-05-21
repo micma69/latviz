@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
-import { ArrowLongDownIcon, ArrowLongRightIcon, ChevronLeftIcon, PlusIcon } from '@heroicons/react/24/solid';
+import { ArrowLongDownIcon, ArrowLongRightIcon, ChevronLeftIcon } from '@heroicons/react/24/solid';
 import SquareGrid from "@/components/ui/gridLattice";
 import { DSAKeygenSpyData } from '@/utils/createSpy';
 import { Button } from "@/components/ui/button";

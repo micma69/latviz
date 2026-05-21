@@ -168,37 +168,6 @@ export default function MLDSAPage() {
                 break;
             }
 
-            case "Complete Flow": {
-                const signerKeys = algorithm.keygen();
-                const signature = algorithm.sign(signerKeys.secretKey, msgBytes);
-                const isValid = algorithm.verify(signerKeys.publicKey, msgBytes, signature);
-                
-                return {
-                    publicKey: Array.from(signerKeys.publicKey),
-                    secretKey: Array.from(signerKeys.secretKey),
-                    signature: Array.from(signature),
-                    message: message,
-                    isValid: isValid,
-                    keyGeneration: {
-                        publicKey: Array.from(signerKeys.publicKey),
-                        secretKey: Array.from(signerKeys.secretKey),
-                        publicKeySize: signerKeys.publicKey.length,
-                        secretKeySize: signerKeys.secretKey.length,
-                    },
-                    signing: {
-                        message: message,
-                        signature: Array.from(signature),
-                        signatureSize: signature.length,
-                    },
-                    verification: {
-                        message: message,
-                        publicKey: Array.from(signerKeys.publicKey),
-                        signature: Array.from(signature),
-                        isValid: isValid,
-                    },
-                };
-            }
-
             default:
                 return
         }
