@@ -30,11 +30,11 @@ export default function EncapsulationVisualization({
             <div className="flex flex-row gap-8 items-center justify-center">
                 <div className="flex flex-col items-center  text-sm gap-2">
                     <div><InlineMath math="ek" /></div>
-                    <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.ek ? Array.from(spyData.ek) : []} showValues={true} variableKey="encapskey_encaps" onClick={() => onSelectVariable("encapskey_encaps")} />
+                    <SquareGrid algorithm="mlkem"  size={12} colorData={spyData?.ek ? Array.from(spyData.ek) : []} showValues={true} variableKey="encapskey_encaps" onClick={() => onSelectVariable("encapskey_encaps")} />
                 </div>
                 <div className="flex flex-col items-center  text-sm gap-2">
                     <div><InlineMath math="m" /></div>
-                    <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} variableKey="m_encaps" onClick={() => onSelectVariable("m_encaps")} />
+                    <SquareGrid algorithm="mlkem"  size={12} colorData={spyData?.m ? Array.from(spyData.m) : []} showValues={true} variableKey="m_encaps" onClick={() => onSelectVariable("m_encaps")} />
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@ export default function EncapsulationVisualization({
                         <div className="text-green-700 font-semibold text-lg">Output</div>
                         <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="K" /></div>
-                            <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} variableKey="K_encaps" onClick={() => onSelectVariable("K_encaps")} />
+                            <SquareGrid algorithm="mlkem"  size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} variableKey="K_encaps" onClick={() => onSelectVariable("K_encaps")} />
                         </div>
                     </div>         
                 </div>
@@ -55,7 +55,7 @@ export default function EncapsulationVisualization({
                     <div className="flex flex-col gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                         <div className="flex flex-col items-center  text-sm gap-2">
                             <div><InlineMath math="r" /></div>
-                            <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} variableKey="r_encaps" onClick={() => onSelectVariable("r_encaps")} />
+                            <SquareGrid algorithm="mlkem"  size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} variableKey="r_encaps" onClick={() => onSelectVariable("r_encaps")} />
                         </div>
                     </div>
                     <ArrowLongDownIcon className="size-6" />
@@ -79,7 +79,7 @@ export default function EncapsulationVisualization({
                 <div className="text-green-700 font-semibold text-lg">Output</div>
                 <div className="flex flex-col items-center  text-sm gap-2">
                     <div className=" text-sm"><InlineMath math="c" /></div>
-                    <SquareGrid algorithm="mlkem" rows={1} cols={4} size={12} colorData={spyData?.cipherText} showValues={true} variableKey="ciphertext_encaps" onClick={() => onSelectVariable("ciphertext_encaps")} />
+                    <SquareGrid algorithm="mlkem"  size={12} colorData={spyData?.cipherText} showValues={true} variableKey="ciphertext_encaps" onClick={() => onSelectVariable("ciphertext_encaps")} />
                 </div>
             </div>
         </>}

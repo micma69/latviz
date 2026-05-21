@@ -762,7 +762,7 @@ export default function MLKEMPage() {
 
                                         {selectedVariable === "A_encaps" &&
                                             <MatrixDisplay 
-                                                math="A \in \mathbb{Z}_q^{k \times k}"
+                                                math="\hat{A} \in \mathbb{Z}_q^{k \times k}"
                                                 description="matrix from ρ (NTT domain)"
                                                 matrix={encapsSpyData?.A}
                                                 variableKey="A_encaps"
