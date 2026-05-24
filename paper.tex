@@ -439,19 +439,28 @@ Finally, the verifier checks that response $z$ is valid (by checking whether all
 \label{fig8}
 \end{figure}
 
-\subsection{Existing Visualizations}
-There are a number of existing visualization tools for ML-KEM, ML-DSA, and algorithms 
+\subsection{Prior Visualizations}
 
-Examples of existing visualizations and pros and cons. Categories probably? The ones who use dots, the ones who use colors, the ones who use arrows, the ones who use matrices, etcetc
+\subsection{The Effectiveness of Visualizations}
+Multiple studies have been conducted on the viability of digital and algorithm visualizations as learning tools or as aids to learning. Among them, results vary depending on the referred visualization tools, subjects of study, measures of effectiveness, metrics for learning, and so on. However, it can be inferred that some tools perform better than others for the purposes of helping their users learn their relevant topics and what characteristics makes those tools work better.
 
-\subsection{Visualization Method Effectiveness}
-Visualizations as previously defined have been used in education since. Nowadays, it is not hard to find visualization tools for subjects relating to computer science, specifically to cryptography.
+\subsubsection{A Meta-Study of Algorithm Visualization Effectiveness}
+A meta study conducted on the effectiveness of algorithm visualizations in educational scenarios \cite{11} takes into account the objective of each visualization, the individual or groups with that objective, the particular algorithm visualization artifact used, and the particular target algorithm to be visualized, to define the effectiveness of a visualization as 'the extent to which an algorithm visualization artifact assists an individual or group in fulfulling their objective'. They are grouped based on independent variables (factors the study posits to cause effectiveness) and dependent variables (the ways in which a study measures effectiveness). By independent variables, they are grouped into four theories of effectiveness (including some overlap): Epistemic Fidelity, Dual-coding, Individual Differences, and Cognitive Constructivism.
+\begin{itemize}
+    \item \textbf{Epistemic Fidelity} assumes that humans use symbolic models of the physical world as basis for their reasoning and actions \cite{17}. It also assumes that graphics are effective in encoding an expert's mental model of an algorithm, which leads to effective transferal of the mental model to the viewer. The higher the quality, the 'fidelity' of the model, the more efficient the transfer is meant to be, which leads to more ease on the viewer's part in internalizing the model and presumably, the target knowledge.
+    \item \textbf{Dual-coding} follows from the assumption that cognition consists largely of the activity of two partly interconnected but functionally independent systems, one that encodes verbal events and another that encodes non-verbal events. Visualizations that incorporate both should allow viewers to built both representations in the brain, and thus facilitate the transfer of target knowledge better than a visualization that only uses one.
+    \item \textbf{Individual Differences} asserts that measurable differences in human ability and learning styles will lead to a measurable performance difference in scenarios of visualization use.
+    \item \textbf{Cognitive Constructivism} holds that indivisuals construct their own individual knowledge from subjective experiences. They can actively construct new understandings by actively engaging with their environment or interpreting new experiences through the context of what they already know.
+\end{itemize}
+Of the four, Cognitive Constructivism holds the largest group (14 out of 24 studies analysed used it). Additionally, the studies showed the highest percentage (71\%) of statistically significant results within studies, followed by Individual Differences and Dual-coding (both 50\%, each with only 2 studies each using them), with Epistemic Fidelity showing the least (30\% out of 10 studies). A more thorough analysis relating to measuring the effects of effort and levels of engagement \cite{18,19} shows that Cognitive Constructivism has the most basis, in that participants who actively engaged in activities such as making predictions when viewing a visualization led to a more significult result, as opposed to the equalization of activities leading to non-significant results. In essense, how viewers actually use a visualization matters more than what the visualization actually is.
 
-\section{Visualization Tool Design}
-The developed visualization tool Latviz is a web application that provides visualizations for ML-KEM, ML-DSA, LLL, and BKZ. (elaborate later)
+As for dependent variables, 2 studies measured effectiveness in terms of the participants' success at solving debugging and tracing problems, while the other 22 measured effectiveness by knowledge acquired. Of the latter, the knowledge acquired for each study can be divided into conceptual (an abstract understanding of the properties of an algorithm) and procedural (an understanding of the step-by-step behavior of an algorithm.), as well as some combination of both. An analysis of the results based on type of knowledge acquired implies that procedural knowledge is more sensitive to the effectiveness or lack thereof of visualizations. However, it should be noted that the studies only considered a very limited range of dependent variables, almost exclusively relying on the usage of pre- and post- tests or merely post-tests to come to that conclusion.
+
+\section{Latviz}
+The visualization tool Latviz is a web application that provides visualizations for ML-KEM and ML-DSA, meant to help users more easily understand the two through interactive visualizations.
 
 \subsection{Architecture}
-The visualization tool is built using Next.js, a fullstack React-based framework, along with Tailwind CSS for the frontend, and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using a modification of an existing Javascript library 'pqc' that allows for the display of the inner workings of both algorithms.
+Latviz is built using Next.js, a fullstack React-based framework, along with Tailwind CSS for the frontend and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using a modification of an existing Javascript library 'pqc' that allows for the display of the inner workings of both algorithms as opposed to only the outputs.
 
 \begin{figure}[H]
 \centering
@@ -460,21 +469,22 @@ The visualization tool is built using Next.js, a fullstack React-based framework
 \label{fig10}
 \end{figure}
 
-\subsection{ML-KEM}
-The implementation of ML-KEM is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025). The implementation and its visualization is split following ML-KEM's three stages: Key Generation, Encapsulation, and Decapsulation.
-\subsection{ML-DSA}
-The implementation of ML-DSA is a modified version of the algorithm provided in the pqc library (Kalava et al., 2025).
 \subsection{Visualization Flow}
-\section{Evaluation and Results}
-\subsection{Evaluation Method}
+The visualizations for both algorithms follow the same general flow, outlined as follows. 
 
+After selecting either ML-KEM or ML-DSA, the user is moved to a page
+
+\section{Evaluation and Results}
+This section describes the method used to evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, as well as the results of the evaluation.
+
+\subsection{Methods}
+To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, a user survey of Latviz users was conducted. The aim of the survey was to measure if the tool helped users in their understanding of ML-KEM or ML-DSA, if it was effective in doing so, and which parts were found to be adequate or not for the learning process. The correspondents ranged consisted of .... with varying degrees of understanding relating to cryptography, post-quantum cryptography, and lattice-based cryptography prior to using Latviz.
+
+The survey consisted primarily of 5-point Likert-scale questions ranging from 'Strongly Agree' to 'Strongly Disagree' and evaluated the following aspects of the visualization: overall understanding of the algorithms, clarity and ease of understanding of the explanations, the effectiveness of the step-by-step visualization approach, comprehension of variables and internal algorithmic processes, the usability and readability of the interface, and the perceived effectiveness of Latviz as a learning tool. In addition, an optional section was added to gather user suggestions or feedback that wasn't covered by the available questions.
+
+\subsection{Results}
 
 \section{Conclusion}
-\begin{theorem}
-This is a sample theorem. The run-in heading is set in bold, while
-the following text appears in italics. Definitions, lemmas,
-propositions, and corollaries are styled the same way.
-\end{theorem}
 
 %
 % ---- Bibliography ----
@@ -534,14 +544,22 @@ Barker et al. (2018). Recommendation for the Entropy Sources Used for Random Bit
 \bibitem{16}
 Barker et al. (2025). Recommendation for Random Bit Generator (RBG) Constructions. \textit{NIST Special Publication 800-90C}. \doi{10.6028/nist.sp.800-90c}
 
+\bibitem{17}
+Allen, N. \& Herbert, A, S. (1972). \textit{Human Problem Solving}. Prentice-Hall, Englewood Cliffs, NJ.
+
+\bibitem{18}
+Byrne, M. D., Catrambone, R., \& Stasko, J. T. (1999). Evaluating animations as student aids in learning computer algorithms. \textit{Computers \& Education}, 33(4), 253–278. \doi{10.1016/s0360-1315(99)00023-8}
+
+\bibitem{19}
+Judith, S. G., (1996) Pedagogic Aspects of Algorithm Animation. Unpublished Ph.D. dissertation, Computer Science, University of Colorado
+
 \bibitem{}
 Stasko, J., Badre, A., \& Lewis, C. (1993). Do Algorithm Animations Assist Learning? An Empirical Study and Analysis. \textit{Proceedings of the SIGCHI Conference on Human Factors in Computing Systems  - CHI ’93}, 61–66. \doi{10.1145/169059.169078}
 
 \bibitem{mwle}
 Langlois, A. \& Stehle, D. (2012). Worst-Case to Average-Case Reductions for Module Lattices. https://eprint.iacr.org/2012/090
 
-\bibitem{eaasailca}
-Byrne, M. D., Catrambone, R., \& Stasko, J. T. (1999). Evaluating animations as student aids in learning computer algorithms. \textit{Computers \& Education}, 33(4), 253–278. \doi{10.1016/s0360-1315(99)00023-8}
+
 
 \end{thebibliography}
 \end{document}
