@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.21)  25 MAY 2026 01:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.21)  30 MAY 2026 18:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -427,120 +427,172 @@ Overfull \hbox (2.599pt too wide) in paragraph at lines 49--50
 [1
 
 {C:/Users/Acer/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2] [3]
-<images/KEM_diagram.png, id=26, 392.46625pt x 513.92pt>
-File: images/KEM_diagram.png Graphic file (type png)
-<use images/KEM_diagram.png>
-Package pdftex.def Info: images/KEM_diagram.png  used on input line 96.
-(pdftex.def)             Requested size: 124.96468pt x 163.63437pt.
+
+pdfTeX warning: pdflatex (file ./images/KEM_diagram.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/KEM_diagram.pdf, id=26, 283.0575pt x 370.5042pt>
+File: images/KEM_diagram.pdf Graphic file (type pdf)
+<use images/KEM_diagram.pdf>
+Package pdftex.def Info: images/KEM_diagram.pdf  used on input line 96.
+(pdftex.def)             Requested size: 124.96468pt x 163.57072pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4 <./images/KEM_diagram.png>] [5]
-<images/kyber-keygen.png, id=42, 1029.8475pt x 269.005pt>
-File: images/kyber-keygen.png Graphic file (type png)
-<use images/kyber-keygen.png>
-Package pdftex.def Info: images/kyber-keygen.png  used on input line 173.
-(pdftex.def)             Requested size: 291.58249pt x 76.16234pt.
- [6 <./images/kyber-keygen.png>]
-<images/kyber-encrypt.png, id=47, 1155.31625pt x 463.7325pt>
-File: images/kyber-encrypt.png Graphic file (type png)
-<use images/kyber-encrypt.png>
-Package pdftex.def Info: images/kyber-encrypt.png  used on input line 220.
-(pdftex.def)             Requested size: 291.58249pt x 117.03668pt.
- [7 <./images/kyber-encrypt.png>]
-<images/kyber-decrypt.png, id=54, 1086.0575pt x 251.94125pt>
-File: images/kyber-decrypt.png Graphic file (type png)
-<use images/kyber-decrypt.png>
-Package pdftex.def Info: images/kyber-decrypt.png  used on input line 273.
-(pdftex.def)             Requested size: 291.58249pt x 67.64061pt.
- [8]
-<images/DSS_diagram.png, id=59, 482.80376pt x 393.47pt>
-File: images/DSS_diagram.png Graphic file (type png)
-<use images/DSS_diagram.png>
-Package pdftex.def Info: images/DSS_diagram.png  used on input line 289.
-(pdftex.def)             Requested size: 166.61781pt x 135.7893pt.
+ [4 <./images/KEM_diagram.pdf>] [5]
+
+pdfTeX warning: pdflatex (file ./images/kyber-keygen.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/kyber-keygen.pdf, id=59, 742.69469pt x 186.6975pt>
+File: images/kyber-keygen.pdf Graphic file (type pdf)
+<use images/kyber-keygen.pdf>
+Package pdftex.def Info: images/kyber-keygen.pdf  used on input line 173.
+(pdftex.def)             Requested size: 291.58249pt x 73.29602pt.
+[6 <./images/kyber-keygen.pdf>]
+
+pdfTeX warning: pdflatex (file ./images/kyber-encrypt.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/kyber-encrypt.pdf, id=81, 833.03218pt x 334.3692pt>
+File: images/kyber-encrypt.pdf Graphic file (type pdf)
+<use images/kyber-encrypt.pdf>
+Package pdftex.def Info: images/kyber-encrypt.pdf  used on input line 220.
+(pdftex.def)             Requested size: 291.58249pt x 117.04117pt.
+[7 <./images/kyber-encrypt.pdf>]
+
+pdfTeX warning: pdflatex (file ./images/kyber-decrypt.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/kyber-decrypt.pdf, id=111, 781.96138pt x 181.6386pt>
+File: images/kyber-decrypt.pdf Graphic file (type pdf)
+<use images/kyber-decrypt.pdf>
+Package pdftex.def Info: images/kyber-decrypt.pdf  used on input line 273.
+(pdftex.def)             Requested size: 291.58249pt x 67.73181pt.
+[8]
+
+pdfTeX warning: pdflatex (file ./images/DSS_diagram.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/DSS_diagram.pdf, id=116, 349.305pt x 284.98468pt>
+File: images/DSS_diagram.pdf Graphic file (type pdf)
+<use images/DSS_diagram.pdf>
+Package pdftex.def Info: images/DSS_diagram.pdf  used on input line 289.
+(pdftex.def)             Requested size: 166.61781pt x 135.93878pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [9 <./images/kyber-decrypt.png>] [10 <./images/DSS_diagram.png>]
-<images/dsa-keygen.png, id=70, 1437.37pt x 319.1925pt>
-File: images/dsa-keygen.png Graphic file (type png)
-<use images/dsa-keygen.png>
-Package pdftex.def Info: images/dsa-keygen.png  used on input line 356.
-(pdftex.def)             Requested size: 291.58249pt x 64.74814pt.
- [11 <./images/dsa-keygen.png>]
-<images/dsa-sign.png, id=75, 1367.1075pt x 603.25375pt>
-File: images/dsa-sign.png Graphic file (type png)
-<use images/dsa-sign.png>
-Package pdftex.def Info: images/dsa-sign.png  used on input line 391.
-(pdftex.def)             Requested size: 291.58249pt x 128.65688pt.
- [12 <./images/dsa-sign.png>] [13]
-<images/dsa-verify.png, id=85, 1417.295pt x 623.32875pt>
-File: images/dsa-verify.png Graphic file (type png)
-<use images/dsa-verify.png>
-Package pdftex.def Info: images/dsa-verify.png  used on input line 437.
-(pdftex.def)             Requested size: 291.58249pt x 128.23024pt.
- [14 <./images/dsa-verify.png>] [15]
-<images/Architecture_diagram.png, id=93, 462.72874pt x 383.4325pt>
-File: images/Architecture_diagram.png Graphic file (type png)
-<use images/Architecture_diagram.png>
-Package pdftex.def Info: images/Architecture_diagram.png  used on input line 467.
-(pdftex.def)             Requested size: 166.61781pt x 138.06485pt.
- [16 <./images/Architecture_diagram.png>]
+ [9 <./images/kyber-decrypt.pdf>] [10 <./images/DSS_diagram.pdf>]
+
+pdfTeX warning: pdflatex (file ./images/dsa-keygen.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/dsa-keygen.pdf, id=153, 614.295pt x 147.57133pt>
+File: images/dsa-keygen.pdf Graphic file (type pdf)
+<use images/dsa-keygen.pdf>
+Package pdftex.def Info: images/dsa-keygen.pdf  used on input line 356.
+(pdftex.def)             Requested size: 291.58249pt x 70.04756pt.
+[11 <./images/dsa-keygen.pdf>]
+
+pdfTeX warning: pdflatex (file ./images/dsa-sign.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/dsa-sign.pdf, id=182, 984.5583pt x 435.54718pt>
+File: images/dsa-sign.pdf Graphic file (type pdf)
+<use images/dsa-sign.pdf>
+Package pdftex.def Info: images/dsa-sign.pdf  used on input line 391.
+(pdftex.def)             Requested size: 291.58249pt x 128.99039pt.
+[12 <./images/dsa-sign.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+
+pdfTeX warning: pdflatex (file ./images/dsa-verify.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/dsa-verify.pdf, id=237, 1020.93419pt x 449.76028pt>
+File: images/dsa-verify.pdf Graphic file (type pdf)
+<use images/dsa-verify.pdf>
+Package pdftex.def Info: images/dsa-verify.pdf  used on input line 437.
+(pdftex.def)             Requested size: 291.58249pt x 128.45065pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14 <./images/dsa-verify.pdf>] [15]
+
+pdfTeX warning: pdflatex (file ./images/Architecture_diagram.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+<images/Architecture_diagram.pdf, id=275, 845.04686pt x 700.23412pt>
+File: images/Architecture_diagram.pdf Graphic file (type pdf)
+<use images/Architecture_diagram.pdf>
+Package pdftex.def Info: images/Architecture_diagram.pdf  used on input line 467.
+(pdftex.def)             Requested size: 166.61781pt x 138.05698pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16]
+<images/about_mldsa.pdf, id=279, 845.1575pt x 597.23125pt>
+File: images/about_mldsa.pdf Graphic file (type pdf)
+<use images/about_mldsa.pdf>
+Package pdftex.def Info: images/about_mldsa.pdf  used on input line 477.
+(pdftex.def)             Requested size: 166.61781pt x 117.73999pt.
+
+
+pdfTeX warning: pdflatex (file ./images/process_overview.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+<images/process_overview.pdf, id=280, 845.04686pt x 525.85797pt>
+File: images/process_overview.pdf Graphic file (type pdf)
+<use images/process_overview.pdf>
+Package pdftex.def Info: images/process_overview.pdf  used on input line 486.
+(pdftex.def)             Requested size: 166.61781pt x 103.67728pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [17 <./images/Architecture_diagram.pdf> <./images/about_mldsa.pdf>]
+
+pdfTeX warning: pdflatex (file ./images/process_animation.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+<images/process_animation.pdf, id=289, 845.04686pt x 527.3644pt>
+File: images/process_animation.pdf Graphic file (type pdf)
+<use images/process_animation.pdf>
+Package pdftex.def Info: images/process_animation.pdf  used on input line 493.
+(pdftex.def)             Requested size: 166.61781pt x 103.97427pt.
+[18 <./images/process_overview.pdf> <./images/process_animation.pdf>]
 No file paper.bbl.
-[17]
-Underfull \hbox (badness 10000) in paragraph at lines 524--525
+
+Underfull \hbox (badness 10000) in paragraph at lines 546--547
 []\T1/cmr/m/n/9 Kalava et al. (2025). Post-Quantum Se-cu-rity for Web Ap-pli-ca-tions.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 527--528
+Underfull \hbox (badness 10000) in paragraph at lines 549--550
 []\T1/cmr/m/n/9 Kang, D. (2026). ML-KEM from Scratch. \T1/cmr/m/it/9 Github.io\T1/cmr/m/n/9 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 533--534
+Underfull \hbox (badness 10000) in paragraph at lines 555--556
 []\T1/cmr/m/n/9 Avanzi et al. (2021). CRYSTALS-Kyber. https://pq-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 536--537
+Underfull \hbox (badness 10000) in paragraph at lines 558--559
 []\T1/cmr/m/n/9 Bai et al. (2021). CRYSTALS-Dilithium. https://pq-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 542--543
+Underfull \hbox (badness 10000) in paragraph at lines 564--565
 []\T1/cmr/m/n/9 Barker et al. (2018). Rec-om-men-da-tion for the En-tropy Sources
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 542--543
+Underfull \hbox (badness 10000) in paragraph at lines 564--565
 \T1/cmr/m/n/9 Used for Ran-dom Bit Gen-er-a-tion. \T1/cmr/m/it/9 NIST Spe-cial Pub-li-ca-tion 800-90B\T1/cmr/m/n/9 .
  []
 
-
-Underfull \hbox (badness 2865) in paragraph at lines 557--558
+[19]
+Underfull \hbox (badness 2865) in paragraph at lines 579--580
 \T1/cmr/m/it/9 Con-fer-ence on Hu-man Fac-tors in Com-put-ing Sys-tems - CHI '93\T1/cmr/m/n/9 , 61^^U66.
  []
 
-[18] (paper.aux)
+[20] (paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6568 strings out of 467866
- 98111 string characters out of 5428395
- 528577 words of memory out of 5000000
- 35372 multiletter control sequences out of 15000+600000
+ 6592 strings out of 467866
+ 99103 string characters out of 5428395
+ 528652 words of memory out of 5000000
+ 35396 multiletter control sequences out of 15000+600000
  645943 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,12n,65p,1204b,502s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0700.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper.pdf (18 pages, 560572 bytes).
+Output written on paper.pdf (20 pages, 1087882 bytes).
 PDF statistics:
- 604 PDF objects out of 1000 (max. 8388607)
+ 807 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

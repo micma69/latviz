@@ -93,7 +93,7 @@ ML-KEM and other KEMs (Key Encapsulation Mechanisms) typically consist of three 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.36\linewidth]{images/KEM_diagram.png}
+\includegraphics[width=.36\linewidth]{images/KEM_diagram.pdf}
 \caption{Simplified key establishment process using KEM}
 \label{fig1}
 \end{figure}
@@ -170,7 +170,7 @@ Assuming the generated random seeds \textit{d} and \textit{z} are valid, the see
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/kyber-keygen.png}
+\includegraphics[width=.84\linewidth]{images/kyber-keygen.pdf}
 \caption{Kyber Key Generation Algorithm K-PKE.KeyGen}
 \label{fig2}
 \end{figure}
@@ -217,7 +217,7 @@ A copy of shared secret $K$ and the randomness $r$ used during encryption are de
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/kyber-encrypt.png}
+\includegraphics[width=.84\linewidth]{images/kyber-encrypt.pdf}
 \caption{Kyber Encryption Algorithm K-PKE.Encrypt}
 \label{fig3}
 \end{figure}
@@ -270,7 +270,7 @@ From the decapsulation key, the PKE encryption key $ek_{PKE}$, PKE decryption ke
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/kyber-decrypt.png}
+\includegraphics[width=.84\linewidth]{images/kyber-decrypt.pdf}
 \caption{Kyber Decryption Algorithm K-PKE.Decrypt}
 \label{fig4}
 \end{figure}
@@ -286,7 +286,7 @@ ML-DSA and other digital signature schemes typically consist of three algorithms
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/DSS_diagram.png}
+\includegraphics[width=.48\linewidth]{images/DSS_diagram.pdf}
 \caption{Simplified digital signature scheme}
 \label{fig5}
 \end{figure}
@@ -353,7 +353,7 @@ $\xi \leftarrow \mathbb{B}^{32}$ \tcc{choose random seed}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/dsa-keygen.png}
+\includegraphics[width=.84\linewidth]{images/dsa-keygen.pdf}
 \caption{ML-DSA Internal Keygen Algorithm ML-DSA.KeyGen\_internal}
 \label{fig6}
 \end{figure}
@@ -388,7 +388,7 @@ $\sigma \leftarrow \mathrm{ML\text{-}DSA.Sign\_internal}(sk, M', rnd)$
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/dsa-sign.png}
+\includegraphics[width=.84\linewidth]{images/dsa-sign.pdf}
 \caption{ML-DSA Internal Signing Algorithm ML-DSA.Sign\_internal}
 \label{fig7}
 \end{figure}
@@ -434,7 +434,7 @@ Finally, the verifier checks that response $z$ is valid (by checking whether all
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/dsa-verify.png}
+\includegraphics[width=.84\linewidth]{images/dsa-verify.pdf}
 \caption{ML-DSA Internal Verification Algorithm ML-DSA.Verify\_internal}
 \label{fig8}
 \end{figure}
@@ -464,25 +464,47 @@ Latviz is built using Next.js, a fullstack React-based framework, along with Tai
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/Architecture_diagram.png}
+\includegraphics[width=.48\linewidth]{images/Architecture_diagram.pdf}
 \caption{Latviz fullstack architecture}
 \label{fig10}
 \end{figure}
 
 \subsection{Visualization Flow}
-The visualizations for both algorithms follow the same general flow, outlined as follows. 
+The visualizations for both algorithms follow the same general flow. After opening the pages for ML-KEM or ML-DSA, the first thing the user sees is a short explanation on the chosen algorithm; what it is, what it is set to replace, and what its difficulty is based on.
 
-After selecting either ML-KEM or ML-DSA, the user is moved to a page
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/about_mldsa.pdf}
+\caption{ML-DSA about component}
+\label{fig11}
+\end{figure}
+
+Below that is an overview of how the scheme is used.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/process_overview.pdf}
+\caption{ML-DSA Process}
+\label{fig12}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/process_animation.pdf}
+\caption{ML-DSA Process Animation}
+\label{fig13}
+\end{figure}
 
 \section{Evaluation and Results}
 This section describes the method used to evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, as well as the results of the evaluation.
 
 \subsection{Methods}
-To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, a user survey of Latviz users was conducted. The aim of the survey was to measure if the tool helped users in their understanding of ML-KEM or ML-DSA, if it was effective in doing so, and which parts were found to be adequate or not for the learning process. The correspondents ranged consisted of .... with varying degrees of understanding relating to cryptography, post-quantum cryptography, and lattice-based cryptography prior to using Latviz.
+To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, a user survey of Latviz users was conducted. The aim of the survey was to measure if the tool helped users in their understanding of ML-KEM or ML-DSA, if it was effective in doing so, and which parts were found to be adequate or not for the learning process. The group of correspondents consists of 15 people with varying degrees of understanding relating to cryptography, post-quantum cryptography, and lattice-based cryptography prior to using Latviz.
 
-The survey consisted primarily of 5-point Likert-scale questions ranging from 'Strongly Agree' to 'Strongly Disagree' and evaluated the following aspects of the visualization: overall understanding of the algorithms, clarity and ease of understanding of the explanations, the effectiveness of the step-by-step visualization approach, comprehension of variables and internal algorithmic processes, the usability and readability of the interface, and the perceived effectiveness of Latviz as a learning tool. In addition, an optional section was added to gather user suggestions or feedback that wasn't covered by the available questions.
+The survey consists primarily of 5-point Likert-scale questions ranging from 'Strongly Agree' to 'Strongly Disagree' and evaluates the following aspects of the visualization: overall understanding of the algorithms, clarity and ease of understanding of the explanations, the effectiveness of the step-by-step visualization approach, comprehension of variables and internal algorithmic processes, the usability and readability of the interface, and the perceived effectiveness of Latviz as a learning tool. In addition, an optional section was added to gather user suggestions or feedback that was not covered by the available questions.
 
 \subsection{Results}
+The survey
 
 \section{Conclusion}
 
