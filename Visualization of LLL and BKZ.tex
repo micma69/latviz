@@ -259,9 +259,72 @@ We will use Next.js, a React-based framework for building web applications, with
 For the visualization part, we will use D3 for the visualization part, combined with React to create matrices and vectors visualizations. Our secondary objective for the frontend is to create a visualization which have animations for the steps of these algorithms. We believe the animated version of these visualizations can be understand easier by the users. 
 
 \section{Visualization}
-\subsection{Vector Representations for Visualizations}
+\subsection{Euclidean Vector Representations for the Visualization of LLL and BKZ}
 \mbox{}
-Vector visualization is a very essential as well an intuitive concept to gain proper understanding of linear algebra concepts (Calderone Dan, 2023). This also includes LLL and BKZ algorithms. And so, for both 2D and 3D visualization panels in each modules of LLL and BKZ, we will depict the vectors extracted from the input (the matrix we inserted) as Euclidean vectors within 2D and 3D Cartesian fields. Here, every single vector is depicted as an arrow that starts from (0,0) as the "anchor", connected with the vectors themselves. Each arrows has different colouring scheme and is unique in terms of value, as every vectors are unique (as they're linearly independent). No vectors would have more than one arrow that represents them (as they all must be linearly independent). %soon will be updated this week also going to fix the bug in LLL and BKZ where two identical vectors are processed and even visualized, something shouldn't be happen (it's likely from the backend part)
+Vector visualization is a very essential as well an intuitive concept to gain proper understanding of linear algebra concepts (Calderone Dan, 2023). This also includes LLL and BKZ algorithms. And so, for both 2D and 3D visualization panels in each modules of LLL and BKZ, we will depict the vectors extracted from the input (the matrix we inserted) as Euclidean vectors within 2D and 3D Cartesian coordinate system. 
+
+The reason why we choose Euclidean vectors to represent the processes as well the inputs of the LLL and BKZ is because both algorithms are obviously lattice reduction algorithms, which operate on the vectors within a Euclidean space. As such, visualizing both algorithms through Euclidean vector representations become a natural choice to show the behavior of lattice bases during the lattice reduction processes. Subprocesses within LLL and BKZ such as the Gram-Schmidt Orthogonalization, basis reduction, and vector swapping (LLL), as well the localized LLLs (BKZ) are involving changes of length, direction, and angles of these vectors. To numerically map the Euclidean Space, we will use the Cartesian coordinate system, on the basis that lattice basis vectors are naturally represented numerically as coordinates in Euclidean space. Since the LLL and BKZ algorithms operate through geometric transformations of vectors, we could state that the Cartesian coordinate system is an intuitive way to visually display the changes of the properties of these vectors. 
+
+Within the Cartesian coordinate system we will use, whether it is the 2D or the 3D visualization, these vectors are depicted as arrows that are anchored to the origin point of (0,0) in 2D Cartesian coordinate and (0,0,0) in 3D Cartesian coordinate. The reason why we make the (0,0) and the (0,0,0) as the common origin points of all vectors within our visualization panel is to simplify the observation of geometric properties between basis vectors. Thus, by anchoring all vectors to these common origin points, users can directly compare the orientations and magnitudes of vectors without additional coordinate transformations or positional offsets. Conventionally, how the vectors are visualized in linear algebra and vector geometry in the linear algebra (which also includes lattice reduction algorithms like LLL and BKZ) are as arrows originating from the coordinate origin, which in our case, is (0,0) for 2D visualization and (0,0,0) for 3D visualization. 
+
+Each arrows has different colouring scheme and is unique in terms of value, as every vectors are unique (as they're linearly independent). No vectors would have more than one arrow that represents them (as they all must be linearly independent).
+
+Thus, by representing basis vectors as Euclidean vectors inside Cartesian coordinate systems which all starts from (0,0) as the "anchor point", and with unique colour for each single vector, we expect the users to be able to visually observe how highly non-orthogonal bases gradually transform into shorter and more orthogonal bases throughout the LLL and BKZ algorithms in an easier way. 
+
+\subsection{Representation of Algorithmic Processes in the Visualization System}
+\mbox{}
+As what we already stated before, we will build our program based on the LLL and BKZ algorithms. Because our tool is a visualizer, it is obvious that it's necessary to transform the elements from the LLL and BKZ algorithms (such as initial matrix, vector reduction, vector swap, Lovasz status checking, final output, and so) into visual and textual elements. We think that some elements are better visualized, while some others are better shown in textual format. 
+
+\subsubsection{Lattice Basis Representation of the Input Matrix}
+\mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{initial basis.png}
+    \caption{The initial basis panel (LLL)}
+    \label{Initial Basis}
+\end{figure}
+\mbox{}
+
+The whole visualization process begins after the user insert their matrix in the input field, and then clicked "Insert Matrix" button. Within the frontend system, the inserted matrix is parsed into a 2D array, which represents the basis of the inserted matrix. The outer array represents the entire matrix, while the inner array represents the individual basis vectors which are represented by spatial Cartesian coordinates. These basis vectors will be shown as vectors arranged vertically from top to bottom (just like their matrix counterparts) with the first vector is the topmost vector basis.
+For the LLL visualization module, the 2D array, alongside with the inserted $\delta$-value will be passed into the runLLL function (which executes a LLL process) and runBKZ function (which executes a BKZ process) in lll.ts and in bkz.ts. For the BKZ visualization module, the 2D array, the $\delta$-value, and the $\beta$-value will be passed into the runBKZ function in bkz.ts, which executes a BKZ process.  
+
+\subsubsection{Euclidean Vectors Representation of the Basis Vectors}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{input matrix.png}
+    \caption{The input matrix}
+    \label{input matrix}
+\end{figure}
+\mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{basis from the input matrix.png}
+    \caption{Basis vectors from the input matrix}
+    \label{basis of the matrix}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{cartesian representation.png}
+    \caption{Basis vectors from the input matrix, represented in the Cartesian coordinate within a Euclidean space}
+    \label{cartesian representation}
+\end{figure}
+As what we already stated before, the basis vectors extracted from the input matrix are represented visually as Euclidean vectors inside Cartesian coordinate systems. Thus, each vector is displayed as an arrow originating from the coordinate origin ((0,0) in the 2D visualization or (0,0,0) in the 3D visualization), each one having a unique color, and each one pointing toward the coordinates which represent their numerical values - or the elements of the matrix. For example, the vector $v_1 = (4,5)$ is visualized as an arrow from the origin point of (0,0) toward the point (4,5). Because all vectors are anchored to the origin point, this allows users to observe the length and direction of these vectors, as well the change of them during the reduction process from the beginning until the final output. 
+
+\subsubsection{Textual Explanation Panel to Represent the Gram-Schmidt Orthogonalization}
+\mbox{}
+We decide that the Gram-Schmidt Orthogonalization subprocess would be better off explained through textual explanation in a pop-up window when the user clicks "Show Calculations" button in the "Step and Calculation Details" panel (which we will explain it in the section 4.3.3). At first, the LLL module's frontend source code (lll/page.tsx) would call the runLLL function from the backend source code of lll.ts and inserts the needed parameters - which consist of the basis vectors, the $\delta$-value, and the Boolean flag "true". Within the runLLLL function, it would call the function gramSchmidt and the program would insert the basis vectors to the function and the gramSchmidt function would perform a Gram-Schmidt Orthogonalization to these vectors. The function returns the orthogonalized version of these vectors. Later, the function generateGSOCalculations would be called and then these orthogonalized vectors, alongside the original vectors, are inserted to the generateGSOCalculations function in order to generate a textual display of the mathematical steps behind the Gram-Schmidt Orthogonalization. 
+
+\subsubsection{Textual Explanation Panel to Represent the Vector Reduction process}
+\mbox{}
+Like how the Gram-Schmidt Orthogonalization is shown to the users, we will show the vector reduction process in the form of a textual explanation of its calculation steps in a pop-up window. How we technically display the textual explanation of the calculations behind the vector reduction and vector swap processes are roughly similar to the Gram-Schmidt process explanation. When the frontend called runLLL function from the backend source code of lll.ts, after performing Gram-Schmidt Orthonalization and other conditions for the vector reduction to be performed, it would call the function vectorSubtract - which as its name suggests, performs a vector size reduction process. The output produced by vectorSubtract, together with the previous vector and the currently examined vector would then be inserted into a function named generateReduceCalculations in order to generate a textual display of the mathematical steps behind the vector size reduction process.
+
+\subsubsection{Textual Explanation Panel to Represent the Vector Swap Process}
+\mbox{}
+If the current basis doesn't satisfy the Lovasz Condition, it wouldn't only triggered a vector reduction, but also the vector swap after the vector reduction. The currently examined vector would has its index getting switched with the index of the previous vector. Later, the function of generateSwapCalculations would be executed, which generates a textual display of the mathematical steps behind the vector swap process. 
+
+\subsubsection{Status Panel to Represent the Lovasz Condition Checking}
+\mbox{}
+The Lovasz Condition is depicted as a status panel of two states ("Satisfied" and "Not Satisfied"). Unlike with the usual mechanism of Lovasz Condition checking, for convenience reasons, we keep display the Lovasz Condition status even when the current process isn't the Lovasz Condition checking as in the common LLL algorithm. This is achieved through the addition of the the function computeLovaszStatus in the app/lll/page.tsx functions to continously checking the Lovasz Condition status in order to keep the Lovasz Status panel has a status at one time, from the first step of the process until the final step. Obviously we have the regular Lovasz Condition checker - the function lovaszCondition in the backend code is to perform Lovasz Condition checking only after the currently examined vector has been reduced. Of course, there is a risk of these two Lovasz Condition checkers would have two different answers at the same time, but we managed to eliminate this risk by employing them into separate responsibilities, as what we already explained before. In the frontend, the runLLL would be executed first, then the produced result (lllResult) contains data of the steps. The steps would then be used by the computeLovaszStatus to visualize the Lovász condition status at each historical step without re-executing the algorithm or affecting the algorithm's control flow. In a shorter explanation, the computeLovaszStatus only recheck the Lovasz Status based on the existing data gained from LLL execution by the backend. 
 
 \subsection{Output Visualization and Textual Elements for LLL and BKZ}
 Visualization of both LLL and BKZ algorithms contains following five visual elements in their output section :
@@ -350,12 +413,16 @@ First, we have the LLL algorithm. The input panel for this algorithm has matrix 
 
 User can click "Back" and "Next" button in the upper part of the output section to see the previous and next steps of the LLL algorithm process. All visual and textual information panels in the output section are subjects of change according to the current step of the LLL algorithm process. 
 
+[insert the pipeline algorithm from input to blabla diagram here lol]
+
 \subsection{Visualization of the BKZ Algorithm}
 Next, we have the BKZ algorithm, which is one of the more powerful lattice reduction algorithm. Because theoritically this algorithm could be comprised of multiple LLL processes, we design the output section to show the user the number of LLL processes as well an additional information called "Current Process", which provides the user of the steps that is unique to BKZ algorithm, which are the current number of the LLL process and SVP enumeration. 
 
 The only differences with LLL page is in the input panel, which has an additional, mandatory field for the block size, and in the output section, in which has Shortest Vector panel. Moreover, in the upper part of the output section, we place four additional information, which are "Block Size", "Delta", "Total LLL Processes", and "Current Process". Out of all of these additional information, only "Current Process" isn't static. 
 
 Aside from additional panels and input field, the rest of the visualization and basically mechanism of the output's UI is the same as the LLL ones. 
+
+[insert the pipeline algorithm from input to blabla diagram here lol]
 
 \section{Result}
 Please note that the first paragraph of a section or subsection is
