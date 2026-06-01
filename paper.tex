@@ -25,6 +25,7 @@
 %\urlstyle{rm}
 %
 \usepackage{listings}
+\usepackage{subcaption}
 \setcounter{secnumdepth}{4}
 
 \begin{document}
@@ -470,7 +471,7 @@ Latviz is built using Next.js, a fullstack React-based framework, along with Tai
 \end{figure}
 
 \subsection{Visualization Flow}
-The visualizations for both algorithms follow the same general flow. After opening the pages for ML-KEM or ML-DSA, the first thing the user sees is a short explanation on the chosen algorithm; what it is, what it is set to replace, and what its difficulty is based on.
+The visualizations for both algorithms follow the same general flow. After opening the pages for ML-KEM or ML-DSA, the first thing the user sees is a short explanation on the chosen algorithm; what it is, what it is set to replace, and what its difficulty is based on. Below is what the section looks like for ML-DSA (for the sake of brevity, the other sections will also be represented by their ML-DSA counterparts):
 
 \begin{figure}[H]
 \centering
@@ -479,7 +480,9 @@ The visualizations for both algorithms follow the same general flow. After openi
 \label{fig11}
 \end{figure}
 
-Below that is an overview of how the scheme is used.
+ML-DSA is described in terms that should be familar to most people with an awareness of cryptography. Rather than focusing on the underlying lattice mathematics, the description emphasizes practical concepts such as signature generation, signature verification, quantum resistant security, and the relationship between ML-DSA and existing algorithms like RSA and ECDSA. This keeps the introduction accessible while preserving the key ideas needed to understand its role in modern cryptographic systems.
+
+After that is a section that briefly explains each stage of the chosen algorithm and provides an animation showing the scheme in use.
 
 \begin{figure}[H]
 \centering
@@ -488,6 +491,8 @@ Below that is an overview of how the scheme is used.
 \label{fig12}
 \end{figure}
 
+The section first shows a short description of the purpose of each stage of either algorithm. For ML-DSA, this is key generation, signing, and verification. If the user clicks the button on the bottom of the section, an animation will play that shows the scheme being used in a simplified abstraction of a real world example.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=.48\linewidth]{images/process_animation.pdf}
@@ -495,16 +500,154 @@ Below that is an overview of how the scheme is used.
 \label{fig13}
 \end{figure}
 
+Below that is a section that displays the an instance of the algorithm in full, including the variables and functions involved in its inner workings. Within it are four different components that each have different functions.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/mldsa_fullvisualization.pdf}
+\caption{ML-DSA Full Animation Section}
+\label{fig14}
+\end{figure}
+
+Starting from the top-right is the security level selection component. The user can pick between the security levels ML-DSA-44, ML-DSA-65, and ML-DSA-87, though it defaults to the lowest security level. Beneath the selection, the parameters of the chosen security level are displayed. Whenever a security level is chosen, the visualization is reset and a new instance of ML-DSA is created according to the new security level.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{images/selectsecurity.pdf}
+  \caption{Security level selection}
+  \label{fig:sub8}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{images/parameters.pdf}
+  \caption{Parameters per security level}
+  \label{fig:sub9}
+\end{subfigure}
+\caption{Security Level Selection Component}
+\label{fig:seclevel}
+\end{figure}
+
+The leftmost component is the main part of this section. It contains four buttons. The first three lead to visualizations of the three stages of ML-DSA. The visualizations come in the form of step-by-step abstractions of the main algorithms of each stage, complete with explanations on the relevant variables and functions. 
+
+In ML-DSA specifically, there is an input section for the signing stage that only appears after the key generation stage has been gone through. It needs to be filled in before the signing stage can be accessed, and it is the only actual input from the user that can be used for running an instance of ML-DSA aside from security level selection.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/leftmost_component.pdf}
+\caption{ML-DSA Full Animation Section}
+\label{fig15}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{images/sign_input1.pdf}
+  \caption{Empty message input}
+  \label{fig:sub6}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{images/sign_input2.pdf}
+  \caption{Filled message input}
+  \label{fig:sub7}
+\end{subfigure}
+\caption{Input for Sign Message}
+\label{fig:signmessage}
+\end{figure}
+
+As interactivity forces engagement and engagement leads to more effective learning \cite{11}, these visualizations are interactive. Each variable is displayed in the form of a colored matrix which can be expanded on click to show more values. When hovered on, a popup will appear beside it that describes what it is and provides extra details relating to what it is used for or how it is calculated.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.3\linewidth]{images/unexpanded.pdf}
+  \caption{Unexpanded variable}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.3\linewidth]{images/expanded.pdf}
+  \caption{Expanded variable}
+  \label{fig:sub2}
+\end{subfigure}
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.3\linewidth]{images/popup.pdf}
+  \caption{Popup description}
+  \label{fig:sub3}
+\end{subfigure}
+\caption{Variables in the form of colored matrices}
+\label{fig:variable}
+\end{figure}
+
+Additionally, when a variable is clicked, the component in the middle of the right column will show that variable in scrollable form. This allows for the entire variable to be visible instead of only the first 32 values. There is also an option for the variable to be visible in array form for easier viewing of the values.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{images/sidegrid.pdf}
+  \caption{Grid view}
+  \label{fig:sub4}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{images/sidearray.pdf}
+  \caption{Array view}
+  \label{fig:sub5}
+\end{subfigure}
+\caption{Full variables in the side component}
+\label{fig:sideview}
+\end{figure}
+
+When a function is clicked on, it will lead to a visualization of that function. For example, the internal key generation function seen in Figure 14 (more formally known as ML-DSA.KeyGen\_internal) will show the following:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/default_func.pdf}
+\caption{ML-DSA Full Animation Section (Step 1)}
+\label{fig16}
+\end{figure}
+
+The figure above shows the first step of the function, the input. Subsequent steps can be shown and removed by clicking on the right and left arrows on the lower-right component. Instead of showing the entire function at once, this serves to split the function into more easily followed steps where one part clearly leads to another.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/step_9.pdf}
+\caption{Stepping Component}
+\label{fig17}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/keygen_internal_viz.pdf}
+\caption{ML-DSA Full Animation Section (Step 9)}
+\label{fig18}
+\end{figure}
+
+For ML-DSA specifically, there is also a loop function that visualizes each iteration of the valid signature generation loop, elaborating on where and why each specific iteration prior to the last one is invalid.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{images/loopiteration.pdf}
+\caption{Sign Loop Iteration Control}
+\label{fig19}
+\end{figure}
+
 \section{Evaluation and Results}
 This section describes the method used to evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, as well as the results of the evaluation.
 
 \subsection{Methods}
-To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, a user survey of Latviz users was conducted. The aim of the survey was to measure if the tool helped users in their understanding of ML-KEM or ML-DSA, if it was effective in doing so, and which parts were found to be adequate or not for the learning process. The group of correspondents consists of 15 people with varying degrees of understanding relating to cryptography, post-quantum cryptography, and lattice-based cryptography prior to using Latviz.
+To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, a user survey of Latviz users was conducted. The aim of the survey was to measure if the tool helped users in their understanding of ML-KEM and ML-DSA, if it was effective in doing so, and which parts were found to be adequate or not for the learning process. The group of correspondents consists of 16 people with varying degrees of understanding relating to cryptography, post-quantum cryptography, and lattice-based cryptography prior to using Latviz.
 
-The survey consists primarily of 5-point Likert-scale questions ranging from 'Strongly Agree' to 'Strongly Disagree' and evaluates the following aspects of the visualization: overall understanding of the algorithms, clarity and ease of understanding of the explanations, the effectiveness of the step-by-step visualization approach, comprehension of variables and internal algorithmic processes, the usability and readability of the interface, and the perceived effectiveness of Latviz as a learning tool. In addition, an optional section was added to gather user suggestions or feedback that was not covered by the available questions.
+The survey consists primarily of 5-point Likert-scale questions ranging from 'Strongly Agree' to 'Strongly Disagree' and focuses on evaluating the following aspects of the visualization: overall understanding of the algorithms, clarity and ease of understanding of the explanations, the effectiveness of the step-by-step visualization approach, comprehension of variables and internal algorithmic processes, the usability and readability of the interface, and the perceived effectiveness of Latviz as a learning tool. In addition, an optional section was added to gather user suggestions or feedback that was not covered by the available questions.
 
 \subsection{Results}
-The survey
+From 
 
 \section{Conclusion}
 

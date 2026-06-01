@@ -75,6 +75,12 @@ INPUT D:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
 INPUT D:\Program Files\MiKTeX\tex\latex\listings\listings.cfg
 INPUT D:\Program Files\MiKTeX\tex\latex\listings\listings.cfg
 INPUT D:\Program Files\MiKTeX\tex\latex\listings\listings.cfg
+INPUT D:\Program Files\MiKTeX\tex\latex\caption\subcaption.sty
+INPUT D:\Program Files\MiKTeX\tex\latex\caption\subcaption.sty
+INPUT D:\Program Files\MiKTeX\tex\latex\caption\caption.sty
+INPUT D:\Program Files\MiKTeX\tex\latex\caption\caption.sty
+INPUT D:\Program Files\MiKTeX\tex\latex\caption\caption3.sty
+INPUT D:\Program Files\MiKTeX\tex\latex\caption\caption3.sty
 INPUT D:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT D:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT .\paper.aux
@@ -210,6 +216,96 @@ INPUT .\images\process_animation.pdf
 INPUT .\images\process_animation.pdf
 INPUT .\images\process_animation.pdf
 INPUT .\images\process_animation.pdf
+INPUT .\images\mldsa_fullvisualization.pdf
+INPUT .\images\mldsa_fullvisualization.pdf
+INPUT .\images\mldsa_fullvisualization.pdf
+INPUT .\images\mldsa_fullvisualization.pdf
+INPUT .\images\mldsa_fullvisualization.pdf
+INPUT .\images\mldsa_fullvisualization.pdf
+INPUT .\images\selectsecurity.pdf
+INPUT .\images\selectsecurity.pdf
+INPUT .\images\selectsecurity.pdf
+INPUT .\images\selectsecurity.pdf
+INPUT .\images\selectsecurity.pdf
+INPUT .\images\selectsecurity.pdf
+INPUT .\images\parameters.pdf
+INPUT .\images\parameters.pdf
+INPUT .\images\parameters.pdf
+INPUT .\images\parameters.pdf
+INPUT .\images\parameters.pdf
+INPUT .\images\parameters.pdf
+INPUT .\images\leftmost_component.pdf
+INPUT .\images\leftmost_component.pdf
+INPUT .\images\leftmost_component.pdf
+INPUT .\images\leftmost_component.pdf
+INPUT .\images\leftmost_component.pdf
+INPUT .\images\leftmost_component.pdf
+INPUT .\images\sign_input1.pdf
+INPUT .\images\sign_input1.pdf
+INPUT .\images\sign_input1.pdf
+INPUT .\images\sign_input1.pdf
+INPUT .\images\sign_input1.pdf
+INPUT .\images\sign_input1.pdf
+INPUT .\images\sign_input2.pdf
+INPUT .\images\sign_input2.pdf
+INPUT .\images\sign_input2.pdf
+INPUT .\images\sign_input2.pdf
+INPUT .\images\sign_input2.pdf
+INPUT .\images\sign_input2.pdf
+INPUT .\images\unexpanded.pdf
+INPUT .\images\unexpanded.pdf
+INPUT .\images\unexpanded.pdf
+INPUT .\images\unexpanded.pdf
+INPUT .\images\unexpanded.pdf
+INPUT .\images\unexpanded.pdf
+INPUT .\images\expanded.pdf
+INPUT .\images\expanded.pdf
+INPUT .\images\expanded.pdf
+INPUT .\images\expanded.pdf
+INPUT .\images\expanded.pdf
+INPUT .\images\expanded.pdf
+INPUT .\images\popup.pdf
+INPUT .\images\popup.pdf
+INPUT .\images\popup.pdf
+INPUT .\images\popup.pdf
+INPUT .\images\popup.pdf
+INPUT .\images\popup.pdf
+INPUT .\images\sidegrid.pdf
+INPUT .\images\sidegrid.pdf
+INPUT .\images\sidegrid.pdf
+INPUT .\images\sidegrid.pdf
+INPUT .\images\sidegrid.pdf
+INPUT .\images\sidegrid.pdf
+INPUT .\images\sidearray.pdf
+INPUT .\images\sidearray.pdf
+INPUT .\images\sidearray.pdf
+INPUT .\images\sidearray.pdf
+INPUT .\images\sidearray.pdf
+INPUT .\images\sidearray.pdf
+INPUT .\images\default_func.pdf
+INPUT .\images\default_func.pdf
+INPUT .\images\default_func.pdf
+INPUT .\images\default_func.pdf
+INPUT .\images\default_func.pdf
+INPUT .\images\default_func.pdf
+INPUT .\images\step_9.pdf
+INPUT .\images\step_9.pdf
+INPUT .\images\step_9.pdf
+INPUT .\images\step_9.pdf
+INPUT .\images\step_9.pdf
+INPUT .\images\step_9.pdf
+INPUT .\images\keygen_internal_viz.pdf
+INPUT .\images\keygen_internal_viz.pdf
+INPUT .\images\keygen_internal_viz.pdf
+INPUT .\images\keygen_internal_viz.pdf
+INPUT .\images\keygen_internal_viz.pdf
+INPUT .\images\keygen_internal_viz.pdf
+INPUT .\images\loopiteration.pdf
+INPUT .\images\loopiteration.pdf
+INPUT .\images\loopiteration.pdf
+INPUT .\images\loopiteration.pdf
+INPUT .\images\loopiteration.pdf
+INPUT .\images\loopiteration.pdf
 INPUT paper.aux
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk
