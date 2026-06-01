@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1780346835.99006 "d:/12TH SEMESTER!/Tugas Akhir/latviz/Visualization of LLL and BKZ.tex" "Visualization of LLL and BKZ.pdf" "Visualization of LLL and BKZ" 1780346842.00764 0
+["pdflatex"] 1780348413.68893 "d:/12TH SEMESTER!/Tugas Akhir/latviz/Visualization of LLL and BKZ.tex" "Visualization of LLL and BKZ.pdf" "Visualization of LLL and BKZ" 1780348419.30367 0
   "C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1778803421 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx0900.pk" 1770274317 22504 9a72bc78ba5d74fec348d50ac14cda98 ""
   "C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1000.pk" 1770274305 25420 83768b43112167a4e9ba7d9f6c4fd2c1 ""
@@ -78,9 +78,9 @@
   "D:/Program Files (D)/tex/latex/tools/multicol.sty" 1761901070 33142 efe8f4750fc02524935e7423b4bdef69 ""
   "D:/Program Files (D)/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "D:/Program Files (D)/tex/latex/xurl/xurl.sty" 1641733940 4675 e4b8c405820368c2dfb03526e16d725a ""
-  "Visualization of LLL and BKZ.aux" 1780346840 8512 4a84d73fbcd242479fa6bb4e8c690e53 "pdflatex"
-  "Visualization of LLL and BKZ.tex" 1780346825 52119 af7f0904ac34898dc9334b50ce06ee66 ""
-  "d:/12TH SEMESTER!/Tugas Akhir/latviz/Visualization of LLL and BKZ.tex" 1780346825 52119 af7f0904ac34898dc9334b50ce06ee66 ""
+  "Visualization of LLL and BKZ.aux" 1780348418 8647 3c0f0e59c7c059db7cfdd692ee6e36ad "pdflatex"
+  "Visualization of LLL and BKZ.tex" 1780348405 52372 b26e3e8927996dbd711c25d6b2805f2d ""
+  "d:/12TH SEMESTER!/Tugas Akhir/latviz/Visualization of LLL and BKZ.tex" 1780348405 52372 b26e3e8927996dbd711c25d6b2805f2d ""
   "llncs.cls" 1779788144 44646 5fb5a2dc40571aa40f3d199c00cbb986 ""
   "pics/2Dvisz.png" 1779788146 23257 d56ea00b0c773f397eee2fc911d2eaa8 ""
   "pics/3Dvisz.png" 1779788146 28897 7d0bf2b3b554aaf3827eb85808848baa ""
@@ -94,7 +94,7 @@
   "pics/input matrix.png" 1780338023 5707 87388840a55436420f86915e9b0a063e ""
   "pics/lllrevisi.png" 1779788147 109109 fab63f074583aa361ee29877c399236b ""
   "pics/lovasz.png" 1779788147 3717 09688d9ae0d769b34040cab3b2fd8b2b ""
-  "pics/svpres.png" 1779788147 4511 08a84648f2451a5881b65a440ab4840c ""
+  "pics/svp.png" 1780348222 4756 102bd718abf04eb3ed62ea90c262056a ""
   (generated)
   "Visualization of LLL and BKZ.aux"
   "Visualization of LLL and BKZ.log"

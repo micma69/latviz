@@ -324,7 +324,12 @@ If the current basis doesn't satisfy the Lovasz Condition, it wouldn't only trig
 
 \subsubsection{Status Panel to Represent the Lovasz Condition Checking}
 \mbox{}
-The Lovasz Condition is depicted as a status panel of two states ("Satisfied" and "Not Satisfied"). Unlike with the usual mechanism of Lovasz Condition checking, for convenience reasons, we keep display the Lovasz Condition status even when the current process isn't the Lovasz Condition checking as in the common LLL algorithm. This is achieved through the addition of the the function computeLovaszStatus in the app/lll/page.tsx functions to continously checking the Lovasz Condition status in order to keep the Lovasz Status panel has a status at one time, from the first step of the process until the final step. Obviously we have the regular Lovasz Condition checker - the function lovaszCondition in the backend code is to perform Lovasz Condition checking only after the currently examined vector has been reduced. Of course, there is a risk of these two Lovasz Condition checkers would have two different answers at the same time, but we managed to eliminate this risk by employing them into separate responsibilities, as what we already explained before. In the frontend, the runLLL would be executed first, then the produced result (lllResult) contains data of the steps. The steps would then be used by the computeLovaszStatus to visualize the Lovász condition status at each historical step without re-executing the algorithm or affecting the algorithm's control flow. In a shorter explanation, the computeLovaszStatus only recheck the Lovasz Status based on the existing data gained from LLL execution by the backend. 
+The Lovasz Condition is depicted as a status panel of two states ("Satisfied" and "Not Satisfied"). Unlike with the usual mechanism of Lovasz Condition checking, for convenience reasons, we keep display the Lovasz Condition status even when the current process isn't the Lovasz Condition checking as in the common LLL algorithm. This is achieved through the addition of the the function computeLovaszStatus in the app/lll/page.tsx functions to continously checking the Lovasz Condition status in order to keep the Lovasz Status panel has a status at one time, from the first step of the process until the final step. Obviously we have the regular Lovasz Condition checker - the function lovaszCondition in the backend code is to perform Lovasz Condition checking only after the currently examined vector has been reduced. Of course, there is a risk of these two Lovasz Condition checkers would have two different answers at the same time, but we managed to eliminate this risk by employing them into separate responsibilities, as what we already explained before. In the frontend, the runLLL would be executed first, then the produced result (lllResult) contains data of the steps. The steps would then be used by the computeLovaszStatus to visualize the Lovász condition status at each historical step without re-executing the algorithm or affecting the algorithm's control flow. In a shorter explanation, the computeLovaszStatus only recheck the Lovasz Status based on the existing data gained from LLL execution by the backend.
+
+\subsubsection{Text Panel to Represent Shortest Vector Problem}
+\mbox{}
+The SVP is computed through each of the BKZ iterations. However, the program would only show the SVPs at the final step. It is displayed within a dedicated panel only in the BKZ module.
+%need a better reason lmfao
 
 \subsection{Output Visualization and Textual Elements for LLL and BKZ}
 Visualization of both LLL and BKZ algorithms contains following five visual elements in their output section :
@@ -397,16 +402,16 @@ This panel will tell the user of the current step (for example, "Basis size redu
 \end{figure}
 Like its namesake, this panel's sole function is to show the user the current basis. 
 
-\subsubsection{Shortest Vector Panel (BKZ only)}
+\subsubsection{Shortest Vector Panel}
 \mbox{}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{svpres.png}
+    \includegraphics[width=0.7\textwidth]{svp.png}
     \caption{The SVP we gained, which only shown in the final step of the BKZ process}
     \label{SVP}
 \end{figure}
 
-Only for BKZ algorithm, this panel's sole function is to inform the user the shortest vectors found in the current basis. Only shown in the last step.
+This panel's sole function is to inform the user the shortest vectors found in the current basis. Only shown in the last step.
 
 \subsection{Visualization of the LLL Algorithm}
 First, we have the LLL algorithm. The input panel for this algorithm has matrix and delta value insertion fields, and located in the left half of the page. After the user inserted matrix and delta value properly, and clicked "Process Matrix" button, user can see the "Initial Matrix" as well "Initial Basis" panels below the input panel. To the right half of the page, there is the output section, contains four of five visual and textual information panels, without Shortest Vector Panel. 
