@@ -438,8 +438,6 @@ Finally, the verifier checks that response $z$ is valid (by checking whether all
 \label{fig8}
 \end{figure}
 
-\subsection{Prior Visualizations}
-
 \subsection{The Effectiveness of Visualizations}
 Multiple studies have been conducted on the viability of digital and algorithm visualizations as learning tools or as aids to learning. Among them, results vary depending on the referred visualization tools, subjects of study, measures of effectiveness, metrics for learning, and so on. However, it can be inferred that some tools perform better than others for the purposes of helping their users learn their relevant topics and what characteristics makes those tools work better.
 
@@ -642,16 +640,68 @@ For ML-DSA specifically, there is also a loop function that visualizes each iter
 This section describes the method used to evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, as well as the results of the evaluation.
 
 \subsection{Methods}
-To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, a user survey of Latviz users was conducted. The aim of the survey was to measure if the tool helped users in their understanding of ML-KEM and ML-DSA, if it was effective in doing so, and which parts were found to be adequate or not for the learning process. The group of correspondents consists of 16 people with varying degrees of understanding relating to cryptography, post-quantum cryptography, and lattice-based cryptography prior to using Latviz.
+To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, a user survey of Latviz users was conducted. The aim of the survey was to measure if the tool helped users in their understanding of ML-KEM and ML-DSA, if it was effective in doing so, and which parts were found to be adequate or not for the learning process. The group of respondents consisted of 22 people with varying degrees of understanding relating to cryptography, post-quantum cryptography, and lattice-based cryptography prior to using Latviz.
 
-The survey consists primarily of 5-point Likert-scale questions ranging from 'Strongly Agree' to 'Strongly Disagree' and focuses on evaluating the following aspects of the visualization: overall understanding of the algorithms, clarity and ease of understanding of the explanations, the effectiveness of the step-by-step visualization approach, comprehension of variables and internal algorithmic processes, the usability and readability of the interface, and the perceived effectiveness of Latviz as a learning tool. In addition, an optional section was added to gather user suggestions or feedback that was not covered by the available questions.
+The survey consists primarily of 5-point Likert-scale questions \cite{likert} ranging from 'Strongly Agree' to 'Strongly Disagree' and focuses on evaluating the following aspects of the visualization: overall understanding of the algorithms, clarity and ease of understanding of the explanations, the effectiveness of the step-by-step visualization approach, comprehension of variables and internal algorithmic processes, the usability and readability of the interface, and the perceived effectiveness of Latviz as a learning tool. In addition, an optional section was added to gather user suggestions or feedback that was not covered by the available questions.
 
 \subsection{Results}
-On the whole, the results of the user survey showed that Latviz did improve the users' understanding of ML-KEM and ML-DSA, and was also considered an effective tool for learning the algorithms. 
+On the whole, the results of the user survey suggest that Latviz did improve the users' understanding of ML-KEM and ML-DSA, and was also considered an effective tool for learning the algorithms. 
 
-To examine whether these perceptions differed based on participants' prior experience with cryptography, users were divided into four groups according to their self-reported knowledge levels. The groups were defined as NC (No Cryptography Knowledge), LC (Low Cryptography Knowledge), YC-YPQ (Familiar with Cryptography and Post-Quantum Cryptography), and YC-LPQ (Familiar with Cryptography but Low Post-Quantum Cryptography Knowledge). The one user who reported being familiar with cryptography but unaware of post-quantum cryptography was included in the YC-LPQ group.
+To examine whether these perceptions differed based on participants' prior experience with cryptography, respondents were grouped based on their self-reported familiarity with cryptography and post-quantum cryptography. The groups were defined as NC (No Familiarity with Cryptography), LC (Low Familiarity with Cryptography), YC-YPQ (Familiar with Cryptography and Post-Quantum Cryptography), and YC-LPQ (Familiar with Cryptography but Low Post-Quantum Cryptography Knowledge).
 
-The overall responses regarding ML-KEM were largely positive. 73.3\% of users agreed with the statement that Latviz deepened their understanding of ML-KEM, 6.7\% strongly agreed, while 20\% that reported that they did not gain further understanding. 73.3\% of users again reported that they agreed with the statement that Latviz is an effective learning tool for ML-KEM. Interestingly, the percentage of users that strongly agreed rose to 13.3\%, followed by 13.3\% that were neutral. Taking a closer look at the users, it appears that despite not personally deepening their own understanding of ML-KEM, one student in group NC and another in group YC-YPQ still considered Latviz to be an effective learning tool, if not necessarily for themselves.
+\begin{table}[H]
+\centering
+\caption{Respondent Groups}
+\label{tab:respondentgroups}
+\begin{tabular}{|c|c|} 
+ \hline
+ Group & Amount of Respondents \\ [0.5ex]
+ \hline
+ NC & 9 \\
+ \hline
+ LC & 4 \\
+ \hline
+ YC-YPQ & 6 \\
+ \hline
+ YC-LPQ & 3 \\
+ \hline
+\end{tabular}
+\end{table}
+
+Following the classification of respondents into groups, the overall survey responses were analyzed. To start with, tables \ref{tab:mlkemresults} presents the distribution of responses for the ML-KEM section of the survey.
+
+\begin{table}[H]
+\centering
+\caption{Responses to ML-KEM Evaluation Questions}
+\label{tab:mlkemresults}
+\begin{tabular}{|p{8cm}|c|c|c|c|c|}
+\hline
+Statements & SD & D & N & A & SA \\
+\hline
+After using Latviz, I feel I better understand ML-KEM. & 0\% & 0\% & 18.2\% & 72.7\% & 9.1\% \\
+\hline
+The step-by-step visualization helped me understand the overall flow of ML-KEM. & 0\% & 0\% & 22.7\% & 63.6\% & 13.6\% \\
+\hline
+The explanations provided were easy to understand. & 0\% & 0\% & 40.9\% & 54.5\% & 4.5\% \\
+\hline
+I was able to understand the functions and variables used in ML-KEM. & 0\% & 0\% & 31.8\% & 63.6\% & 4.5\% \\
+\hline
+The visualization helped me understand the relationships between processes within the algorithm. & 0\% & 4.5\% & 13.6\% & 50\% & 31.8\% \\
+\hline
+I was able to follow changes to data and variables throughout the algorithm. & 0\% & 4.5\% & 18.2\% & 59.1\% & 18.2\% \\
+\hline
+I was able to understand how inputs were processed into outputs. & 0\% & 0\% & 27.3\% & 59.1\% & 13.6\% \\
+\hline
+The visualization was clear and easy to follow. & 0\% & 4.5\% & 9.1\% & 54.5\% & 31.8\% \\
+\hline
+Latviz is an effective learning tool for ML-KEM. & 0\% & 0\% & 22.7\% & 68.2\% & 9.1\% \\
+\hline
+\end{tabular}
+\end{table}
+
+As mentioned before, the overall responses regarding ML-KEM were largely positive. 72.7\% of users agreed with the statement that Latviz deepened their understanding of ML-KEM, 9.1\% strongly agreed, while 18.2\% that reported that they did not gain further understanding. However, only 68.2\% of users reported that they agreed with the statement that Latviz is an effective learning tool for ML-KEM, with the percentage of users that strongly agreed staying at 9.1\%, followed by 22.7\% that were neutral. Taking a closer look at the respondents, it appears that despite personally deepening their own understanding of ML-KEM, one respondent in group LC and another in group NC felt neutral about Latviz being an effective learning tool for ML-KEM.
+
+Looking through the results regarding specific sections of the ML-KEM visualization, the weakest parts of the visualization according to respondents were in the ease of understanding of the explanations. 40.9\% of respondents responded feeling neutral 
 
 The responses regarding ML-DSA were also largely positive.  73.3\% of users with the statement that Latviz deepened their understanding of ML-DSA, while 26.7\% reported neutrality towards the statement. As for whether Latviz is an effective learning tool for ML-DSA, another 26.7\% of users reported feeling neutral towards the statement, while the rest of the users were split between 60\% agreeing with the statement and 13.3\% strongly agreeing.
 
@@ -659,8 +709,39 @@ Beyond the overall effectiveness of Latviz as a learning tool, the survey goes i
 
 For ML-KEM, 66.7\% of respondents
 
+Next, table \ref{tab:mldsaresults} presents the distribution of results for the ML-DSA section of the survey. 
+
+\begin{table}[H]
+\centering
+\caption{Responses to ML-DSA Evaluation Questions}
+\label{tab:mldsaresults}
+\begin{tabular}{|p{8cm}|c|c|c|c|c|}
+\hline
+Question & SD & D & N & A & SA \\
+\hline
+After using Latviz, I feel I better understand ML-DSA. & 0\% & 0\% & 18.2\% & 77.3\% & 4.5\% \\
+\hline
+The step-by-step visualization helped me understand the overall flow of ML-DSA. & 0\% & 4.5\% & 18.2\% & 59.1\% & 18.2\% \\
+\hline
+The explanations provided were easy to understand. & 0\% & 4.5\% & 27.3\% & 54.5\% & 13.6\% \\
+\hline
+I was able to understand the functions and variables used in ML-DSA. & 0\% & 13.6\% & 9.1\% & 63.6\% & 13.6\% \\
+\hline
+The visualization helped me understand the relationships between processes within the algorithm. & 0\% & 0\% & 9.1\% & 59.1\% & 31.8\% \\
+\hline
+I was able to follow changes to data and variables throughout the algorithm. & 0\% & 0\% & 18.2\% & 72.7\% & 9.1\% \\
+\hline
+I was able to understand how inputs were processed into outputs. & 0\% & 4.5\% & 13.6\% & 59.1\% & 22.7\% \\
+\hline
+The visualization was clear and easy to follow. & 0\% & 0\% & 18.2\% & 59.1\% & 22.7\% \\
+\hline
+Latviz is an effective learning tool for ML-DSA. & 0\% & 0\% & 18.2\% & 72.7\% & 9.1\% \\
+\hline
+\end{tabular}
+\end{table}
+
 \section{Conclusion}
-This paper presents
+This paper presents the digital visualization tool Latviz that was created to help learners more easily understand the ML-KEM and ML-DSA cryptographic standards. It was designed primarily to 
 
 %
 % ---- Bibliography ----
@@ -673,13 +754,13 @@ This paper presents
 %
 \begin{thebibliography}{8}
 \bibitem{1}
-Benioff, Paul. (1980). The computer as a physical system: A microscopic quantum mechanical Hamiltonian model of computers as represented by Turing machines. \textit{Journal of Statistical Physics}, 22(5), 563–591. \doi{10.1007/bf01011339}
+Benioff, P. (1980). The computer as a physical system: A microscopic quantum mechanical Hamiltonian model of computers as represented by Turing machines. \textit{Journal of Statistical Physics}, 22(5), 563–591. \doi{10.1007/bf01011339}
 
 \bibitem{2}
-Benioff, Paul. (1982). Quantum mechanical hamiltonian models of turing machines. \textit{Journal of Statistical Physics}, 29(3), 515–546. \doi{10.1007/BF01342185}
+Benioff, P. (1982). Quantum mechanical hamiltonian models of turing machines. \textit{Journal of Statistical Physics}, 29(3), 515–546. \doi{10.1007/BF01342185}
 
 \bibitem{3}
-Feynman, Richard. (1982). Simulating Physics with Computers. \textit{International Journal of Theoretical Physics}, 21(6/7), 467–488. \doi{10.1007/BF02650179}
+Feynman, R. (1982). Simulating Physics with Computers. \textit{International Journal of Theoretical Physics}, 21(6/7), 467–488. \doi{10.1007/BF02650179}
 
 \bibitem{4}
 Bennett, C. H. \& Brassard, G. (2014). Quantum cryptography: Public key distribution and coin tossing. \textit{Theoretical Computer Science. Theoretical Aspects of Quantum Cryptography – celebrating 30 years of BB84}, 560(1), 7–11. \doi{10.1016/j.tcs.2014.05.025}
@@ -727,7 +808,10 @@ Allen, N. \& Herbert, A, S. (1972). \textit{Human Problem Solving}. Prentice-Hal
 Byrne, M. D., Catrambone, R., \& Stasko, J. T. (1999). Evaluating animations as student aids in learning computer algorithms. \textit{Computers \& Education}, 33(4), 253–278. \doi{10.1016/s0360-1315(99)00023-8}
 
 \bibitem{19}
-Judith, S. G., (1996) Pedagogic Aspects of Algorithm Animation. Unpublished Ph.D. dissertation, Computer Science, University of Colorado
+Judith, S. G., (1996). Pedagogic Aspects of Algorithm Animation. Unpublished Ph.D. dissertation, Computer Science, University of Colorado
+
+\bibitem{likert}
+Likert, R. (1932). A Technique for the Measurement of Attitudes. \textit{Archives of Psychology}.
 
 \bibitem{}
 Stasko, J., Badre, A., \& Lewis, C. (1993). Do Algorithm Animations Assist Learning? An Empirical Study and Analysis. \textit{Proceedings of the SIGCHI Conference on Human Factors in Computing Systems  - CHI ’93}, 61–66. \doi{10.1145/169059.169078}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.21)  4 JUN 2026 14:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.21)  5 JUN 2026 01:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -542,7 +542,7 @@ pdfTeX warning: pdflatex (file ./images/Architecture_diagram.pdf): PDF inclusion
 <images/Architecture_diagram.pdf, id=275, 845.04686pt x 700.23412pt>
 File: images/Architecture_diagram.pdf Graphic file (type pdf)
 <use images/Architecture_diagram.pdf>
-Package pdftex.def Info: images/Architecture_diagram.pdf  used on input line 466.
+Package pdftex.def Info: images/Architecture_diagram.pdf  used on input line 464.
 (pdftex.def)             Requested size: 166.61781pt x 138.05698pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -553,7 +553,7 @@ pdfTeX warning: pdflatex (file ./images/about_mldsa.pdf): PDF inclusion: found P
 <images/about_mldsa.pdf, id=279, 845.04686pt x 174.78394pt>
 File: images/about_mldsa.pdf Graphic file (type pdf)
 <use images/about_mldsa.pdf>
-Package pdftex.def Info: images/about_mldsa.pdf  used on input line 478.
+Package pdftex.def Info: images/about_mldsa.pdf  used on input line 476.
 (pdftex.def)             Requested size: 166.61781pt x 34.4601pt.
 
 
@@ -561,7 +561,7 @@ pdfTeX warning: pdflatex (file ./images/process_overview.pdf): PDF inclusion: fo
 <images/process_overview.pdf, id=280, 845.04686pt x 525.85797pt>
 File: images/process_overview.pdf Graphic file (type pdf)
 <use images/process_overview.pdf>
-Package pdftex.def Info: images/process_overview.pdf  used on input line 489.
+Package pdftex.def Info: images/process_overview.pdf  used on input line 487.
 (pdftex.def)             Requested size: 166.61781pt x 103.67728pt.
 [17 <./images/Architecture_diagram.pdf> <./images/about_mldsa.pdf>]
 
@@ -569,7 +569,7 @@ pdfTeX warning: pdflatex (file ./images/process_animation.pdf): PDF inclusion: f
 <images/process_animation.pdf, id=290, 845.04686pt x 527.3644pt>
 File: images/process_animation.pdf Graphic file (type pdf)
 <use images/process_animation.pdf>
-Package pdftex.def Info: images/process_animation.pdf  used on input line 498.
+Package pdftex.def Info: images/process_animation.pdf  used on input line 496.
 (pdftex.def)             Requested size: 166.61781pt x 103.97427pt.
 
 
@@ -577,7 +577,7 @@ pdfTeX warning: pdflatex (file ./images/mldsa_fullvisualization.pdf): PDF inclus
 <images/mldsa_fullvisualization.pdf, id=291, 845.04686pt x 603.44135pt>
 File: images/mldsa_fullvisualization.pdf Graphic file (type pdf)
 <use images/mldsa_fullvisualization.pdf>
-Package pdftex.def Info: images/mldsa_fullvisualization.pdf  used on input line 507.
+Package pdftex.def Info: images/mldsa_fullvisualization.pdf  used on input line 505.
 (pdftex.def)             Requested size: 166.61781pt x 118.97348pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -588,7 +588,7 @@ pdfTeX warning: pdflatex (file ./images/selectsecurity.pdf): PDF inclusion: foun
 <images/selectsecurity.pdf, id=301, 845.04686pt x 447.07892pt>
 File: images/selectsecurity.pdf Graphic file (type pdf)
 <use images/selectsecurity.pdf>
-Package pdftex.def Info: images/selectsecurity.pdf  used on input line 518.
+Package pdftex.def Info: images/selectsecurity.pdf  used on input line 516.
 (pdftex.def)             Requested size: 69.42365pt x 36.72891pt.
 
 
@@ -596,7 +596,7 @@ pdfTeX warning: pdflatex (file ./images/parameters.pdf): PDF inclusion: found PD
 <images/parameters.pdf, id=302, 845.04686pt x 424.92868pt>
 File: images/parameters.pdf Graphic file (type pdf)
 <use images/parameters.pdf>
-Package pdftex.def Info: images/parameters.pdf  used on input line 524.
+Package pdftex.def Info: images/parameters.pdf  used on input line 522.
 (pdftex.def)             Requested size: 69.42365pt x 34.90921pt.
 
 
@@ -604,7 +604,7 @@ pdfTeX warning: pdflatex (file ./images/leftmost_component.pdf): PDF inclusion: 
 <images/leftmost_component.pdf, id=303, 845.04686pt x 816.00421pt>
 File: images/leftmost_component.pdf Graphic file (type pdf)
 <use images/leftmost_component.pdf>
-Package pdftex.def Info: images/leftmost_component.pdf  used on input line 538.
+Package pdftex.def Info: images/leftmost_component.pdf  used on input line 536.
 (pdftex.def)             Requested size: 166.61781pt x 160.88202pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -615,7 +615,7 @@ pdfTeX warning: pdflatex (file ./images/sign_input1.pdf): PDF inclusion: found P
 <images/sign_input1.pdf, id=317, 845.04686pt x 641.42113pt>
 File: images/sign_input1.pdf Graphic file (type pdf)
 <use images/sign_input1.pdf>
-Package pdftex.def Info: images/sign_input1.pdf  used on input line 547.
+Package pdftex.def Info: images/sign_input1.pdf  used on input line 545.
 (pdftex.def)             Requested size: 69.42365pt x 52.69473pt.
 
 
@@ -623,7 +623,7 @@ pdfTeX warning: pdflatex (file ./images/sign_input2.pdf): PDF inclusion: found P
 <images/sign_input2.pdf, id=318, 845.04686pt x 614.13289pt>
 File: images/sign_input2.pdf Graphic file (type pdf)
 <use images/sign_input2.pdf>
-Package pdftex.def Info: images/sign_input2.pdf  used on input line 553.
+Package pdftex.def Info: images/sign_input2.pdf  used on input line 551.
 (pdftex.def)             Requested size: 69.42365pt x 50.45293pt.
 
 
@@ -631,7 +631,7 @@ pdfTeX warning: pdflatex (file ./images/unexpanded.pdf): PDF inclusion: found PD
 <images/unexpanded.pdf, id=319, 597.50792pt x 853.58272pt>
 File: images/unexpanded.pdf Graphic file (type pdf)
 <use images/unexpanded.pdf>
-Package pdftex.def Info: images/unexpanded.pdf  used on input line 567.
+Package pdftex.def Info: images/unexpanded.pdf  used on input line 565.
 (pdftex.def)             Requested size: 31.24174pt x 44.6223pt.
 
 
@@ -639,7 +639,7 @@ pdfTeX warning: pdflatex (file ./images/expanded.pdf): PDF inclusion: found PDF 
 <images/expanded.pdf, id=320, 597.50792pt x 1310.66249pt>
 File: images/expanded.pdf Graphic file (type pdf)
 <use images/expanded.pdf>
-Package pdftex.def Info: images/expanded.pdf  used on input line 573.
+Package pdftex.def Info: images/expanded.pdf  used on input line 571.
 (pdftex.def)             Requested size: 31.24174pt x 68.51682pt.
 
 
@@ -647,7 +647,7 @@ pdfTeX warning: pdflatex (file ./images/popup.pdf): PDF inclusion: found PDF ver
 <images/popup.pdf, id=321, 845.04686pt x 541.75606pt>
 File: images/popup.pdf Graphic file (type pdf)
 <use images/popup.pdf>
-Package pdftex.def Info: images/popup.pdf  used on input line 579.
+Package pdftex.def Info: images/popup.pdf  used on input line 577.
 (pdftex.def)             Requested size: 31.24174pt x 20.0215pt.
 [20 <./images/leftmost_component.pdf> <./images/sign_input1.pdf> <./images/sign_input2.pdf> <./images/unexpanded.pdf> <./images/expanded.pdf> <./images/popup.pdf>]
 
@@ -655,7 +655,7 @@ pdfTeX warning: pdflatex (file ./images/sidegrid.pdf): PDF inclusion: found PDF 
 <images/sidegrid.pdf, id=343, 845.04686pt x 635.89351pt>
 File: images/sidegrid.pdf Graphic file (type pdf)
 <use images/sidegrid.pdf>
-Package pdftex.def Info: images/sidegrid.pdf  used on input line 593.
+Package pdftex.def Info: images/sidegrid.pdf  used on input line 591.
 (pdftex.def)             Requested size: 69.42365pt x 52.24063pt.
 
 
@@ -663,7 +663,7 @@ pdfTeX warning: pdflatex (file ./images/sidearray.pdf): PDF inclusion: found PDF
 <images/sidearray.pdf, id=344, 845.04686pt x 637.13852pt>
 File: images/sidearray.pdf Graphic file (type pdf)
 <use images/sidearray.pdf>
-Package pdftex.def Info: images/sidearray.pdf  used on input line 599.
+Package pdftex.def Info: images/sidearray.pdf  used on input line 597.
 (pdftex.def)             Requested size: 69.42365pt x 52.34291pt.
 
 
@@ -671,7 +671,7 @@ pdfTeX warning: pdflatex (file ./images/default_func.pdf): PDF inclusion: found 
 <images/default_func.pdf, id=345, 845.04686pt x 811.0898pt>
 File: images/default_func.pdf Graphic file (type pdf)
 <use images/default_func.pdf>
-Package pdftex.def Info: images/default_func.pdf  used on input line 611.
+Package pdftex.def Info: images/default_func.pdf  used on input line 609.
 (pdftex.def)             Requested size: 166.61781pt x 159.9131pt.
 
 
@@ -679,7 +679,7 @@ pdfTeX warning: pdflatex (file ./images/step_9.pdf): PDF inclusion: found PDF ve
 <images/step_9.pdf, id=346, 845.04686pt x 342.44843pt>
 File: images/step_9.pdf Graphic file (type pdf)
 <use images/step_9.pdf>
-Package pdftex.def Info: images/step_9.pdf  used on input line 620.
+Package pdftex.def Info: images/step_9.pdf  used on input line 618.
 (pdftex.def)             Requested size: 166.61781pt x 67.51656pt.
 
 Underfull \vbox (badness 4805) has occurred while \output is active []
@@ -690,7 +690,7 @@ pdfTeX warning: pdflatex (file ./images/keygen_internal_viz.pdf): PDF inclusion:
 <images/keygen_internal_viz.pdf, id=359, 845.04686pt x 827.85948pt>
 File: images/keygen_internal_viz.pdf Graphic file (type pdf)
 <use images/keygen_internal_viz.pdf>
-Package pdftex.def Info: images/keygen_internal_viz.pdf  used on input line 627.
+Package pdftex.def Info: images/keygen_internal_viz.pdf  used on input line 625.
 (pdftex.def)             Requested size: 166.61781pt x 163.21939pt.
 
 
@@ -698,63 +698,72 @@ pdfTeX warning: pdflatex (file ./images/loopiteration.pdf): PDF inclusion: found
 <images/loopiteration.pdf, id=360, 845.04686pt x 236.1837pt>
 File: images/loopiteration.pdf Graphic file (type pdf)
 <use images/loopiteration.pdf>
-Package pdftex.def Info: images/loopiteration.pdf  used on input line 636.
+Package pdftex.def Info: images/loopiteration.pdf  used on input line 634.
 (pdftex.def)             Requested size: 166.61781pt x 46.56557pt.
-[22 <./images/step_9.pdf> <./images/keygen_internal_viz.pdf> <./images/loopiteration.pdf>] [23]
-No file paper.bbl.
+[22 <./images/step_9.pdf> <./images/keygen_internal_viz.pdf> <./images/loopiteration.pdf>]
+Overfull \hbox (1.59248pt too wide) in paragraph at lines 677--700
+ [][] 
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 700--701
+[23] [24]
+Overfull \hbox (6.21635pt too wide) in paragraph at lines 718--741
+ [][] 
+ []
+
+No file paper.bbl.
+[25]
+Underfull \hbox (badness 10000) in paragraph at lines 781--782
 []\T1/cmr/m/n/9 Kalava et al. (2025). Post-Quantum Se-cu-rity for Web Ap-pli-ca-tions.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 703--704
+Underfull \hbox (badness 10000) in paragraph at lines 784--785
 []\T1/cmr/m/n/9 Kang, D. (2026). ML-KEM from Scratch. \T1/cmr/m/it/9 Github.io\T1/cmr/m/n/9 .
  []
 
-[24]
-Underfull \hbox (badness 10000) in paragraph at lines 709--710
+
+Underfull \hbox (badness 10000) in paragraph at lines 790--791
 []\T1/cmr/m/n/9 Avanzi et al. (2021). CRYSTALS-Kyber. https://pq-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 712--713
+Underfull \hbox (badness 10000) in paragraph at lines 793--794
 []\T1/cmr/m/n/9 Bai et al. (2021). CRYSTALS-Dilithium. https://pq-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 718--719
+Underfull \hbox (badness 10000) in paragraph at lines 799--800
 []\T1/cmr/m/n/9 Barker et al. (2018). Rec-om-men-da-tion for the En-tropy Sources
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 718--719
+Underfull \hbox (badness 10000) in paragraph at lines 799--800
 \T1/cmr/m/n/9 Used for Ran-dom Bit Gen-er-a-tion. \T1/cmr/m/it/9 NIST Spe-cial Pub-li-ca-tion 800-90B\T1/cmr/m/n/9 .
  []
 
 
-Underfull \hbox (badness 2865) in paragraph at lines 733--734
+Underfull \hbox (badness 2865) in paragraph at lines 817--818
 \T1/cmr/m/it/9 Con-fer-ence on Hu-man Fac-tors in Com-put-ing Sys-tems - CHI '93\T1/cmr/m/n/9 , 61^^U66.
  []
 
-[25] (paper.aux)
+[26] (paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8167 strings out of 467866
- 130730 string characters out of 5428395
- 554194 words of memory out of 5000000
- 36962 multiletter control sequences out of 15000+600000
+ 8171 strings out of 467866
+ 130796 string characters out of 5428395
+ 554264 words of memory out of 5000000
+ 36966 multiletter control sequences out of 15000+600000
  645943 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,12n,77p,1176b,536s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0700.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper.pdf (25 pages, 1129657 bytes).
+Output written on paper.pdf (26 pages, 1137049 bytes).
 PDF statistics:
- 869 PDF objects out of 1000 (max. 8388607)
+ 874 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  136 words of extra memory for PDF output out of 10000 (max. 10000000)
 
