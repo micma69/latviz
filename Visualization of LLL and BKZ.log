@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  3 JUN 2026 03:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  5 JUN 2026 10:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -399,13 +399,13 @@ File: ./pics/lovasz.png Graphic file (type png)
 <use ./pics/lovasz.png>
 Package pdftex.def Info: ./pics/lovasz.png  used on input line 401.
 (pdftex.def)             Requested size: 242.98541pt x 44.68782pt.
- [20 <./pics/2Dvisz.png>] [21 <./pics/3Dvisz.png> <./pics/lovasz.png>]
-<./pics/currentstep.png, id=105, 391.4625pt x 75.28125pt>
+ [20 <./pics/2Dvisz.png>]
+<./pics/currentstep.png, id=100, 391.4625pt x 75.28125pt>
 File: ./pics/currentstep.png Graphic file (type png)
 <use ./pics/currentstep.png>
 Package pdftex.def Info: ./pics/currentstep.png  used on input line 412.
 (pdftex.def)             Requested size: 242.98541pt x 46.72786pt.
- [22 <./pics/currentstep.png>]
+ [21 <./pics/3Dvisz.png> <./pics/lovasz.png>] [22 <./pics/currentstep.png>]
 <./pics/currentbasis.png, id=110, 402.00188pt x 121.20282pt>
 File: ./pics/currentbasis.png Graphic file (type png)
 <use ./pics/currentbasis.png>
@@ -416,24 +416,24 @@ File: ./pics/svp.png Graphic file (type png)
 <use ./pics/svp.png>
 Package pdftex.def Info: ./pics/svp.png  used on input line 451.
 (pdftex.def)             Requested size: 242.98541pt x 50.75291pt.
- [23 <./pics/currentbasis.png>] [24 <./pics/svp.png>] [25] (Visualization of LLL and BKZ.aux)
+ [23 <./pics/currentbasis.png> <./pics/svp.png>] [24] [25] (Visualization of LLL and BKZ.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4887 strings out of 467866
- 69695 string characters out of 5429810
- 482642 words of memory out of 5000000
- 33726 multiletter control sequences out of 15000+600000
+ 4891 strings out of 467866
+ 69727 string characters out of 5429810
+ 482658 words of memory out of 5000000
+ 33730 multiletter control sequences out of 15000+600000
  640882 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,7n,65p,1613b,507s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "Visualization of LLL and BKZ.pdf" (25 pages, 469126 bytes).
+Output written on "Visualization of LLL and BKZ.pdf" (25 pages, 471415 bytes).
 PDF statistics:
- 520 PDF objects out of 1000 (max. 8388607)
+ 522 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
