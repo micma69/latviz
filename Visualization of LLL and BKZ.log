@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  5 JUN 2026 13:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  5 JUN 2026 14:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -332,10 +332,8 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
  (D:\Program Files (D)\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (0.1003pt too wide) in paragraph at lines 54--55
-\T1/cmr/m/n/9 which are strong enough to with-stand at-tacks from quantum-based crypt-
- []
-
+Title too long for running head. Please supply
+a shorter form with \titlerunning prior to \maketitle
 [1
 
 {C:/Users/ACER ASPIRE 3/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
@@ -543,15 +541,15 @@ L3 programming layer <2026-01-19>
 Here is how much of TeX's memory you used:
  5102 strings out of 467866
  74090 string characters out of 5429810
- 489404 words of memory out of 5000000
+ 489332 words of memory out of 5000000
  33941 multiletter control sequences out of 15000+600000
  640882 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,7n,65p,1613b,509s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "Visualization of LLL and BKZ.pdf" (35 pages, 665528 bytes).
+Output written on "Visualization of LLL and BKZ.pdf" (35 pages, 665012 bytes).
 PDF statistics:
- 594 PDF objects out of 1000 (max. 8388607)
+ 597 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  171 words of extra memory for PDF output out of 10000 (max. 10000000)
 
