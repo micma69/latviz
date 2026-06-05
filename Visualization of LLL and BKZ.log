@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  5 JUN 2026 12:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  5 JUN 2026 13:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -451,90 +451,90 @@ File: ./pics/bkz1.png Graphic file (type png)
 <use ./pics/bkz1.png>
 Package pdftex.def Info: ./pics/bkz1.png  used on input line 531.
 (pdftex.def)             Requested size: 242.98541pt x 136.13974pt.
-File: ./pics/lll1.png Graphic file (type png)
-<use ./pics/lll1.png>
-Package pdftex.def Info: ./pics/lll1.png  used on input line 541.
-(pdftex.def)             Requested size: 242.98541pt x 142.93512pt.
-File: ./pics/bkz1.png Graphic file (type png)
-<use ./pics/bkz1.png>
-Package pdftex.def Info: ./pics/bkz1.png  used on input line 548.
-(pdftex.def)             Requested size: 242.98541pt x 136.13974pt.
 <./pics/lll2.png, id=126, 328.97906pt x 173.89969pt>
 File: ./pics/lll2.png Graphic file (type png)
 <use ./pics/lll2.png>
-Package pdftex.def Info: ./pics/lll2.png  used on input line 555.
+Package pdftex.def Info: ./pics/lll2.png  used on input line 541.
 (pdftex.def)             Requested size: 242.98541pt x 128.44492pt.
 <./pics/bkz2.png, id=127, 296.60812pt x 170.88844pt>
 File: ./pics/bkz2.png Graphic file (type png)
 <use ./pics/bkz2.png>
-Package pdftex.def Info: ./pics/bkz2.png  used on input line 562.
+Package pdftex.def Info: ./pics/bkz2.png  used on input line 548.
 (pdftex.def)             Requested size: 242.98541pt x 139.99904pt.
 <./pics/lll3.png, id=128, 300.3722pt x 175.40532pt>
 File: ./pics/lll3.png Graphic file (type png)
 <use ./pics/lll3.png>
-Package pdftex.def Info: ./pics/lll3.png  used on input line 569.
+Package pdftex.def Info: ./pics/lll3.png  used on input line 555.
 (pdftex.def)             Requested size: 242.98541pt x 141.8982pt.
 <./pics/bkz3.png, id=129, 311.66437pt x 173.14688pt>
 File: ./pics/bkz3.png Graphic file (type png)
 <use ./pics/bkz3.png>
-Package pdftex.def Info: ./pics/bkz3.png  used on input line 576.
+Package pdftex.def Info: ./pics/bkz3.png  used on input line 562.
 (pdftex.def)             Requested size: 242.98541pt x 134.99326pt.
 <./pics/lll4.png, id=130, 285.31593pt x 179.92218pt>
 File: ./pics/lll4.png Graphic file (type png)
 <use ./pics/lll4.png>
-Package pdftex.def Info: ./pics/lll4.png  used on input line 583.
+Package pdftex.def Info: ./pics/lll4.png  used on input line 569.
 (pdftex.def)             Requested size: 242.98541pt x 153.22832pt.
 <./pics/bkz4.png, id=131, 284.56313pt x 182.18062pt>
 File: ./pics/bkz4.png Graphic file (type png)
 <use ./pics/bkz4.png>
-Package pdftex.def Info: ./pics/bkz4.png  used on input line 590.
+Package pdftex.def Info: ./pics/bkz4.png  used on input line 576.
 (pdftex.def)             Requested size: 242.98541pt x 155.56866pt.
 <./pics/lll5.png, id=132, 324.46219pt x 183.68625pt>
 File: ./pics/lll5.png Graphic file (type png)
 <use ./pics/lll5.png>
-Package pdftex.def Info: ./pics/lll5.png  used on input line 596.
+Package pdftex.def Info: ./pics/lll5.png  used on input line 582.
 (pdftex.def)             Requested size: 242.98541pt x 137.56252pt.
 <./pics/bkz5.png, id=133, 314.67563pt x 175.40532pt>
 File: ./pics/bkz5.png Graphic file (type png)
 <use ./pics/bkz5.png>
-Package pdftex.def Info: ./pics/bkz5.png  used on input line 602.
+Package pdftex.def Info: ./pics/bkz5.png  used on input line 588.
 (pdftex.def)             Requested size: 242.98541pt x 135.44524pt.
 <./pics/lll6.png, id=134, 285.31593pt x 177.66376pt>
 File: ./pics/lll6.png Graphic file (type png)
 <use ./pics/lll6.png>
-Package pdftex.def Info: ./pics/lll6.png  used on input line 608.
+Package pdftex.def Info: ./pics/lll6.png  used on input line 594.
 (pdftex.def)             Requested size: 242.98541pt x 151.30496pt.
 <./pics/bkz6.png, id=135, 319.94531pt x 177.66376pt>
 File: ./pics/bkz6.png Graphic file (type png)
 <use ./pics/bkz6.png>
-Package pdftex.def Info: ./pics/bkz6.png  used on input line 614.
+Package pdftex.def Info: ./pics/bkz6.png  used on input line 600.
 (pdftex.def)             Requested size: 242.98541pt x 134.93097pt.
 <./pics/lll7.png, id=136, 298.86656pt x 179.92218pt>
 File: ./pics/lll7.png Graphic file (type png)
 <use ./pics/lll7.png>
-Package pdftex.def Info: ./pics/lll7.png  used on input line 621.
+Package pdftex.def Info: ./pics/lll7.png  used on input line 607.
 (pdftex.def)             Requested size: 242.98541pt x 146.28249pt.
 <./pics/bkz7.png, id=137, 316.18124pt x 180.675pt>
 File: ./pics/bkz7.png Graphic file (type png)
 <use ./pics/bkz7.png>
-Package pdftex.def Info: ./pics/bkz7.png  used on input line 627.
+Package pdftex.def Info: ./pics/bkz7.png  used on input line 613.
 (pdftex.def)             Requested size: 242.98541pt x 138.84999pt.
 <./pics/lll8.png, id=138, 297.36093pt x 175.40532pt>
 File: ./pics/lll8.png Graphic file (type png)
 <use ./pics/lll8.png>
-Package pdftex.def Info: ./pics/lll8.png  used on input line 633.
+Package pdftex.def Info: ./pics/lll8.png  used on input line 619.
 (pdftex.def)             Requested size: 242.98541pt x 143.3301pt.
+File: ./pics/lll1.png Graphic file (type png)
+<use ./pics/lll1.png>
+Package pdftex.def Info: ./pics/lll1.png  used on input line 628.
+(pdftex.def)             Requested size: 242.98541pt x 142.93512pt.
+File: ./pics/bkz1.png Graphic file (type png)
+<use ./pics/bkz1.png>
+Package pdftex.def Info: ./pics/bkz1.png  used on input line 635.
+(pdftex.def)             Requested size: 242.98541pt x 136.13974pt.
 <./pics/bkz8.png, id=139, 296.60812pt x 179.92218pt>
 File: ./pics/bkz8.png Graphic file (type png)
 <use ./pics/bkz8.png>
-Package pdftex.def Info: ./pics/bkz8.png  used on input line 639.
+Package pdftex.def Info: ./pics/bkz8.png  used on input line 642.
 (pdftex.def)             Requested size: 242.98541pt x 147.39987pt.
 <./pics/lll9.png, id=140, 304.88907pt x 175.40532pt>
 File: ./pics/lll9.png Graphic file (type png)
 <use ./pics/lll9.png>
-Package pdftex.def Info: ./pics/lll9.png  used on input line 645.
+Package pdftex.def Info: ./pics/lll9.png  used on input line 649.
 (pdftex.def)             Requested size: 242.98541pt x 139.79716pt.
-[25] [26 <./pics/educ background.png> <./pics/crypt familiarity.png>] [27 <./pics/pqc famil.png> <./pics/lattice familiarity.png> <./pics/lll1.png>] [28 <./pics/bkz1.png>] [29 <./pics/lll2.png> <./pics/bkz2.png> <./pics/lll3.png>] [30 <./pics/bkz3.png> <./pics/lll4.png> <./pics/bkz4.png>] [31 <./pics/lll5.png> <./pics/bkz5.png> <./pics/lll6.png>] [32 <./pics/bkz6.png> <./pics/lll7.png> <./pics/bkz7.png>] [33 <./pics/lll8.png> <./pics/bkz8.png> <./pics/lll9.png>] [34] (Visualization of LLL and BKZ.aux)
+[25] [26 <./pics/educ background.png> <./pics/crypt familiarity.png>] [27 <./pics/pqc famil.png> <./pics/lattice familiarity.png> <./pics/lll1.png>] [28 <./pics/bkz1.png> <./pics/lll2.png> <./pics/bkz2.png>] [29 <./pics/lll3.png> <./pics/bkz3.png> <./pics/lll4.png>] [30 <./pics/bkz4.png> <./pics/lll5.png> <./pics/bkz5.png>] [31 <./pics/lll6.png> <./pics/bkz6.png>] [32 <./pics/lll7.png> <./pics/bkz7.png> <./pics/lll8.png>] [33 <./pics/bkz8.png>] [34 <./pics/lll9.png>] [35] (Visualization of LLL and BKZ.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -543,15 +543,15 @@ L3 programming layer <2026-01-19>
 Here is how much of TeX's memory you used:
  5102 strings out of 467866
  74090 string characters out of 5429810
- 486229 words of memory out of 5000000
+ 489404 words of memory out of 5000000
  33941 multiletter control sequences out of 15000+600000
  640882 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,7n,65p,1613b,507s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,7n,65p,1613b,509s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "Visualization of LLL and BKZ.pdf" (34 pages, 660491 bytes).
+Output written on "Visualization of LLL and BKZ.pdf" (35 pages, 665528 bytes).
 PDF statistics:
- 591 PDF objects out of 1000 (max. 8388607)
+ 594 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  171 words of extra memory for PDF output out of 10000 (max. 10000000)
 
