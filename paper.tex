@@ -645,7 +645,7 @@ To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and M
 The survey consists primarily of 5-point Likert-scale questions \cite{likert} ranging from 'Strongly Agree' to 'Strongly Disagree' and focuses on evaluating the following aspects of the visualization: overall understanding of the algorithms, clarity and ease of understanding of the explanations, the effectiveness of the step-by-step visualization approach, comprehension of variables and internal algorithmic processes, the usability and readability of the interface, and the perceived effectiveness of Latviz as a learning tool. In addition, an optional section was added to gather user suggestions or feedback that was not covered by the available questions.
 
 \subsection{Results}
-On the whole, the results of the user survey suggest that Latviz did improve the users' understanding of ML-KEM and ML-DSA, and was also considered an effective tool for learning the algorithms. 
+On the whole, the results of the user survey suggest that Latviz did improve users' understanding of ML-KEM and ML-DSA, and was also considered an effective tool for learning the algorithms. 
 
 To examine whether these perceptions differed based on participants' prior experience with cryptography, respondents were grouped based on their self-reported familiarity with cryptography and post-quantum cryptography. The groups were defined as NC (No Familiarity with Cryptography), LC (Low Familiarity with Cryptography), YC-YPQ (Familiar with Cryptography and Post-Quantum Cryptography), and YC-LPQ (Familiar with Cryptography but Low Post-Quantum Cryptography Knowledge).
 
@@ -668,7 +668,7 @@ To examine whether these perceptions differed based on participants' prior exper
 \end{tabular}
 \end{table}
 
-Following the classification of respondents into groups, the overall survey responses were analyzed. To start with, tables \ref{tab:mlkemresults} presents the distribution of responses for the ML-KEM section of the survey.
+Following the classification of respondents into groups, the overall survey responses were analyzed. To start with, the table \ref{tab:mlkemresults} presents the distribution of responses for the ML-KEM section of the survey.
 
 \begin{table}[H]
 \centering
@@ -701,13 +701,15 @@ Latviz is an effective learning tool for ML-KEM. & 0\% & 0\% & 22.7\% & 68.2\% &
 
 As mentioned before, the overall responses regarding ML-KEM were largely positive. 72.7\% of users agreed with the statement that Latviz deepened their understanding of ML-KEM, 9.1\% strongly agreed, while 18.2\% that reported that they did not gain further understanding. However, only 68.2\% of users reported that they agreed with the statement that Latviz is an effective learning tool for ML-KEM, with the percentage of users that strongly agreed staying at 9.1\%, followed by 22.7\% that were neutral. Taking a closer look at the respondents, it appears that despite personally deepening their own understanding of ML-KEM, one respondent in group LC and another in group NC felt neutral about Latviz being an effective learning tool for ML-KEM.
 
-Looking through the results regarding specific sections of the ML-KEM visualization, the weakest parts of the visualization according to respondents were in the ease of understanding of the explanations. 40.9\% of respondents responded feeling neutral 
+To better understand the factors contributing to these overall perceptions, respondents were also asked to evaluate specific features of the ML-KEM visualization. 
 
-The responses regarding ML-DSA were also largely positive.  73.3\% of users with the statement that Latviz deepened their understanding of ML-DSA, while 26.7\% reported neutrality towards the statement. As for whether Latviz is an effective learning tool for ML-DSA, another 26.7\% of users reported feeling neutral towards the statement, while the rest of the users were split between 60\% agreeing with the statement and 13.3\% strongly agreeing.
+Overall, responses to these questions were positive, with most participants agreeing that the visualization helped them understand the internal workings of the algorithm. The highest levels of agreement were observed for statements regarding the relationships between algorithmic processes and the clarity of the visualization itself. In both cases, over 80\% of respondents agreed or strongly agreed that the visualizations helped them understand how different components of ML-KEM interact and that the interface was clear and easy to follow. 
 
-Beyond the overall effectiveness of Latviz as a learning tool, the survey goes into participants' perceptions of more specific parts of the tool. Specifically, participants were asked to evaluate the clarity and usefulness of the visualizations and explanations provided throughout the learning process. These questions encompassed whether or not the users could follow the step-by-step progression of the algorithm, understand the functions and the variables used within the algorithm, follow changes in data and variables at each stage, understand the relationships between different processes, and comprehend how inputs were transformed into outputs. Additionally, participants evaluated the clarity of the explanations and the overall readability of the visualizations.
+It should be noted however, that 4.5\% of respondents disagreed in both cases. Those disagreements, along with a majority of the neutral response, came from the NC group of respondents. This suggests that those without prior knowledge in cryptography may have found it more difficult to interpret the relationships between algorithmic processes and follow the visualizations than respondents with greater familiarity with the subject.
 
-For ML-KEM, 66.7\% of respondents
+Similarly, a large majority of respondents reported being able to follow changes in data and variables throughout the execution of the algorithm and understand how inputs were transformed into outputs. These findings suggest that the step-by-step visualization approach was effective in illustrating the flow of information through the algorithm.
+
+The least positive responses were observed for the clarity of the explanations provided. While no respondents disagreed that the explanations were easy to understand, 40.9\% selected a neutral response, indicating that a substantial portion of users felt that the written explanations could be improved. Likewise, 31.8\% of respondents were neutral regarding their understanding of the functions and variables used within ML-KEM. These results suggest that, although the visualizations themselves were generally effective, additional explanatory material or more detailed descriptions of variables may further improve the learning experience.
 
 Next, table \ref{tab:mldsaresults} presents the distribution of results for the ML-DSA section of the survey. 
 
@@ -739,6 +741,8 @@ Latviz is an effective learning tool for ML-DSA. & 0\% & 0\% & 18.2\% & 72.7\% &
 \hline
 \end{tabular}
 \end{table}
+
+Similar to the ML-KEM results, the responses regarding ML-DSA were largely positive.  73.3\% of users with the statement that Latviz deepened their understanding of ML-DSA, while 26.7\% reported neutrality towards the statement. As for whether Latviz is an effective learning tool for ML-DSA, another 26.7\% of users reported feeling neutral towards the statement, while the rest of the users were split between 60\% agreeing with the statement and 13.3\% strongly agreeing.
 
 \section{Conclusion}
 This paper presents the digital visualization tool Latviz that was created to help learners more easily understand the ML-KEM and ML-DSA cryptographic standards. It was designed primarily to 
