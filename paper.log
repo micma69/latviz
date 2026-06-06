@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.21)  5 JUN 2026 09:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.21)  6 JUN 2026 20:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -460,7 +460,12 @@ Overfull \hbox (2.599pt too wide) in paragraph at lines 50--51
 
 [1
 
-{C:/Users/Acer/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2] [3]
+{C:/Users/Acer/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+Overfull \hbox (5.50978pt too wide) in paragraph at lines 66--67
+[]\T1/cmr/bx/n/10 Complete al-go-rith-mic break-down\T1/cmr/m/n/10 : Latviz pro-vides a more in-depth break-
+ []
+
+[2] [3]
 
 pdfTeX warning: pdflatex (file ./images/KEM_diagram.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 <images/KEM_diagram.pdf, id=26, 283.0575pt x 370.5042pt>
@@ -469,7 +474,7 @@ File: images/KEM_diagram.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/KEM_diagram.pdf  used on input line 95.
 (pdftex.def)             Requested size: 124.96468pt x 163.57072pt.
 [4 <./images/KEM_diagram.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 5345) has occurred while \output is active []
 
  [5]
 
@@ -729,61 +734,56 @@ Overfull \hbox (2.15375pt too wide) in paragraph at lines 745--746
 []\T1/cmr/m/n/10 Similar to the ML-KEM re-sults, the re-sponses re-gard-ing ML-DSA were largely
  []
 
-[26]
+[26] [27]
 No file paper.bbl.
-[27]
-Underfull \hbox (badness 10000) in paragraph at lines 793--794
+
+Underfull \hbox (badness 10000) in paragraph at lines 808--809
 []\T1/cmr/m/n/9 Kalava et al. (2025). Post-Quantum Se-cu-rity for Web Ap-pli-ca-tions.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 796--797
+Underfull \hbox (badness 10000) in paragraph at lines 811--812
 []\T1/cmr/m/n/9 Kang, D. (2026). ML-KEM from Scratch. \T1/cmr/m/it/9 Github.io\T1/cmr/m/n/9 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 802--803
+Underfull \hbox (badness 10000) in paragraph at lines 817--818
 []\T1/cmr/m/n/9 Avanzi et al. (2021). CRYSTALS-Kyber. https://pq-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 805--806
+Underfull \hbox (badness 10000) in paragraph at lines 820--821
 []\T1/cmr/m/n/9 Bai et al. (2021). CRYSTALS-Dilithium. https://pq-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 811--812
+Underfull \hbox (badness 10000) in paragraph at lines 826--827
 []\T1/cmr/m/n/9 Barker et al. (2018). Rec-om-men-da-tion for the En-tropy Sources
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 811--812
+Underfull \hbox (badness 10000) in paragraph at lines 826--827
 \T1/cmr/m/n/9 Used for Ran-dom Bit Gen-er-a-tion. \T1/cmr/m/it/9 NIST Spe-cial Pub-li-ca-tion 800-90B\T1/cmr/m/n/9 .
  []
 
-
-Underfull \hbox (badness 2865) in paragraph at lines 829--830
-\T1/cmr/m/it/9 Con-fer-ence on Hu-man Fac-tors in Com-put-ing Sys-tems - CHI '93\T1/cmr/m/n/9 , 61^^U66.
- []
-
-[28] (paper.aux)
+[28] [29] (paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8171 strings out of 467866
- 130796 string characters out of 5428395
- 555264 words of memory out of 5000000
- 36966 multiletter control sequences out of 15000+600000
+ 8169 strings out of 467866
+ 130788 string characters out of 5428395
+ 555256 words of memory out of 5000000
+ 36964 multiletter control sequences out of 15000+600000
  645943 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,12n,77p,1448b,536s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 67i,12n,77p,1581b,536s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0700.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Acer\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper.pdf (28 pages, 1144120 bytes).
+Output written on paper.pdf (29 pages, 1146137 bytes).
 PDF statistics:
- 880 PDF objects out of 1000 (max. 8388607)
+ 881 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  136 words of extra memory for PDF output out of 10000 (max. 10000000)
 

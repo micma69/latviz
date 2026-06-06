@@ -30,7 +30,7 @@
 
 \begin{document}
 %
-\title{Latviz: A Complete Process Visualization for Post-Quantum Standards ML-KEM and ML-DSA Using Interactive Interface}
+\title{Latviz: A Process Visualization for Post-Quantum Standards ML-KEM and ML-DSA Using Interactive Interface}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
@@ -47,9 +47,9 @@
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Post-quantum cryptographic algorithms are gaining relevance as prevalent security measures are found vulnerable to quantum computers. Among them are the key encapsulation standard ML-KEM and the digital signature standard ML-DSA released by NIST (National Institute of Standards and Technology) in 2024. However despite it's relevance, there are few resources dedicated to fully describing the algorithms behind them that are easily followed. This paper details the creation of Latviz, a digital visualization tool meant to help learners understand the entire process behind the ML-KEM and ML-DSA standards. It provides a complete interactive visual step-by-step breakdown of both algorithms, including detailed explanations behind the functions and variables within. The tool was evaluated through a survey of 22 users with varying degrees of cryptographic knowledge, focusing on how effective Latviz was at increasing user understanding of ML-KEM and ML-DSA. The results indicate that users generally perceived Latviz as effective in improving their understanding of both ML-KEM and ML-DSA, with respondents particularly valuing the step-by-step visualizations and their ability to illustrate relationships between algorithmic processes. The findings suggest that Latviz can serve as an effective tool for supporting learners in understanding ML-KEM and ML-DSA.
+Post-quantum cryptographic algorithms are gaining relevance as prevalent security measures are found vulnerable to quantum computers. Among them are the key encapsulation standard ML-KEM and the digital signature standard ML-DSA released by NIST (National Institute of Standards and Technology) in 2024. However despite it's relevance, there are few resources dedicated to fully describing the algorithms behind them that are easily followed. This paper details the creation of Latviz, a digital visualization tool meant to help learners understand the entire process behind the ML-KEM and ML-DSA standards. It provides a complete interactive visual step-by-step breakdown of both algorithms, including detailed explanations behind the functions and variables within. The tool was evaluated through a survey of 22 university students with varying degrees of cryptographic knowledge, focusing on how effective Latviz was at increasing user understanding of ML-KEM and ML-DSA. The results indicate that users generally perceived Latviz as effective in improving their understanding of both ML-KEM and ML-DSA, with 77.3\% and 81.8\% of respondents considering Latviz an effective learning tool for ML-KEM and ML-DSA respectively. Respondents also particularly valued the step-by-step visualizations and their ability to illustrate relationships between algorithmic processes. The findings suggest that Latviz can serve as an effective tool for supporting learners in understanding ML-KEM and ML-DSA.
 
-\keywords{Cryptography \and Post-Quantum \and Algorithm Visualization \and Visualization \and ML-KEM \and ML-DSA \and Lattice-based Cryptography}
+\keywords{Cryptography \and Post-Quantum Cryptography \and Algorithm Visualization \and Visualization \and ML-KEM \and ML-DSA \and Lattice-based Cryptography}
 \end{abstract}
 %
 %
@@ -63,7 +63,7 @@ However, despite their importance, there are a limited number of resources avail
 
 Thus, this work aims to develop a visualization tool Latviz that allows users to view the complete process behind ML-KEM and ML-DSA in a way that is still digestible to most people. This is done by displaying the inner mechanisms of both algorithms such that users unfamiliar with cryptography can still follow the explanations, and as well as going through both processes in their entirety instead of focusing only on the inputs and outputs. To achieve this, the tool implements a set of features designed to improve accesibility while preserving technical accuracy.
 \begin{itemize}
-\item \textbf{Complete algorithmic breackdown}: Latviz provides a more in-depth breakdown of the ML-KEM and ML-DSA standards compared to existing resources. The variables and algorithms that are involved in the each stage of both standards are elaborated upon in a step-by-step manner, with the explanations simplified as to be digestible without complete understanding of the mathematical grounding required to otherwise understand it.
+\item \textbf{Complete algorithmic breakdown}: Latviz provides a more in-depth breakdown of the ML-KEM and ML-DSA standards compared to existing resources. The variables and algorithms that are involved in the each stage of both standards are elaborated upon in a step-by-step manner, with the explanations simplified as to be digestible without complete understanding of the mathematical grounding required to otherwise understand it.
 \item \textbf{Interactive visual interface}: Merely viewing a visualization does not give significant advantages over conventional methods such as following lectures or reading in how they impact learning algorithms. The most successful uses of visualization tools for learning algorithms are when the tools are used as a vehicle for  actively engaging in the process of learning said algorithms \cite{11}, such as in the form of analyses of algorithmic behavior through manipulating functions and variables in the Desmos Graphic Calculator where users can directly see how certain functions and variables affect graphs. While ML-KEM and ML-DSA doesn't allow for as much interactivity as most of the variables and functions are either set or completely randomized, Latviz provides interactivity in the form of the manipulation of parameter sets, stepping through operations, and the inspection of internal states.
 \end{itemize}
 
@@ -753,7 +753,22 @@ Similarly, the explanations provided received a relatively high proportion of ne
 Overall, these findings indicate that while the visualizations were generally effective in conveying the structure and flow of ML-DSA, some users may have benefited from explanations that assume less background knowledge and provide additional context for unfamiliar concepts.
 
 \section{Conclusion}
-This paper presents the digital visualization tool Latviz that was created to help learners more easily understand the ML-KEM and ML-DSA cryptographic standards. It was designed primarily to 
+This paper presents the digital visualization tool Latviz, which was created to help learners more easity understand the entire process behind the ML-KEM and ML-DSA cryptographic standards. As post-quantum cryptography becomes increasingly important, there is a growing need for educational resources that allow learners to understand not only the purpose of these algorithms but also their internal processes. Existing resources often focus on high-level overviews or require substantial prior knowledge of cryptography. To address this gap, Latviz was developed to provide complete step-by-step visualizations of ML-KEM and ML-DSA, accompanied by supplementary explanations of the functions, variables, and inner processes involved in their execution.
+
+The resulting tool enables users to explore both algorithms interactively, inspect intermediate values and operations, and follow the transformation of inputs into outputs throughout the execution process. By combining detailed visualizations with explanatory content, Latviz aims to make complex post-quantum cryptographic concepts more accessible to learners with varying levels of prior cryptographical knowledge.
+
+To evaluate the effectiveness of the tool, a survey involving 22 participants with differing levels of familiarity with cryptography and post-quantum cryptography was conducted. The results indicate that Latviz was generally successful in improving users' understanding of both ML-KEM and ML-DSA and was perceived as an effective learning tool for both algorithms, with over . Participants responded particularly positively to the step-by-step visualizations and their ability to illustrate the relationships between algorithmic processes. However, the results also suggest that users with limited prior knowledge of cryptography may have trouble with following the provided explanations and may benefit from additional context for unfamiliar concepts.
+
+%Overall, the evaluation results indicate that Latviz serves as an effective tool for deepening users' understanding of ML-KEM and ML-DSA
+ %for supporting education in post-quantum cryptography and that tools such as Latviz can help make complex cryptographic algorithms more approachable to a wider audience.
+
+\section{Future Work}
+For future 
+
+%Several opportunities for future work remain. The accessibility of the explanatory content could be improved further for users without a cryptographic background, potentially through the use of additional examples, analogies, or introductory material. Furthermore, additional interactive features and support for other post-quantum cryptographic standards could expand the educational value of the tool. Future evaluations involving a larger and more diverse participant group could also provide a more comprehensive assessment of its effectiveness.
+
+
+
 
 %
 % ---- Bibliography ----
@@ -824,14 +839,6 @@ Judith, S. G., (1996). Pedagogic Aspects of Algorithm Animation. Unpublished Ph.
 
 \bibitem{likert}
 Likert, R. (1932). A Technique for the Measurement of Attitudes. \textit{Archives of Psychology}.
-
-\bibitem{}
-Stasko, J., Badre, A., \& Lewis, C. (1993). Do Algorithm Animations Assist Learning? An Empirical Study and Analysis. \textit{Proceedings of the SIGCHI Conference on Human Factors in Computing Systems  - CHI ’93}, 61–66. \doi{10.1145/169059.169078}
-
-\bibitem{mwle}
-Langlois, A. \& Stehle, D. (2012). Worst-Case to Average-Case Reductions for Module Lattices. https://eprint.iacr.org/2012/090
-
-
 
 \end{thebibliography}
 \end{document}
