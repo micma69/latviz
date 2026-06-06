@@ -91,27 +91,24 @@ INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecrm0900.tfm
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecbx0900.tfm
-INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\tcrm0900.tfm
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecrm1200.tfm
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecbx1200.tfm
 OUTPUT Visualization of LLL and BKZ.pdf
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\ecbx1000.tfm
-INPUT .\pics\lllrevisi.png
-INPUT .\pics\lllrevisi.png
-INPUT .\pics\lllrevisi.png
-INPUT .\pics\lllrevisi.png
-INPUT .\pics\lllrevisi.png
-INPUT .\pics\lllrevisi.png
+INPUT .\pics\LLL.pdf
+INPUT .\pics\LLL.pdf
+INPUT .\pics\LLL.pdf
+INPUT .\pics\LLL.pdf
+INPUT .\pics\LLL.pdf
 INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmbx10.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmbx7.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\cm\cmbx5.tfm
-INPUT .\pics\bkzflowchart.png
-INPUT .\pics\bkzflowchart.png
-INPUT .\pics\bkzflowchart.png
-INPUT .\pics\bkzflowchart.png
-INPUT .\pics\bkzflowchart.png
-INPUT .\pics\bkzflowchart.png
+INPUT .\pics\BKZ.pdf
+INPUT .\pics\BKZ.pdf
+INPUT .\pics\BKZ.pdf
+INPUT .\pics\BKZ.pdf
+INPUT .\pics\BKZ.pdf
 INPUT .\pics\appstructure.png
 INPUT .\pics\appstructure.png
 INPUT .\pics\appstructure.png
@@ -325,15 +322,16 @@ INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\symbols\msam10.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\symbols\msam7.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT D:\Program Files (D)\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
+INPUT D:\Program Files (D)\fonts\tfm\jknappen\ec\tcrm0900.tfm
 INPUT Visualization of LLL and BKZ.aux
+INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm0900.pk
+INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1000.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1000.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1200.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1200.pk
-INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm0900.pk
-INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0900.pk
 INPUT C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0900.pk

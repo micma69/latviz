@@ -1,4 +1,3 @@
-% This is samplepaper.tex, a sample chapter demonstrating the
 % LLNCS macro package for Springer Computer Science proceedings;
 % Version 2.21 of 2022/01/12
 %
@@ -51,9 +50,9 @@
 %
 \begin{abstract}
 
-As the quantum computing starts to threaten the current cryptographic systems such as RSA, cryptographers around the world start to develop the Post-Quantum Cryptography (PQC) algorithms, most of them are lattice-based (for example ML-KEM and ML-DSA). To strengthen these PQC algorithms, cryptographers and cryptanalysts alike also developing LLL and BKZ algorithms to test the strength of these PQC algorithms. One of the problems with LLL and BKZ is the fact that they're relatively difficult to learn. Some online tools to help users to understand LLL and BKZ algorithms have been developed, but many of them only show the initial and the final result of the input. In this paper, we will build an interative tool to explain the processes behind LLL and BKZ algorithms with explanations consist of visualization and textual information. Through visualization using vectors on Cartesian coordinate as well some panels that provide the explanation of the processes of both LLL and BKZ algorithms, we expect cryptography learners and enthusiasts alike to understand LLL and BKZ easier. To measure the quality of the tool we will develop, we will make an online usability test survey with Indonesian college students and graduates as the demographic group that we target. 
+As the quantum computing starts to threaten the current cryptographic systems such as RSA, cryptographers around the world start to develop the Post-Quantum Cryptography (PQC) algorithms, most of them are lattice-based (for example ML-KEM and ML-DSA). To strengthen these PQC algorithms, cryptographers and cryptanalysts alike also developing LLL and BKZ algorithms to test the strength of these PQC algorithms. One of the problems with LLL and BKZ is the fact that they're relatively difficult to learn. Some online tools to help users to understand LLL and BKZ algorithms have been developed, but many of them only show the initial and the final result of the input. In this paper, we will build an interative tool to explain the processes behind LLL and BKZ algorithms with explanations consist of visualization and textual information. Through visualization using vectors on Cartesian coordinate with some explanation panels for the processes of both LLL and BKZ algorithms, we expect cryptography learners and enthusiasts alike to understand LLL and BKZ easier. To measure the quality of the tool we will develop, we will make an online usability test survey with Indonesian college students and graduates as the targeted demographic group for survey participants. 
 
-\keywords{Cryptography  \and Cryptanalysis \and Post-Quantum \and Lattice \and LLL \and BKZ.}
+\keywords{Cryptography, Cryptanalysis, Post-Quantum, Lattice, LLL, BKZ}
 \end{abstract}
 %
 %
@@ -64,9 +63,9 @@ Cryptanalysis is the technique of analysing and breaking a ciphertext to obtain 
 
 The most common lattice reduction technique is the LLL algorithm, which was already developed long before the advent of quantum computing, and obviously predates the PQC algorithms as well. A polynomial-time algorithm for finding a short and nearly orthogonal basis for a lattice, this algorithm can be used to solve the shortest vector problem (SVP) and the closest vector problem (CVP), which are essential in lattice-based cryptography. We could say that LLL is the foundation of the lattice reduction cryptanalysis algorithms, and to master the subsequent algorithms, mastering the LLL before is a crucial step. 
 
-For now, the most promising lattice-based cryptanalysis technique is the BKZ algorithm, which uses several LLLs on a single BKZ run (Schnorr et al, 1994). Compared to LLL, BKZ can find even shorter vectors in a lattice and theoritically speaking, BKZ is a far greater threat to lattice-based PQC systems compared to LLL, which are no longer a major threat for these lattice-based PQC systems. To help learners learn LLL and BKZ algorithms, some online solver tools have been developed, for example fplll and fpylll, Sage Cell, and lll-attack-runner. 
+For now, the most promising lattice-based cryptanalysis technique is the BKZ algorithm, which uses several LLLs on a single BKZ run (Schnorr et al, 1994). Compared to LLL, BKZ can find even shorter vectors in a lattice and theoritically speaking, BKZ is a far greater threat to lattice-based PQC systems compared to LLL, which are no longer a major threat for these lattice-based PQC systems. To help learners learn LLL and BKZ algorithms, some online solver tools have been developed, for example fplll, SageMathCell, and lll-attack-runner. 
 
-The problems with these LLL and BKZ solvers are the fact that they are either only show the final result, less user-friendly compared to simpler matrix tools, doesn't have visualization, or doesn't show the mathematical processes between the initial state and the final result. The first problem is true for fplll, fpylll (ADD REFERENCE HERE), and lll-attack-runner (ADD REFERENCE HERE), as they only show the final result. The second problem is true for Sage Cell, as we can't just insert a "plain" matrix to process it, we have to wrap the matrix within either a Python code, a Sage code, or any code in at least one of languages available in the tool (ADD REFERENCE HERE). To put it simply, it isn't as practical as inserting the matrix in some simpler online matrix tools, such as Calculator.net, matrixcalc.org, or Desmos. And the third problem is true for fplll and fpylll as well Sage Cell, as they don't even have built-in visualization. Sage Cell can show every step of the LLL process, however, we need to modify the code we inserted in the tool, in a manual way, so we can't use the built-in method of .lll(), and we have to use our own code. For the fourth problem, all previously mentioned LLL and BKZ algorithms solvers have this problem. None of these solvers show the mathematical processes between the initial state and the final result. For Sage Cell, there is no built-in library to show these steps.
+The problems with these LLL and BKZ solvers are the fact that they are either only show the final result, less user-friendly compared to simpler matrix tools, doesn't have visualization, or doesn't show the mathematical processes between the initial state and the final result. The first problem is true for fplll (FPLLL Development Team, 2023) and lll-attack-runner (Zachary Robert Bennett, 2026) as both tools show only the final result. The second problem is true for SageMathCell as we can't just insert a "plain" matrix to process it, instead we have to wrap the matrix within either a Python code, a Sage code, or any code in at least one of languages available in the tool (SageMathCell Development Team, 2011). To put it simply, it isn't as practical as insert matrices in some simpler online matrix tools, such as Calculator.net, matrixcalc.org, or Desmos. And the third problem is true for fplll and SageMathCell, as they don't even have built-in visualization. SageMathCell could show every step of the LLL process, however, we need to manually modify the code that we insert in the tool, so we can't use the built-in method of .lll(), and we have to use our own code. For the fourth problem, all previously mentioned LLL and BKZ algorithms solvers have this problem. None of these solvers show the mathematical processes between the initial state and the final result. For lll-attack-runner, it shows only a table which shows the reduced basis as well a panel for the gained SVPs. For SageMathCell, there is no built-in library to show these steps.
 
 So in short, these LLL and BKZ tools aren't practical compared to several online math tools, and they don't automatically provide visualization from the beginning to the final result nor that they provide the step-by-step explanation. Which is actually an important issue, because psychologically wise, humans are generally easier to process a combination of visual and textual information (Mayer, 2001). However, we should not ignore that how the users interact with them is also an important factor (Christopher D. Hundhausen et al, 2002). So we definitely need step-by-step explanations just like we need the visualizations, within a system that lets the user to interact with the system from the input insertion to the output visualization. For the visualization part, it's clear that visualization through vectors can significantly help users to understand the process. Why? Because the basis concept for LLL and BKZ is lattice reduction. Which is a linear algebra concept. And it is hard to teach the concepts of linear algebra without vectors (or, to be more precise, vector geometry) visualization (Konyaliouglu et al., 2011). 
 
@@ -111,9 +110,7 @@ The lattice-based PQC is a group of cryptographic algorithms that like its name,
 \begin{itemize}
 \raggedright
 \item CRYSTALS-Kyber. Standardized by NIST into ML-KEM (Module Lattice-based Key Encapsulation Mechanism). This algorithm, just like its pre-standardized version, is a set of algorithms used for two parties in order to establish a shared secret key in a channel considered to be unsafe.
-\item 
 \item CRYSTALS-Dilithium. Standardized by NIST into ML-DSA (Module Lattice-based Digital Signature Algorithm). It is a set of algorithms that is used to generate as well verify digital signatures.
-\item
 \item Falcon (Fast Fourier Lattice-based Compact Signatures Over NTRU). Standardized by NIST into FN-DSA. It's also a DSA like ML-DSA. 
 \end{itemize}
 
@@ -145,7 +142,7 @@ SVP is essential for PQC lattice reduction algorithms because it can help to sol
 \subsection{LLL}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{lllrevisi.png}
+    \includegraphics[width=0.7\textwidth]{LLL.pdf}
     \caption{The LLL algorithm}
     \label{LLL}
 \end{figure}
@@ -176,7 +173,7 @@ After the global Gram-Schmidt orthogonalization process, the index pointer $k$ p
 
 \subsubsection{Basis reduction loop}
 \mbox{}
-The algorithm checks the size of the vector, and then performs a size reduction of the vector to ensure that the length of the projection coefficients satisfies : $$|\mu_{k,j}| \leq 0.5$$ To satisfy the condition, the algorithm uses an internal index pointer, $j$, whose sole purpose is to become the backward iterator in this basis reduction loop, and this loop starts from $j = k - 1$ down to $1$. This ensures that the current target vector $\mathbf{v}_k$ is systematically reduced against all of its preceding vectors in the basis. The vector $\mathbf{v}_k$ is then iteratively updated using the following formula :
+The algorithm checks the size of the vector, and then performs a size reduction of the vector to ensure that the length of the projection coefficients satisfies : $$|\mu_{k,j}| \leq 0.5$$. To satisfy the condition, the algorithm uses an internal index pointer, $j$, whose sole purpose is to become the backward iterator in this basis reduction loop, and this loop starts from $j = k - 1$ down to $1$. This ensures that the current target vector $\mathbf{v}_k$ is systematically reduced against all of its preceding vectors in the basis. The vector $\mathbf{v}_k$ is then iteratively updated using the following formula :
 $$\mathbf{v}_k \leftarrow \mathbf{v}_k - \lfloor\mu_{k,j}\rceil\mathbf{v}_j$$
 
 Concurrently, to maintain mathematical consistency with the modified vector components, the algorithm must update $\mathbf{v}_k^*$ and the corresponding projection coefficients $\mu_{k,j}$, by fully recomputing the entire Gram-Schmidt orthogonalization sequence to get the updated $\mathbf{v}_k^*$ and $\mu_{k,j}$ values whenever $\mathbf{v}_k$ is modified inside this basis reduction loop.
@@ -219,7 +216,7 @@ After all of the vectors have been examined and $L$ meets the Lovasz Condition r
 \subsection{BKZ}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{bkzflowchart.png}
+    \includegraphics[width=0.7\textwidth]{BKZ.pdf}
     \caption{The BKZ algorithm}
     \label{BKZ}
 \end{figure}
@@ -275,8 +272,7 @@ lll-attack-runner is a Javascript-based interactive web application for running 
 
 \subsection{Herramienta de software para la visualización
 de la criptografía basada en retículas}
-Authored by Jaziel D. Flores Rodríguez and his fellow colleagues, this research paper was aimed to create a visualization tool for post-quantum cryptographic algorithms. The main focus was to graphically visualize mathematical concepts behind these post-quantum cryptographic algorithms, particularly lattice concepts which are the basis of these algorithms. The tool which was developed in this research, successfully visualizes these lattice-based post-quantum cryptographic algorithms within dimensions of 2, 3, 4, and 5. However, the LLL process for dimensions higher than 3 is still not implemented in this tool, and the BKZ algorithm is also not implemented in this tool.
-Which is why we will be implementing the LLL process for dimensions higher than 3 in our visualization tool, as well as implementing the BKZ algorithm which is not implemented in this tool.
+Authored by Jaziel D. Flores Rodríguez and his fellow colleagues, this research paper was aimed to create a visualization tool for post-quantum cryptographic algorithms. The main focus was to graphically visualize mathematical concepts behind these post-quantum cryptographic algorithms, particularly lattice concepts which are the basis of these algorithms. The tool which was developed in this research, successfully visualizes these lattice-based post-quantum cryptographic algorithms within dimensions of 2, 3, 4, and 5. However, the LLL process for dimensions higher than 3 is still not implemented in this tool, and the BKZ algorithm is also not implemented in this tool. How we will visualize vectors in LLL and BKZ algorithms is inspired from this paper, which are in the form of arrows anchored to the origin point of (0,0) in 2D visualization mode, and (0,0,0) in 3D visualization mode, in an Euclidean Space. 
 
 \section{Architecture}
 
@@ -479,7 +475,9 @@ First, we asked the participants basic questions about their demographic educati
 
 \subsection{Questions}
 \subsubsection{Demographic Background Questions}
-We asked four questions about the demographic profiles of the survey participants. As the first question of this section, we asked the educational background (with answer choices range from elementary school to doctoral graduate) from the participants. The second, third, and fourth questions are about their familiarity with cryptography, post-quantum cryptography, and lattice-based cryptography. The answer choices for these three questions, unlike the first one, ranging from "Sangat familiar" (Indonesian for "Very familiar") to "Tidak familiar" (Indonesian for "Not familiar"). The fifth and sixth questions are about how familiar they are with LLL and BKZ algorithms before they try the Latviz for the first time, with similar answer choices like the previous three questions. 
+We asked four questions about the demographic profiles of the survey participants. As the first question of this section, we asked the educational background (with answer choices range from elementary school to doctoral graduate) from the participants. The second, third, and fourth questions are about their familiarity with cryptography, post-quantum cryptography, and lattice-based cryptography. 
+
+The answer choices for these three questions, unlike the first one, ranging from "Sangat familiar" (Indonesian for "Very familiar") to "Tidak familiar" (Indonesian for "Not familiar"). The fifth and sixth questions are about how familiar they are with LLL and BKZ algorithms before they try the Latviz for the first time, with similar answer choices like the previous three questions. 
 
 \subsubsection{LLL and BKZ Usability Questions}
 For the LLL and BKZ visualization modules in Latviz, we asked the participants about the understanding of LLL and BKZ. For example, the roles of the variables used within each of these algorithms, the changes of the values of these variables, and whether they understand the process of both algorithms from input to the output. We also asked the participants several questions about the effectiveness of the UI and the visualizations of LLL and BKZ to help them understand both algorithms. Lastly, for each LLL and BKZ sections in the survey, we asked the participants to fill the suggestions (which is not mandatory), in which the survey participants can write any suggestions they wish. 
@@ -657,7 +655,7 @@ Aside from the questions about whether the user understand the roles of variable
 \section{Conclusion}
 We conclude that according to our own survey, while in most questions the response is more positive than negative, we still he to improve our Latviz, especially for aspects that are supposedly intended to help users easier to understand the algorithms we want to teach. For example, language as well the calculation details. Overall, the results are mostly positive with needs for more improvement in the future to help the users understand these algorithms easier. 
 
-\begin{thebibliography}{13}
+\begin{thebibliography}{17}
 \bibitem{ref_1}
 Ziyu Zhao, Jintai Ding. (2022). Practical Improvements on BKZ Algorithm. National Institute of Standards and Technology \url{https://csrc.nist.gov/csrc/media/Events/2022/fourth-pqc-standardization-conference/documents/papers/practical-improvements-on-bkz-algorithm-pqc2022.pdf}
 
@@ -697,6 +695,21 @@ Nguyen, Phong. Q, Vallée, B. (2010). The LLL Algorithm: Survey and Applications
 
 \bibitem{ref_13}
 Schnorr, C. P., Euchner M. (1994). Lattice Basis Reduction: Improved Practical Algorithms and Solving Subset Sum Problems. 
+
+\bibitem{ref_14}
+FPLLL Development Team. (2023). fplll, A Lattice Reduction Library Version 5.5.0. Github.
+\url = {https://github.com/fplll/fplll}
+
+\bibitem{ref_15}
+Zachary Robert Bennett. (2026). lll-attack-runner. Github.
+\url = {https://github.com/curiosityz/lll-attack-runner}
+
+\bibitem{ref_16}
+SageMathCell Development Team. (2011). SageMathCell Version 1.  
+\url{https://sagecell.sagemath.org}
+
+\bibitem{ref_17}
+Jaziel D. Flores Rodríguez, Miguel E. Pérez Ibarra, Fernando Q. Valencia Rodríguez, Alfonso F. De Abiega L'Eglisse,  Gina Gallegos García (2024). Herramienta de software para la visualización de la criptografía basada en retículas. POLIBITS, 66(1), 41-48.
 
 \end{thebibliography}
 
