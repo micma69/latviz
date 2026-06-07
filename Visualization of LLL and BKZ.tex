@@ -24,6 +24,9 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{listings}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{pgf-pie}
 \setcounter{secnumdepth}{4}
 
 \begin{document}
@@ -317,7 +320,7 @@ As what we already stated before, we will build our program based on the LLL and
 \mbox{}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{initial basis.png}
+    \includegraphics[width=0.7\textwidth]{initial_basis.png}
     \caption{The initial basis panel (LLL)}
     \label{Initial Basis}
 \end{figure}
@@ -329,23 +332,24 @@ For the LLL visualization module, the 2D array, alongside with the inserted $\de
 \subsubsection{Euclidean Vectors Representation of the Basis Vectors}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{input matrix.png}
+    \includegraphics[width=0.7\textwidth]{input_matrix.png}
     \caption{The input matrix}
     \label{input matrix}
 \end{figure}
 \mbox{}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{basis from the input matrix.png}
+    \includegraphics[width=0.7\textwidth]{basisfromtheinputmatrix.png}
     \caption{Basis vectors from the input matrix}
     \label{basis of the matrix}
 \end{figure}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{cartesian representation.png}
+    \includegraphics[width=0.7\textwidth]{cartesian_representation.png}
     \caption{Basis vectors from the input matrix, represented in the Cartesian coordinate within a Euclidean space}
     \label{cartesian representation}
 \end{figure}
+\mbox{}
 As what we already stated before, the basis vectors extracted from the input matrix are represented visually as Euclidean vectors inside Cartesian coordinate systems. Thus, each vector is displayed as an arrow originating from the coordinate origin ((0,0) in the 2D visualization or (0,0,0) in the 3D visualization), each one having a unique color, and each one pointing toward the coordinates which represent their numerical values - or the elements of the matrix. For example, the vector $v_1 = (4,5)$ is visualized as an arrow from the origin point of (0,0) toward the point (4,5). Because all vectors are anchored to the origin point, this allows users to observe the length and direction of these vectors, as well the change of them during the reduction process from the beginning until the final output. 
 
 \subsubsection{Textual Explanation Panel to Represent the Gram-Schmidt Orthogonalization}
@@ -387,7 +391,7 @@ Aside from additional panels and input field, the rest of the visualization and 
 
 \subsection{Output Visualization and Textual Elements for LLL and BKZ}
 Visualization of both LLL and BKZ algorithms contains following five visual elements in their output section :
-
+\mbox{}
 \subsubsection{Graph Panel}
 \mbox{}
 \begin{figure}[htbp]
@@ -469,7 +473,9 @@ This panel's sole function is to inform the user the shortest vectors found in t
 
 \section{Result}
 \subsection{Surveying Method}
-To measure the quality of Latviz that we have develop, we made an online app usability survey and let the survey participants test the app, by put the Latviz's access link in the survey form. Since lattice-based cryptography and cryptanalysis algorithms require sufficient understanding of concepts within linear algebra which is usually only taught in colleges, our primary target of this survey are Indonesian college students and graduates, while the questions in the survey are in Bahasa Indonesia. There are 25 questions related with LLL and BKZ modules in the app (including 2 optional suggestion boxes). Before we closed the survey, we managed to get 28 survey participants, 22 of them are either college students or college graduates. 
+To measure the quality of Latviz that we have develop, we made an online app usability survey and let the survey participants test the app, by put the Latviz's access link in the survey form. Since lattice-based cryptography and cryptanalysis algorithms require sufficient understanding of concepts within linear algebra which is usually only taught in colleges, our primary target of this survey are Indonesian college students and graduates, while the questions in the survey are in Bahasa Indonesia. There are 25 questions related with LLL and BKZ modules in the app (including 2 optional suggestion boxes). 
+
+We use Convenience Sampling method as the sampling method for our research, because we already know that both LLL and BKZ, or lattice reduction algorithms in general, require complex mathematical understanding as the requirement for the learners (Joseph Shuurin, Shaanan Cohney, 2023). Linear algebra in general is only start to be taught in colleges, and the fundamental concepts such as linear system of equations, vectors, and matrices are only start to be taught in high schools (in Indonesia, commonly in SMA). Added with time constraints, using convenience sampling method is a primary choice for us. We spread the survey link to our relatives that are at least senior high school graduates. Our primary targets however, are college students and graduates. 
 
 First, we asked the participants basic questions about their demographic education level and the familiarity with crptography and post-quantum cryptography as the background survey of the respondents. Then, for the questions related with the usability evaluations of the LLL and BKZ, we use the 5-points Likert's Scale, which ranges from "Sangat Tidak Setuju" (in English "Strongly Disagree") to "Sangat Setuju" (in English "Strongly Agree"). We created the survey using Google Forms, and the diagrams of the results based on the response from the participants are created automatically by Google Forms.
 
@@ -482,180 +488,124 @@ The answer choices for these three questions, unlike the first one, ranging from
 \subsubsection{LLL and BKZ Usability Questions}
 For the LLL and BKZ visualization modules in Latviz, we asked the participants about the understanding of LLL and BKZ. For example, the roles of the variables used within each of these algorithms, the changes of the values of these variables, and whether they understand the process of both algorithms from input to the output. We also asked the participants several questions about the effectiveness of the UI and the visualizations of LLL and BKZ to help them understand both algorithms. Lastly, for each LLL and BKZ sections in the survey, we asked the participants to fill the suggestions (which is not mandatory), in which the survey participants can write any suggestions they wish. 
 
-\subsection{Results From the Survey}
-
-\subsubsection{Demographic Profile of the Survey Participants}
-After we close the survey, we found that 
-\mbox{}
+\subsection{Survey Result}
+\FloatBarrier
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{educ background.png}
+    \includegraphics[width=0.7\textwidth]{educ_background.png}
     \caption{Educational background of the survey participants}
     \label{educbackground}
 \end{figure}
-\mbox{}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{crypt familiarity.png}
+    \includegraphics[width=0.7\textwidth]{crypt_familiarity.png}
     \caption{Pre-survey Cryptography familiarity}
-    \label{cryptography familiarity}
+    \label{cryptographyfamiliarity}
 \end{figure}
-\mbox{}
-\mbox{}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{pqc famil.png}
-    \caption{Pre-survey Post-Quantum Cryptography familiarity}
-    \label{pqcfam}
-\end{figure}
-\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lattice familiarity.png}
-    \caption{Pre-survey Lattice-based crytography familiarity}
-    \label{lbcfam}
-\end{figure}
-\mbox{}
-\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll1.png}
+    \includegraphics[width=0.7\textwidth]{lll_fami.png}
     \caption{Pre-survey LLL familiarity}
     \label{lllfam}
 \end{figure}
-\mbox{}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{bkz1.png}
+    \includegraphics[width=0.7\textwidth]{bkz_fami.png}
     \caption{Pre-survey BKZ familiarity}
     \label{bkzfam}
 \end{figure}
-\mbox{}
-
-\subsubsection{UI Usability of the LLL and BKZ modules} 
-\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll2.png}
-    \caption{Effectiveness of the "Back" and "Next" control buttons in the LLL module to make the users understand the LLL process}
-    \label{LLL2}
-\end{figure}
-\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{bkz2.png}
-    \caption{Effectiveness of the "Back" and "Next" control buttons in the BKZ module to make the users understand the BKZ process}
-    \label{BKZ2}
-\end{figure}
-\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll3.png}
-    \caption{How easy are the mathematical explanations in "Calculation Details" panels in the LLL module to understand}
-    \label{LLL3}
-\end{figure}
-\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{bkz3.png}
-    \caption{How easy are the mathematical explanations in "Calculation Details" panels in the BKZ module to understand}
-    \label{BKZ3}
-\end{figure}
-\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll4.png}
-    \caption{How helpful are eplanations in "Lovasz Status" and "Step" panels in LLL module to understand the algorithm }
-    \label{LLL4}
-\end{figure}
-\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{bkz4.png}
-    \caption{Percentage of users who understand the variables used in BKZ as well their roles}
-    \label{BKZ4}
-\end{figure}\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll5.png}
-    \caption{Percentage of users who understand the variables used in LLL as well their roles}
-    \label{LLL5}
-\end{figure}\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{bkz5.png}
-    \caption{Percentage of users that can understand the changes of values of the variables of BKZ algorithm}
-    \label{BKZ5}
-\end{figure}\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll6.png}
-    \caption{Percentage of users that can understand the changes of values of the variables of LLL algorithm}
-    \label{LLL6}
-\end{figure}\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{bkz6.png}
-    \caption{Percentage of users that understand how the input is processed until the final output in BKZ}
-    \label{BKZ6}
-\end{figure}
-\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll7.png}
-    \caption{Percentage of users that understand how the input is processed until the final output in LLL}
-    \label{LLL7}
-\end{figure}\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{bkz7.png}
-    \caption{Percentage of users that consider the visualization of the BKZ as clear and unambigous}
-    \label{BKZ7}
-\end{figure}\mbox{}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll8.png}
-    \caption{Percentage of users that consider the visualization of the LLL as clear and unambigous}
-    \label{LLL8}
-\end{figure}
-
-\subsubsection{Perceived Effectiveness According to Users}
-\mbox{}
+\begin{table}[htbp]
+\centering
+\caption{Survey participants opinion on the LLL visualization usability}
+\begin{tabular}{|p{8 cm}|c|c|c|c|c|}
+\hline
+Statements & Strongly Disagree & Disagree & Neutral & Agree & Strongly Agree \\
+\hline
+After using Latviz, I think I understand LLL more than before & 3.6\% & 7.1\% & 21.4\% & 57.1\% & 10.7\% \\
+\hline
+The step-by-step visualization with "Back" and "Next" buttons to control the process flow helps me to understand the flow of LLL & 3.6\% & 3.6\% & 21.4\% & 46.3\% & 25\% \\
+\hline
+It's easy to understand explanations shown in the "Calculation Details" & 0\% & 10.7\% & 17.9\% & 42.9\% & 28.6\% \\
+\hline
+The "Lovasz Status" and "Step" Panels help me enough to understand the ongoing process in LLL & 3.6\% & 3.6\% & 25\% & 46.4\% & 21.4\% \\
+\hline
+I understand the roles of the variables used in LLL & 0\% & 14.3\% & 35.7\% & 32.1\% & 17.9\% \\
+\hline
+I can track the changes in data or variables at every step of LLL & 0\% & 7.1\% & 28.6\% & 42.9\% & 21.4\% \\
+\hline
+I understand how the input is processed to produce the output & 3.6\% & 7.1\% & 21.4\% & 42.9\% & 25\% \\
+\hline
+The visual display is clear and not confusing & 0\% & 7.1\% & 28.6\% & 46.4\% & 17.9\% \\
+\hline
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Survey participants opinion on the BKZ visualization usability}
+\begin{tabular}{|p{8 cm}|c|c|c|c|c|}
+\hline
+Statements & Strongly Disagree & Disagree & Neutral & Agree & Strongly Agree \\
+\hline
+After using Latviz, I think I understand BKZ more than before & 3.6\% & 3.6\% & 28.6\% & 39.3\% & 25\% \\
+\hline
+The step-by-step visualization with "Back" and "Next" buttons to control the process flow helps me to understand the flow of BKZ & 3.6\% & 3.6\% & 17.9\% & 42.9\% & 32.1\% \\
+\hline
+It's easy to understand explanations shown in the "Calculation Details" & 3.6\% & 7.1\% & 17.9\% & 42.9\% & 28.6\% \\
+\hline
+I understand the roles of the variables used in BKZ & 0\% & 14.3\% & 25\% & 42.9\% & 17.9\% \\
+\hline
+I can track the changes in data or variables at every step of BKZ & 3.6\% & 7.1\% & 21.4\% & 39.3\% & 28.6\% \\
+\hline
+I understand how the input is processed to produce the output & 3.6\% & 7.1\% & 17.9\% & 53.6\% & 17.9\% \\
+\hline
+The visual display is clear and not confusing & 0\% & 3.6\% & 17.9\% & 57.1\% & 21.4\% \\
+\hline
+\end{tabular}
+\end{table}
+\FloatBarrier
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{lll1.png}
     \caption{LLL algorithm understanding after testing the app}
     \label{LLL1}
 \end{figure}
-\mbox{}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{bkz1.png}
     \caption{BKZ algorithm understanding after testing the app}
     \label{BKZ1}
 \end{figure}
-\mbox{}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{bkz8.png}
     \caption{Perceived effectiveness of the LLL visualization in Latviz}
     \label{BKZ8}
 \end{figure}
-\mbox{}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{lll9.png}
     \caption{Perceived effectiveness of the BKZ visualization in Latviz}
     \label{LLL9}
 \end{figure}
-
+\FloatBarrier
 \section{Evaluation}
-Aside from the questions about whether the user understand the roles of variables used in LLL and BKZ or not, more than half of the survey participants responded positively to the questions regarding the perceived effectiveness as well the effectiveness of the UI elements to make the participants understand both algorithm easier. Most of the participants are college students/graduates, with the rest are senior high school students.
+Before we closed the survey, we managed to get 28 survey participants. Of all participants, 78.6\% are either college students or college graduates, and the rest are senior high school students or senior high school graduates. Only 10.7\% of all participants are familiar with cryptography, and 67.9\% of all respondents weren't familiar with LLL and BKZ. This proves our previous statements about how niche the lattice reduction algorithms are, including LLL and BKZ. 
+
+More than 60\% of all respondents reportedly having their understandings of LLL and BKZ algorithms improved after using Latviz's LLL and BKZ visualization modules. This number is from total participants who answered "Strongly Agree" and "Agree". Using this response type combination, of all UI elements surveyed from both LLL and BKZ visualization modules, the "Back" and "Next" navigation buttons (71.3\% for LLL, 75\% for BKZ) become the most positively reviewed UI element by the participants. For LLL, the most satisfying element is the "Calculation Details" panel (71.5\%), and for BKZ, it's the 2D/3D graph (78.5\%). 
+
+The less positive responses are found in questions about the roles of the variables used in both algorithms. In particular, just 50\% of all respondents understand the roles of the variables used in the LLL algorithm. We think this is natural consider how hard the concepts of LLL (and BKZ) are.
+
+Curiously, despite being mathematically more complex compared to LLL, the Latviz's BKZ visualization module, according to this survey, is slightly better in terms of visualization and navigation control. LLL is better compared to BKZ only in terms of understanding increase after testing the Latviz app. Which means that BKZ's visualization is better than LLL's visualization, yet LLL is still easier to be understand compared to BKZ, which is quite a very expected result.
 
 \section{Conclusion}
-We conclude that according to our own survey, while in most questions the response is more positive than negative, we still he to improve our Latviz, especially for aspects that are supposedly intended to help users easier to understand the algorithms we want to teach. For example, language as well the calculation details. Overall, the results are mostly positive with needs for more improvement in the future to help the users understand these algorithms easier. 
+From the results of our survey, overall, LLL and BKZ visualizations provided by Latviz help most users to increase the understandings of the LLL and BKZ algorithms The BKZ visualization is better compared to LLL's, yet BKZ is still harder to understand compared to LLL. The keys of these positive remarks about BKZ (and LLL) are their UIs. 
 
-\begin{thebibliography}{17}
+We conclude that according to our own survey, while most of the response were more positive than negative, it is still a necessary to improve our Latviz, especially for aspects that are supposedly intended to help users easier to understand the algorithms we want to teach. For example, language options and the calculation details. Overall, the results are mostly positive with a need for more improvement in the future to help the users understand these algorithms easier. 
+
+\section{Future Works}
+Based on the response from the survey participants, we would like to add other languages, like Indonesian. We would also prioritize to improve the calculation explanation to make them more understandable for users. For the input aspect, we would like add another input mechanism that can allow users to upload existing matrices from CSV or PNG files. The input form choice (which, as of now only matrices) itself is also can be diversified by developing a mechanism to extract vectors from inputs within the form of systems of linear equations. And lastly, we would like to add optional colour schemes of Latviz's UI.
+
+\begin{thebibliography}{18}
 \bibitem{ref_1}
 Ziyu Zhao, Jintai Ding. (2022). Practical Improvements on BKZ Algorithm. National Institute of Standards and Technology \url{https://csrc.nist.gov/csrc/media/Events/2022/fourth-pqc-standardization-conference/documents/papers/practical-improvements-on-bkz-algorithm-pqc2022.pdf}
 
@@ -710,6 +660,10 @@ SageMathCell Development Team. (2011). SageMathCell Version 1.
 
 \bibitem{ref_17}
 Jaziel D. Flores Rodríguez, Miguel E. Pérez Ibarra, Fernando Q. Valencia Rodríguez, Alfonso F. De Abiega L'Eglisse,  Gina Gallegos García (2024). Herramienta de software para la visualización de la criptografía basada en retículas. POLIBITS, 66(1), 41-48.
+
+\bibitem{ref_18}
+Surin, J., Cohney, S. (2023). A Gentle Tutorial for Lattice-Based Cryptanalysis (Report No. 2023/032). Cryptology ePrint Archive. 
+\url {https://eprint.iacr.org/2023/032}
 
 \end{thebibliography}
 
