@@ -416,7 +416,13 @@ INPUT .\images\loopiteration.pdf
 INPUT .\images\loopiteration.pdf
 INPUT .\images\loopiteration.pdf
 INPUT .\images\loopiteration.pdf
+INPUT .\paper.bbl
+INPUT .\paper.bbl
+INPUT paper.bbl
+INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\eccc0900.tfm
 INPUT paper.aux
+INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\eccc0900.pk
+INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\eccc0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0700.pk

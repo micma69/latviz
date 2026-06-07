@@ -1,0 +1,112 @@
+\begin{thebibliography}{10}
+
+\bibitem{2021kyber}
+{\sc Avanzi, R., Bos, J., Ducas, L., Kiltz, E., Lepoint, T., Lyubashevsky, V.,
+  Schanck, J.~M., Schwabe, P., Seiler, G., and Stehlé, D.}
+\newblock {CRYSTALS-Kyber}: Algorithm specifications and supporting
+  documentation, 2021.
+\newblock Version 3.02.
+
+\bibitem{2021dilithium}
+{\sc Bai, S., Ducas, L., Kiltz, E., Lepoint, T., Lyubashevsky, V., Schwabe, P.,
+  Seiler, G., and Stehlé, D.}
+\newblock {CRYSTALS-Dilithium}: Algorithm specifications and supporting
+  documentation, 2021.
+\newblock Version 3.1.
+
+\bibitem{barker2018sp80090b}
+{\sc Barker, E., Chen, L., Roginsky, A., Vassilev, A., and Davis, R.}
+\newblock Recommendation for the entropy sources used for random bit
+  generation.
+\newblock NIST Special Publication 800-90B, National Institute of Standards and
+  Technology, 2018.
+
+\bibitem{barker2025sp80090c}
+{\sc Barker, E., Chen, L., Roginsky, A., Vassilev, A., and Davis, R.}
+\newblock Recommendation for random bit generator (rbg) constructions.
+\newblock NIST Special Publication 800-90C, National Institute of Standards and
+  Technology, 2025.
+
+\bibitem{barker2015sp80090a}
+{\sc Barker, E., and Kelsey, J.}
+\newblock Recommendation for random number generation using deterministic
+  random bit generators.
+\newblock NIST Special Publication 800-90A Rev. 1, National Institute of
+  Standards and Technology, 2015.
+
+\bibitem{benioff1980}
+{\sc Benioff, P.}
+\newblock The computer as a physical system: A microscopic quantum mechanical
+  hamiltonian model of computers as represented by turing machines.
+\newblock {\em Journal of Statistical Physics 22}, 5 (1980), 563--591.
+
+\bibitem{benioff1982}
+{\sc Benioff, P.}
+\newblock Quantum mechanical hamiltonian models of turing machines.
+\newblock {\em Journal of Statistical Physics 29}, 3 (1982), 515--546.
+
+\bibitem{bennett20147}
+{\sc Bennett, C.~H., and Brassard, G.}
+\newblock Quantum cryptography: Public key distribution and coin tossing.
+\newblock {\em Theoretical Computer Science 560\/} (2014), 7--11.
+\newblock Theoretical Aspects of Quantum Cryptography – celebrating 30 years
+  of BB84.
+
+\bibitem{brassard1543949}
+{\sc Brassard, G.}
+\newblock Brief history of quantum cryptography: a personal perspective.
+\newblock In {\em IEEE Information Theory Workshop on Theory and Practice in
+  Information-Theoretic Security, 2005.\/} (2005), pp.~19--23.
+
+\bibitem{feynman1982}
+{\sc Feynman, R.~P.}
+\newblock Simulating physics with computers.
+\newblock {\em International Journal of Theoretical Physics 21}, 6 (1982),
+  467--488.
+
+\bibitem{HUNDHAUSEN2002259}
+{\sc HUNDHAUSEN, C.~D., DOUGLAS, S.~A., and STASKO, J.~T.}
+\newblock A meta-study of algorithm visualization effectiveness.
+\newblock {\em Journal of Visual Languages \& Computing 13}, 3 (2002),
+  259--290.
+
+\bibitem{kalava}
+{\sc Kalava, N.~R., Kukkala, V.~R., Kanaparthi, S.~S., Gangavarapu, T.~V., and
+  Lakshmi, Y.~V.}
+\newblock Post-quantum security for web applications, 2025.
+\newblock Unpublished manuscript.
+
+\bibitem{mlkemfromscratch}
+{\sc Kang, D.}
+\newblock Ml-kem from scratch.
+\newblock \url{https://pqc.hulryung.com/intro.html}, 2026.
+
+\bibitem{likert}
+{\sc Likert, R.}
+\newblock A technique for the measurement of attitudes.
+\newblock {\em Archives of Psychology 140\/} (1932), 1--55.
+
+\bibitem{nistfips204}
+{\sc {National Institute of Standards and Technology}}.
+\newblock Module-lattice-based digital signature standard.
+\newblock Federal Information Processing Standards Publication FIPS 204,
+  National Institute of Standards and Technology, Gaithersburg, MD, USA, Aug.
+  2024.
+\newblock Published August 13, 2024.
+
+\bibitem{nistfips203}
+{\sc {National Institute of Standards and Technology}}.
+\newblock Module-lattice-based key-encapsulation mechanism standard.
+\newblock Federal Information Processing Standards Publication FIPS 203,
+  National Institute of Standards and Technology, Gaithersburg, MD, USA, Aug.
+  2024.
+\newblock Published August 13, 2024.
+
+\bibitem{shor365700}
+{\sc Shor, P.}
+\newblock Algorithms for quantum computation: discrete logarithms and
+  factoring.
+\newblock In {\em Proceedings 35th Annual Symposium on Foundations of Computer
+  Science\/} (1994), pp.~124--134.
+
+\end{thebibliography}
