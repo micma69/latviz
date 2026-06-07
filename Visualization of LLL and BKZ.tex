@@ -434,19 +434,12 @@ This panel will tell the user of the current step (for example, "Basis size redu
 \begin{itemize}
 \raggedright
 \item "Initial Basis". This step is always the first step to be shown after we insert a matrix and clicked "Process Matrix". Right after we clicked the "Process Matrix" button, the program immediately extracted basis vectors from the input. If the "Step" panels shows that the current step is this step, then it means that the program already extracted basis vectors from the input. This step is one of three type of steps who only be shown once, the other two is "Finished" and "Iteration complete" (BKZ-only).
-\item 
 \item "Gram-Schmidt orthogonalization". Like its algorithm counterpart, the first "Gram-Schmidt orthogonalization" step would be shown as the second step in a matrix process. In this step, the program performs Gram-Schmidt orthogonalization (GSO) for all vectors from the input, produces the initial orthogonalized $\mathbf{v}_k^*$ and their corresponding projection coefficients $\mu_{k,j}$, with $1 \le j < k \le n$. This step also would be executed should a basis doesn't satisfies the Lovasz Condition (in this program, depicted in the form of a panel on its own). 
-\item
 \item "Basis reduction". It represents the basis reduction step from the original algorithm, in which a vector that is currently examined (started from the second vector in the basis from the input), having been orthogonalized globally during the Gram-Schmidt orthogonalization step previously together with all other vectors in the basis from the input, is being subtracted by the previous vector, in order to shorten the currently examined vector. This step also would be executed should a basis doesn't satisfies the Lovasz Condition. 
-\item 
 \item "Basis swap". This step is only executed and shown if during the "real" Lovasz Condition checking (which is executed after the basis reduction step, just like in the original algorithm), the Lovasz Condition isn't satisfied. In this step, like its namesake, the vector which are currently examined, has its index swapped with the previous vector. 
-\item 
-\item "Start LLL Process $\#n$". Only in the BKZ module, when this step is shown, it means that the LLL process in the current block is being executed (in the n-th iteration).
-\item 
+\item "Start LLL Process $\#n$". Only in the BKZ module, when this step is shown, it means that the LLL process in the current block is being executed (in the n-th iteration). 
 \item "Complete LLL Process $\#n$". Also only in the BKZ module, when this step is shown, it means that the LLL process in the current block is has been completed (in the n-th iteration).
-\item 
 \item "Iteration Complete". Like two previous steps, this is also a BKZ module-only type of step. Like its namesake, if this step is shown, then an iteration is stated to be completed, and unless it's the final iteration, the next iteration begins immediately.
-\item  
 \item "Finished". This step is in both LLL and BKZ modules. If this state is shown, then the program (LLL or BKZ, depends on what the module we currently use) terminates. In the context of their respective algorithms, if this step is reached, for LLL, all vectors has been examined and the Lovasz Condition is satisfied for the basis from the input, which in the other words, the basis has been successfully shortened and orthogonalized in accordance to the $\delta$-value. For BKZ, all blocks has been examined (the Lovasz Condition is checked inside each block as part of the local LLL process). 
 \end{itemize}
 
