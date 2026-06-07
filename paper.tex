@@ -83,7 +83,7 @@ Thus, this work aims to develop a visualization tool Latviz that allows users to
 \end{itemize}
 
 \section{Related Works}
-The following section discusses inner workings of ML-KEM and ML-DSA in more depth, as well as works surrounding the effective visualization of algorithms.
+The following section discusses inner workings of ML-KEM and ML-DSA in more depth.
 
 \subsection{Lattice-Based Cryptography}
 A lattice is a discrete subset of n-dimensional vectors of real numbers $\mathbb{R}^n$ formed by all integer linear combinations of a set of linearly independent basis vectors. Formally, given a basis $\mathbf{B} = \{ \mathbf{b}_1, \dots, \mathbf{b}_k \} \subset \mathbb{R}^n$, a lattice $\mathcal{L}$ is defined as:
@@ -452,21 +452,6 @@ Finally, the verifier checks that response $z$ is valid (by checking whether all
 \caption{ML-DSA Internal Verification Algorithm ML-DSA.Verify\_internal}
 \label{fig8}
 \end{figure}
-
-\subsection{The Effectiveness of Visualizations}
-Multiple studies have been conducted on the viability of digital and algorithm visualizations as learning tools or as aids to learning. Among them, results vary depending on the referred visualization tools, subjects of study, measures of effectiveness, metrics for learning, and so on. However, it can be inferred that some tools perform better than others for the purposes of helping their users learn their relevant topics and what characteristics makes those tools work better.
-
-\subsubsection{A Meta-Study of Algorithm Visualization Effectiveness}
-A meta study conducted on the effectiveness of algorithm visualizations in educational scenarios \cite{11} takes into account the objective of each visualization, the individual or groups with that objective, the particular algorithm visualization artifact used, and the particular target algorithm to be visualized, to define the effectiveness of a visualization as 'the extent to which an algorithm visualization artifact assists an individual or group in fulfulling their objective'. They are grouped based on independent variables (factors the study posits to cause effectiveness) and dependent variables (the ways in which a study measures effectiveness). By independent variables, they are grouped into four theories of effectiveness (including some overlap): Epistemic Fidelity, Dual-coding, Individual Differences, and Cognitive Constructivism.
-\begin{itemize}
-    \item \textbf{Epistemic Fidelity} assumes that humans use symbolic models of the physical world as basis for their reasoning and actions \cite{17}. It also assumes that graphics are effective in encoding an expert's mental model of an algorithm, which leads to effective transferal of the mental model to the viewer. The higher the quality, the 'fidelity' of the model, the more efficient the transfer is meant to be, which leads to more ease on the viewer's part in internalizing the model and presumably, the target knowledge.
-    \item \textbf{Dual-coding} follows from the assumption that cognition consists largely of the activity of two partly interconnected but functionally independent systems, one that encodes verbal events and another that encodes non-verbal events. Visualizations that incorporate both should allow viewers to built both representations in the brain, and thus facilitate the transfer of target knowledge better than a visualization that only uses one.
-    \item \textbf{Individual Differences} asserts that measurable differences in human ability and learning styles will lead to a measurable performance difference in scenarios of visualization use.
-    \item \textbf{Cognitive Constructivism} holds that indivisuals construct their own individual knowledge from subjective experiences. They can actively construct new understandings by actively engaging with their environment or interpreting new experiences through the context of what they already know.
-\end{itemize}
-Of the four, Cognitive Constructivism holds the largest group (14 out of 24 studies analysed used it). Additionally, the studies showed the highest percentage (71\%) of statistically significant results within studies, followed by Individual Differences and Dual-coding (both 50\%, each with only 2 studies each using them), with Epistemic Fidelity showing the least (30\% out of 10 studies). A more thorough analysis relating to measuring the effects of effort and levels of engagement \cite{18,19} shows that Cognitive Constructivism has the most basis, in that participants who actively engaged in activities such as making predictions when viewing a visualization led to a more significult result, as opposed to the equalization of activities leading to non-significant results. In essense, how viewers actually use a visualization matters more than what the visualization actually is.
-
-As for dependent variables, 2 studies measured effectiveness in terms of the participants' success at solving debugging and tracing problems, while the other 22 measured effectiveness by knowledge acquired. Of the latter, the knowledge acquired for each study can be divided into conceptual (an abstract understanding of the properties of an algorithm) and procedural (an understanding of the step-by-step behavior of an algorithm.), as well as some combination of both. An analysis of the results based on type of knowledge acquired implies that procedural knowledge is more sensitive to the effectiveness or lack thereof of visualizations. However, it should be noted that the studies only considered a very limited range of dependent variables, almost exclusively relying on the usage of pre- and post- tests or merely post-tests to come to that conclusion.
 
 \section{Latviz}
 The visualization tool Latviz is a web application that provides visualizations for ML-KEM and ML-DSA, meant to help users more easily understand the two through interactive visualizations.
