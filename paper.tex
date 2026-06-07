@@ -26,6 +26,21 @@
 %
 \usepackage{listings}
 \usepackage{subcaption}
+\usepackage{pgf-pie}
+
+\newcommand{\pchartlegend}{
+\begin{tikzpicture}
+\node[draw,fill=gray!60,minimum width=0.4cm,minimum height=0.4cm] at (0,0) {};
+\node[right] at (0.3,0) {Neutral};
+
+\node[draw,fill=blue!60,minimum width=0.4cm,minimum height=0.4cm] at (3,0) {};
+\node[right] at (3.3,0) {Agree};
+
+\node[draw,fill=green!70,minimum width=0.4cm,minimum height=0.4cm] at (6,0) {};
+\node[right] at (6.3,0) {Strongly Agree};
+\end{tikzpicture}
+}
+
 \setcounter{secnumdepth}{4}
 
 \begin{document}
@@ -97,7 +112,7 @@ ML-KEM and other KEMs (Key Encapsulation Mechanisms) typically consist of three 
 \label{fig1}
 \end{figure}
 
-As shown in figure 1, KEMs are used to establish a shared private key between two parties. Party A begins by running a key generation algorithm that produces an encapsulation (public) key and decapsulation (private) key. When party B accepts the encapsulation key, they can run the encapsulation algorithm with it as an input, which produces a copy of the two parties' shared secret key \textit{K} and its associated ciphertext \textit{c}. Party B sends the ciphertext to party A, and party A runs the decapsulation algorithm using the decapsulation key and the ciphertext, producing their own copy \textit{K'} of the shared secret key.
+As shown in Figure~\ref{fig1}, KEMs are used to establish a shared private key between two parties. Party A begins by running a key generation algorithm that produces an encapsulation (public) key and decapsulation (private) key. When party B accepts the encapsulation key, they can run the encapsulation algorithm with it as an input, which produces a copy of the two parties' shared secret key \textit{K} and its associated ciphertext \textit{c}. Party B sends the ciphertext to party A, and party A runs the decapsulation algorithm using the decapsulation key and the ciphertext, producing their own copy \textit{K'} of the shared secret key.
 
 They also have multiple parameter sets, of which ML-KEM has three. Each set specifies the underlying ring dimension, module rank, noise distributions, and compression parameters. Increasing these parameters results in larger matrices, vectors, and noise levels, which enhances security at the cost of computational efficiency. In order of least to most secure and most to least efficient, they are ML-KEM-512, ML-KEM-768, and ML-KEM-1024.
 
@@ -290,7 +305,7 @@ ML-DSA and other digital signature schemes typically consist of three algorithms
 \label{fig5}
 \end{figure}
 
-As shown in figure 5, digital signature schemes are used to provide assurance that a digital message or document is authentic. Party A begins by running a key generation algorithm that produces a public and private key. The private key is kept by party A, while the public key is given to party B. When party A sends a message or document to party B, they run the signing algorithm using their private key and the message, which produces a signature. Party B then can, upon receiving it, verify the message's authenicity using the corresponding public key.
+As shown in Figure~\ref{fig5}, digital signature schemes are used to provide assurance that a digital message or document is authentic. Party A begins by running a key generation algorithm that produces a public and private key. The private key is kept by party A, while the public key is given to party B. When party A sends a message or document to party B, they run the signing algorithm using their private key and the message, which produces a signature. Party B then can, upon receiving it, verify the message's authenicity using the corresponding public key.
 
 ML-DSA also has three approved parameter sets. In order of least to most secure and most to least efficient, they are ML-DSA-44, ML-DSA-65, and ML-DSA-87.
 
@@ -602,7 +617,7 @@ Additionally, when a variable is clicked, the component in the middle of the rig
 \label{fig:sideview}
 \end{figure}
 
-When a function is clicked on, it will lead to a visualization of that function. For example, the internal key generation function seen in Figure 14 (more formally known as ML-DSA.KeyGen\_internal) will show the following:
+When a function is clicked on, it will lead to a visualization of that function. For example, the internal key generation function seen in Figure~\ref{fig14} (more formally known as ML-DSA.KeyGen\_internal) will show the following:
 
 \begin{figure}[H]
 \centering
@@ -646,6 +661,80 @@ The survey consists primarily of 5-point Likert-scale questions \cite{likert} ra
 
 \subsection{Results}
 On the whole, the results of the user survey suggest that Latviz did improve users' understanding of ML-KEM and ML-DSA, and was also considered an effective tool for learning the algorithms. 
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60, green!70},
+    ]
+    {18.2/,72.7/,9.1/}
+\end{tikzpicture}
+\caption{ML-KEM}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60, green!70}
+    ]
+    {18.2/,77.3/,4.5/}
+\end{tikzpicture}
+\caption{ML-DSA}
+\end{subfigure}
+
+\vspace{0.5em}
+
+\pchartlegend
+
+\caption{Responses regarding improved understanding after using Latviz.}
+\label{fig:understanding}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60, green!70}
+    ]
+    {22.7/,68.2/,9.1/}
+\end{tikzpicture}
+\caption{ML-KEM}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60, green!70}
+    ]
+    {18.2/,72.7/,9.1/}
+\end{tikzpicture}
+\caption{ML-DSA}
+\end{subfigure}
+
+\vspace{0.5em}
+
+\pchartlegend
+
+\caption{Responses regarding whether Latviz was perceived as an effective learning tool.}
+\label{fig:effectivetool}
+\end{figure}
 
 To examine whether these perceptions differed based on participants' prior experience with cryptography, respondents were grouped based on their self-reported familiarity with cryptography and post-quantum cryptography. The groups were defined as NC (No Familiarity with Cryptography), LC (Low Familiarity with Cryptography), YC-YPQ (Familiar with Cryptography and Post-Quantum Cryptography), and YC-LPQ (Familiar with Cryptography but Low Post-Quantum Cryptography Knowledge).
 
