@@ -107,7 +107,7 @@ ML-KEM and other KEMs (Key Encapsulation Mechanisms) typically consist of three 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.36\linewidth]{images/KEM_diagram.pdf}
+\includegraphics[width=.45\linewidth]{images/KEM_diagram.pdf}
 \caption{Simplified key establishment process using KEM}
 \label{fig1}
 \end{figure}
@@ -184,7 +184,7 @@ Assuming the generated random seeds \textit{d} and \textit{z} are valid, the see
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/kyber-keygen.pdf}
+\includegraphics[width=\textwidth]{images/kyber-keygen.pdf}
 \caption{Kyber Key Generation Algorithm K-PKE.KeyGen}
 \label{fig2}
 \end{figure}
@@ -231,7 +231,7 @@ A copy of shared secret $K$ and the randomness $r$ used during encryption are de
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/kyber-encrypt.pdf}
+\includegraphics[width=\textwidth]{images/kyber-encrypt.pdf}
 \caption{Kyber Encryption Algorithm K-PKE.Encrypt}
 \label{fig3}
 \end{figure}
@@ -284,7 +284,7 @@ From the decapsulation key, the PKE encryption key $ek_{PKE}$, PKE decryption ke
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/kyber-decrypt.pdf}
+\includegraphics[width=\textwidth]{images/kyber-decrypt.pdf}
 \caption{Kyber Decryption Algorithm K-PKE.Decrypt}
 \label{fig4}
 \end{figure}
@@ -367,7 +367,7 @@ $\xi \leftarrow \mathbb{B}^{32}$ \tcc{choose random seed}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/dsa-keygen.pdf}
+\includegraphics[width=\textwidth]{images/dsa-keygen.pdf}
 \caption{ML-DSA Internal Keygen Algorithm ML-DSA.KeyGen\_internal}
 \label{fig6}
 \end{figure}
@@ -402,7 +402,7 @@ $\sigma \leftarrow \mathrm{ML\text{-}DSA.Sign\_internal}(sk, M', rnd)$
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/dsa-sign.pdf}
+\includegraphics[width=\textwidth]{images/dsa-sign.pdf}
 \caption{ML-DSA Internal Signing Algorithm ML-DSA.Sign\_internal}
 \label{fig7}
 \end{figure}
@@ -448,7 +448,7 @@ Finally, the verifier checks that response $z$ is valid (by checking whether all
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.84\linewidth]{images/dsa-verify.pdf}
+\includegraphics[width=\textwidth]{images/dsa-verify.pdf}
 \caption{ML-DSA Internal Verification Algorithm ML-DSA.Verify\_internal}
 \label{fig8}
 \end{figure}
@@ -473,7 +473,7 @@ After opening the page for the algorithm, the first thing the user sees is a sho
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/about_mldsa.pdf}
+\includegraphics[width=.7\linewidth]{images/about_mldsa.pdf}
 \caption{ML-DSA about component}
 \label{fig11}
 \end{figure}
@@ -484,7 +484,7 @@ After that is a section that briefly explains each stage of the chosen algorithm
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/process_overview.pdf}
+\includegraphics[width=.7\linewidth]{images/process_overview.pdf}
 \caption{ML-DSA Process}
 \label{fig12}
 \end{figure}
@@ -493,7 +493,7 @@ The section first shows a short description of the purpose of each stage of eith
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/process_animation.pdf}
+\includegraphics[width=.7\linewidth]{images/process_animation.pdf}
 \caption{ML-DSA Process Animation}
 \label{fig13}
 \end{figure}
@@ -502,7 +502,7 @@ Below that is a section that displays the an instance of the algorithm in full, 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/mldsa_fullvisualization.pdf}
+\includegraphics[width=.7\linewidth]{images/mldsa_fullvisualization.pdf}
 \caption{ML-DSA Full Animation Section}
 \label{fig14}
 \end{figure}
@@ -513,13 +513,13 @@ Starting from the top-right is the security level selection component. The user 
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.4\linewidth]{images/selectsecurity.pdf}
+  \includegraphics[width=.45\linewidth]{images/selectsecurity.pdf}
   \caption{Security level selection}
   \label{fig:sub8}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.4\linewidth]{images/parameters.pdf}
+  \includegraphics[width=.45\linewidth]{images/parameters.pdf}
   \caption{Parameters per security level}
   \label{fig:sub9}
 \end{subfigure}
@@ -533,7 +533,7 @@ In ML-DSA specifically, there is an input section for the signing stage that onl
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/leftmost_component.pdf}
+\includegraphics[width=.7\linewidth]{images/leftmost_component.pdf}
 \caption{ML-DSA Full Animation Section}
 \label{fig15}
 \end{figure}
@@ -542,13 +542,13 @@ In ML-DSA specifically, there is an input section for the signing stage that onl
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.4\linewidth]{images/sign_input1.pdf}
+  \includegraphics[width=.45\linewidth]{images/sign_input1.pdf}
   \caption{Empty message input}
   \label{fig:sub6}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.4\linewidth]{images/sign_input2.pdf}
+  \includegraphics[width=.45\linewidth]{images/sign_input2.pdf}
   \caption{Filled message input}
   \label{fig:sub7}
 \end{subfigure}
@@ -560,26 +560,27 @@ As interactivity forces engagement and engagement leads to more effective learni
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}{.3\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.3\linewidth]{images/unexpanded.pdf}
+  \includegraphics[width=.45\linewidth]{images/unexpanded.pdf}
   \caption{Unexpanded variable}
   \label{fig:sub1}
 \end{subfigure}%
-\begin{subfigure}{.3\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.3\linewidth]{images/expanded.pdf}
+  \includegraphics[width=.45\linewidth]{images/expanded.pdf}
   \caption{Expanded variable}
   \label{fig:sub2}
 \end{subfigure}
-\begin{subfigure}{.3\textwidth}
-  \centering
-  \includegraphics[width=.3\linewidth]{images/popup.pdf}
-  \caption{Popup description}
-  \label{fig:sub3}
-\end{subfigure}
 \caption{Variables in the form of colored matrices}
 \label{fig:variable}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.45\linewidth]{images/popup.pdf}
+\caption{Popup description}
+\label{popup}
 \end{figure}
 
 Additionally, when a variable is clicked, the component in the middle of the right column will show that variable in scrollable form. This allows for the entire variable to be visible instead of only the first 32 values. There is also an option for the variable to be visible in array form for easier viewing of the values.
@@ -588,13 +589,13 @@ Additionally, when a variable is clicked, the component in the middle of the rig
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.4\linewidth]{images/sidegrid.pdf}
+  \includegraphics[width=.45\linewidth]{images/sidegrid.pdf}
   \caption{Grid view}
   \label{fig:sub4}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.4\linewidth]{images/sidearray.pdf}
+  \includegraphics[width=.45\linewidth]{images/sidearray.pdf}
   \caption{Array view}
   \label{fig:sub5}
 \end{subfigure}
@@ -606,7 +607,7 @@ When a function is clicked on, it will lead to a visualization of that function.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/default_func.pdf}
+\includegraphics[width=.45\linewidth]{images/default_func.pdf}
 \caption{ML-DSA Full Animation Section (Step 1)}
 \label{fig16}
 \end{figure}
@@ -615,14 +616,14 @@ The figure above shows the first step of the function, the input. Subsequent ste
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/step_9.pdf}
+\includegraphics[width=.7\linewidth]{images/step_9.pdf}
 \caption{Stepping Component}
 \label{fig17}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/keygen_internal_viz.pdf}
+\includegraphics[width=.7\linewidth]{images/keygen_internal_viz.pdf}
 \caption{ML-DSA Full Animation Section (Step 9)}
 \label{fig18}
 \end{figure}
@@ -631,7 +632,7 @@ For ML-DSA specifically, there is also a loop function that visualizes each iter
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.48\linewidth]{images/loopiteration.pdf}
+\includegraphics[width=.7\linewidth]{images/loopiteration.pdf}
 \caption{Sign Loop Iteration Control}
 \label{fig19}
 \end{figure}
@@ -640,7 +641,7 @@ For ML-DSA specifically, there is also a loop function that visualizes each iter
 This section describes the method used to evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, as well as the results of the evaluation.
 
 \subsection{Methods}
-To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, a user survey of Latviz users was conducted. The aim of the survey was to determine whether the tool helped users in their understanding of ML-KEM and ML-DSA, if it was effective in doing so, and which parts were found to be adequate or not for the learning process. The group of respondents consisted of 22 university students chosen through convenience sampling, with varying degrees of understanding relating to cryptography, post-quantum cryptography, and lattice-based cryptography prior to using Latviz.
+To evaluate the effectiveness of Latviz as a visualization tool for ML-KEM and ML-DSA, a user survey of Latviz users was conducted. The aim of the survey was to determine whether the tool helped users in their understanding of ML-KEM and ML-DSA, if it was effective in doing so, and which parts were found to be adequate or not for the learning process. The group of respondents consisted of 22 university students chosen through convenience sampling, with varying degrees of understanding relating to cryptography, post-quantum cryptography, and lattice-based cryptography prior to using Latviz. The survey was initially distributed to university students within the researchers' academic network, who were then asked to forward the survey to other students who might be open to participating.
 
 The survey consists primarily of 5-point Likert-scale questions \cite{likert} ranging from 'Strongly Agree' to 'Strongly Disagree' and focuses on evaluating the following aspects of the visualization: overall understanding of the algorithms, clarity and ease of understanding of the explanations, the effectiveness of the step-by-step visualization approach, comprehension of variables and internal algorithmic processes, the usability and readability of the interface, and the perceived effectiveness of Latviz as a learning tool. In addition, an optional section was added to gather user suggestions or feedback that was not covered by the available questions.
 
@@ -748,7 +749,7 @@ Following the classification of respondents into groups, the overall survey resp
 \centering
 \caption{Responses to ML-KEM Evaluation Questions}
 \label{tab:mlkemresults}
-\begin{tabular}{|p{8cm}|c|c|c|c|c|}
+\begin{tabular}{|p{7cm}|c|c|c|c|c|}
 \hline
 Statements & SD & D & N & A & SA \\
 \hline
@@ -791,7 +792,7 @@ Next, table \ref{tab:mldsaresults} presents the distribution of results for the 
 \centering
 \caption{Responses to ML-DSA Evaluation Questions}
 \label{tab:mldsaresults}
-\begin{tabular}{|p{8cm}|c|c|c|c|c|}
+\begin{tabular}{|p{7cm}|c|c|c|c|c|}
 \hline
 Question & SD & D & N & A & SA \\
 \hline
