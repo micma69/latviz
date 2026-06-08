@@ -27,6 +27,43 @@
 \usepackage{float}
 \usepackage{placeins}
 \usepackage{pgf-pie}
+\usepackage{caption}
+\usepackage{subcaption}
+\newcommand{\bbB}{\mathbbm{B}}
+
+\newcommand{\pchartlegend}{
+\begin{tikzpicture}
+\node[draw,fill=gray!60,minimum width=0.4cm,minimum height=0.4cm] at (0,0) {};
+\node[right] at (0.3,0) {Neutral};
+
+\node[draw,fill=blue!60,minimum width=0.4cm,minimum height=0.4cm] at (3,0) {};
+\node[right] at (3.3,0) {Agree};
+
+\node[draw,fill=red!70,minimum width=0.4cm,minimum height=0.4cm] at (6,0) {};
+\node[right] at (6.3,0) {Disagree};
+\end{tikzpicture}
+}
+
+\newcommand{\pchartlegendEducBg}{
+\begin{tikzpicture}
+\node[draw,fill=blue!60,minimum width=0.4cm,minimum height=0.4cm] at (0,0) {};
+\node[right] at (0.3,0) {College students or graduates};
+
+\node[draw,fill=gray!60,minimum width=0.4cm,minimum height=0.4cm] at (0,-0.7) {};
+\node[right] at (0.3,-0.7) {Others};
+\end{tikzpicture}
+}
+
+\newcommand{\pchartlegendFamiliar}{
+\begin{tikzpicture}
+\node[draw,fill=blue!70,minimum width=0.4cm,minimum height=0.4cm] at (0,0) {};
+\node[right] at (0.3,0) {Familiar};
+
+\node[draw,fill=gray!60,minimum width=0.4cm,minimum height=0.4cm] at (3,0) {};
+\node[right] at (3.3,0) {Not familiar};
+\end{tikzpicture}
+}
+
 \setcounter{secnumdepth}{4}
 
 \begin{document}
@@ -145,7 +182,7 @@ SVP is essential for PQC lattice reduction algorithms because it can help to sol
 \subsection{LLL}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{LLL.pdf}
+    \includegraphics[width=0.7\textwidth]{LLLRev.pdf}
     \caption{The LLL algorithm}
     \label{LLL}
 \end{figure}
@@ -219,7 +256,7 @@ After all of the vectors have been examined and $L$ meets the Lovasz Condition r
 \subsection{BKZ}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{BKZ.pdf}
+    \includegraphics[width=0.7\textwidth]{BKZRev.pdf}
     \caption{The BKZ algorithm}
     \label{BKZ}
 \end{figure}
@@ -419,7 +456,7 @@ This is the key visual element. People can learn more efficiently if we explain 
     \label{Lovasz Status Panel}
 \end{figure}
 
-Only shown in the LLL module, the panel shows the user of the Lovasz status of the current basis. If the current basis fulfill the Lovasz condition, it will show the user a green check mark and "Satisfied" text, and if not, a red cross mark and "Not Satisfied" text will be shown to the user. Unlike in its original counterpart, the Lovasz Condition is continously checked throughout the whole LLL process, not just after the basis reduction step, for convenience reasons. %i think i need to add better reasons lol.
+Only shown in the LLL module, the panel shows the user of the Lovasz status of the current basis. If the current basis fulfill the Lovasz condition, it will show the user a green check mark and "Satisfied" text, and if not, a red cross mark and "Not Satisfied" text will be shown to the user. Unlike in its original counterpart, the Lovasz Condition is continously checked throughout the whole LLL process, not just after the basis reduction step, for convenience reasons. 
 
 \subsubsection{Step and Calculation Details}
 \mbox{}
@@ -466,11 +503,11 @@ This panel's sole function is to inform the user the shortest vectors found in t
 
 \section{Result}
 \subsection{Surveying Method}
-To measure the quality of Latviz that we have develop, we made an online app usability survey and let the survey participants test the app, by put the Latviz's access link in the survey form. Since lattice-based cryptography and cryptanalysis algorithms require sufficient understanding of concepts within linear algebra which is usually only taught in colleges, our primary target of this survey are Indonesian college students and graduates, while the questions in the survey are in Bahasa Indonesia. There are 25 questions related with LLL and BKZ modules in the app (including 2 optional suggestion boxes). 
+To measure the quality of Latviz that we have develop, we made an online app usability survey and let the survey participants test the app, by putting the Latviz's access link in the survey form. Since lattice-based cryptography and cryptanalysis algorithms require sufficient understanding of concepts within linear algebra which is usually only taught in colleges, our primary target of this survey are Indonesian college students and graduates, while the questions in the survey are in Bahasa Indonesia. There are 25 questions related with LLL and BKZ modules in the app (including 2 optional suggestion boxes). 
 
 We use Convenience Sampling method as the sampling method for our research, because we already know that both LLL and BKZ, or lattice reduction algorithms in general, require complex mathematical understanding as the requirement for the learners \cite{16}. Linear algebra in general is only start to be taught in colleges, and the fundamental concepts such as linear system of equations, vectors, and matrices are only start to be taught in high schools (in Indonesia, commonly in SMA). Added with time constraints, using convenience sampling method is a primary choice for us. We spread the survey link to our relatives that are at least senior high school graduates. Our primary targets however, are college students and graduates. 
 
-First, we asked the participants basic questions about their demographic education level and the familiarity with crptography and post-quantum cryptography as the background survey of the respondents. Then, for the questions related with the usability evaluations of the LLL and BKZ, we use the 5-points Likert's Scale, which ranges from "Sangat Tidak Setuju" (in English "Strongly Disagree") to "Sangat Setuju" (in English "Strongly Agree"). We created the survey using Google Forms, and the diagrams of the results based on the response from the participants are created automatically by Google Forms.
+First, we asked the participants basic questions about their demographic education level and the familiarity with crptography and post-quantum cryptography as the background survey of the respondents. Then, for the questions related with the usability evaluations of the LLL and BKZ, we use the 5-points Likert's Scale, which ranges from "Strongly Disagree" as the lowest score to "Strongly Agree" as the highest score. We created the survey using Google Forms, and the diagrams of the results based on the response from the participants are created automatically by Google Forms.
 
 \subsection{Questions}
 \subsubsection{Demographic Background Questions}
@@ -483,30 +520,61 @@ For the LLL and BKZ visualization modules in Latviz, we asked the participants a
 
 \subsection{Survey Result}
 \FloatBarrier
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{educ_background.png}
-    \caption{Educational background of the survey participants}
-    \label{educbackground}
+\begin{figure}[h]
+\centering
+\begin{subfigure}{0.55\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60},
+    ]
+    {21.4/, 78.6/}
+\end{tikzpicture}
+\end{subfigure}
+
+\vspace{1em}
+\pchartlegendEducBg
+\caption{Educational background of the survey participants}
+\label{fig:educbackground}
 \end{figure}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{crypt_familiarity.png}
-    \caption{Pre-survey Cryptography familiarity}
-    \label{cryptographyfamiliarity}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60}
+    ]
+    {67.9/,32.1/}
+\end{tikzpicture}
+\caption{LLL familiarity}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60}
+    ]
+    {67.9/,32.1/}
+\end{tikzpicture}
+\caption{BKZ familiarity}
+\end{subfigure}
+\vspace{0.5em}
+\pchartlegendFamiliar
+\caption{Responses regarding the pre-survey familiarity of LLL and BKZ algorithms.}
+\label{fig:presurveyfamiliarity}
 \end{figure}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll_fami.png}
-    \caption{Pre-survey LLL familiarity}
-    \label{lllfam}
-\end{figure}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{bkz_fami.png}
-    \caption{Pre-survey BKZ familiarity}
-    \label{bkzfam}
-\end{figure}
+
+\FloatBarrier
+
 \begin{table}[htbp]
 \centering
 \caption{Survey participants opinion on the LLL visualization usability}
@@ -556,33 +624,77 @@ The visual display is clear and not confusing & 0\% & 3.6\% & 17.9\% & 57.1\% & 
 \end{tabular}
 \end{table}
 \FloatBarrier
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll1.png}
-    \caption{LLL algorithm understanding after testing the app}
-    \label{LLL1}
+\begin{figure}[h]
+\centering
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60, red!70},
+    ]
+    {21.4/,67.8/,10.8/}
+\end{tikzpicture}
+\caption{LLL}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60, red!70}
+    ]
+    {28.6/,64.3/,7.1/}
+\end{tikzpicture}
+\caption{BKZ}
+\end{subfigure}
+
+\vspace{0.5em}
+
+\pchartlegend
+
+\caption{Responses regarding improved understanding of LLL and BKZ algorithms after using Latviz.}
+\label{fig:understanding}
 \end{figure}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{bkz1.png}
-    \caption{BKZ algorithm understanding after testing the app}
-    \label{BKZ1}
+\begin{figure}[h]
+\centering
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60, red!70}
+    ]
+    {32.1/,60.8/,7.1/}
+\end{tikzpicture}
+\caption{LLL}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.42\textwidth}
+\centering
+\begin{tikzpicture}
+    \pie[
+        radius=1.5,
+        rotate=180,
+        color={gray!60, blue!60, red!70}
+    ]
+    {32.14/,60.72/,7.14/}
+\end{tikzpicture}
+\caption{BKZ}
+\end{subfigure}
+\vspace{0.5em}
+\pchartlegend
+\caption{Responses regarding whether Latviz was perceived as an effective learning tool for learning LLL and BKZ algorithms.}
+\label{fig:effectivetool}
 \end{figure}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{bkz8.png}
-    \caption{Perceived effectiveness of the LLL visualization in Latviz}
-    \label{BKZ8}
-\end{figure}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{lll9.png}
-    \caption{Perceived effectiveness of the BKZ visualization in Latviz}
-    \label{LLL9}
-\end{figure}
+
 \FloatBarrier
 \section{Evaluation}
-Before we closed the survey, we managed to get 28 survey participants. Of all participants, 78.6\% are either college students or college graduates, and the rest are senior high school students or senior high school graduates. Only 10.7\% of all participants are familiar with cryptography, and 67.9\% of all respondents weren't familiar with LLL and BKZ. This proves our previous statements about how niche the lattice reduction algorithms are, including LLL and BKZ. 
+Before we closed the survey, we managed to get 28 survey participants. Of all participants, 78.6\% are either college students or college graduates, and the rest are senior high school students or senior high school graduates. Most respondents (67.9\% of them) weren't familiar with LLL and BKZ. This proves our previous statements about how niche the lattice reduction algorithms are, including LLL and BKZ. 
 
 More than 60\% of all respondents reportedly having their understandings of LLL and BKZ algorithms improved after using Latviz's LLL and BKZ visualization modules. This number is from total participants who answered "Strongly Agree" and "Agree". Using this response type combination, of all UI elements surveyed from both LLL and BKZ visualization modules, the "Back" and "Next" navigation buttons (71.3\% for LLL, 75\% for BKZ) become the most positively reviewed UI element by the participants. For LLL, the most satisfying element is the "Calculation Details" panel (71.5\%), and for BKZ, it's the 2D/3D graph (78.5\%). 
 
