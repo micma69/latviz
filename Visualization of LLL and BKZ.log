@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  8 JUN 2026 21:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.5)  9 JUN 2026 01:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -612,68 +612,73 @@ Package pdftex.def Info: ./pics/appstructure.png  used on input line 316.
 <./pics/initial_basis.png, id=102, 406.51875pt x 137.01187pt>
 File: ./pics/initial_basis.png Graphic file (type png)
 <use ./pics/initial_basis.png>
-Package pdftex.def Info: ./pics/initial_basis.png  used on input line 354.
+Package pdftex.def Info: ./pics/initial_basis.png  used on input line 352.
 (pdftex.def)             Requested size: 242.98541pt x 81.89415pt.
 <./pics/input_matrix.png, id=103, 400.49625pt x 180.675pt>
 File: ./pics/input_matrix.png Graphic file (type png)
 <use ./pics/input_matrix.png>
-Package pdftex.def Info: ./pics/input_matrix.png  used on input line 366.
+Package pdftex.def Info: ./pics/input_matrix.png  used on input line 364.
 (pdftex.def)             Requested size: 242.98541pt x 109.61885pt.
 <./pics/basisfromtheinputmatrix.png, id=104, 160.34906pt x 87.32625pt>
 File: ./pics/basisfromtheinputmatrix.png Graphic file (type png)
 <use ./pics/basisfromtheinputmatrix.png>
-Package pdftex.def Info: ./pics/basisfromtheinputmatrix.png  used on input line 373.
+Package pdftex.def Info: ./pics/basisfromtheinputmatrix.png  used on input line 371.
 (pdftex.def)             Requested size: 242.98541pt x 132.33353pt.
 <./pics/cartesian_representation.png, id=105, 335.75438pt x 298.11375pt>
 File: ./pics/cartesian_representation.png Graphic file (type png)
 <use ./pics/cartesian_representation.png>
-Package pdftex.def Info: ./pics/cartesian_representation.png  used on input line 379.
+Package pdftex.def Info: ./pics/cartesian_representation.png  used on input line 377.
 (pdftex.def)             Requested size: 242.98541pt x 215.7471pt.
  [15 <./pics/initial_basis.png>] [16 <./pics/input_matrix.png> <./pics/basisfromtheinputmatrix.png>] [17 <./pics/cartesian_representation.png>] [18]
 <./pics/2Dvisz.png, id=122, 411.78844pt x 353.06906pt>
 File: ./pics/2Dvisz.png Graphic file (type png)
 <use ./pics/2Dvisz.png>
-Package pdftex.def Info: ./pics/2Dvisz.png  used on input line 430.
+Package pdftex.def Info: ./pics/2Dvisz.png  used on input line 428.
 (pdftex.def)             Requested size: 242.98541pt x 208.33588pt.
- [19]
-<./pics/3Dvisz.png, id=127, 392.21532pt x 329.73187pt>
+<./pics/3Dvisz.png, id=123, 392.21532pt x 329.73187pt>
 File: ./pics/3Dvisz.png Graphic file (type png)
 <use ./pics/3Dvisz.png>
-Package pdftex.def Info: ./pics/3Dvisz.png  used on input line 437.
+Package pdftex.def Info: ./pics/3Dvisz.png  used on input line 435.
 (pdftex.def)             Requested size: 242.98541pt x 204.2807pt.
-<./pics/lovasz.png, id=128, 392.96812pt x 72.27pt>
+ [19] [20 <./pics/2Dvisz.png> <./pics/3Dvisz.png>]
+<./pics/lovasz.png, id=133, 392.96812pt x 72.27pt>
 File: ./pics/lovasz.png Graphic file (type png)
 <use ./pics/lovasz.png>
-Package pdftex.def Info: ./pics/lovasz.png  used on input line 448.
+Package pdftex.def Info: ./pics/lovasz.png  used on input line 446.
 (pdftex.def)             Requested size: 242.98541pt x 44.68782pt.
-<./pics/currentstep.png, id=129, 391.4625pt x 75.28125pt>
+<./pics/currentstep.png, id=134, 391.4625pt x 75.28125pt>
 File: ./pics/currentstep.png Graphic file (type png)
 <use ./pics/currentstep.png>
-Package pdftex.def Info: ./pics/currentstep.png  used on input line 459.
+Package pdftex.def Info: ./pics/currentstep.png  used on input line 457.
 (pdftex.def)             Requested size: 242.98541pt x 46.72786pt.
- [20 <./pics/2Dvisz.png>] [21 <./pics/3Dvisz.png> <./pics/lovasz.png> <./pics/currentstep.png>]
+ [21 <./pics/lovasz.png> <./pics/currentstep.png>]
 <./pics/currentbasis.png, id=140, 402.00188pt x 121.20282pt>
 File: ./pics/currentbasis.png Graphic file (type png)
 <use ./pics/currentbasis.png>
-Package pdftex.def Info: ./pics/currentbasis.png  used on input line 481.
+Package pdftex.def Info: ./pics/currentbasis.png  used on input line 479.
 (pdftex.def)             Requested size: 242.98541pt x 73.25858pt.
- [22]
-<./pics/svp.png, id=144, 407.27156pt x 85.06781pt>
+<./pics/svp.png, id=141, 407.27156pt x 85.06781pt>
 File: ./pics/svp.png Graphic file (type png)
 <use ./pics/svp.png>
-Package pdftex.def Info: ./pics/svp.png  used on input line 491.
+Package pdftex.def Info: ./pics/svp.png  used on input line 489.
 (pdftex.def)             Requested size: 242.98541pt x 50.75291pt.
- [23 <./pics/currentbasis.png> <./pics/svp.png>] [24]
-Overfull \hbox (13.40904pt too wide) in paragraph at lines 543--564
+ [22] [23 <./pics/currentbasis.png> <./pics/svp.png>]
+Overfull \hbox (13.40904pt too wide) in paragraph at lines 541--562
  [][] 
  []
 
 
-Overfull \hbox (6.21635pt too wide) in paragraph at lines 569--588
+Overfull \hbox (6.21635pt too wide) in paragraph at lines 567--586
  [][] 
  []
 
-[25] [26] [27] [28] (Visualization of LLL and BKZ.aux)
+
+Underfull \vbox (badness 1178) has occurred while \output is active []
+
+ [24]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [25] [26] [27] [28] (Visualization of LLL and BKZ.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -682,13 +687,13 @@ L3 programming layer <2026-01-19>
 Here is how much of TeX's memory you used:
  17515 strings out of 467866
  336871 string characters out of 5429810
- 734295 words of memory out of 5000000
+ 735294 words of memory out of 5000000
  46115 multiletter control sequences out of 15000+600000
  640882 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,10n,118p,1613b,1043s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\ACER ASPIRE 3\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files (D)/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "Visualization of LLL and BKZ.pdf" (28 pages, 518676 bytes).
+Output written on "Visualization of LLL and BKZ.pdf" (28 pages, 518256 bytes).
 PDF statistics:
  563 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

@@ -321,14 +321,12 @@ Authored by Jaziel D. Flores Rodríguez and his fellow colleagues, this research
 Within our source code repository, there is a segregation between the backend and frontend. The role of these backend source codes is to process the inputs inserted from the user through the interface at the frontend. And obviously the role of the frontend section, aside from getting the inputs from the user, is to do the entire visualization jobs. Because the visualization is our main priority, we can say that the frontend section is much more complex compared to the backend one. 
 
 \subsection{Backend}
-We're using Zachary Robert Bennett's lll-attack-runner, which is an interactive and Javascript-based lattice-based cryptanalysis solver, as the backend for our visualization of the LLL and BKZ algorithms. We only use three source codes from lll-attack-runner, which are : lll.ts, bkz.ts, and types.ts. The lll.ts, per its filename, does the LLL algorithm process, and the same goes for bkz.ts. Both source codes needs LLLStep interface from types.ts, and for bkz.ts, it also needs LLLRun from lll.ts. 
+We're using the modified version of Zachary Robert Bennett's lll-attack-runner as the backend for our visualization of the LLL and BKZ algorithms. We only use three source codes from lll-attack-runner, which are : lll.ts, bkz.ts, and types.ts. The lll.ts, per its filename, does the LLL algorithm process, and the same goes for bkz.ts. Both source codes needs LLLStep interface from types.ts, and for bkz.ts, it also needs LLLRun from lll.ts. 
 
 \subsection{Frontend}
 Within the frontend section, in each of BKZ and LLL algorithm modules, each algorithm has its own folder. Which, in each of these folders, there is a single source code written in Typescript, with naming convention of the algorithm name written in lowercase. Each of these source codes are responsible for running the algorithm process which corresponds to their name. Within each of these source codes, we will use imported functions from Zachary Robert Bennett's lll-attack-runner source codes to run the algorithm process.  
 
-We will use Next.js, a React-based framework for building web applications, with the goal to create a user-friendly interface as much as we can for our visualization of the LLL and BKZ algorithms. The user will write their own matrix (or copy-and-paste it from any sources), insert needed values (for example, delta value for both LLL and BKZ algorithm and the block size for BKZ algorithm), and the frontend will pass the values inserted by the user into the backend for the core processing. As what we already explained before in the overview section, the frontend's responsibility is mainly for visualization part.
-
-For the visualization part, we will use D3 for the visualization part, combined with React to create matrices and vectors visualizations. Our secondary objective for the frontend is to create a visualization which have animations for the steps of these algorithms. We believe the animated version of these visualizations can be understand easier by the users. 
+We will use Next.js, a React-based framework for building web applications, with the goal to create a user-friendly interface as much as we can for our visualization of the LLL and BKZ algorithms. The user will write their own matrix (or copy-and-paste it from any sources), insert needed values (for example, delta value for both LLL and BKZ algorithm and the block size for BKZ algorithm), and the frontend will pass the values inserted by the user into the backend for the core processing. As what we already explained before in the overview section, the frontend's responsibility is mainly for visualization part. And, for the visualization part, we will use D3 for the visualization part, combined with React to create matrices and vectors visualizations.
 
 \section{Visualization}
 \subsection{Euclidean Vector Representations for the Visualization of LLL and BKZ}
@@ -401,7 +399,7 @@ The Lovasz Condition is depicted as a status panel of two states ("Satisfied" an
 
 \subsubsection{Text Panel to Represent Shortest Vector Problem}
 \mbox{}
-The SVP is computed through each of the BKZ iterations. However, the program would only show the SVPs at the final step. It is displayed within a dedicated panel only in the BKZ module.
+The SVP is computed through each of the BKZ iterations. However, the program would only show it in the final step. It is displayed within a dedicated panel in LLL and BKZ modules.
 %need a better reason lmfao
 
 \subsection{Visualization of the LLL Algorithm}
@@ -663,7 +661,7 @@ The visual display is clear and not confusing & 0\% & 4.5\% & 13.6\% & 59.1\% & 
 \section{Evaluation}
 Before we closed the survey, we managed to get 22 college students or college graduates as the survey participants. A plurality of all respondents (41\% of them) weren't familiar with cryptography, let alone LLL and BKZ. This proves our previous statements about how niche the LLL and BKZ algorithms are. 
 
-More than 60\% of all respondents reportedly having their understandings of LLL and BKZ algorithms improved after using Latviz's LLL and BKZ visualization modules. This number was taken from the total amount of survey participants who answered "Strongly Agree" and "Agree". Using this response type combination, 72.7\% of all survey participants reported understanding increase of LLL and BKZ after they tested Latviz. And of all UI elements surveyed from both LLL and BKZ visualization modules, for LLL, the most satisfying element is the "Calculation Details" panel (81.9\%), and for BKZ, it's none other than the "Back" and "Next" navigation buttons (81.9\%). 
+More than 70\% of all respondents reportedly having their understandings of LLL and BKZ algorithms improved after using Latviz's LLL and BKZ visualization modules. This number was taken from the total amount of survey participants who answered "Strongly Agree" and "Agree". Using this response type combination, 72.7\% of all survey participants reported understanding increase of LLL and BKZ after they tested Latviz. And of all UI elements surveyed from both LLL and BKZ visualization modules, for LLL, the most satisfying element is the "Calculation Details" panel (81.9\%), and for BKZ, it's none other than the "Back" and "Next" navigation buttons (81.9\%). 
 
 The less positive responses are found in questions about the roles of the variables used in both algorithms. In particular, just 59.1\% of all respondents understand the roles of the variables used in the LLL algorithm, and for BKZ, it is slightly lower, at just 58.2\%. We think this is natural consider how hard the concepts of LLL (and BKZ) are.
 
