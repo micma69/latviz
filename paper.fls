@@ -254,48 +254,97 @@ INPUT D:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam7.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti0900.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecbx0700.tfm
+INPUT .\images\mlkem_keygen_edit.pdf
+INPUT .\images\mlkem_keygen_edit.pdf
+INPUT .\images\mlkem_keygen_edit.pdf
+INPUT .\images\mlkem_keygen_edit.pdf
+INPUT .\images\mlkem_keygen_edit.pdf
+INPUT .\images\mlkem_keygen_edit.pdf
+INPUT .\images\mlkem_keygen_internal_edit.pdf
+INPUT .\images\mlkem_keygen_internal_edit.pdf
+INPUT .\images\mlkem_keygen_internal_edit.pdf
+INPUT .\images\mlkem_keygen_internal_edit.pdf
+INPUT .\images\mlkem_keygen_internal_edit.pdf
+INPUT .\images\mlkem_keygen_internal_edit.pdf
+INPUT .\images\kyber-keygen.pdf
+INPUT .\images\kyber-keygen.pdf
+INPUT .\images\kyber-keygen.pdf
+INPUT .\images\kyber-keygen.pdf
+INPUT .\images\kyber-keygen.pdf
+INPUT .\images\kyber-keygen.pdf
+INPUT .\images\mlkem_encaps_edit.pdf
+INPUT .\images\mlkem_encaps_edit.pdf
+INPUT .\images\mlkem_encaps_edit.pdf
+INPUT .\images\mlkem_encaps_edit.pdf
+INPUT .\images\mlkem_encaps_edit.pdf
+INPUT .\images\mlkem_encaps_edit.pdf
+INPUT .\images\mlkem_encaps_internal_edit.pdf
+INPUT .\images\mlkem_encaps_internal_edit.pdf
+INPUT .\images\mlkem_encaps_internal_edit.pdf
+INPUT .\images\mlkem_encaps_internal_edit.pdf
+INPUT .\images\mlkem_encaps_internal_edit.pdf
+INPUT .\images\mlkem_encaps_internal_edit.pdf
+INPUT .\images\kyber-encrypt.pdf
+INPUT .\images\kyber-encrypt.pdf
+INPUT .\images\kyber-encrypt.pdf
+INPUT .\images\kyber-encrypt.pdf
+INPUT .\images\kyber-encrypt.pdf
+INPUT .\images\kyber-encrypt.pdf
+INPUT .\images\mlkem_decaps_edit.pdf
+INPUT .\images\mlkem_decaps_edit.pdf
+INPUT .\images\mlkem_decaps_edit.pdf
+INPUT .\images\mlkem_decaps_edit.pdf
+INPUT .\images\mlkem_decaps_edit.pdf
+INPUT .\images\mlkem_decaps_edit.pdf
+INPUT .\images\mlkem_decaps_internal_edit.pdf
+INPUT .\images\mlkem_decaps_internal_edit.pdf
+INPUT .\images\mlkem_decaps_internal_edit.pdf
+INPUT .\images\mlkem_decaps_internal_edit.pdf
+INPUT .\images\mlkem_decaps_internal_edit.pdf
+INPUT .\images\mlkem_decaps_internal_edit.pdf
+INPUT .\images\kyber-decrypt.pdf
+INPUT .\images\kyber-decrypt.pdf
+INPUT .\images\kyber-decrypt.pdf
+INPUT .\images\kyber-decrypt.pdf
+INPUT .\images\kyber-decrypt.pdf
+INPUT .\images\kyber-decrypt.pdf
+INPUT .\images\DSS_diagram.pdf
+INPUT .\images\DSS_diagram.pdf
+INPUT .\images\DSS_diagram.pdf
+INPUT .\images\DSS_diagram.pdf
+INPUT .\images\DSS_diagram.pdf
+INPUT .\images\DSS_diagram.pdf
 INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ectt1000.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm0700.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecrm0500.tfm
-INPUT .\images\kyber-keygen.pdf
-INPUT .\images\kyber-keygen.pdf
-INPUT .\images\kyber-keygen.pdf
-INPUT .\images\kyber-keygen.pdf
-INPUT .\images\kyber-keygen.pdf
-INPUT .\images\kyber-keygen.pdf
-INPUT .\images\kyber-encrypt.pdf
-INPUT .\images\kyber-encrypt.pdf
-INPUT .\images\kyber-encrypt.pdf
-INPUT .\images\kyber-encrypt.pdf
-INPUT .\images\kyber-encrypt.pdf
-INPUT .\images\kyber-encrypt.pdf
-INPUT .\images\kyber-decrypt.pdf
-INPUT .\images\kyber-decrypt.pdf
-INPUT .\images\kyber-decrypt.pdf
-INPUT .\images\kyber-decrypt.pdf
-INPUT .\images\kyber-decrypt.pdf
-INPUT .\images\kyber-decrypt.pdf
-INPUT .\images\DSS_diagram.pdf
-INPUT .\images\DSS_diagram.pdf
-INPUT .\images\DSS_diagram.pdf
-INPUT .\images\DSS_diagram.pdf
-INPUT .\images\DSS_diagram.pdf
-INPUT .\images\DSS_diagram.pdf
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti0700.tfm
-INPUT D:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ecti0500.tfm
+INPUT .\images\mldsa_keygen_edit.pdf
+INPUT .\images\mldsa_keygen_edit.pdf
+INPUT .\images\mldsa_keygen_edit.pdf
+INPUT .\images\mldsa_keygen_edit.pdf
+INPUT .\images\mldsa_keygen_edit.pdf
+INPUT .\images\mldsa_keygen_edit.pdf
 INPUT .\images\dsa-keygen.pdf
 INPUT .\images\dsa-keygen.pdf
 INPUT .\images\dsa-keygen.pdf
 INPUT .\images\dsa-keygen.pdf
 INPUT .\images\dsa-keygen.pdf
 INPUT .\images\dsa-keygen.pdf
+INPUT .\images\mldsa_sign_edit.pdf
+INPUT .\images\mldsa_sign_edit.pdf
+INPUT .\images\mldsa_sign_edit.pdf
+INPUT .\images\mldsa_sign_edit.pdf
+INPUT .\images\mldsa_sign_edit.pdf
+INPUT .\images\mldsa_sign_edit.pdf
 INPUT .\images\dsa-sign.pdf
 INPUT .\images\dsa-sign.pdf
 INPUT .\images\dsa-sign.pdf
 INPUT .\images\dsa-sign.pdf
 INPUT .\images\dsa-sign.pdf
 INPUT .\images\dsa-sign.pdf
+INPUT .\images\mldsa_verify_edit.pdf
+INPUT .\images\mldsa_verify_edit.pdf
+INPUT .\images\mldsa_verify_edit.pdf
+INPUT .\images\mldsa_verify_edit.pdf
+INPUT .\images\mldsa_verify_edit.pdf
+INPUT .\images\mldsa_verify_edit.pdf
 INPUT .\images\dsa-verify.pdf
 INPUT .\images\dsa-verify.pdf
 INPUT .\images\dsa-verify.pdf
@@ -425,8 +474,6 @@ INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\eccc
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\eccc0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk
-INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0700.pk
-INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0700.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti0900.pk
 INPUT C:\Users\Acer\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1000.pk
@@ -451,8 +498,6 @@ INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
-INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi5.pfb
-INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi5.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi6.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi6.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi7.pfb
@@ -461,8 +506,6 @@ INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi9.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi9.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
-INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr5.pfb
-INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr5.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr6.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr6.pfb
 INPUT D:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr7.pfb
