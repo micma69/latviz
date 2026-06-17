@@ -26,6 +26,29 @@ function vectorScale(v: number[], scalar: number): number[] {
   return v.map(val => val * scalar)
 }
 
+function isNonZeroVector(v: number[]): boolean {
+  return vectorNorm(v) > 1e-10
+}
+
+function findShortestNonZeroVector(vectors: number[][]): number[] | undefined {
+  let shortest: number[] | undefined
+  let shortestNorm = Infinity
+
+  for (const vec of vectors) {
+    if (!isNonZeroVector(vec)) {
+      continue
+    }
+
+    const norm = vectorNorm(vec)
+    if (norm < shortestNorm) {
+      shortest = vec
+      shortestNorm = norm
+    }
+  }
+
+  return shortest
+}
+
 function gramSchmidt(basis: number[][]): { orthogonal: number[][], mu: number[][] } {
   const n = basis.length
   const orthogonal: number[][] = []
@@ -59,20 +82,12 @@ function projectBlock(basis: number[][], start: number, end: number): number[][]
   return projected
 }
 
-function enumerateSVP(basis: number[][], blockSize: number): number[] {
+function enumerateSVP(basis: number[][], blockSize: number): number[] | undefined {
   const n = Math.min(blockSize, basis.length)
   const block = basis.slice(0, n)
 
-  let shortestVector: number[] | undefined
-  let shortestNorm = Infinity
-
-  for (let i = 0; i < block.length; i++) {
-    const norm = vectorNorm(block[i])
-    if (norm > 1e-10 && norm < shortestNorm) {
-      shortestVector = block[i]
-      shortestNorm = norm
-    }
-  }
+  let shortestVector = findShortestNonZeroVector(block)
+  let shortestNorm = shortestVector ? vectorNorm(shortestVector) : Infinity
 
   const combinations = Math.min(100, Math.pow(2, n))
   for (let mask = 1; mask < combinations; mask++) {
@@ -86,16 +101,16 @@ function enumerateSVP(basis: number[][], blockSize: number): number[] {
       }
     }
 
-    if (coeffCount > 0) {
+    if (coeffCount > 0 && isNonZeroVector(combination)) {
       const norm = vectorNorm(combination)
-      if (norm > 1e-10 && norm < shortestNorm) {
+      if (norm < shortestNorm) {
         shortestVector = combination
         shortestNorm = norm
       }
     }
   }
 
-  return shortestVector ?? block[0]
+  return shortestVector
 }
 
 export function runBKZ(
@@ -190,9 +205,9 @@ export function runBKZ(
         if (blockSize >= 4 && blockEnd - i >= 3) {
           const blockBefore = block.map(row => [...row])
           const shortVector = enumerateSVP(block, Math.min(blockSize, block.length))
-          const shortNorm = vectorNorm(shortVector)
           const currentNorm = vectorNorm(reducedBasis[i])
-          const blockAfter = shortNorm < currentNorm - 1e-6
+          const shortNorm = shortVector ? vectorNorm(shortVector) : Infinity
+          const blockAfter = shortVector && shortNorm < currentNorm - 1e-6
             ? blockBefore.map((row, idx) => idx === 0 ? shortVector : [...row])
             : blockBefore.map(row => [...row])
 
@@ -211,7 +226,7 @@ export function runBKZ(
             })
           }
 
-          if (shortNorm < currentNorm - 1e-6) {
+          if (shortVector && shortNorm < currentNorm - 1e-6) {
             reducedBasis[i] = shortVector
             improved = true
 
@@ -253,21 +268,25 @@ export function runBKZ(
     })
   }
 
-  const shortestVector = reducedBasis.reduce((shortest, vec) => {
-    const currentNorm = vectorNorm(vec)
-    const shortestNorm = vectorNorm(shortest)
-    return currentNorm < shortestNorm ? vec : shortest
-  }, reducedBasis[0])
+  const nonZeroVectors = reducedBasis.filter(isNonZeroVector)
+  const shortestVector = nonZeroVectors.length > 0
+    ? nonZeroVectors.reduce((shortest, vec) => {
+        const currentNorm = vectorNorm(vec)
+        const shortestNorm = vectorNorm(shortest)
+        return currentNorm < shortestNorm ? vec : shortest
+      }, nonZeroVectors[0])
+    : undefined
 
   const hasZeroVector = reducedBasis.some(vec => 
     vec.every(val => Math.abs(val) < 1e-10)
   )
+  const isReduced = iterations < adaptiveMaxIterations
 
   return {
     reducedBasis,
     iterations,
     solutionVector: shortestVector,
-    success: !hasZeroVector && iterations < maxIterations,
+    success: isReduced && !hasZeroVector,
     steps: captureSteps ? steps : undefined,
     blockSize
   }
