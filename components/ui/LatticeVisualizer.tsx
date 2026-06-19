@@ -7,7 +7,7 @@ import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
 const MIN_DIM = 2
-const MAX_DIM = 5
+const MAX_DIM = 3
 const MAX_BASIS = 4
 const VECTOR_COLORS = ["#22d3ee", "#fb7185", "#fbbf24", "#a78bfa"]
 const SUBSCRIPTS = ["₁", "₂", "₃", "₄", "₅", "₆"]
