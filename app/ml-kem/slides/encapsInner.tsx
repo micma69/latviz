@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import SquareGrid from "@/components/ui/gridLattice";
 import { ChevronLeftIcon, ArrowLongRightIcon, ArrowLongDownIcon } from "@heroicons/react/24/solid";
 import { Button } from "@/components/ui/button";

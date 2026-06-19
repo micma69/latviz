@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
 import { ArrowLongDownIcon, ChevronLeftIcon } from '@heroicons/react/24/solid';

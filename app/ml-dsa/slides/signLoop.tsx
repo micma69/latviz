@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { InlineMath } from 'react-katex';
 import { Button } from "@/components/ui/button";
 import { ChevronLeftIcon, ArrowLongRightIcon, ArrowLongDownIcon, ArrowPathIcon } from "@heroicons/react/24/solid";
