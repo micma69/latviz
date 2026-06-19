@@ -404,44 +404,46 @@ export default function LatticeVisualizer() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      {/* basis editor */}
-      <div className="space-y-2">
-        {basis.map((v, vecIdx) => (
-          <div key={vecIdx} className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: VECTOR_COLORS[vecIdx % VECTOR_COLORS.length] }} />
-            <span className="text-slate-400 text-sm w-6">b{vecIdx + 1}</span>
-            <div className="flex gap-1">
-              {v.map((val, compIdx) => (
-                <input
-                  key={compIdx}
-                  type="number"
-                  step="any"
-                  value={val}
-                  onChange={(e) => updateComponent(vecIdx, compIdx, e.target.value)}
-                  className="w-16 p-1 bg-slate-700 text-white text-sm rounded border border-slate-600 focus:outline-none focus:border-blue-500"
-                />
-              ))}
+    <div className="flex flex-row gap-4">
+      <div className="flex flex-1 flex-col gap-4">
+        {/* basis editor */}
+        <div className="space-y-2">
+          {basis.map((v, vecIdx) => (
+            <div key={vecIdx} className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: VECTOR_COLORS[vecIdx % VECTOR_COLORS.length] }} />
+              <span className="text-slate-400 text-sm w-6">b{vecIdx + 1}</span>
+              <div className="flex gap-1">
+                {v.map((val, compIdx) => (
+                  <input
+                    key={compIdx}
+                    type="number"
+                    step="any"
+                    value={val}
+                    onChange={(e) => updateComponent(vecIdx, compIdx, e.target.value)}
+                    className="w-16 p-1 bg-slate-700 text-white text-sm rounded border border-slate-600 focus:outline-none focus:border-blue-500"
+                  />
+                ))}
+              </div>
+              <button
+                onClick={() => removeVector(vecIdx)}
+                disabled={basis.length <= MIN_DIM}
+                className="ml-auto text-slate-400 hover:text-red-400 disabled:opacity-30 disabled:hover:text-slate-400 text-sm px-2"
+                title="Remove basis vector"
+              >
+                ✕
+              </button>
             </div>
+          ))}
+
+          <div className="flex items-center justify-between pt-1">
             <button
-              onClick={() => removeVector(vecIdx)}
-              disabled={basis.length <= MIN_DIM}
-              className="ml-auto text-slate-400 hover:text-red-400 disabled:opacity-30 disabled:hover:text-slate-400 text-sm px-2"
-              title="Remove basis vector"
+              onClick={addVector}
+              disabled={basis.length >= MAX_BASIS}
+              className="text-sm text-blue-400 hover:text-blue-300 disabled:opacity-30 disabled:hover:text-blue-400"
             >
-              ✕
+              + Add basis vector
             </button>
           </div>
-        ))}
-
-        <div className="flex items-center justify-between pt-1">
-          <button
-            onClick={addVector}
-            disabled={basis.length >= MAX_BASIS}
-            className="text-sm text-blue-400 hover:text-blue-300 disabled:opacity-30 disabled:hover:text-blue-400"
-          >
-            + Add basis vector
-          </button>
 
           {!tooManyDims && (
             <div className="flex items-center gap-2 text-sm text-slate-400">
@@ -460,43 +462,45 @@ export default function LatticeVisualizer() {
               <span>combinations</span>
             </div>
           )}
+
+          {/* selected point info */}
+          {selectedPoint && (
+            <div className="rounded border border-sky-700 bg-slate-900 p-4 text-sm">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-semibold text-white">Selected point</h4>
+                <button onClick={() => setSelectedPoint(null)} className="text-slate-400 hover:text-white text-xs">
+                  ✕ Close
+                </button>
+              </div>
+              <p className="font-mono text-sky-300">
+                ({selectedPoint.coords.map((c) => formatNumber(c)).join(", ")})
+              </p>
+              <p className="text-slate-400 mt-1">= {formatCombination(selectedPoint.coeffs)}</p>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* visualization */}
-      {tooManyDims ? (
-        <div className="rounded border border-slate-700 bg-slate-950 p-6 text-slate-300 text-sm leading-relaxed">
-          With {dim} basis vectors, this lattice lives in {dim}-dimensional space. There's no real way to visualize objects beyond the third dimension (3D), so this visualization will only show lattices made from up to 3 basis vectors. 
-        </div>
-      ) : dim === MIN_DIM ? (
-        <Lattice2D basis={basis} range={range} selectedPoint={selectedPoint} onSelectPoint={setSelectedPoint} />
-      ) : (
-        <Lattice3D basis={basis} range={range} onSelectPoint={setSelectedPoint} />
-      )}
-
-      {!tooManyDims && (
-        <p className="text-slate-500 text-xs">
-          The dots represent the integer combination of the basis vectors- in other words, they represent the lattice. The colored arrows are the basis vectors.
-          Hover over point to highlight it, click to see what it's made of.
-          {dim === 3 && " Drag to rotate, scroll to zoom."}
-        </p>
-      )}
-
-      {/* selected point info */}
-      {selectedPoint && (
-        <div className="rounded border border-sky-700 bg-slate-900 p-4 text-sm">
-          <div className="flex items-center justify-between mb-2">
-            <h4 className="font-semibold text-white">Selected point</h4>
-            <button onClick={() => setSelectedPoint(null)} className="text-slate-400 hover:text-white text-xs">
-              ✕ Close
-            </button>
+      <div className="flex flex-1 flex-col gap-4">
+        {/* visualization */}
+        {tooManyDims ? (
+          <div className="rounded border border-slate-700 bg-slate-950 p-6 text-slate-300 text-sm leading-relaxed">
+            With {dim} basis vectors, this lattice lives in {dim}-dimensional space. There's no real way to visualize objects beyond the third dimension (3D), so this visualization will only show lattices made from up to 3 basis vectors. 
           </div>
-          <p className="font-mono text-sky-300">
-            ({selectedPoint.coords.map((c) => formatNumber(c)).join(", ")})
+        ) : dim === MIN_DIM ? (
+          <Lattice2D basis={basis} range={range} selectedPoint={selectedPoint} onSelectPoint={setSelectedPoint} />
+        ) : (
+          <Lattice3D basis={basis} range={range} onSelectPoint={setSelectedPoint} />
+        )}
+
+        {!tooManyDims && (
+          <p className="text-slate-500 text-xs">
+            The dots represent the integer combination of the basis vectors- in other words, they represent the lattice. The colored arrows are the basis vectors.
+            Hover over point to highlight it, click to see what it's made of.
+            {dim === 3 && " Drag to rotate, scroll to zoom."}
           </p>
-          <p className="text-slate-400 mt-1">= {formatCombination(selectedPoint.coeffs)}</p>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

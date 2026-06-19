@@ -21,9 +21,7 @@ export default function Home() {
                     <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
                         As the number of basis vectors increases, the lattice gets exponentially more complex. This matters because solving certain computational problems on high-dimensional lattices are believed to be extremely difficult. These problems form the security foundation of modern lattice-based algorithms.
                     </p>
-                    <div className="lg:w-1/2">
-                        <LatticeVisualizer />
-                    </div>
+                    <LatticeVisualizer />
                 </div>
             </div>
 
