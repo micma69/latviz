@@ -79,7 +79,7 @@ export default function Glossary() {
                                         </figcaption>
                                     </figure>
                                     <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
-                                        How is this a lattice-based problem?
+                                        It should be noted that the example of LWE given above is for the search version of the problem. The other version (the decision version) is not relevant to any of the algorithms discussed here.
                                     </p>
                                 </div>
                             ),

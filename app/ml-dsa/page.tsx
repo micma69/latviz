@@ -187,7 +187,11 @@ export default function MLDSAPage() {
                         ML-DSA is a lattice-based digital signature algorithm standardized by NIST's FIPS 204 publication that provides a quantum resistant method to generate and verify digital signatures. It's set to replace current digital signature algorithms such as RSA (Rivest-Shamir-Adleman) and ECDSA (Elliptic Curve Digital Signature Algorithm) that are quantum vulnerable.
                     </p>
                     <p className="text-slate-300 leading-relaxed">
-                        ML-DSA is based on the hardness of the MLWE (Module Learning With Errors) problem, which is itself based on the idea of inferring a linear function over noisy data. The problem is considered to be quantum resistant, which carries over to ML-DSA.
+                        ML-DSA is based on the hardness of the{" "}
+                    <Link href="/glossary#latticeproblems" className="text-blue-400 hover:text-blue-300 underline">
+                        MLWE (Module Learning With Errors)
+                    </Link>{" "}
+                    problem, which is itself based on the idea of inferring a linear function over noisy data. The problem is considered to be quantum resistant, which carries over to ML-DSA.
                     </p>
                 </div>
                 <div className="rounded-xl bg-slate-800 p-6 mb-8">

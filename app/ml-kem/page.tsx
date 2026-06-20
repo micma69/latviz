@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import * as pqc from '@/lib/modified-pqc/ml-kem-modified';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -198,7 +198,12 @@ export default function MLKEMPage() {
                         ML-KEM is a lattice based key encapsulation mechanism standardized by NIST's FIPS 203 publication that provides a quantum resistant method of establishing shared secret keys between parties communicating over a public channel. It's set to replace current key encapsulation algorithms such as RSA (Rivest-Shamir-Adleman) and Diffie-Hellman.
                     </p>
                     <p className="text-slate-300 leading-relaxed">
-                        ML-KEM based on the hardness of the MLWE (Module Learning With Errors) problem, which is itself based on the idea of inferring a linear function over noisy data. The problem is considered to be quantum resistant, which carries over to ML-KEM.
+                    ML-KEM based on the hardness of the{" "}
+                    <Link href="/glossary#latticeproblems" className="text-blue-400 hover:text-blue-300 underline">
+                        MLWE (Module Learning With Errors)
+                    </Link>{" "}
+                    problem, which is itself based on the idea of inferring a linear function over noisy data. The
+                    problem is considered to be quantum resistant, which carries over to ML-KEM.
                     </p>
                 </div>
                 <div className="rounded-xl bg-slate-800 p-6 mb-8">
