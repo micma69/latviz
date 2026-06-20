@@ -481,7 +481,7 @@ export default function LatticeVisualizer() {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="flex flex-[2] flex-col gap-4">
         {/* visualization */}
         {tooManyDims ? (
           <div className="rounded border border-slate-700 bg-slate-950 p-6 text-slate-300 text-sm leading-relaxed">
