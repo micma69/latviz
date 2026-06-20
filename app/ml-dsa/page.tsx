@@ -184,7 +184,11 @@ export default function MLDSAPage() {
                 <div className="rounded-xl bg-slate-800 p-6 mb-8">
                     <h2 className="text-2xl font-bold mb-4 text-white flex items-center justify-center">Module Lattice Based Digital Signature Standard (ML-DSA)</h2>
                     <p className="text-slate-300 leading-relaxed mb-4">
-                        ML-DSA is a lattice-based digital signature algorithm standardized by NIST's FIPS 204 publication that provides a quantum resistant method to generate and verify digital signatures. It's set to replace current digital signature algorithms such as RSA (Rivest-Shamir-Adleman) and ECDSA (Elliptic Curve Digital Signature Algorithm) that are quantum vulnerable.
+                        ML-DSA is a{" "}
+                    <Link href="/glossary#latticedef" className="text-blue-400 hover:text-blue-300 underline">
+                       lattice-based
+                    </Link>{" "}
+                    digital signature algorithm standardized by NIST's FIPS 204 publication that provides a quantum resistant method to generate and verify digital signatures. It's set to replace current digital signature algorithms such as RSA (Rivest-Shamir-Adleman) and ECDSA (Elliptic Curve Digital Signature Algorithm) that are quantum vulnerable.
                     </p>
                     <p className="text-slate-300 leading-relaxed">
                         ML-DSA is based on the hardness of the{" "}

@@ -52,35 +52,34 @@ export default function Glossary() {
                                         Learning with errors is a mathematical problem based on the idea of representing secret information as a set of equations with errors. Suppose we have the following set of equations, with s as the secret information:
                                     </p>
                                     <figure className="flex flex-col items-center gap-2">
-                                        <Image src="/file.svg" width={200} height={300} alt="2D Lattice"/>
+                                        <Image src="/simple_lwe.jpg" width={300} height={200} alt="2D Lattice"/>
                                         <figcaption className="text-sm text-slate-400 italic">
                                             Easy to solve equations.
                                         </figcaption>
                                     </figure>
                                     <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
-                                        It is trivial to determine that s = 3 using Gaussian Elimination. However, if we add small errors to each equation:
+                                        It is trivial to determine that s = 3. However, if we add small errors to each equation:
                                     </p>
                                     <figure className="flex flex-col items-center gap-2">
-                                        <Image src="/file.svg" width={200} height={300} alt="2D Lattice"/>
+                                        <Image src="/error_lwe.jpg" width={300} height={200} alt="2D Lattice"/>
                                         <figcaption className="text-sm text-slate-400 italic">
                                             Equations with random errors added.
                                         </figcaption>
                                     </figure>
                                     <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
-                                        It becomes significantly more difficult to figure out what s is.
-                                    </p>
-                                    <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
-                                        In cryptography, this concept is expanded into solving for a secret vector hidden in a large system of equations. Each equation contains a small amount of random noise, which prevents standard linear algebra techniques from efficiently revealing the secret.
+                                        It becomes significantly more difficult to figure out what s is. In cryptography, this concept is extended from a single secret value to a secret vector hidden within a large system of equations. Each equation contains a small amount of random noise, preventing standard techniques for solving systems of equations from efficiently revealing the secret.
                                     </p>
                                     <figure className="flex flex-col items-center gap-2">
-                                        <Image src="/file.svg" width={200} height={300} alt="2D Lattice"/>
+                                        <Image src="/simple_expansion.jpg" width={300} height={200} alt="2D Lattice"/>
                                         <figcaption className="text-sm text-slate-400 italic">
-                                            Equations with random errors added.
+                                            Expansion of the previous example. x = 3, y = 5
                                         </figcaption>
                                     </figure>
-                                    <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
-                                        It should be noted that the example of LWE given above is for the search version of the problem. The other version (the decision version) is not relevant to any of the algorithms discussed here.
-                                    </p>
+                                    <div className="rounded-lg border border-slate-700 bg-slate-900/50 p-4">
+                                        <p className="text-sm text-slate-400">
+                                            <span className="font-semibold text-slate-300">Note:</span> The examples above illustrate the <span className="italic">search version</span> of the Learning With Errors (LWE) problem, where the goal is to recover the hidden secret. A related <span className="italic">decision version</span> also exists, but it is not relevant to the algorithms discussed here.
+                                        </p>
+                                    </div>
                                 </div>
                             ),
                         },
