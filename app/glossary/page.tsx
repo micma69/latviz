@@ -98,6 +98,15 @@ export default function Glossary() {
                     }, */  
                 ]}
             />
+
+            <div className="rounded-xl bg-slate-800 p-6 mb-8 mt-10 w-full md:w-3/4" id="latticerep">
+                <h2 className="text-3xl mb-4 text-white flex items-center justify-center">Lattice Representations</h2>
+                <div className="flex flex-col gap-6">
+                    <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
+                        Lattices in cryptography are defined as sets of all integer linear combinations of certain n-dimensional real space basis vectors. Even more simply, a lattice contains every combination that can be formed by adding together integer multiples of the basis vectors. The dimension (n) of the lattice depends on the amount of basis vectors, which consist of n amount of real numbers.
+                    </p>
+                </div>
+            </div>
         </div>
     );
 }
