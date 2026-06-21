@@ -97,7 +97,21 @@ export default function Glossary() {
                         ),
                     }, */  
                 ]}
+
             />
+            <div className="rounded-xl bg-slate-800 p-6 mb-8 mt-10 w-full md:w-3/4" id="latticedef">
+                <h2 className="text-3xl mb-4 text-white flex items-center justify-center">How these concepts relate to our algorithms?</h2>
+                <div className="flex flex-col gap-6">
+                    <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
+                        Both ML-KEM and ML-DSA use LWEs to better hide the secret information. Meanwhile, LLL and BKZ are used to solve SVP in order to deduce LWEs placed in the set of equations that represents the secret information. 
+                    </p>
+                    <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
+                        If the LWEs are successfully recovered, then the secret information would be easier to be found. 
+                    </p>
+                </div>
+            </div>
+
         </div>
+        
     );
 }
