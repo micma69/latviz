@@ -159,12 +159,7 @@ export default function MLDSAPage() {
                     return;
                 }
 
-                const valid = algorithm.verify(
-                    keys.publicKey,
-                    msgBytes,
-                    signature
-                );
-
+                algorithm.verify(keys.publicKey, msgBytes, signature);
                 break;
             }
 

@@ -84,25 +84,25 @@ export default function DecapsulationVisualization({
         </>}
         {step >= 5 && <>
             <div className="flex flex-row gap-4 items-center">
-                <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div><InlineMath math="m' \parallel h" /></div>
                     <ArrowLongRightIcon className="size-6" />
                     <div className="flex flex-col gap-2 items-center">
                         <div><InlineMath math="K'" /></div>
-                        <SquareGrid algorithm="mlkem"  colsExpanded={8} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} variableKey="Kp_decaps" onClick={() => onSelectVariable("Kp_decaps")} />
+                        <SquareGrid algorithm="mlkem"  colsExpanded={4} size={12} colorData={spyData?.K ? Array.from(spyData.K) : []} showValues={true} variableKey="Kp_decaps" onClick={() => onSelectVariable("Kp_decaps")} />
                     </div>
                     <div className="flex flex-col gap-2 items-center">
                         <div><InlineMath math="r'" /></div>
-                        <SquareGrid algorithm="mlkem"  colsExpanded={8} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} variableKey="rp_decaps" onClick={() => onSelectVariable("rp_decaps")} />
+                        <SquareGrid algorithm="mlkem"  colsExpanded={4} size={12} colorData={spyData?.r ? Array.from(spyData.r) : []} showValues={true} variableKey="rp_decaps" onClick={() => onSelectVariable("rp_decaps")} />
                     </div>
                 </div>
                 {step >= 6 && <>
-                    <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                    <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                         <div><InlineMath math="z \parallel c" /></div>
                         <ArrowLongRightIcon className="size-6" />
                         <div className="flex flex-col gap-2 items-center">
                             <div><InlineMath math="\bar{K}" /></div>
-                            <SquareGrid algorithm="mlkem"  colsExpanded={8} size={12} colorData={spyData?.Kbar ? Array.from(spyData.Kbar) : []} showValues={true} onClick={() => onSelectVariable("kbar_decaps")} variableKey="kbar_decaps" />
+                            <SquareGrid algorithm="mlkem"  colsExpanded={4} size={12} colorData={spyData?.Kbar ? Array.from(spyData.Kbar) : []} showValues={true} onClick={() => onSelectVariable("kbar_decaps")} variableKey="kbar_decaps" />
                         </div>
                     </div>
                 </>}
@@ -111,7 +111,7 @@ export default function DecapsulationVisualization({
         {step >= 7 && <>
             <ArrowLongDownIcon className="size-6" />
             <div className="flex flex-row gap-4 items-center">
-                <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div><InlineMath math="ek_{PKE}, m', r'" /></div>
                 </div>
                 <ArrowLongRightIcon className="size-6" />
@@ -121,7 +121,7 @@ export default function DecapsulationVisualization({
                     Kyber-PKE Encrypt
                 </div>
                 <ArrowLongRightIcon className="size-6" />
-                <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                <div className="flex flex-row gap-4 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
                     <div className="flex flex-col items-center  text-sm gap-2">
                         <div><InlineMath math="c'" /></div>
                         <SquareGrid algorithm="mlkem"  colsExpanded={8} size={12} colorData={spyData?.c ? Array.from(spyData.c) : []} showValues={true} variableKey="cp_decaps" onClick={() => onSelectVariable("cp_decaps")} />
@@ -135,7 +135,7 @@ export default function DecapsulationVisualization({
                 <div className="text-green-700 font-semibold text-lg">Output</div>
                 <div className="flex flex-col items-center  text-sm gap-2">
                     <div className=" text-sm"><InlineMath math="K'" /></div>
-                    <SquareGrid algorithm="mlkem"  colsExpanded={8} size={12} colorData={spyData?.Kfinal ? Array.from(spyData.Kfinal) : []} showValues={true} variableKey="kfinal" onClick={() => onSelectVariable("kfinal")} />
+                    <SquareGrid algorithm="mlkem"  colsExpanded={4} size={12} colorData={spyData?.Kfinal ? Array.from(spyData.Kfinal) : []} showValues={true} variableKey="kfinal" onClick={() => onSelectVariable("kfinal")} />
                 </div>
             </div>
         </>}

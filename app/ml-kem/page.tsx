@@ -22,8 +22,6 @@ export default function MLKEMPage() {
     const [selectedParam, setSelectedParam] = useState<KemParamKey>('k');
     const [aliceKeys, setAliceKeys] = useState<{ publicKey: Uint8Array; secretKey: Uint8Array } | null>(null);
     const [cipherText, setCipherText] = useState<Uint8Array | null>(null);
-    const [sharedSecret, setsharedSecret] = useState<Uint8Array | null>(null);
-    const [decapsulatedSecret, setDecapsulatedSecret] = useState<Uint8Array | null>(null);
     
     const [animationStep, setAnimationStep] = useState(0);
     const [animationComplete, setAnimationComplete] = useState(false);
@@ -48,7 +46,6 @@ export default function MLKEMPage() {
     useEffect(() => {
         setAliceKeys(null);
         setCipherText(null);
-        setsharedSecret(null);
         setVizStage(null);
         setSelectedVariable(null);
         setKeygenSpyData(null);
@@ -59,7 +56,6 @@ export default function MLKEMPage() {
     const resetAll = (): void => {
         setAliceKeys(null);
         setCipherText(null);
-        setsharedSecret(null);;
         setSelectedVariable(null);
         setKeygenSpyData(null);
         setEncapsSpyData(null);
@@ -109,7 +105,6 @@ export default function MLKEMPage() {
                 const keys = kem.keygen();
                 setAliceKeys(keys);
                 setCipherText(null);
-                setsharedSecret(null);
                 setKeygenSpyData(prev => prev ? {
                     ...prev,
                     publicKey: Array.from(keys.publicKey),
@@ -126,7 +121,6 @@ export default function MLKEMPage() {
 
                 const result = kem.encapsulate(aliceKeys.publicKey);
                 setCipherText(result.cipherText);
-                setsharedSecret(result.sharedSecret);
                 setEncapsSpyData(prev => prev ? {
                     ...prev,
                     cipherText: Array.from(result.cipherText),
@@ -145,14 +139,6 @@ export default function MLKEMPage() {
                     cipherText,
                     aliceKeys.secretKey
                 );
-
-                setDecapsulatedSecret(aliceShared);
-
-                const match = sharedSecret
-                    ? Buffer.from(aliceShared).toString("hex") === Buffer.from(sharedSecret).toString("hex")
-                    : false;
-
-                break;
             }
         }
     };
