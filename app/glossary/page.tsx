@@ -20,6 +20,27 @@ export default function Glossary() {
                 </div>
             </div>
 
+            <div className="rounded-xl bg-slate-800 p-6 mb-8 mt-10 w-full md:w-3/4" id="moduledef">
+                <h2 className="text-3xl mb-4 text-white flex items-center justify-center">Rings and Modules</h2>
+                <div className="flex flex-col gap-6">
+                    <p className="text-xl text-slate-300 leading-relaxed">
+                        In the previous section, lattices were described as sets of all integer linear combinations of certain n-dimensional real space basis vectors. However, practical cryptographic schemes rarely work with vectors directly. Instead, they use algebraic structures that represent the same concept more efficiently. In particular, <span className="font-bold">rings</span> and <span className="font-bold">modules</span> are the structures used by ML-KEM and ML-DSA to perform lattice-based computations.
+                    </p>
+                    <p className="text-xl text-slate-300 leading-relaxed">
+                        A <span className="font-bold">ring</span> is a set of elements together with rules for addition and multiplication. An example of this is the set of all integers. In lattice-based cryptography, the elements are typically polynomials instead of numbers. This allows arithmetic to be performed on entire polynomials while retaining many of the same properties as ordinary arithmetic.
+                    </p>
+                    <figure className="flex flex-col items-center gap-2">
+                        <Image src="/RingofIntegers.jpg" width={300} height={200} alt="Integer ring"/>
+                        <figcaption className="text-sm text-slate-400 italic">
+                            A Ring of Integers
+                        </figcaption>
+                    </figure>
+                    <p className="text-xl text-slate-300 leading-relaxed">
+                        A <span className="font-bold">module</span> is a collection of elements from a ring arranged into vectors. If the ring contains polynomials, then a module can be thought of as a vector whose entries are polynomials. Just as lattices can be described using vectors and bases, modules provide a convenient way to represent and manipulate these structures algebraically. ML-KEM and ML-DSA use modules of polynomials because they enable efficient computations while preserving the underlying lattice structure.
+                    </p>
+                </div>
+            </div>
+
             <TabbedBox
                 id="latticeproblems"
                 title="Lattice-based problems"
@@ -97,21 +118,7 @@ export default function Glossary() {
                         ),
                     }, */  
                 ]}
-
             />
-            <div className="rounded-xl bg-slate-800 p-6 mb-8 mt-10 w-full md:w-3/4" id="latticedef">
-                <h2 className="text-3xl mb-4 text-white flex items-center justify-center">How these concepts relate to our algorithms?</h2>
-                <div className="flex flex-col gap-6">
-                    <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
-                        Both ML-KEM and ML-DSA use LWEs to better hide the secret information. Meanwhile, LLL and BKZ are used to solve SVP in order to deduce LWEs placed in the set of equations that represents the secret information. 
-                    </p>
-                    <p className="flex justify-center text-xl text-slate-300 leading-relaxed">
-                        If the LWEs are successfully recovered, then the secret information would be easier to be found. 
-                    </p>
-                </div>
-            </div>
-
         </div>
-        
     );
 }
