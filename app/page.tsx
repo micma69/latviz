@@ -21,7 +21,7 @@ export default function Home() {
                 </Button>
             </div>
 
-            <p className="mx-auto mt-8 text-lg text-slate-300 font-medium">Tips : Start from ML-KEM and ML-DSA, then go for LLL and BKZ</p>
+            <p className="mx-auto mt-8 text-lg text-slate-300 font-medium">Tips: Start from ML-KEM and ML-DSA, then go for LLL and BKZ</p>
 
             <main className="mx-auto mt-8 w-full max-w-3xl flex-col rounded-[2rem] border border-slate-700 bg-slate-950/80 p-8 shadow-2xl shadow-slate-950/40">
                 <div className="grid gap-8 sm:grid-cols-2">
