@@ -52,7 +52,7 @@ export default function MLKEMPage() {
         keygen1: 5,
         encapsulation0: 4,
         encapsulation1: 10,
-        decapsulation0: 8,
+        decapsulation0: 9,
         decapsulation1: 5,
     };
 
