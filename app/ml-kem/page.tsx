@@ -48,7 +48,7 @@ export default function MLKEMPage() {
     useEffect(() => setStep(1), [vizStage]);
 
     const maxStep: Record<string, number> = {
-        keygen0: 4,
+        keygen0: 5,
         keygen1: 5,
         encapsulation0: 4,
         encapsulation1: 10,

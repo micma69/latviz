@@ -76,9 +76,8 @@ export default function KeygenVisualization({
                             <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
                                 <div className="text-green-700 font-semibold text-lg">Output</div>
                                 <div className="flex flex-col items-center  text-sm gap-2">
-                                    <div>Encapsulation Key <InlineMath math="ek" /></div>
-                                    <SquareGrid algorithm="mlkem"
-                                        rows={8} cols={8} size={4}
+                                    <div><InlineMath math="ek" /></div>
+                                    <SquareGrid algorithm="mlkem" size={4}
                                         colorData={spyData?.publicKey}
                                         showValues showTooltip
                                         variableKey="encapskey_keygen" onClick={() => onSelectVariable("encapskey_keygen")}
@@ -101,12 +100,17 @@ export default function KeygenVisualization({
                         </div>
                         {step >= 4 && <>
                             <ArrowLongDownIcon className="size-6" />
+                            <div className="flex flex-row gap-2 items-center justify-center bg-purple-100 rounded-xl p-5 w-fit border-2 border-purple-300">
+                                <div><InlineMath math="dk_{PKE}" />, <InlineMath math="ek" />, H(<InlineMath math="ek" />), <InlineMath math="z" /></div>
+                            </div>
+                        </>}
+                        {step >= 5 && <>
+                            <ArrowLongDownIcon className="size-6" />
                             <div className="flex flex-col gap-2 items-center justify-center bg-green-100 rounded-xl p-5 w-fit border-2 border-green-300">
                                 <div className="text-green-700 font-semibold text-lg">Output</div>
                                 <div className="flex flex-col items-center  text-sm gap-2">
-                                    <div>Decapsulation Key <InlineMath math="dk" /></div>
-                                    <SquareGrid algorithm="mlkem"
-                                    rows={8} cols={8} size={4}
+                                    <div><InlineMath math="dk" /></div>
+                                    <SquareGrid algorithm="mlkem" size={4}
                                     colorData={spyData?.secretKey}
                                     showValues showTooltip
                                     variableKey="decapskey_keygen"
