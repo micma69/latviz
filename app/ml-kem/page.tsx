@@ -16,6 +16,19 @@ import DecapsulationVisualizationProcess from './slides/decapsInner';
 import { KeygenSpyData, EncapsSpyData, DecapsSpyData, createSpy } from '@/utils/createSpy';
 
 export default function MLKEMPage() {
+    const validVariableKeys = [
+        "d", "z_keygen", "rho_keygen", "sigma_keygen", "A_keygen", "s_keygen",
+        "e_keygen", "t_keygen", "ekPKE_keygen", "dkPKE_keygen",
+        "encapskey_keygen", "decapskey_keygen",
+        "m_encaps", "K_encaps", "r_encaps", "encapskey_encaps", "rho_encaps",
+        "t_encaps", "mu_encaps", "A_encaps", "y_encaps", "e1_encaps",
+        "e2_encaps", "u_encaps", "c1_encaps", "v_encaps", "c2_encaps",
+        "ciphertext_encaps",
+        "ciphertext_decaps", "decapskey_decaps", "ekPKE_decaps", "dkPKE_decaps",
+        "h_decaps", "z_decaps", "c1_decaps", "c2_decaps", "u_decaps",
+        "v_decaps", "s_decaps", "w_decaps", "m_decaps", "Kp_decaps",
+        "rp_decaps", "kbar_decaps", "cp_decaps", "kfinal",
+    ];
     const [vizStage, setVizStage] = useState<string | null>(null);
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
     const [securityLevel, setSecurityLevel] = useState<KemSecurityLevel>('ml_kem512');
@@ -35,11 +48,11 @@ export default function MLKEMPage() {
     useEffect(() => setStep(1), [vizStage]);
 
     const maxStep: Record<string, number> = {
-        keygen0: 4,
+        keygen0: 5,
         keygen1: 5,
         encapsulation0: 4,
         encapsulation1: 10,
-        decapsulation0: 8,
+        decapsulation0: 9,
         decapsulation1: 5,
     };
 
@@ -524,7 +537,7 @@ export default function MLKEMPage() {
                                 </div>
                                 <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full h-[360px] items-center justify-center p-2">
                                     <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-full items-center justify-center p-2 overflow-hidden">
-                                        {(vizStage === null || selectedVariable === null) &&
+                                        {(vizStage === null || selectedVariable === null || !validVariableKeys.includes(selectedVariable)) &&
                                             <div className="text-center">
                                                 <p className="mb-2">Click a variable to see it in full!</p>
                                                 <p>Hover over it to see a short description!</p>

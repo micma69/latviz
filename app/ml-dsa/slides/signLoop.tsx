@@ -12,11 +12,13 @@ export default function SignLoop({
     onChangeStage,
     onSelectVariable,
     onIterationChange,
+    securityLevel,
 }: {
     spyData: DSASignSpyData | null;
     onChangeStage: (stage: string) => void;
     onSelectVariable: (variable: string) => void;
     onIterationChange?: (index: number) => void;
+    securityLevel: 'ml_dsa44' | 'ml_dsa65' | 'ml_dsa87';
 }) {
     const [iterationIndex, setIterationIndex] = useState(0);
     
@@ -153,11 +155,28 @@ export default function SignLoop({
                     <SquareGrid algorithm="mldsa"  size={12} 
                                colorData={currentIteration?.z?.[0] ? Array.from(currentIteration.z[0]) : []} 
                                showValues={true} variableKey="z_sign" onClick={() => onSelectVariable("z_sign")} />
-                    {currentIteration?.zNormInf !== undefined && (
-                        <div className={`text-xs  ${currentIteration.zNormInf >= 131072 ? 'text-red-600' : 'text-green-600'}`}>
-                            ||z||∞ = {currentIteration.zNormInf}
-                        </div>
-                    )}
+                    {currentIteration?.zNormInf !== undefined && (() => {
+                        let threshold: number;
+                        if (securityLevel === 'ml_dsa44') {
+                            threshold = 130994;
+                        } else if (securityLevel === 'ml_dsa65') {
+                            threshold = 524092;
+                        } else {
+                            threshold = 524168;
+                        }
+                        const isRejected = currentIteration.zNormInf >= threshold;
+                        return (
+                            <div className="flex flex-col items-center gap-1">
+                                <InlineMath math="\|\mathbf{z}\|_\infty \geq \gamma_1 - \beta" />
+                                <div className={isRejected ? 'text-red-600' : 'text-green-600'}>
+                                    <InlineMath math={`${currentIteration.zNormInf} \\; ${isRejected ? '\\geq' : '<'} \\; ${threshold}`} />
+                                </div>
+                                <span className={`text-xs font-medium ${isRejected ? 'text-red-600' : 'text-green-600'}`}>
+                                    {isRejected ? 'Rejected — bound exceeded' : 'Accepted — within bound'}
+                                </span>
+                            </div>
+                        );
+                    })()}
                 </div>
             </div>
             <ArrowLongDownIcon className="size-6" />
@@ -170,11 +189,28 @@ export default function SignLoop({
                     <SquareGrid algorithm="mldsa"  size={12} 
                                 colorData={currentIteration?.r0?.[0] ? Array.from(currentIteration.r0[0]) : [] } 
                                 showValues={true} variableKey="r0_sign" onClick={() => onSelectVariable("r0_sign")} />
-                    {currentIteration?.r0NormInf !== undefined && (
-                        <div className={`text-xs  ${currentIteration.r0NormInf >= 95232 ? 'text-red-600' : 'text-green-600'}`}>
-                            ||r₀||∞ = {currentIteration.r0NormInf}
-                        </div>
-                    )}
+                    {currentIteration?.r0NormInf !== undefined && (() => {
+                        let threshold: number;
+                        if (securityLevel === 'ml_dsa44') {
+                            threshold = 95154;
+                        } else if (securityLevel === 'ml_dsa65') {
+                            threshold = 261692;
+                        } else {
+                            threshold = 261768;
+                        }
+                        const isRejected = currentIteration.r0NormInf >= threshold;
+                        return (
+                            <div className="flex flex-col items-center gap-1">
+                                <InlineMath math="\|\mathbf{r}_0\|_\infty \geq \gamma_2 - \beta" />
+                                <div className={isRejected ? 'text-red-600' : 'text-green-600'}>
+                                    <InlineMath math={`${currentIteration.r0NormInf} \\; ${isRejected ? '\\geq' : '<'} \\; ${threshold}`} />
+                                </div>
+                                <span className={`text-xs font-medium ${isRejected ? 'text-red-600' : 'text-green-600'}`}>
+                                    {isRejected ? 'Rejected — bound exceeded' : 'Accepted — within bound'}
+                                </span>
+                            </div>
+                        );
+                    })()}
                 </div>
             </div>
             
