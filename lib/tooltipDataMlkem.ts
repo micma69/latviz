@@ -272,7 +272,7 @@ export const tooltipData = {
   kfinal: {
     title: "Final shared secret",
     description: "Shared key returned after decapsulation checks.",
-    details: "Chosen from K′ or K̄ depending on ciphertext validity.",
+    details: "Chosen based on ciphertext validity. K̄ is set as the new K′ if not valid, stays as K′ otherwise.",
   },
 
   default: {

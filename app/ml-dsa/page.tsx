@@ -19,6 +19,19 @@ import VerifyInternal from './slides/verifyInternal';
 import SignLoop from './slides/signLoop';
 
 export default function MLDSAPage() {
+    const validVariableKeys = [
+        "xi_keygen", "rho_keygen", "rhop_keygen", "K_keygen", "A_keygen",
+        "s1_keygen", "s2_keygen", "t_keygen", "t0_keygen", "t1_keygen",
+        "tr_keygen", "publickey", "secretkey",
+        "message_sign", "rnd_sign", "ctx_sign", "M_sign", "Mp_sign",
+        "rho_sign", "K_sign", "tr_sign", "s1_sign", "s2_sign", "t0_sign",
+        "A_sign", "mu_sign", "rhop_sign", "y_loop", "w_loop", "w1_loop",
+        "tildec_loop", "c_loop", "z_sign", "r0_sign", "signature",
+        "M_verify", "message_verify", "ctx_verify", "Mp_verify", "A_verify",
+        "rho_verify", "t1_verify", "tr_verify", "mu_verify", "tildec_verify",
+        "z_verify", "h_verify", "c_verify", "wapprox", "wp1", "tildecp_verify",
+    ];
+
     const [selectedVariable, setSelectedVariable] = useState<string | null>(null);
     const [vizStage, setVizStage] = useState<string | null>(null);
     const [securityLevel, setSecurityLevel] = useState<DsaSecurityLevel>('ml_dsa44');
@@ -532,7 +545,7 @@ export default function MLDSAPage() {
                                     {vizStage === "keygen1" && <KeygenInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={keygenSpyData} step={step} />}
                                     {vizStage === "sign0" && <SignOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} step={step} />}
                                     {vizStage === "sign1" && <SignInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} step={step} />}
-                                    {vizStage === "sign2" && <SignLoop onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} onIterationChange={handleIterationChange} />}
+                                    {vizStage === "sign2" && <SignLoop onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={signSpyData} onIterationChange={handleIterationChange} securityLevel={securityLevel} />}
                                     {vizStage === "verify0" && <VerifyOuter onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} step={step} />}
                                     {vizStage === "verify1" && <VerifyInternal onSelectVariable={setSelectedVariable} onChangeStage={setVizStage} spyData={verifySpyData} step={step} />}
                                     
@@ -584,8 +597,8 @@ export default function MLDSAPage() {
                                     )}
                                 </div>
                                 <div className="flex rounded-xl bg-slate-100 dark:bg-zinc-900 h-[360px] items-center justify-center p-2">
-                                        {(vizStage === null || selectedVariable === null) &&
-                                            <div className="text-center">
+                                    {(vizStage === null || selectedVariable === null || !validVariableKeys.includes(selectedVariable)) &&
+                                        <div className="text-center">
                                                 <p className="mb-2">Click a variable to see it in full!</p>
                                                 <p>Hover over it to see a short description!</p>
                                             </div>
