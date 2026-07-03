@@ -1,0 +1,32 @@
+name: Build PDF
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: texlive/texlive:latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check LaTeX installation
+        run: |
+          latex --version
+          latexmk --version
+
+      - name: Build thesis
+        run: |
+          latexmk -bibtex -pdf -time thesis.tex
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: thesis
+          path: thesis.pdf
