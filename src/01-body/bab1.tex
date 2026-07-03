@@ -2,134 +2,23 @@
 \chapter{\babSatu}
 \label{bab:1}
 %-----------------------------------------------------------------------------%
-Pada bab ini, akan dijelaskan tentang latar belakang dan permasalahan yang diselesaikan pada penelitian ini.
-
-
-%-----------------------------------------------------------------------------%
-\section{Latar Belakang}
-\label{sec:latarBelakang}
-%-----------------------------------------------------------------------------%
-\todo{Tentukan latar belakang dari penelitian Anda di sini (\f{background}).}
-
-Tugas Akhir merupakan salah satu kegiatan yang menjadi "penentu nasib" atas lulusnya seorang mahasiswa dari suatu universitas.
-Umumnya, mahasiswa yang mengerjakan Tugas Akhir diwajibkan untuk menuliskan sebuah laporan dengan tata bahasa ilmiah dan dengan ketentuan \f{format} tertentu.
-Laporan tersebut, memiliki struktur yang kurang lebih mirip, dari manapun fakultas asal seorang mahasiswa.
-
-Umumnya, mahasiswa Universitas Indonesia menggunakan Microsoft Word, OpenOffice, atau \f{rich-text editor} lainnya untuk menyusun laporan Tugas Akhir mereka.
-Akan tetapi, terkadang \f{template} yang dibuat untuk Microsoft Word memiliki beberapa keterbatasan dan inkonsistensi dalam pengaturan tata letak.
-Selain itu, terdapat beberapa hal yang sulit untuk diotomatisasi, contohnya adalah penggunaan sitasi dan pengaturan nomor halaman.
-Oleh karena itu, diperlukan alternatif lain untuk menyusun Tugas Akhir yang lebih nyaman.
-
-Beberapa mahasiswa Fakultas Ilmu Komputer Universitas Indonesia (Fasilkom UI) di tahun 2010-an mulai menggunakan \gls{latex} untuk menyusun Tugas Akhir.
-Sifat \gls{latex} yang berupa \f{mark up language}, memiliki cara pemakaian yang jauh berbeda dibandingkan \f{rich-text editor} seperti Microsoft Word.
-Awalnya, menyusun tata letak yang sesuai dengan persyaratan Tugas Akhir di UI cukup sulit, karena artinya harus membaca dokumentasi.
-Akan tetapi, dengan kemahiran mereka dalam menyusun kode yang mudah dibaca dan terstruktur, struktur yang mereka buat dapat dijadikan sebuah \f{template} yang konsisten tata letaknya hingga bertahun-tahun berikutnya.
-Dengan menggunakan sebuah \f{template}, mahasiswa cukup mengetikkan isi dari Tugas Akhir mereka tanpa harus repot mengatur ulang tata letak secara manual.
-Mahasiswa bisa menggunakan \f{macro} atau perintab yang sudah disediakan untuk \f{template}.
-
-Adanya perubahan pada peraturan Tugas Akhir yang ditentukan oleh \cite{ui:pedoman_ta}, memunculkan kebutuhan untuk perubahan \f{template} \gls{latex} ini secara signifikan.
-Perubahan pada \f{template} ini dilakukan pertama kali pada semester gasal tahun ajaran 2019/2020.
-Perubahan dilakukan mengingat adanya kebutuhan dari mahasiswa Lab \f{Reliable Software Engineering} (RSE), Fasilkom UI untuk menyusun Tugas Akhir menggunakan \gls{latex}.
-\f{Template} ini kemudian di-\f{maintain} secara berkala, mengikuti umpan balik dan pendapat pengguna \f{template} ini, tidak hanya dari Fasilkom UI, namun juga dari berbagai fakultas lain di UI.
-Dengan mulai meluasnya penggunaan \f{template} Tugas Akhir UI ini, diperlukan sebuah contoh penggunaan untuk memudahkan mahasiswa yang baru mulai melaksanakan Tugas Akhir mereka.
-Dokumen dan repositori ini, diharapkan selain menjadi repositori kode \f{template}, juga menjadi repositori contoh penggunaan \f{template} dan panduan penggunaan \f{template}.
-
-
+This chapter
 
 %-----------------------------------------------------------------------------%
-\section{Permasalahan}
-\label{sec:masalah}
+\section{Introduction}
+\label{sec:Introduction}
 %-----------------------------------------------------------------------------%
-\todo{Sebutkan permasalahan penelitian Anda dari latar belakang tersebut.}
-
-Latar belakang yang telah dijelaskan pada \sect~\ref{sec:latarBelakang}, menjelaskan bahwa diperlukan sebuah \f{template}~\gls{latex} Tugas Akhir UI yang konsisten dan bisa disesuaikan dengan peraturan terbaru dari universitas.
-Selain itu, diperlukan juga sebuah \f{tutorial} (panduan penggunaan) yang memudahkan pengguna \f{template} di masa yang akan datang.
-
-%-----------------------------------------------------------------------------%
-\subsection{Definisi Permasalahan}
-\label{sec:definisiMasalah}
-%-----------------------------------------------------------------------------%
-Berikut ini adalah rumusan permasalahan dari penelitian yang dilakukan:
-\begin{enumerate}
-	\item Bagaimana cara menyusun \f{template}~\gls{latex} Tugas Akhir di Universitas Indonesia?
-	\item Bagaimana cara mengajarkan penggunaan \f{template} dan bahasa \gls{latex} secara umum ke mahasiswa yang akan menjalani Tugas Akhir?
-\end{enumerate}
-\todo{Tuliskan permasalahan yang ingin diselesaikan. Bisa juga berbentuk pertanyaan}
-
-%-----------------------------------------------------------------------------%
-\subsection{Batasan Permasalahan}
-\label{sec:batasanMasalah}
-%-----------------------------------------------------------------------------%
-Berikut ini adalah asumsi yang digunakan sebagai batasan penelitian ini:
-\begin{enumerate}
-	\item Salah satu batasannya adalah, ini hanya \f{template}.
-\end{enumerate}
-
-\todo{Umumnya ada asumsi atau batasan yang digunakan untuk menjawab pertanyaan-pertanyaan penelitian diatas.}
-
-
-%-----------------------------------------------------------------------------%
-\section{Tujuan Penelitian}
-\label{sec:tujuan}
-%-----------------------------------------------------------------------------%
-Berikut ini adalah tujuan penelitian yang dilakukan:
-\begin{enumerate}
-	\item Untuk memberikan \f{template} yang dapat mempermudah skripsi orang lain.
-\end{enumerate}
-
-\todo{Tuliskan tujuan penelitian Anda di bagian ini.}
-
-
-%-----------------------------------------------------------------------------%
-\section{Manfaat Penelitian}
-\label{sec:manfaat}
-%-----------------------------------------------------------------------------%
-Berikut ini adalah manfaat penelitian yang dilakukan:
-\begin{enumerate}
-	\item Penelitian ini memberikan \f{template} yang harapannya dapat mempermudah skripsi orang lain.
-\end{enumerate}
-
-\todo{Tuliskan tujuan penelitian Anda di bagian ini.}
-
-
-%-----------------------------------------------------------------------------%
-\section{Posisi Penelitian}
-\label{sec:posisiPenelitian}
-%-----------------------------------------------------------------------------%
-\todo{
-	Sebutkan posisi penelitian Anda. Ada baiknya jika Anda menggunakan gambar atau diagram.
-	Template ini telah menyediakan contoh cara memasukkan gambar.
-}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.4\textwidth]{assets/pics/makara.png}
-	\caption{Penjelasan singkat terkait gambar.}
-	\label{fig:research_position}
-\end{figure}
-
-\todo{
-	Jelaskan \pic~\ref{fig:research_position} di sini.
-	Setiap gambar yang dimasukkan ke tugas akhir \bo{WAJIB} untuk dijelaskan oleh minimal satu paragraf.
-}
-
-
-%-----------------------------------------------------------------------------%
-\section{Langkah Penelitian}
-\label{sec:langkahPenelitian}
-%-----------------------------------------------------------------------------%
-\todo{
-	Subbab ini umumnya menjelaskan metode penelitian, jika metode yang digunakan cukup sederhana.
-	Jika metode yang digunakan cukup kompleks atau ada kewajiban dari fakultas Anda untuk menjelaskan metode secara rinci, gunakan Bab 3 untuk menjelaskan Metodologi Penelitian.
-}
-Berikut ini adalah langkah penelitian yang telah dilakukan:
-\begin{enumerate}
-	\item Tinjauan literatur \\
-	Pada tahap ini, dipelajari teori-teori yang terkait dengan penelitian ini untuk mendapatkan konsep dasar yang dibutuhkan dalam mencapai tujuan penelitian.
-	\item Analisis implementasi dan kesimpulan \\
-	Pada tahap ini, digunakan studi kasus untuk analisis terkait kegunaan \f{template}.
-	Setelah melakukan analisis tersebut, ditarik kesimpulan keseluruhan dari penelitian ini.
-\end{enumerate}
+Ever since quantum computing was first theorized in the early 1980s \cite{benioff1980,benioff1982}, its potential capabilities have been continuously theorized and expanded upon. From improving computer simulation using quantum-based phenomena \cite{feynman1982} to applying quantum theory to improve information security \cite{bennett20147, brassard1543949}, quantum computing has had profound implications on entire fields. Among them are its implications on cryptography. In 1994, Peter Shor proposed a quantum algorithm that, given a sufficiently powerful quantum computer, might be used to break protocols like RSA \cite{shor365700}. Shor’s algorithm and others like it significantly lower the difficulty of problems such as the integer factorization problem and discrete logarithm problem, which the most widely used public key algorithms base their difficulty on. This means that common security protocols are at risk of being broken sometime in the near future \cite{meyer}. Because of this, cryptology experts around the world have looked into new protocols that might have the potential to stay secure despite the continued development into quantum computers.
+NIST (National Institute of Standards and Technology) is one of the organizations at the forefront of the effort. In 2016, they put out a call for proposals that might be used in post-quantum cryptography. Eight years later, they released three standards based on those submissions, two of which are ML-KEM and ML-DSA, based on the Kyber and Dilithium algorithms respectively \cite{nistfips203,nistfips204}. ML-KEM is used for key encapsulation, while ML-DSA is used for digital signatures. Both fall under the umbrella of lattice-based cryptography.
+The security of those algorithms and others like them are derived from the computational difficulty of problems defined on mathematical lattices. Evaluating the security of such lattice-based schemes requires the use of lattice basis reduction algorithms such as LLL (Lenstra-Lenstra-Lovász) and BKZ (Block Korkine-Zolotarev), which form the foundation of many practical analyses and cryptanalysis techniques.
+However, despite their importance, there are a limited number of resources available for learning about them. Outside of NIST’s official releases and lectures, most of the resources for ML-KEM and ML-DSA come in the form of summaries of said releases and lectures, public implementations, and simplified diagrams or visualizations. The visualization and exploration tool pqc-vizz \cite{kalava} for example, provides an interactive working implementation for ML-KEM and ML-DSA that describes the overall process of using them, but skips over most of their inner workings such as their background calculations. Daeukun Kang’s ML-KEM from Scratch \cite{mlkemfromscratch} details the entire process of ML-KEM as well as the context and mathematical grounding behind it, including a working Python implementation. However, it assumes that the user has a working understanding of coding; otherwise, it is nothing more than a particularly structured summary. Other resources are similarly lacking in that they do not offer anything beyond a summary of NIST’s release or they simplify their explanations to only the outermost layers.
+In the case of LLL and BKZ, most resources are solvers that only show the final result of the reduction process and in general, are not user friendly. The fplll library \cite{5} can be used to perform LLL and BKZ, but it only outputs the final result. While it also comes with several implementations, it lacks an actual user interface that would make it easy to use. lll-attack-runner \cite{6} provides an interactive application that is able to run LLL and BKZ. However, lll-attack-runner lacks visualization (which is the most convenient way to visualize vectors \cite{15}) and mathematical explanations of the steps of its LLL and BKZ solvers. SageMathCell \cite{7} has an in-built function to solve LLL, but requires wrapping input matrices using one of the coding languages available to the tool. While it is capable of showing every step of the LLL solving process, that requires the use of custom code that the user either has to actively look for or make themselves. None of these three resources has visualizations, after all.
+Thus, this work aims to develop a visualization tool Latviz that allows users to view the complete process behind ML-KEM, ML-DSA, LLL, and BKZ algorithms in a way that is still digestible for most people. This is done by displaying the inner mechanisms of both algorithms such that users unfamiliar with cryptography can still follow the explanations, and as well as going through both processes in their entirety instead of focusing only on the inputs and outputs. To achieve this, the tool implements a set of features designed to improve accessibility while preserving technical accuracy.
+\begin{itemize}
+	\item Complete algorithmic breakdown: Latviz provides a more in-depth breakdown of the ML-KEM and ML-DSA standards compared to existing resources. The variables and algorithms that are involved in each stage of both standards are elaborated upon in a step-by-step manner, with the explanations simplified as to be digestible without complete understanding of the mathematical grounding required to otherwise understand it.
+	\item Interactive visual interface: Merely viewing a visualization does not give significant advantages over conventional methods such as following lectures or reading in how they impact learning algorithms. The most successful uses of visualization tools for learning algorithms are when the tools are used as a vehicle for actively engaging in the process of learning said algorithms \cite{HUNDHAUSEN2002259}, such as in the form of analyses of algorithmic behavior through manipulating functions and variables in the Desmos Graphic Calculator where users can directly see how certain functions and variables affect graphs. For LLL and BKZ, this comes in the form of being able to manipulate the input matrices, $\delta$, and $\beta$ values and directly see how they affect the reduction process. While ML-KEM and ML-DSA doesn’t allow for as much interactivity as most of the variables and functions are either set or completely randomized, Latviz provides interactivity in the form of the manipulation of parameter sets, stepping through operations, and the inspection of internal states.
+	\item Solver tracer: Latviz allows for the tracing of the entirety of the reduction processes in LLL and BKZ. The user can go through each step and see the relevant variables for each step in textual form and on a 2D or 3D grid.
+\end{itemize}
 
 
 %-----------------------------------------------------------------------------%
@@ -152,4 +41,3 @@ Sistematika penulisan laporan adalah sebagai berikut:
 	    Bab ini mencakup kesimpulan akhir penelitian dan saran untuk pengembangan berikutnya.
 \end{itemize}
 
-\todo{Anda bisa mengubah atau menambahkan penjelasan singkat mengenai isi masing-masing bab. Setiap tugas akhir pasti ada yang berbeda pada bagian ini.}

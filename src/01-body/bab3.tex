@@ -5,593 +5,255 @@
 Bab ini menjelaskan tentang hal-hal \f{advanced} dalam \gls{latex}.
 Hal ini mencakup bagaimana cara menulis persamaan matematis di \gls{latex}, menambahkan daftar isi, catatan, \acrshort{pdf}, menambahkan kode, bahkan menambahkan perintah baru.
 
-\todo{
-	Sejatinya bab ini digunakan untuk membahas inti dari penelitian Anda.
-	Sesuaikan saja dengan kebutuhkan Anda: misalkan bab tiga Anda adalah penjelasan terkait desain sistem.
-}
+This chapter details the
 
 
 %-----------------------------------------------------------------------------%
-\section{Melakukan \f{Cross-Reference} ke Suatu Bagian dalam Laporan}
-\label{sec:crossReference}
+\section{Latviz}
+\label{sec:Latviz}
 %-----------------------------------------------------------------------------%
-Dengan menggunakan \gls{latex}, Anda tidak perlu lagi melakukan referensi ke suatu bagian atau objek dalam laporan secara manual.
-Anda cukup melakukan referensi ke bagian/gambar/kode/persamaan yang Anda inginkan dengan menggunakan perintah \code{\bslash{}ref}.
-Anda tidak perlu lagi mengubah referensi secara manual setiap kali ada perubahan letak pada bagian tersebut, karena \gls{latex}~akan melakukannya secara otomatis.
-Selain itu, pada berkas \acrfull{pdf} yang dihasilkan oleh \gls{latex}, referensi tersebut akan memiliki \f{link} yang langsung mengarahkan pembaca ke posisi objek atau bagian yang direferensikan.
-Untuk melakukan \f{cross-reference}, pertama kali tandai bagian yang ingin Anda referensikan dengan menggunakan suatu label, melalui perintah \code{\bslash{}label\{...:.....\}}.
-Label tidak boleh mengandung spasi. Berikut ini adalah konvensi penamaan label dan cara melakukan referensi yang digunakan dalam \f{template} ini:
-\begin{itemize}
-	\item \code{\bslash{}label\{bab:[nomorBab]\}} untuk sebuah bab. \\
-	Contoh: \code{\bslash{}label\{bab:3\}} \\
-	Cara referensi: \code{\bslash{}bab\~\bslash{}ref\{bab:3\}} \\
-	Hasil referensi: \bab~\ref{bab:3}.
-	\item \code{\bslash{}label\{sec:[....]\}} untuk sebuah subbab. \\
-	Contoh: \code{\bslash{}label\{sec:crossReference\}} \\
-	Cara referensi: \code{\bslash{}sect\~\bslash{}ref\{sec:crossReference\}} \\
-	Hasil referensi: \sect~\ref{sec:crossReference}.
-	\item \code{\bslash{}label\{appendix:[....]\}} untuk sebuah bab/subbab lampiran. \\
-	Contoh: \code{\bslash{}label\{appendix:changelog\}} \\
-	Cara referensi: \code{\bslash{}apdx\~\bslash{}ref\{appendix:changelog\}} \\	Hasil referensi: \apdx~\ref{appendix:changelog}.
-	\item \code{\bslash{}label\{equ:[....]\}} untuk sebuah persamaan matematis. \\
-	Contoh: \code{\bslash{}label\{equ:matriks\}} \\
-	Cara referensi: \code{\bslash{}equ\~\bslash{}ref\{equ:matriks\}} \\
-	Hasil referensi: \equ~\ref{equ:matriks}.
-	\item \code{\bslash{}label\{fig:[....]\}} untuk sebuah gambar. \\
-	Contoh: \code{\bslash{}label\{fig:testGambar\}} \\
-	Cara referensi: \code{\bslash{}pic\~\bslash{}ref\{fig:testGambar\}} \\
-	Hasil referensi: \pic~\ref{fig:testGambar}.
-	\item \code{\bslash{}label\{tab:[....]\}} untuk sebuah tabel. \\
-	Contoh: \code{\bslash{}label\{tab:\tab1\}} \\
-	Cara referensi: \code{\bslash{}tab\~\bslash{}ref\{tab:tab1\}} \\
-	Hasil referensi: \tab~\ref{tab:long}.
-	\item Untuk sebuah kode sumber, label diletakkan sebagai argumen dari \code{\bslash{}lstinputlisting} seperti: \code{\bslash{}lstinputlisting[..., label=code:...]}. \\
-	Contoh: \code{\bslash{}lstinputlisting[language=Java, caption=Kode sampel Java, label=code:java]} \\
-	Cara referensi: \code{\bslash{}lst\~\bslash{}ref\{code:java\}} \\
-	Hasil referensi: \lst~\ref{code:java}.
-\end{itemize}
+The visualization tool Latviz is a web application that provides visualizations for ML-KEM, ML-DSA, LLL, and BKZ algorithms, meant to help users more easily understand the four through interactive visualizations.
 
+\subsection{Architecture}
+Latviz is built using Next.js, a fullstack React-based framework, along with Tailwind CSS for the frontend and primarily Typescript for the backend processes. The ML-KEM and ML-DSA algorithms are implemented using a modification of an existing Javascript library ’pqc’ \cite{kalava} that allows for the display of the inner workings of both algorithms as opposed to only the outputs. The LLL and BKZ algorithms are implemented through a modification of lll-attack-runner \cite{6} that allows for the display of textual information relating to the algorithms, and are visualized using a combination of D3 and React.
 
-%-----------------------------------------------------------------------------%
-\section{Menggunakan BibTeX}
-\label{sec:bibtex}
-% Hal baru di template 2017
-%-----------------------------------------------------------------------------%
-BibTeX adalah \f{library} dalam \gls{latex}~yang dapat membantu Anda untuk menuliskan sitasi.
-Dengan menggunakan BibTeX, Anda tidak perlu memikirkan format penulisan referensi atau sitasi.
-\f{Formatting} akan dilakukan secara otomatis sesuai dengan format sitasi yang digunakan.
-Secara \f{default}, \f{template} ini menggunakan format sitasi APA.
-Namun, format tersebut dapat diubah sesuai dengan peraturan yang dimiliki oleh fakultas, dosen pembimbing, atau dosen penguji Anda.
-
-%-----------------------------------------------------------------------------%
-\subsection{Menambahkan Referensi}
-\label{sec:bibtexAddRef}
-%-----------------------------------------------------------------------------%
-Anda bisa menambahkan bahan bacaan yang ingin Anda jadikan referensi ke dalam berkas \code{references.bib}.
-Contoh isi kode \f{references.bib} saat ini dapat dilihat di \lst~\ref{code:references}.
-\lstinputlisting[language=TeX, caption=Daftar referensi di \code{references.bib}, label=code:references, linerange={1-12}]{config/references.bib}
-
-Format suatu objek referensi pada BibTex adalah sebagai berikut: \\
-\code{@[tipe-referensi]\{[kode-untuk-sitasi]}\\
-\code{\indent\hspace{5ex}title~~~~=~\{Judul Buku\},}\\
-\code{\indent\hspace{5ex}....}\\
-\code{\}}\\
-Kode untuk sitasi dapat berisi karakter non-spasi yang bisa digunakan untuk melakukan sitasi di dalam konten laporan.
-Terdapat empat belas tipe referensi yang bisa digunakan pada BibTeX:
-\begin{itemize}
-	\item \code{article}: Digunakan untuk merujuk ke sebuah artikel dalam suatu majalah, buku, atau koleksi artikel lainnya.
-	\item \code{book}: Digunakan untuk merujuk ke sebuah buku.
-	\item \code{booklet}: Digunakan untuk merujuk ke sebuah buku saku.
-	\item \code{inbook}: Digunakan untuk merujuk ke sebuah bab atau subbab dalam suatu buku.
-	\item \code{incollection}: Digunakan untuk merujuk ke sebuah bab atau subbab dalam suatu koleksi atau seri buku.
-	\item \code{mastersthesis}: Digunakan untuk merujuk ke sebuah tesis karya mahasiswa magister (S2).
-	\item \code{manual}: Digunakan untuk merujuk ke suatu buku manual.
-	\item \code{phdthesis}: Digunakan untuk merujuk ke sebuah tesis karya mahasiswa doktoral (S3).
-	\item \code{proceedings}: Digunakan untuk merujuk ke sebuah \f{paper} ilmiah yang dipublikasikan dalam suatu \f{conference} atau prosiding.
-	\item \code{techreport}: Digunakan untuk merujuk ke suatu laporan teknis (misal: draf konvensi teknologi terbaru).
-	\item \code{unpublished}: Digunakan untuk merujuk ke suatu hal yang tidak dipublikasikan.
-	\item \code{misc}: Digunakan untuk merujuk ke hal-hal lain yang tidak masuk ke kategori-kategori yang telah disebutkan.
-\end{itemize}
-
-%-----------------------------------------------------------------------------%
-\subsection{Melakukan Sitasi pada Konten Tugas Akhir}
-\label{sec:bibtexAddCite}
-%-----------------------------------------------------------------------------%
-Berikut ini adalah contoh kalimat yang menggunakan sitasi: \\
-"Kalimat menurut \cite{book:sample} terdiri dari subjek, predikat, dan objek \citep{book:sample}."
-
-Berikut adalah kode yang digunakan untuk melakukan sitasi pada kalimat tersebut:
-\begin{lstlisting}[language={[latex]tex}]
-	"Kalimat menurut \cite{book:sample} terdiri dari subjek, predikat, dan objek \citep{book:sample}."
-\end{lstlisting}
-
-Ada format sitasi yang memiliki cara penulisan yang berbeda berdasarkan posisi sitasi, ada juga yang tidak.
-Format sitasi APA membedakan penulisan sitasi pada isi kalimat dengan akhir kalimat, sedangkan format sitasi IEEE tidak.
-\f{Template} ini menggunakan format sitasi APA secara \f{default}, sehingga diperlukan pembeda berdasarkan posisi sitasi.
-Untuk melakukan sitasi pada isi kalimat, di mana sitasi tersebut umumnya sebagai subjek, objek, atau keterangan pada kalimat, gunakan perintah \code{\bslash{}citep}.
-Sedangkan untuk melakukan sitasi pada akhir kalimat, di mana sitasi tersebut umumnya sebagai rujukan suatu gagasan, gunakan perintah \code{\bslash{}cite}.
-
-Perlu diperhatikan bahwa \code{\bslash{}citep} hanya bisa digunakan untuk format sitasi yang butuh membedakan posisi sitasi.
-Penggunaan \code{\bslash{}citep} pada format sitasi seperti IEEE akan menimbulkan error.
-Jika Anda menggunakan format seperti itu, cukup gunakan \code{\bslash{}cite} dimanapun posisi sitasi Anda.
-
-%-----------------------------------------------------------------------------%
-\subsection{Mengubah Format Referensi/Sitasi}
-\label{sec:bibtexChangeFormat}
-% Hal baru di template 2017
-%-----------------------------------------------------------------------------%
-Sejak versi \f{template} 2.0.2, format referensi \f{default} telah diganti menjadi APA dari sebelumnya IEEE karena banyaknya permintaan dosen penguji untuk menggunakan format APA.
-Pada dasarnya, peraturan Rektor UI terkait Tugas Akhir menyerahkan format referensi sesuai dengan aturan fakultas.
-Namun, mayoritas dari fakultas atau dosen pembimbing di Universitas Indonesia menggunakan APA sebagai format sitasinya.
-Oleh karena itu, jika fakultas atau dosen pembimbing/penguji Anda meminta format sitasi yang berbeda selain APA, Anda bisa menggantinya dengan mengikuti tahapan berikut:
-\begin{enumerate}
-	\item Pada berkas \code{uithesis.sty}, terdapat bagian \bo{Package}. Cari konfigurasi "Format sitasi".
-	\item Hilangkan tanda komentar (\f{uncomment}) pada bagian konfigurasi format yang akan digunakan, misal: APA. Pastikan hanya satu jenis konfigurasi format yang di-\f{uncomment}.
-	\item Cari "Konfigurasi khusus sitasi APA" di bagian \bo{Ubah Istilah Penulisan}.
-	\begin{itemize}
-		\item Jika Anda akan menggunakan format APA, hilangkan tanda komentar (\f{uncomment}) pada bagian konfigurasi tersebut.
-		\item Jika Anda akan menggunakan format selain APA, jadikan bagian konfigurasi tersebut sebagai komentar (\f{comment}).
-	\end{itemize}
-	\item Tidak semua format sitasi mengenal perbedaan pada sitasi di awal/tengah kalimat atau di akhir kalimat.
-	Contoh format yang mengenal perbedaan tersebut adalah APA dan MLA.
-	IEEE dan ACM tidak mengenal format tersebut.
-	\begin{itemize}
-		\item Jika format sitasi yang akan digunakan mengenal perbedaan tersebut, ganti sitasi pada akhir kalimat atau tempat lain yang membutuhkan model sitasi dengan \f{parentheses} (kurung) dengan menggunakan perintah \code{\bslash{}citep}.
-		\item Jika format sitasi yang akan digunakan tidak mengenal perbedaan tersebut, pastikan semua sitasi menggunakan perintah \code{\bslash{}cite}.
-	\end{itemize}
-	\item Jika muncul pesan error seperti \code{[nama-format].bst not found}, itu tandanya format tersebut tidak tersedia secara bawaan dari BibTeX.
-	Unduh berkas terkait dahulu dari CTAN, lalu letakkan di direktori \code{\_internals}.
-	Contoh format sitasi yang membutuhkan berkas eksternal adalah MLA (konfigurasi MLA sudah tersedia di \code{uithesis.sty}, namun berkas \code{mla.bst} belum tersedia).
-	\item Jika konfigurasi format sitasi belum tersedia di \code{uithesis.sty}, ikuti langkah-langkah berikut:
-	\begin{enumerate}
-		\item Tambahkan konfigurasi baru di \code{uithesis.sty}, pada bagian \bo{Package} $>$ "Format sitasi".
-		Contoh bisa mengikuti dengan format-format lain yang sudah tersedia, namun silakan sesuaikan dengan kebutuhan format sitasi yang akan digunakan.
-		\item Jika format sitasi yang akan digunakan mengenal perbedaan pada sitasi di awal/tengah kalimat atau di akhir kalimat, gunakan \f{package} \code{natbib} sehingga mendukung \f{command} sitasi \code{\bslash{}citep}.
-	\end{enumerate}
-\end{enumerate}
-
-
-%-----------------------------------------------------------------------------%
-\section{Membuat Daftar Istilah (Glosarium)}
-\label{sec:glossary}
-% Hal baru di template 2017
-%-----------------------------------------------------------------------------%
-Daftar istilah atau glosarium adalah daftar kata atau frasa yang digunakan dalam dokumen beserta definisinya.
-Daftar frasa tersebut bisa berupa istilah, atau berupa singkatan/akronim.
-Template ini sudah menggunakan \f{library} \code{glossaries}.
-Berikut adalah langkah-langkah untuk mendefinisikan istilah baru atau singkatan/akronim baru dan menggunakannya dalam dokumen Anda.
-
-\subsection{Menambahkan Istilah atau Akronim Baru}
-Untuk menambahkan istilah atau akronim baru, buka berkas \code{config/istilah.tex}
-dan tambahkan definisi istilah atau akronim baru menggunakan perintah \code{\bslash{}newglossaryentry} atau \code{\bslash{}newacronym}.
-
-\begin{lstlisting}[language={[latex]tex}, caption=Contoh definisi istilah baru, label=code:newTerm]
-\newglossaryentry{latex}{
-	name={\LaTeX},
-	description={A document preparation system for high-quality typesetting}
-}
-\end{lstlisting}
-
-Pada \lst~\ref{code:newTerm}, ditunjukkan bahwa \code{\bslash{}newglossaryentry} memiliki 3 argumen, yaitu:
-\begin{itemize}
-	\item Argumen \f{positional} pertama: Merupakan kode panggilan untuk istilah tersebut.
-		Kode tersebut yang nanti akan digunakan untuk memanggil istilah tersebut dalam dokumen.
-	\item Argumen \f{keyword} \code{name}: Merupakan istilah yang akan dicetak ke dalam dokumen jika definisi ini dipanggil.
-		Contoh: Jika \code{\bslash{}gls\{latex\}} dipanggil, maka yang akan dicetak adalah \gls{latex}.
-	\item Argumen \f{keyword} \code{description}: Definisi (deskripsi) dari istilah tersebut.
-		Deskripsi tersebut nantinya akan muncul di halaman Daftar Istilah.
-\end{itemize}
-
-\begin{lstlisting}[language={[latex]tex}, caption=Contoh definisi singkatan/akronim baru, label=code:newAcronym]
-\newacronym{pdf}{PDF}{Portable Document Format}
-\end{lstlisting}
-
-Pada \lst~\ref{code:newAcronym}, ditunjukkan bahwa \code{\bslash{}newacronym} memiliki 3 argumen, yaitu:
-\begin{itemize}
-	\item Argumen pertama: Merupakan kode panggilan untuk akronim tersebut.
-	\item Argumen kedua:
-		Merupakan akronim (dalam bentuk singkatan) yang akan dicetak ke dalam dokumen jika definisi ini dipanggil menggunakan \code{\bslash{}acrshort}.
-		Contoh: Jika \code{\bslash{}acrshort\{pdf\}} dipanggil, maka yang akan dicetak adalah \acrshort{pdf}.
-	\item Argumen ketiga:
-		Kepanjangan dari akronim tersebut.
-		Kepanjangan ini akan dicetak ke dalam dokumen jika definisi ini dipanggil menggunakan \code{\bslash{}acrlong} atau \code{\bslash{}acrfull}.
-		Contoh:
-		\begin{itemize}
-			\item \code{\bslash{}acrlong\{pdf\}} akan mencetak \acrlong{pdf}.
-			\item \code{\bslash{}acrfull\{pdf\}} akan mencetak \acrfull{pdf}.
-		\end{itemize}
-\end{itemize}
-
-\subsection{Menggunakan Istilah atau Akronim dalam Dokumen}
-Setelah mendefinisikan istilah atau akronim, Anda dapat menggunakannya dalam dokumen dengan perintah \code{\bslash{}gls}, \code{\bslash{}glspl}, \code{\bslash{}acrshort}, \code{\bslash{}acrlong}, atau \code{\bslash{}acrfull}. Contoh:
-
-\begin{lstlisting}[language={[latex]tex}, caption=Contoh penggunaan istilah atau akronim dalam dokumen, label=code:useTerm]
-\gls{latex} adalah sistem persiapan dokumen untuk pengetikan berkualitas tinggi.
-\acrfull{pdf} adalah format berkas yang digunakan untuk representasi dokumen dua dimensi.
-\acrlong{pdf} merupakan format berkas yang dibuat oleh Adobe.
-\acrshort{pdf} dapat di-\f{edit} menggunakan Adobe Acrobat.
-\end{lstlisting}
-
-\lst~\ref{code:useTerm} akan menghasilkan kalimat berikut:
-
-\begin{tabular}{| p{\linewidth} |}
-	\hline
-	\gls{latex} adalah sistem persiapan dokumen untuk pengetikan berkualitas tinggi.
-	\acrfull{pdf} adalah format berkas yang digunakan untuk representasi dokumen dua dimensi.
-	\acrlong{pdf} merupakan format berkas yang dibuat oleh Adobe.
-	\acrshort{pdf} dapat di-\f{edit} menggunakan Adobe Acrobat. \\
-	\hline
-\end{tabular}
-\vspace{0.2cm}
-
-
-%-----------------------------------------------------------------------------%
-\section{Memasukan Berkas PDF}
-\label{sec:pdf}
-%-----------------------------------------------------------------------------%
-Untuk memasukan berkas \acrfull{pdf} dapat menggunakan perintah \code{\bslash{}inpdf} yang menerima satu buah argumen.
-Argumen ini berisi nama berkas yang akan digabungkan dalam laporan.
-\acrshort{pdf} yang dimasukan dengan cara ini akan memiliki header dan footer seperti pada halaman lainnya.
-
-\inpdf{assets/pdfs/include}
-
-Cara lain untuk memasukan \acrshort{pdf} adalah dengan menggunakan perintah \code{\bslash{}putpdf} dengan satu argumen yang berisi nama berkas pdf.
-Berbeda dengan perintah sebelumnya, \acrshort{pdf} yang dimasukan dengan cara ini tidak akan memiliki footer atau header seperti pada halaman lainnya.
-
-\putpdf{assets/pdfs/include}
-
-
-%-----------------------------------------------------------------------------%
-\section{Memberikan Catatan}
-\label{sec:note}
-%-----------------------------------------------------------------------------%
-Ada dua perintah untuk memberikan catatan penulisan dalam dokumen yang Anda kerjakan, yaitu:
-\begin{itemize}
-	\item \code{\bslash{}todo} \\
-	Contoh: \\
-	\noindent\hspace{-1em}\todo{Contoh bentuk todo.}
-	\item \code{\bslash{}todoCite} \\
-	Contoh: \todoCite
-\end{itemize}
-
-
-%-----------------------------------------------------------------------------%
-\section{\f{Layoutting} Tingkat Lanjut}
-\label{sec:advancedLayoutting}
-% Hal baru di template 2017
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\subsection{Menambahkan Tabel/Gambar Panjang secara Lanskap}
-\label{sec:landscape}
-% Hal baru di template 2017
-%-----------------------------------------------------------------------------%
-Ketika Anda ingin memasukkan tabel atau gambar yang ukurannya cukup panjang ke samping, Anda diperkenankan untuk menyajikan konten tersebut dengan orientasi \f{landscape}.
-Caranya cukup mudah, yaitu dengan menambahkan \code{\bslash{}begin\{landscape\}} di sebelum konten dan \code{\bslash{}end\{landscape\}} di setelah konten.
-Format ini kompatibel juga dengan \code{longtable} untuk tabel yang panjang dan lebar. Contoh penggunaannya adalah pada \tab~\ref{tab:longTableLandscape}.
-
-\begin{landscape}
-\begin{footnotesize}
-\begin{longtable}{ | l | l | l | l | l | l | l | l | l | l | l | l | l | l | }
-	\captionsource{Contoh Tabel: Data Kasus COVID-19 di Asia, 14 September 2020}{\url{https://worldometers.info/coronavirus}}
-	\label{tab:longTableLandscape} \\
-	\hline
-	\multirow{2}{*}{\#} & \multirow{2}{*}{Country, Other} & \multicolumn{2}{|c|}{Cases} & \multicolumn{2}{|c|}{Deaths} & \multicolumn{2}{|c|}{Recovered} & \multirow{2}{*}{Active} & \multirow{2}{*}{Critical} & \multicolumn{3}{|c|}{.../1M pop} & \multirow{2}{*}{Population} \\
-	& & Total & New & Total & New & Total & New & & & Tot Cases & Deaths & Tests & \\ \hline
-	\endfirsthead % batas akhir header yang akan muncul di halaman pertama
-	\captionsourcecont{Contoh Tabel: Data Kasus COVID-19 di Asia, 14 September 2020}{\url{https://worldometers.info/coronavirus}} \\
-	\hline
-	\multirow{2}{*}{\#} & \multirow{2}{*}{Country, Other} & \multicolumn{2}{|c|}{Cases} & \multicolumn{2}{|c|}{Deaths} & \multicolumn{2}{|c|}{Recovered} & \multirow{2}{*}{Active} & \multirow{2}{*}{Critical} & \multicolumn{3}{|c|}{.../1M pop} & \multirow{2}{*}{Population} \\
-	& & Total & New & Total & New & Total & New & & & Tot Cases & Deaths & Tests & \\ \hline
-	\endhead % batas akhir header yang akan muncul di halaman berikutnya
-	1 & India & 4850887 & 5884 & 79784 & 30 & 3780107 & 3063 & 990996 & 8944 & 3508 & 58 & 41395 & 1382752528 \\ \hline
-	2 & Iran & 404648 & 2619 & 23313 & 156 & 348013 & 1771 & 33322 & 3798 & 4805 & 277 & 42594 & 84209239 \\ \hline
-	3 & Bangladesh & 339332 & 1812 & 4759 & 26 & 243155 & 2512 & 91418 &  & 2056 & 29 & 10560 & 165021623 \\ \hline
-	4 & Saudi Arabia & 325651 &  & 4268 &  & 302870 &  & 18513 & 1326 & 9325 & 122 & 163863 & 34922248 \\ \hline
-	5 & Pakistan & 302020 & 539 & 6383 & 4 & 289806 & 377 & 5831 & 551 & 1362 & 29 & 13388 & 221741906 \\ \hline
-	6 & Turkey & 291162 &  & 7056 &  & 258833 &  & 25273 & 1267 & 3445 & 83 & 100796 & 84522503 \\ \hline
-	7 & Iraq & 290309 &  & 8014 &  & 224705 &  & 57590 & 546 & 7186 & 198 & 46610 & 40399964 \\ \hline
-	8 & Philippines & 265888 & 4699 & 4630 & 259 & 207504 & 249 & 53754 & 1048 & 2420 & 42 & 28018 & 109874163 \\ \hline
-	9 & Indonesia & 221523 & 3141 & 8841 & 118 & 158405 & 3395 & 54277 &  & 808 & 32 & 9751 & 274108479 \\ \hline
-	10 & Israel & 156823 & 1219 & 1126 & 7 & 115128 & 130 & 40569 & 529 & 17050 & 122 & 297533 & 9197590 \\ \hline
-	11 & Qatar & 121740 &  & 205 &  & 118682 &  & 2853 & 37 & 43358 & 73 & 246111 & 2807805 \\ \hline
-	12 & Kazakhstan & 106855 & 52 & 1634 &  & 100627 & 12 & 4594 & 221 & 5677 & 87 & 136625 & 18821980 \\ \hline
-	13 & Kuwait & 94764 &  & 560 &  & 84995 &  & 9209 & 94 & 22124 & 131 & 157765 & 4283219 \\ \hline
-	14 & Oman & 90222 & 476 & 790 & 10 & 83928 & 157 & 5504 & 171 & 17580 & 154 & 60252 & 5131974 \\ \hline
-	15 & China & 85194 & 10 & 4634 &  & 80415 & 16 & 145 & 2 & 59 & 3 & 111163 & 1439323776 \\ \hline
-	16 & UAE & 79489 &  & 399 &  & 69451 &  & 9639 &  & 8017 & 40 & 819752 & 9914483 \\ \hline
-	17 & Japan & 75218 &  & 1439 &  & 66899 &  & 6880 & 180 & 595 & 11 & 13576 & 126395837 \\ \hline
-	18 & Bahrain & 60307 &  & 212 &  & 53681 &  & 6414 & 29 & 35209 & 124 & 731472 & 1712845 \\ \hline
-	19 & Singapore & 57454 & 48 & 27 &  & 56764 &  & 663 &  & 9805 & 5 & 389287 & 5859703 \\ \hline
-	20 & Nepal & 54159 &  & 345 &  & 38697 &  & 15117 &  & 1852 & 12 & 28745 & 29240966 \\ \hline
-	21 & Uzbekistan & 47620 & 333 & 394 & 4 & 44002 & 136 & 3224 & 246 & 1419 & 12 & 41050 & 33566409 \\ \hline
-	22 & Armenia & 45969 & 107 & 919 & 3 & 41693 & 34 & 3357 &  & 15507 & 310 & 81279 & 2964385 \\ \hline
-	23 & Kyrgyzstan & 44928 & 47 & 1063 &  & 41023 & 101 & 2842 & 24 & 6864 & 162 & 40900 & 6545664 \\ \hline
-	24 & Afghanistan & 38772 & 56 & 1425 & 5 & 32073 & 435 & 5274 & 93 & 992 & 36 & 2741 & 39100693 \\ \hline
-	25 & Azerbaijan & 38327 &  & 562 &  & 35756 &  & 2009 &  & 3773 & 55 & 98716 & 10157722 \\ \hline
-	26 & Palestine & 30574 &  & 221 &  & 20082 &  & 10271 &  & 5966 & 43 & 66248 & 5124685 \\ \hline
-	27 & Lebanon & 24310 &  & 241 &  & 8334 &  & 15735 & 113 & 3565 & 35 & 94995 & 6819062 \\ \hline
-	28 & S. Korea & 22285 & 109 & 363 & 5 & 18489 & 263 & 3433 & 157 & 435 & 7 & 41948 & 51278298 \\ \hline
-	29 & Malaysia & 9946 & 31 & 128 &  & 9203 & 7 & 615 & 11 & 307 & 4 & 42286 & 32449426 \\ \hline
-	30 & Maldives & 9173 &  & 32 &  & 7326 &  & 1815 & 12 & 16911 & 59 & 240315 & 542438 \\ \hline
-	31 & Tajikistan & 9049 &  & 72 &  & 7816 &  & 1161 &  & 945 & 8 &  & 9579764 \\ \hline
-	32 & Syria & 3540 &  & 155 &  & 842 &  & 2543 &  & 201 & 9 &  & 17583867 \\ \hline
-	33 & Thailand & 3475 & 2 & 58 &  & 3312 &  & 105 & 1 & 50 & 0.8 & 10728 & 69836028 \\ \hline
-	34 & Jordan & 3314 &  & 24 &  & 2206 &  & 1084 & 13 & 324 & 2 & 95814 & 10223646 \\ \hline
-	35 & Sri Lanka & 3234 &  & 12 &  & 3005 & 9 & 217 &  & 151 & 0.6 & 11844 & 21431662 \\ \hline
-	36 & Myanmar & 3015 & 83 & 24 & 4 & 699 &  & 2292 &  & 55 & 0.4 & 3518 & 54484197 \\ \hline
-	37 & Georgia & 2392 & 165 & 19 &  & 1369 &  & 1004 &  & 600 & 5 & 118041 & 3987576 \\ \hline
-	38 & Yemen & 2011 &  & 583 &  & 1212 &  & 216 &  & 67 & 19 &  & 29955256 \\ \hline
-	39 & Cyprus & 1526 &  & 22 &  & 1281 &  & 223 & 2 & 1262 & 18 & 274810 & 1209149 \\ \hline
-	40 & Vietnam & 1063 &  & 35 &  & 918 &  & 110 &  & 11 & 0.4 & 10348 & 97516308 \\ \hline
-	41 & Taiwan & 499 & 1 & 7 &  & 476 & 1 & 16 &  & 21 & 0.3 & 3770 & 23825661 \\ \hline
-	42 & Mongolia & 311 &  &  &  & 300 & 2 & 11 & 1 & 95 &  & 18720 & 3288830 \\ \hline
-	43 & Cambodia & 275 &  &  &  & 274 &  & 1 &  & 16 &  & 6926 & 16765404 \\ \hline
-	44 & Bhutan & 245 & 1 &  &  & 161 & 2 & 84 &  & 317 &  & 151934 & 773324 \\ \hline
-	45 & Brunei & 145 &  & 3 &  & 139 &  & 3 &  & 331 & 7 & 124633 & 438328 \\ \hline
-	46 & Timor-Leste & 27 &  &  &  & 25 &  & 2 &  & 20 &  & 3888 & 1323423 \\ \hline
-	47 & Laos & 23 &  &  &  & 22 & 1 & 1 &  & 3 &  & 6138 & 7296716 \\ \hline
-\end{longtable}
-\end{footnotesize}
-\end{landscape}
-
-%-----------------------------------------------------------------------------%
-\subsection{\f{Alignment} dan \f{Word Wrapping} pada Tabel}
-\label{sec:cellAlignmentAndWordWrap}
-% Hal baru di template 2017
-%-----------------------------------------------------------------------------%
-Mulai versi 2.1.0, Anda bisa melakukan \f{word wrapping} dalam tabel, dengan \f{alignment} sesuai yang diinginkan.
-Karakter \f{alignment} dapat ditambahkan pada konfigurasi tabel, contohnya adalah: \code{\bslash{}begin\{tabular\}\{|P{0.5\bslash{}textwidth}|p\{0.4\bslash{}textwidth\}|\}}.
-
-\begin{itemize}
-	\item \code{p} untuk \f{alignment} \f{justified} atas dengan \f{word wrapping}.
-	\item \code{m} untuk \f{alignment} \f{justified} tengah dengan \f{word wrapping}.
-	\item \code{b} untuk \f{alignment} \f{justified} bawah dengan \f{word wrapping}.
-	\item \code{P} untuk \f{alignment} kiri-atas.
-	\item \code{L} untuk \f{alignment} kiri-tengah.
-	\item \code{B} untuk \f{alignment} kiri-bawah.
-	\item \code{U} untuk \f{alignment} tengah-atas.
-	\item \code{C} untuk \f{alignment} tengah-tengah.
-	\item \code{O} untuk \f{alignment} tengah-bawah.
-	\item \code{E} untuk \f{alignment} kanan-atas.
-	\item \code{R} untuk \f{alignment} kanan-tengah.
-	\item \code{T} untuk \f{alignment} kanan-bawah.
-\end{itemize}
-
-Contoh pemanfaatan \f{alignment} dan \f{word-wrapping} pada suatu \code{longtable} dapat dilihat pada \tab~\ref{tab:cellAlignmentWrapping}.
-
-\input{assets/codes/tutorial/3-cellAlignmentWrapping.tex}
-
-Kode yang menyusun \tab~\ref{tab:cellAlignmentWrapping} terlihat pada \lst~\ref{code:cellAlignmentWrapping}.
-
-\lstinputlisting[language=TeX, caption=Kode untuk \tab~\ref{tab:cellAlignmentWrapping}, label=code:cellAlignmentWrapping]{assets/codes/tutorial/3-cellAlignmentWrapping.tex}
-
-
-%-----------------------------------------------------------------------------%
-\section{Daftar Isi atau Daftar Konten Lainnya}
-\label{sec:tableOfContent}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\subsection{Menambahkan Konten ke Daftar Isi/Lampiran Secara Manual}
-\label{sec:addTocEntry}
-% Hal baru di template 2017
-%-----------------------------------------------------------------------------%
-Terkadang ada kebutuhan untuk memasukan kata-kata tertentu kedalam Daftar Isi.
-Perintah \code{\bslash{}addChapter} dapat digunakan untuk judul bab dalam Daftar Isi.
-Contohnya dapat dilihat pada berkas \code{thesis.tex}.
-Untuk judul lampiran, Anda bisa menambahkannya ke dalam Daftar Lampiran dengan menggunakan \code{\bslash{}addappendix}.
-Kedua perintah ini akan menambahkan entri baru setingkat sebuah bab (\f{chapter}).
-
-%-----------------------------------------------------------------------------%
-\subsection{Menambahkan Daftar Konten \f{Custom}}
-\label{sec:addCustomContentList}
-% Hal baru di template 2017
-%-----------------------------------------------------------------------------%
-Selain itu, jika dibutuhkan, Anda juga bisa menambahkan daftar objek dengan jenis atau tujuan tertentu ke dalam laporan Anda.
-Misalkan, Anda ingin membuat "Daftar Aturan Transformasi" khusus untuk grafik-grafik yang menggambarkan aturan \f{transpiling} antar bahasa pemrograman.
-Untuk menambahkan hal tersebut, Anda perlu melakukan tahapan berikut:
-
-\begin{enumerate}
-	\item Buka berkas \code{\_internals/uithesis.sty} pada bagian "Daftar Konten Custom". \\
-	Terdapat contoh kode untuk membuat daftar konten \f{custom}, dengan nama "Daftar Sesuatu" dan nama objek "Sesuatu".
-	Untuk mencobanya, \f{uncomment} kode tersebut. Ada lima perintah yang akan dibuat kode tersebut.
-	\begin{itemize}
-		\item \code{\bslash{}listof....name}:
-			Nama daftar isi untuk jenis objek tersebut, \\
-			contoh: \code{\bslash{}listofthingname} yang akan mengembalikan teks "Daftar Sesuatu".
-		\item \code{\bslash{}listof....}:
-			Daftar isi untuk jenis objek tersebut, \\
-			contoh: \code{\bslash{}listofthing} yang akan menghasilkan Daftar Sesuatu, yaitu daftar konten objek-objek Sesuatu.
-		\item \code{\bslash{}....}: Nama jenis objek tersebut, \\
-			contoh: \code{\bslash{}thing} yang akan mengembalikan teks "Sesuatu".
-		\item \code{\bslash{}caption....}: Caption untuk jenis objek tersebut, \\
-			contoh: \code{\bslash{}captionthing} yang berfungsi sebagai \f{caption} dari objek yang masuk kategori "Sesuatu".
-		\item \code{\bslash{}captionsource....}: Caption dengan sumber untuk jenis objek tersebut, \\
-			contoh: \code{\bslash{}captionsourcething} yang berfungsi sebagai \f{caption} dari objek yang masuk kategori "Sesuatu", beserta dengan sumbernya.
-		\item \code{\bslash{}caption....cont}: Caption sambungan untuk jenis objek tersebut, \\
-			contoh: \code{\bslash{}captionthingcont}.
-		\item \code{\bslash{}captionsource....cont}: Caption sambungan dengan sumber untuk jenis objek tersebut, \\
-			contoh: \code{\bslash{}captionsourcethingcont}. \\
-		Perintah \code{captionthingcont} dan \code{captionsourcethingcont} bisa digunakan jika suatu objek "Sesuatu" ini merupakan tabel yang berlaku lintas halaman.
-	\end{itemize}
-	\item Untuk membuat daftar baru dengan nama berbeda, terdapat tiga frasa yang perlu diubah dari kode tersebut.
-	Misalkan, Anda ingin membuat "Daftar Aturan Transformasi", maka Anda harus mengganti:
-	\begin{itemize}
-		\item "Sesuatu" menjadi "Aturan Transformasi" untuk mengubah nama jenis objek,
-		\item \code{thing} menjadi \code{transformationrule} untuk mengubah tipe objek dalam \gls{latex}, dan
-		\item \code{loth} (akronim dari "list of things") menjadi \code{lotr} (singkatan dari "list of transformation rules") untuk mengubah ekstensi berkas \f{auxiliary} yang digunakan untuk menyimpan daftar objek tersebut.
-	\end{itemize}
-	\item Kemudian, Anda bisa menampilkan daftar konten \f{custom} yang baru Anda buat tersebut dengan mengikuti contoh kode yang ada di \f{thesis.tex}.
-	\item Gunakan \code{\bslash{}caption....} dan \code{\bslash{}captionsource....} untuk memberikan \f{caption} pada suatu objek (gambar/persamaan/tabel/kode) sekaligus menambahkannya ke dalam daftar objek tersebut.
-	\item Silakan definisikan sendiri konvensi label dan \f{cross-reference} yang menurut Anda cocok untuk jenis objek tersebut. \\
-		Misal: \code{\bslash{}label\{rule:....\}} dan \code{\bslash{}transformationrule\~\bslash{}ref\{rule:....\}}
-\end{enumerate}
-
-Contoh kode untuk membuat daftar konten \f{custom}, dalam kasus ini Daftar Aturan Transformasi,
-dapat dilihat pada \lst~\ref{code:transformationRuleList}.
-
-\lstinputlisting[language=TeX, caption=Kode Definisi untuk Daftar Aturan Transformasi di \code{\_internals/uithesis.sty}, label=code:transformationRuleList]{assets/codes/tutorial/3-transformationRuleList.tex}
-
-\input{assets/codes/tutorial/3-transformationRuleList.tex}
-
-Dengan definisi yang telah diberikan di \lst~\ref{code:transformationRuleList}, Anda bisa membuat objek "Aturan Transformasi" dengan menggunakan fungsi \f{caption}
-seperti \code{\bslash{}captiontransformationrule} atau \code{\bslash{}captionsourcetransformationrule}.
-Contoh penggunaan \f{caption} tersebut dapat dilihat pada \transformationrule~\ref{trfrule:makaraTransform}.
-
-\begin{figure}[htbp]
-	\centering
-	\begin{tikzpicture}[start chain=going right,nodes={on chain,join},
-		every join/.style={-latex},node distance=2em]
-		\node{\includegraphics[width=2.5 cm]{assets/pics/makara_kuning.png}};
-		\node{\includegraphics[width=2.5 cm]{assets/pics/makara.png}};
-	\end{tikzpicture}
-	\captiontransformationrule{Makara berwarna ke hitam-putih}
-	\label{trfrule:makaraTransform}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/Architecture_diagram.pdf}
+\caption{Architecture of Latviz's ML-KEM and ML-DSA visualization}
+\label{fig10}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/pics/appstructure.png}
+    \caption{Program structure of Latviz's LLL and BKZ visualization}
+    \label{Program diagram structure}
+\end{figure}
 
-%-----------------------------------------------------------------------------%
-\section{Membuat Variabel atau Perintah Baru}
-\label{sec:newCommand}
-%-----------------------------------------------------------------------------%
-Dalam \gls{latex}, Anda bisa menambahkan variabel atau perintah baru yang dapat membantu penulisan laporan Anda.
-Sebenarnya variabel dalam \gls{latex}~merupakan perintah, namun tanpa argumen, contohnya adalah \code{\bslash{}kucing}.
-Variabel dapat menyimpan suatu nilai teks.
-Sedangkan, suatu perintah pada \gls{latex}~sifatnya dapat menerima argumen dan mengolah argumen tersebut sesuai dengan kode yang didefinisikan di dalamnya.
-Contoh dari penggunaan perintah adalah \code{\bslash{}section\{Membuat Variabel atau Perintah Baru\}}.
+\subsection{Visualization Structure}
 
-Ada dua perintah yang dapat digunakan untuk membuat variabel baru, yaitu:
-\begin{itemize}
-	\item \code{\bslash{}Var} \\
-	Digunakan untuk membuat variabel baru, namun setiap kata yang diberikan akan diproses dahulu menjadi huruf kapital. \\
-	Contoh: jika perintahnya adalah \code{\bslash{}Var\{\bslash{}kucingBesar\}\{Areng\}}, ketika perintah \code{\bslash{}kucingBesar} dipanggil, yang akan muncul adalah ARENG.
-	\item \code{\bslash{}var} \\
-	Digunakan untuk membuat variabel baru tanpa mengubah \f{case} dari teks. \\
-	Contoh: jika perintahnya adalah \code{\bslash{}var\{\bslash{}kucingKecil\}\{Areng\}}, ketika perintah \code{\bslash{}kucingKecil} dipanggil, yang akan muncul adalah Areng.
-\end{itemize}
+\subsubsection{ML-KEM and ML-DSA}
+The visualizations for both algorithms follow the same general structure. Both contain three main sections, starting with an about section at the top of the page, followed by a visualization of the scheme in use, and finally by a full visualization of an instance of the chosen algorithm. For the sake of brevity, this section will only be going into the page for ML-DSA, though both pages are structurally identical.
+After opening the page for the algorithm, the first thing the user sees is a short explanation on the chosen algorithm; what it is, what it is set to replace, and what its difficulty is based on. Below is what the section looks like for ML-DSA:
 
-Membuat variabel baru sebaiknya dilakukan pada berkas \code{config/settings.tex}.
-Beberapa variabel yang terkait dengan metadata skripsi seperti judul, tanggal pengesahan, nama penulis, dsb. juga telah tersedia dalam \code{config/settings.tex} untuk dikonfigurasi.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/about_mldsa.pdf}
+\caption{ML-DSA about component}
+\label{fig11}
+\end{figure}
 
-Selain membuat variabel baru, membuat perintah baru dalam kasus tertentu diperlukan dalam melakukan \f{formatting}.
-Terdapat dua perintah untuk membuat suatu perintah baru yang nantinya bisa menerima argumen, yaitu:
-\begin{itemize}
-	\item \code{\bslash{}newcommand} \\
-	Digunakan untuk membuat perintah yang benar-benar baru. Beberapa contohnya adalah:
-	\begin{itemize}
-		\item \code{\bslash{}newcommand\{\bslash{}sumber\}[2]\{\bslash{}textbf\{\#1: \}\bslash{}texttt\{\#2\}\}} akan membuat perintah \code{\bslash{}sumber} yang menerima dua argumen dan akan mencetak tulisan dengan format tertentu.
-		Sehingga, ketika perintah \code{\bslash{}sumber\{Disadur dari\}\{Cimung\}} dipanggil, yang akan muncul adalah \bo{Disadur dari: }\code{Cimung}.
-		\item \code{\bslash{}newcommand\{\bslash{}kucing\}[0]\{Uyik\}} akan membuat perintah \code{\bslash{}kucing}, tanpa argumen.
-		Ketika perintah \code{\bslash{}kucing} dipanggil, yang akan muncul adalah Uyik.
-	\end{itemize}
-	\item \code{\bslash{}renewcommand} \\
-	Digunakan untuk mendefinisikan ulang perintah yang sudah ada.
-	Contohnya adalah, jika sudah ada perintah \code{\bslash{}sumber} yang menerima dua argumen, maka Anda bisa mendefinisikan ulang seperti ini: \code{\bslash{}renewcommand\{\bslash{}sumber\}\{\bslash{}textbf\{\#1: \bslash{}texttt\{\#2\}\}\}}.
-	Sehingga, ketika perintah \code{\bslash{}sumber\{Disadur dari\}\{Cimung\}} dipanggil, yang akan muncul adalah \bo{Disadur dari: \code{Cimung}}.
-\end{itemize}
+ML-DSA is described in terms that should be familiar to most people with an awareness of cryptography. Rather than focusing on the underlying lattice mathematics, the description emphasizes practical concepts such as signature generation, signature verification, quantum resistant security, and the relationship between ML-DSA and existing algorithms like RSA and ECDSA. This keeps the introduction accessible while preserving the key ideas needed to understand its role in modern cryptographic systems.
 
-Membuat perintah baru sebaiknya dilakukan pada berkas \code{uithesis.sty}.
-Berkas \code{uithesis.sty} adalah berkas khusus pengatur \f{styling} untuk tugas akhir ini.
-Berkas itu berisikan semua konfigurasi yang dibutuhkan untuk membuat dokumen \gls{latex}~ini menjadi sesuai dengan Peraturan Rektor, termasuk perintah-perintah baru.
+After that is a section that briefly explains each stage of the chosen algorithm and provides an animation showing the scheme in use.
 
-Jika perubahan ini dirasa penting untuk disertakan dalam template, silakan lakukan \f{fork} repositori Git template ini di \url{https://gitlab.com/ichlaffterlalu/latex-skripsi-ui-2017}, lalu lakukan \f{merge request} perubahan Anda terhadap \f{branch} \code{master}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/process_overview.pdf}
+\caption{ML-DSA Process}
+\label{fig12}
+\end{figure}
 
+The section first shows a short description of the purpose of each stage of either algorithm. For ML-DSA, this is key generation, signing, and verification. If the user clicks the button on the bottom of the section, an animation will play that shows the scheme being used in a simplified abstraction of a real world example.
 
-%-----------------------------------------------------------------------------%
-\section{Pengaturan \f{Header} dan \f{Footer}}
-\label{sec:fancyhdr}
-%-----------------------------------------------------------------------------%
-\f{Template} ini menggunakan \f{library} \code{fancyhdr} untuk mengatur \f{header} dan \f{footer}.
-Konfigurasi \code{fancyhdr} pada \f{template} ini terdiri dari empat profil, yaitu \code{empty}, \code{plain}, \code{first-pages}, dan \code{standard}.
-Profil \code{standard} merupakan profil standar untuk konten laporan, yaitu tulisan "Universitas Indonesia" di sisi kanan \f{footer}.
-Profil \code{first-pages} merupakan profil untuk konten depan laporan seperti abstrak, kata pengantar, dsb., yang mengharuskan nomor halaman di tengah \f{footer}.
-Profil \code{plain} dalam \f{template} ini akan selalu digunakan untuk halaman pertama pada setiap bab atau bagian (termasuk daftar isi, abstrak, dsb.), apapun jenis profil yang seharusnya digunakan pada bagian tersebut.
-Sedangkan, profil \code{empty} artinya tidak ada \f{header} dan \f{footer} sama sekali.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/process_animation.pdf}
+\caption{ML-DSA Process Animation}
+\label{fig13}
+\end{figure}
 
-Konfigurasi profil dapat dilakukan dengan menggunakan \code{\bslash{}pagestyle\{nama-profil\}}.
-Konfigurasi berlaku seterusnya dari halaman tersebut hingga ada konfigurasi profil berikutnya.
-Sedangkan untuk mendefinisikan sendiri isi \f{header} dan \f{footer} dapat dilakukan dengan perintah \code{\bslash{}fancyhead[....]\{....\}} atau \code{\bslash{}fancyfoot[....]\{....\}}.
-Contohnya, \code{\bslash{}fancyhead[LO,RE]\{Meong\}} akan memberikan teks "Meong" di sisi kiri \f{header} untuk halaman ganjil (\f{odd}), dan di sisi kanan \f{header} untuk halaman genap (\f{even}).
+Below that is a section that displays an instance of the algorithm in full, including the variables and functions involved in its inner workings. Within it are four different components that each have different functions.
 
-%-----------------------------------------------------------------------------%
-\subsection{Konfigurasi Satu Halaman per Lembar}
-\label{sec:onePerSheet}
-%-----------------------------------------------------------------------------%
-Peraturan laporan tugas akhir di Universitas Indonesia tahun 2017 mensyaratkan pencetakan bolak-balik.
-Secara \f{default}, \f{template} ini juga sudah menggunakan konfigurasi bolak-balik.
-Namun, jika diperlukan, Anda dapat mengatur \f{header} dan \f{footer} ketika konfigurasi pencetakannya satu halaman per lembar.
-Penomoran halaman akan selalu dilakukan di bagian tengah pada \f{footer}.
-Oleh karena itu, dari bagian abstrak sampai akhir konten, cukup gunakan profil \code{first-page}.
-Kemudian, atur profil \code{plain} agar sama dengan profil \code{first-page}.
-Kemudian, hapus semua perintah \code{\bslash{}clearchapter}, \code{\bslash{}setoddevenheader}, \code{\bslash{}naiveoddclearchapter}, dan \code{\bslash{}naiveevenclearchapter} dalam berkas \code{thesis.tex}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/mldsa_fullvisualization.pdf}
+\caption{ML-DSA Full Animation Section}
+\label{fig14}
+\end{figure}
 
-%-----------------------------------------------------------------------------%
-\subsection{Konfigurasi untuk Submisi ke UI-ana}
-\label{sec:uiana}
-% Hal baru di template 2017
-%-----------------------------------------------------------------------------%
-Berdasarkan peraturan terkini terkait pengumpulan naskah digital ke UI-ana, \f{header} dan \f{footer} perlu dihapus. Berikut ini adalah tahapan untuk mengatur hal tersebut:
-\begin{enumerate}
-	\item Buka berkas \code{uithesis.sty}, lalu cari semua baris perintah \code{\bslash{}fancypagestyle}.
-	Hapus semua baris perintah tersebut.
-	\item Ubah isi dari perintah \code{\bslash{}setoddevenheader} menjadi \code{\bslash{}fancypagestyle\{empty\}}.
-	\item Di bagian akhir berkas \code{uithesis.sty}, tambahkan kode sebagai berikut:
-		\begin{lstlisting}[language={[latex]tex}]
-\fancypagestyle{empty}{\fancyhead[L]{} \fancyhead[C]{} \fancyhead[R]{} \fancyfoot[L]{} \fancyfoot[C]{} \fancyfoot[R]{}}
-		\end{lstlisting}
-    \item Buka berkas \code{thesis.tex}, lalu cari semua baris perintah \code{\bslash{}fancypagestyle} dan  \code{\bslash{}pagestyle\{....\}}. Hapus semua baris perintah tersebut.
-\end{enumerate}
+Starting from the top-right is the security level selection component. The user can pick between the available security levels, though it defaults to the lowest security level. Beneath the selection, the parameters of the chosen security level are displayed. Whenever a security level is chosen, the visualization is reset and a new instance of ML-DSA is created according to the new security level.
 
-% %-----------------------------------------------------------------------------%
-% \section{Dukungan Multibahasa}
-% \label{sec:multilanguageSupport}
-% % Hal baru di template 2017 (fitur versi beta)
-% %-----------------------------------------------------------------------------%
-% \todo{
-% 	\bo{Fitur ini sedang dalam uji coba.}
-% 	Bagi yang memiliki saran atau ingin menyempurnakan fitur ini, silakan kunjungi repositori GitLab template ini (\url{https://gitlab.com/ichlaffterlalu/latex-skripsi-ui-2017}), lalu buat Issue atau Merge Request baru.
-% }
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{assets/pdfs/selectsecurity.pdf}
+  \caption{Security level selection}
+  \label{fig:sub8}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{assets/pdfs/parameters.pdf}
+  \caption{Parameters per security level}
+  \label{fig:sub9}
+\end{subfigure}
+\caption{Security Level Selection Component}
+\label{fig:seclevel}
+\end{figure}
 
-% Fitur ini ditujukan bagi yang ingin menggunakan bahasa berkarakter non-alfabet, seperti huruf Arab (Arab, Persia, Uyghur), Mandarin (Traditional, Simplified), Jepang, dan Korea.
-% Selain itu, fitur ini juga mengatur pemenggalan kata (\f{hyphenation}) untuk beberapa bahasa asing seperti Perancis, Jerman, dan Belanda.
-% Untuk mengaktifkan fitur ini, diperlukan modifikasi pada \code{uithesis.sty} pada bagian \bo{Multi-Language Support}.
-% Untuk mengaktifkan atau menonaktifkan dukungan bahasa, dapat dengan melakukan \f{commenting} atau \f{uncommenting} bagian yang terkait.
-% Jika dukungan terhadap suatu bahasa tidak diperlukan, disarankan untuk menonaktifkan konfigurasi bahasa tersebut untuk mempercepat waktu \f{compile}.
-% Sebagai catatan, saat ini dukungan untuk bahasa Arab dan bahasa Jepang/Korea/Mandarin tidak bisa diaktifkan bersamaan.
-% Saat ini, untuk menyediakan contoh pada tutorial, dukungan bahasa Jepang diaktifkan secara \f{default}.
+The leftmost component is the main part of this section. It contains four buttons. The first three lead to visualizations of the three stages of ML-DSA. The visualizations come in the form of step-by-step abstractions of the main algorithms of each stage, complete with explanations on the relevant variables and functions.
+In ML-DSA specifically, there is an input section for the signing stage that only appears after the key generation stage has been gone through. It needs to be filled in before the signing stage can be accessed, and it is the only actual input from the user that can be used for running an instance of ML-DSA aside from security level selection.
 
-% Berikut adalah contoh penggunaan bahasa Jepang (sumber kutipan: \url{https://en.wikipedia.org/wiki/Kimigayo}):
-% \begin{itemize}
-% 	\item Huruf kanji:\\
-% 	\begin{japanese}
-% 		君が代は\\
-% 		千代に八千代に\\
-% 		さざれ石の\\
-% 		いわおとなりて\\
-% 		こけのむすまで
-% 	\end{japanese}
-% 	\item Huruf hiragana:\\
-% 	\begin{japanese}
-% 		きみがよは\\
-% 		ちよにやちよに\\
-% 		さざれいしの\\
-% 		いわおとなりて\\
-% 		こけのむすまで
-% 	\end{japanese}
-% 	\item Huruf katakana:\\
-% 	\begin{japanese}
-% 		キミガヨハ\\
-% 		チヨニヤチヨニ\\
-% 		サザレイシノ\\
-% 		イワオトナリテ\\
-% 		コケノムスマデ
-% 	\end{japanese}
-% 	\item Contoh \f{in-line text}: \begin{japanese}ありがとうございます\end{japanese} artinya "terima kasih".
-% \end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/leftmost_component.pdf}
+\caption{ML-DSA Full Animation Section}
+\label{fig15}
+\end{figure}
 
-% Untuk penggunaan Simplified Chinese dapat menggunakan \f{environment} \code{simpchinese}.
-% Untuk penggunaan Traditional Chinese dapat menggunakan \f{environment} \code{tradchinese}.
-% Untuk penggunaan bahasa Korea dapat menggunakan \f{environment} \code{korean}.
-% Untuk penggunaan huruf Arab, baik itu untuk bahasa Arab, Persia, maupun Uyghur, dapat mengunjungi tutorial ArabTeX di \url{https://en.wikipedia.org/wiki/ArabTeX}.
-% Sebelum menyalakan dukungan terhadap suatu bahasa, pastikan tersedia \f{font} untuk bahasa terkait di dalam sistem operasi Anda.
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{assets/pdfs/sign_input1.pdf}
+  \caption{Empty message input}
+  \label{fig:sub6}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{assets/pdfs/sign_input2.pdf}
+  \caption{Filled message input}
+  \label{fig:sub7}
+\end{subfigure}
+\caption{Input for Sign Message}
+\label{fig:signmessage}
+\end{figure}
+
+As interactivity forces engagement and engagement leads to more effective learning \cite{HUNDHAUSEN2002259}, these visualizations are interactive. Each variable is displayed in the form of a colored matrix which can be expanded on click to show more values. The values represent the coefficients of the polynomials that make up the variables. When the matrix is hovered on, a popup will appear beside it that describes what it is and provides extra details relating to what it is used for or how it is calculated.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.3\linewidth]{assets/pdfs/unexpanded.pdf}
+  \caption{Unexpanded variable}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.3\linewidth]{assets/pdfs/expanded.pdf}
+  \caption{Expanded variable}
+  \label{fig:sub2}
+\end{subfigure}
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.3\linewidth]{assets/pdfs/popup.pdf}
+  \caption{Popup description}
+  \label{fig:sub3}
+\end{subfigure}
+\caption{Variables in the form of colored matrices}
+\label{fig:variable}
+\end{figure}
+
+Additionally, when a variable is clicked, the component in the middle of the right column will show that variable in scrollable form. This allows for the entire variable to be visible instead of only the first 32 values. There is also an option for the variable to be visible in array form for easier viewing of the values.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{assets/pdfs/sidegrid.pdf}
+  \caption{Grid view}
+  \label{fig:sub4}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{assets/pdfs/sidearray.pdf}
+  \caption{Array view}
+  \label{fig:sub5}
+\end{subfigure}
+\caption{Full variables in the side component}
+\label{fig:sideview}
+\end{figure}
+
+When a function is clicked on, it will lead to a visualization of that function. For example, the internal key generation function seen in Figure~\ref{fig14} (more formally known as ML-DSA.KeyGen\_internal) will show the following:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/default_func.pdf}
+\caption{ML-DSA Full Animation Section (Step 1)}
+\label{fig16}
+\end{figure}
+
+The figure above shows the first step of the function, the input. Subsequent steps can be shown and removed by clicking on the right and left arrows on the lower-right component. Instead of showing the entire function at once, this serves to split the function into more easily followed steps where one part clearly leads to another.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/step_9.pdf}
+\caption{Stepping Component}
+\label{fig17}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/keygen_internal_viz.pdf}
+\caption{ML-DSA Full Animation Section (Step 9)}
+\label{fig18}
+\end{figure}
+
+For ML-DSA specifically, there is also a loop function that visualizes each iteration of the valid signature generation loop, elaborating on where and why each specific iteration prior to the last one is invalid.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\linewidth]{assets/pdfs/loopiteration.pdf}
+\caption{Sign Loop Iteration Control}
+\label{fig19}
+\end{figure}
+
+\subsubsection{LLL and BKZ}
+Vector visualization is a very essential concept for gaining proper understanding of linear algebra concepts \cite{15}. This also includes LLL and BKZ algorithms. And so, for both 2D and 3D visualization panels in each modules of LLL and BKZ, we will depict the vectors extracted from the input (the matrix we inserted) as Euclidean vectors within 2D and 3D Cartesian coordinate system. The reason why the Euclidean vectors were chosen to represent the processes as well the inputs of the LLL and BKZ is because both algorithms are obviously lattice reduction algorithms, which operate on the vectors within a Euclidean space. As such, visualizing both algorithms through Euclidean vector representations become a natural choice to show the behavior of lattice bases during the lattice reduction processes. Subprocesses within LLL and BKZ such as the Gram-Schmidt Orthogonalization, basis reduction, and vector swapping (LLL), as well the localized LLLs (BKZ) are involving changes of length, direction, and angles of these vectors. To numerically map the Euclidean Space, the Cartesian coordinate system is implemented, on the basis that lattice basis vectors are naturally represented numerically as coordinates in Euclidean space. Since the LLL and BKZ algorithms operate through geometric transformations of vectors, it could be stated that the Cartesian coordinate system is an intuitive way to visually display the changes of the properties of these vectors. 
+
+Within the Cartesian coordinate system used, whether it is the 2D or the 3D visualization, these vectors are depicted as arrows that are anchored to the origin point of (0,0) in 2D Cartesian coordinate and (0,0,0) in 3D Cartesian coordinate. The reason why the coordinates of (0,0) and (0,0,0) become common origin points of all vectors within the visualization panel is to simplify the observation of geometric properties between basis vectors. Thus, by anchoring all vectors to these common origin points, users can directly compare the orientations and magnitudes of vectors without additional coordinate transformations or positional offsets. Conventionally, how the vectors are visualized in linear algebra and vector geometry in the linear algebra (which also includes lattice reduction algorithms like LLL and BKZ) are as arrows originating from the coordinate origin, which in this case, is (0,0) for 2D visualization and (0,0,0) for 3D visualization. Each arrows has different colouring scheme and is unique in terms of value, as every vectors are unique (as they're linearly independent). No vectors would have more than one arrow that represents them (as they all must be linearly independent). And thus, by representing basis vectors as Euclidean vectors inside Cartesian coordinate systems which all starts from (0,0) as the "anchor point", and with unique colour for each single vector, the users are expected to be able to visually observe how highly non-orthogonal bases gradually transform into shorter and more orthogonal bases throughout the LLL and BKZ algorithms in an easier way. 
+
+Inside the visualization modules for LLL and BKZ, some elements from both algorithms are better visualized, while some others are better shown in textual format. 
+
+\mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/pics/initial_basis.png}
+    \caption{The initial basis panel (LLL)}
+    \label{Initial Basis}
+\end{figure}
+\mbox{}
+
+The whole visualization process begins after the user insert their matrix in the input field, and then clicked "Insert Matrix" button. Within the frontend system, the inserted matrix is parsed into a 2D array, which represents the basis of the inserted matrix. The outer array represents the entire matrix, while the inner array represents the individual basis vectors which are represented by spatial Cartesian coordinates. These basis vectors will be shown as vectors arranged vertically from top to bottom (just like their matrix counterparts) with the first vector is the topmost vector basis.
+For the LLL visualization module, the 2D array, alongside with the inserted $\delta$-value will be passed into the runLLL function (which executes a LLL process) and runBKZ function (which executes a BKZ process) in lll.ts and in bkz.ts. For the BKZ visualization module, the 2D array, the $\delta$-value, and the $\beta$-value will be passed into the runBKZ function in bkz.ts, which executes a BKZ process.  
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/pics/input_matrix.png}
+    \caption{The input matrix}
+    \label{input matrix}
+\end{figure}
+\mbox{}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/pics/basisfromtheinputmatrix.png}
+    \caption{Basis vectors from the input matrix}
+    \label{basis of the matrix}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/pics/2Dvisz.png}
+    \caption{Basis vectors from the input matrix, represented in the Cartesian coordinate within a Euclidean space}
+    \label{cartesian representation}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/pics/3Dvisz.png}
+    \caption{The 3D version}
+    \label{cartesian representation}
+\end{figure}
+\mbox{}
+As what was already stated before, the basis vectors extracted from the input matrix are represented visually as Euclidean vectors inside Cartesian coordinate systems. Thus, each vector is displayed as an arrow originating from the coordinate origin ((0,0) in the 2D visualization or (0,0,0) in the 3D visualization), each one having a unique color, and each one pointing toward the coordinates which represent their numerical values - or the elements of the matrix. For example, the vector $v_1 = (4,5)$ is visualized as an arrow from the origin point of (0,0) toward the point (4,5). Because all vectors are anchored to the origin point, this allows users to observe the length and direction of these vectors, as well the change of them during the reduction process from the beginning until the final output.
+
+The Gram-Schmidt Orthogonalization subprocess would be better off explained through textual explanation in a pop-up window when the user clicks "Show Calculations" button in the "Step and Calculation Details" panel (which we will explain it in the section 4.3.3). At first, the LLL module's frontend source code (lll/page.tsx) would call the runLLL function from the backend source code of lll.ts and inserts the needed parameters - which consist of the basis vectors, the $\delta$-value, and the Boolean flag "true". Within the runLLLL function, it would call the function gramSchmidt and the program would insert the basis vectors to the function and the gramSchmidt function would perform a Gram-Schmidt Orthogonalization to these vectors. The function returns the orthogonalized version of these vectors. Later, the function generateGSOCalculations would be called and then these orthogonalized vectors, alongside the original vectors, are inserted to the generateGSOCalculations function in order to generate a textual display of the mathematical steps behind the Gram-Schmidt Orthogonalization. 
+
+Next, there is vector reduction process, which is shown in the form of a textual explanation of its calculation steps in a pop-up window. How the textual explanations of the calculations behind the vector reduction and vector swap processes are displayed is roughly similar to the Gram-Schmidt process explanation. When the frontend called runLLL function from the backend source code of lll.ts, after performing Gram-Schmidt Orthonalization and other conditions for the vector reduction to be performed, it would call the function vectorSubtract - which as its name suggests, performs a vector size reduction process. The output produced by vectorSubtract, together with the previous vector and the currently examined vector would then be inserted into a function named generateReduceCalculations in order to generate a textual display of the mathematical steps behind the vector size reduction process.
+
+Then, if the current basis doesn't satisfy the Lovasz Condition, it wouldn't only triggered a vector reduction, but also the vector swap after the vector reduction. The currently examined vector would has its index getting switched with the index of the previous vector. Later, the function of generateSwapCalculations would be executed, which generates a textual display of the mathematical steps behind the vector swap process. 
+
+And then, there is Lovasz Condition. It is depicted as a status panel of two states ("Satisfied" and "Not Satisfied"). Unlike with the usual mechanism of Lovasz Condition checking, for convenience reasons, the Lovasz Condition status is continously being displayed even when the current process isn't the Lovasz Condition checking as in the common LLL algorithm. This is achieved through the addition of the the function computeLovaszStatus in the app/lll/page.tsx functions to continously checking the Lovasz Condition status in order to keep the Lovasz Status panel has a status at one time, from the first step of the process until the final step. The regular Lovasz Condition checker - the function lovaszCondition in the backend code - was created to perform Lovasz Condition checking only after the currently examined vector has been reduced. Of course, there is a risk of these two Lovasz Condition checkers would have two different answers at the same time, but this risk had been eliminated by employing them into separate responsibilities. The computeLovaszStatus rechecks the Lovasz Status condition based on the existing data gained from LLL execution by the backend.
+
+And finally, the SVP. The SVP is computed throughout each of the BKZ iterations, and in LLL, computed from the vectors from the final output. However, Latviz would only show the SVP at the final step of both algorithms, and it is displayed within a dedicated panel in the LLL and BKZ modules.

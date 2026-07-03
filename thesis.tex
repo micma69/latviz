@@ -19,10 +19,11 @@
 \documentclass[12pt, a4paper, onecolumn, twoside, final]{report}
 \raggedbottom
 
+\PassOptionsToPackage{dvipsnames}{xcolor}
 % Load konfigurasi LaTeX untuk tipe laporan thesis
 \usepackage{_internals/uithesis}
 %
-\UseRawInputEncoding
+\providecommand{\UseRawInputEncoding}{}
 % Load konfigurasi khusus untuk laporan yang sedang dibuat
 \input{config/settings}
 % Daftar pemenggalan suku kata dan istilah dalam LaTeX
@@ -49,7 +50,7 @@
 %
 % Halaman Judul Dalam
 %
-\strcompare{Kampus Merdeka}{\type}{} {
+\strcompare{}{\type}{} {
 	\addtocontents{toc}{\protect\addvspace{-1em}}
 	\addChapter{Halaman Judul}
 	\include{_internals/judul_dalam}
@@ -60,57 +61,51 @@
 %
 % Halaman Orisinalitas
 %
-\strcompare{Laporan Kerja Praktik}{\type}{} {
-\strcompare{Kampus Merdeka}{\type}{} {
+\strcompare{}{\type}{} {
 	\addtocontents{toc}{\protect\addvspace{-1em}}
     \addChapter{Halaman Orisinalitas}
 	\include{src/00-frontMatter/pernyataanOrisinalitas}
 	\ifodd\thechapterpagecount\forceclearchapter\thispagestyle{onlypage}\fi
-}}
+}
 
 % Memunculkan penomoran romawi untuk halaman-halaman awal
 \pagenumbering{roman}
 
 
 % Setelah bagian ini, halaman dihitung sebagai halaman ke 2 atau 3
-\strcompare{Laporan Kerja Praktik}{\type}{\setcounter{page}{2}} {
-	\strcompare{Kampus Merdeka}{\type}{\setcounter{page}{2}} {
-		\setcounter{page}{3}
-	}
-}
+\strcompare{}{\type}{\setcounter{page}{2}} 
+{\setcounter{page}{3}}
 
 
 %
 % Lembar Pengesahan
 %
-\strcompare{Laporan Kerja Praktik}{\type}
+%\strcompare{Laporan Kerja Praktik}{\type}
 {
 	% Lembar Pengesahan Kerja Praktik dari LaTeX
-	\addChapter{Lembar Persetujuan Dosen Kerja Praktik}
-	\include{src/00-frontMatter/pengesahanKP}
-	\ifodd\thechapterpagecount\forceclearchapter\thispagestyle{onlypage}\fi
+%	\addChapter{Lembar Persetujuan Dosen Kerja Praktik}
+%	\include{src/00-frontMatter/pengesahanKP}
+%	\ifodd\thechapterpagecount\forceclearchapter\thispagestyle{onlypage}\fi
 }{
-\strcompare{Kampus Merdeka}{\type}
+%\strcompare{Kampus Merdeka}{\type}
 {
-	\addChapter{Lembar Pengesahan}
-	\include{src/00-frontMatter/pengesahanMBKM}
-	\ifodd\thechapterpagecount\forceclearchapter\thispagestyle{onlypage}\fi
-}
+%	\addChapter{Lembar Pengesahan}
+%	\include{src/00-frontMatter/pengesahanMBKM}
+%	\ifodd\thechapterpagecount\forceclearchapter\thispagestyle{onlypage}\fi
+%}
 {
 	\addChapter{Lembar Pengesahan}
 	% Gunakan salah satu (comment atau hapus kode yang tidak perlu):
 	% Lembar Pengesahan Tugas Akhir dari LaTeX
-	\strcompare{Doktor}{\jenjang}
-	{\include{src/00-frontMatter/pengesahanSidangS3}}
+	{\jenjang}
+	%{\include{src/00-frontMatter/pengesahanSidangS3}}
 	{\include{src/00-frontMatter/pengesahanSidang}}
 	% Lembar Pengesahan dari PDF lain (misal: generated oleh SISIDANG [Fasilkom])
 	%\putpdf{assets/pdfs/pengesahanSidang.pdf}
 	\ifodd\thechapterpagecount\forceclearchapter\thispagestyle{onlypage}\fi
 }}
 
-
-\strcompare{Laporan Kerja Praktik}{\type}{} {
-\strcompare{Kampus Merdeka}{\type}{} {
+\strcompare{}{\type}{} {
 	%
 	% Kata Pengantar
 	%
@@ -124,7 +119,7 @@
 	\addChapter{Lembar Persetujuan Karya Ilmiah}
 	\include{src/00-frontMatter/persetujuanPublikasi}
 	\ifodd\thechapterpagecount\forceclearchapter\thispagestyle{onlypage}\fi
-}}
+}
 
 
 %
@@ -228,10 +223,10 @@
 % Di aturan Tugas Akhir UI tahun 2017, tidak ada ketentuan khusus mengenai Glossary
 % Jika tidak digunakan, commment kode ini.
 %
-\addCustomListPage{
-	\printglossaries
-	\clearchapter
-}{\glossaryname}
+%\addCustomListPage{
+%	\printglossaries
+%	\clearchapter
+%}{\glossaryname}
 
 
 %
